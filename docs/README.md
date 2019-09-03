@@ -16,17 +16,29 @@ A.concat(array)
 
 
 # .difference
-NOT IMPLEMENTED YET 2019.09.02
+Creates an array of array values not included in the other given arrays using SameValueZero for equality comparisons. The order and references of result values are determined by the first array.
 
 #### Arguments
+
+array (Array): The array to inspect.
+
+values (...Array): The values to exclude.
+
+#### Returns
+
+(Array): Returns the new array of filtered values.
+
 
 #### Example
 
 ```autohotkey
-;_; NO EXAMPLES YET ;_;
+A.difference([2, 1], [2, 3])
+; => [1]
+
+A.difference([2, 1], [3])
+; => [2, 1]
+
 ```
-
-
 
 *******
 
@@ -229,10 +241,10 @@ iteratee=_.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-A.map([4,8],Func("square"))
+square(n) {  return % n * nA.map([4,8],Func("square"))
 ; => [16, 64]
 
-square(n) {  return % n * nA.map({ "a": 4, "b": 8 },Func("square"))
+A.map({ "a": 4, "b": 8 },Func("square"))
 ; => [16, 64]
 
 users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
@@ -283,7 +295,7 @@ value (*): The value to clone.
 
 (*): Returns the cloned value.
 
-Example
+#### Example
 
 *******
 

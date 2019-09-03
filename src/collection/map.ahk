@@ -3,7 +3,7 @@ map(param_collection,param_iteratee) {
         throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
     }
     l_array := []
-    For Key, Value in param_collection
+    for Key, Value in param_collection
     {
         if (IsFunc(param_iteratee)) {
             l_array.push(%param_iteratee%(Value))
@@ -16,14 +16,12 @@ map(param_collection,param_iteratee) {
 }
 
 ; tests
-
-assert.test(A.map([4,8],Func("square")),[16, 64])
 square(n) {
   return % n * n
 }
 
+assert.test(A.map([4,8],Func("square")),[16, 64])
 assert.test(A.map({ "a": 4, "b": 8 },Func("square")),[16, 64])
-
 
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users,"user"),["barney","fred"])

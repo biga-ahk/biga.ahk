@@ -1,10 +1,11 @@
-NOT IMPLEMENTED YET 2019.09.02
+Creates an array of array values not included in the other given arrays using SameValueZero for equality comparisons. The order and references of result values are determined by the first array.
 
 ## Arguments
 
-## Examples
+array (Array): The array to inspect.
 
-```autohotkey
-;_; NO EXAMPLES YET ;_;
-```
+values (...Array): The values to exclude.
 
+## Returns
+
+(Array): Returns the new array of filtered values.
