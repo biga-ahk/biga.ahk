@@ -11,15 +11,14 @@ includes(param_collection,param_value,param_fromIndex := 1) {
         return false
     } else {
         ; RegEx
-        if (param_value := this.internal_JSRegEx(param_value)) {
-            return % RegExMatch(param_collection, param_value, RE, param_fromIndex)
+        if (RegEx_value := this.internal_JSRegEx(param_value)) {
+            return % RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
         }
         ; Normal string search
-        stringFoundVar := InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)
-        if (stringFoundVar == 0) {
-            return false
-        } else {
+        if (InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)) {
             return true
+        } else {
+            return false
         }
     }
 }

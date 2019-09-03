@@ -297,11 +297,26 @@ value (*): The value to clone.
 
 #### Example
 
+```autohotkey
+object := [{ "a": 1 }, { "b": 2 }]
+shallowclone := A.clone(object)
+object.a := 2
+
+msgbox, % A.printObj(shallowclone)
+; => [{ "a": 1 }, { "b": 2 }]
+```
+
+
 *******
 
 
 # .cloneDeep
 
+
+#### Example
+
+```autohotkey
+object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object.a := 2assert.test(deepclone,[{ "a": [[1,2,3]] }, { "b": 2 }])```
 
 *******
 
@@ -362,7 +377,7 @@ object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"fals
 ; => {"options":[{"option1":"true","option2":"false"}]}
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object ,other)
-; => { "a": [{ "b": 2, "c": 3 }, { "d": 4, "e": 5 }] }
+; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
 
@@ -530,11 +545,14 @@ Truncates string if it's longer than the given maximum string length. The last c
 #### Example
 
 ```autohotkey
-A.truncate("hi-diddly-ho there, neighborino")
+string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbo..."
 
-options := {"length": 24, "separator": " "}A.truncate("hi-diddly-ho there, neighborino",options)
+options := {"length": 24, "separator": " "}A.truncate(string,options)
 ; => "hi-diddly-ho there,..."
+
+options := {"length": 24, "separator": "/,? +/"}A.truncate(string,options)
+; => "hi-diddly-ho there..."
 
 ```
 

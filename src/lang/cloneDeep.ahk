@@ -15,3 +15,7 @@ cloneDeep(param_array,Objs := 0) {
 }
 
 ; tests
+object := [{ "a": [[1,2,3]] }, { "b": 2 }]
+deepclone := A.cloneDeep(object)
+object.a := 2
+assert.test(deepclone,[{ "a": [[1,2,3]] }, { "b": 2 }])

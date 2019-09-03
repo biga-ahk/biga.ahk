@@ -4,10 +4,6 @@ clone(param_value) {
 
 ; tests
 object := [{ "a": 1 }, { "b": 2 }]
-assert.test(A.clone(object),[{ "a": 1 }, { "b": 2 }])
-
-shallow := A.clone(object)
-if (shallow == object) {
-    bool := true
-}
-assert.true(bool)
+shallowclone := A.clone(object)
+object.a := 2
+assert.test(shallowclone,[{ "a": 1 }, { "b": 2 }])
