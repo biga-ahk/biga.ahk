@@ -10,6 +10,6 @@ truncate(param_string, param_options := "") {
 
 ; tests
 assert.test(A.truncate("hi-diddly-ho there, neighborino"),"hi-diddly-ho there, neighbo...")
-assert.test(A.truncate("hi-diddly-ho there, neighborino",{
-,  "length": 24,
-,  "separator": " "}),"hi-diddly-ho there,...")
+
+options := {"length": 24, "separator": " "}
+assert.test(A.truncate("hi-diddly-ho there, neighborino",options),"hi-diddly-ho there,...")

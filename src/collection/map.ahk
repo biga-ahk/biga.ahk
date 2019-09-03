@@ -12,3 +12,5 @@ map(param_collection,param_iteratee) {
 }
 
 ; tests
+users = [{ "user": "barney" }, { "user": "fred" }]
+assert.test(A.map(users,"user"),["barney","fred"])
