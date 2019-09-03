@@ -13,7 +13,6 @@ concat(param_array,param_values*) {
                 l_array.push(obj[A_Index])
             }
         }
-    
     }
     return l_array
 }

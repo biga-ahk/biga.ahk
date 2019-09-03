@@ -1,15 +1,11 @@
+## Arguments
+
 string (string): The string to modify.
 
 pattern (RegExp|string): The pattern to replace.
 
 replacement (string): The match replacement.
 
-## Examples 
+## Returns
 
-```autohotkey
-A.replace("Hi Fred", "Fred", "Barney")
-; => "Hi Barney"
-
-A.replace("1234", "/(\d+)/", "numbers")
-; => "numbers"
-```
+(string): Returns the modified string.

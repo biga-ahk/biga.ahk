@@ -11,8 +11,7 @@ includes(param_collection,param_value,param_fromIndex := 1) {
         return false
     } else {
         ; RegEx
-        if (this.startsWith(param_value,"/") && this.startsWith(param_value,"/"),StrLen(param_collection)) {
-            param_value := SubStr(param_value, 2 , StrLen(param_value) - 2)
+        if (param_value := this.internal_JSRegEx(param_value)) {
             return % RegExMatch(param_collection, param_value, RE, param_fromIndex)
         }
         ; Normal string search
@@ -29,5 +28,5 @@ includes(param_collection,param_value,param_fromIndex := 1) {
 assert.true(A.includes([1,2,3],3))
 assert.true(A.includes("InStr","Str"))
 assert.false(A.includes("InStr","Other"))
-    ; js regex
+    ; RegEx object
 assert.true(A.includes("hello!","/\D/"))

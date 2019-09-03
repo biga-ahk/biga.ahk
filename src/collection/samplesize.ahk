@@ -18,9 +18,12 @@ sampleSize(param_collection,param_SampleSize := 1) {
         this.info_Array.push(param_collection[randomNum])
         param_collection.RemoveAt(randomNum)
     }
-    return % this.info_Array
+    return this.info_Array
 }
 
 ; tests
-assert.test(A.sampleSize([1, 2, 3], 2), [3, 1])
-assert.test(A.sampleSize([1, 2, 3], 4), [2, 3, 1])
+output := A.sampleSize([1, 2, 3], 2)
+assert.test(output.length(),2)
+
+output := A.sampleSize([1, 2, 3], 4)
+assert.test(output.length(),3)

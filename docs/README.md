@@ -158,25 +158,19 @@ collection (Array|Object): The collection to inspect.
 
 (*): Returns the matched element, else undefined.
 
+
 #### Example
+
 ```autohotkey
-users := [{ "user": "barney", "age": 36, "active": true }
-    , { "user": "fred", "age": 40, "active": false }
-    , { "user": "pebbles", "age": 1, "active": true } ]
-
-A.find(users,"active")
-; => { "user": "barney", "age": 36, "active": true }
-
-A.find(users,Func("fn_filter1"))
-fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
-}
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users,"active")
 ; => { "user": "barney", "age": 36, "active": true }
 
 A.find(users,"active",2)
 ; => { "user": "pebbles", "age": 1, "active": true }
+
+A.find(users,Func("fn_filter1"))
+; => { "user": "barney", "age": 36, "active": true }
+
 ```
 
 *******
@@ -202,7 +196,19 @@ value (*): The value to search for.
 #### Example
 
 ```autohotkey
-assert.true(A.includes([1,2,3],3))assert.true(A.includes("InStr","Str"))assert.false(A.includes("InStr","Other"))    ; js regexassert.true(A.includes("hello!","/\D/"))```
+A.includes([1,2,3],3)
+; => true
+
+A.includes("InStr","Str")
+; => true
+
+A.includes("InStr","Other")
+; => false
+
+    ; RegEx objectA.includes("hello!","/\D/")
+; => true
+
+```
 
 *******
 
@@ -223,7 +229,13 @@ iteratee=_.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users = [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
+A.map([4,8],Func("square"))
+; => [16, 64]
+
+square(n) {  return % n * nA.map({ "a": 4, "b": 8 },Func("square"))
+; => [16, 64]
+
+users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 ; => ["barney","fred"]
 
 ```
@@ -248,13 +260,36 @@ collection (Array|Object): The collection to sample.
 #### Example
 
 ```autohotkey
-A.samplesize([1, 2, 3], 2)
+output := A.sampleSize([1, 2, 3], 2)
 ; => [3, 1]
 
-A.samplesize([1, 2, 3], 4)
+output := A.sampleSize([1, 2, 3], 4)
 ; => [2, 3, 1]
-
 ```
+
+
+*******
+
+
+# .clone
+Creates a shallow clone of value.
+
+#### Arguments
+
+value (*): The value to clone.
+
+
+#### Returns
+
+(*): Returns the cloned value.
+
+Example
+
+*******
+
+
+# .cloneDeep
+
 
 *******
 
@@ -277,7 +312,19 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }assert.true(A.isMatch(object,{"b": 2}))assert.true(A.isMatch(object,{"b": 2, "c": 3}))assert.false(A.isMatch(object,{"b": 1}))assert.false(A.isMatch(object,{"b": 2, "z": 99}))```
+object := { "a": 1, "b": 2, "c": 3 }A.ismatch(object,{"b": 2})
+; => true
+
+A.ismatch(object,{"b": 2, "c": 3})
+; => true
+
+A.ismatch(object,{"b": 1})
+; => false
+
+A.ismatch(object,{"b": 2, "z": 99})
+; => false
+
+```
 
 *******
 
@@ -311,20 +358,28 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 
 
 # .replace
+#### Arguments
+
 string (string): The string to modify.
 
 pattern (RegExp|string): The pattern to replace.
 
 replacement (string): The match replacement.
 
-#### Example 
+#### Returns
+
+(string): Returns the modified string.
+
+
+#### Example
 
 ```autohotkey
-A.replace("Hi Fred", "Fred", "Barney")
+A.replace("Hi Fred","Fred","Barney")
 ; => "Hi Barney"
 
-A.replace("1234", "/(\d+)/", "numbers")
+A.replace("1234","/(\d+)/","numbers")
 ; => "numbers"
+
 ```
 
 *******

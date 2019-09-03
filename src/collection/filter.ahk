@@ -1,22 +1,22 @@
-filter(para_collection,para_func) {
+filter(param_collection,param_func) {
     this.info_Array := []
-    Loop, % para_collection.MaxIndex() {
-        if (para_func is string) {
-            if (para_collection[A_Index][para_func]) {
-                this.info_Array.push(para_collection[A_Index])
+    Loop, % param_collection.MaxIndex() {
+        if (param_func is string) {
+            if (param_collection[A_Index][param_func]) {
+                this.info_Array.push(param_collection[A_Index])
             }
         }
-        if (IsFunc(para_func)) {
-            if (%para_func%(para_collection[A_Index])) {
-                this.info_Array.push(para_collection[A_Index])
+        if (IsFunc(param_func)) {
+            if (%param_func%(param_collection[A_Index])) {
+                this.info_Array.push(param_collection[A_Index])
             }
         }
-        ; if (para_func.Count() > 0) {
-        ;     for Key, Value in para_func {
+        ; if (param_func.Count() > 0) {
+        ;     for Key, Value in param_func {
         ;         msgbox, % Key
         ;         msgbox, % Value
-        ;         if (para_collection[A_Index][para_func]) {
-        ;             this.info_Array.push(para_collection[A_Index])
+        ;         if (param_collection[A_Index][param_func]) {
+        ;             this.info_Array.push(param_collection[A_Index])
         ;         }
         ;     }
         ; }
@@ -27,16 +27,16 @@ filter(para_collection,para_func) {
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 assert.test(A.filter(users,Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-fn_filter1(para_interatee) {
-    if (para_interatee.active) { 
+fn_filter1(param_interatee) {
+    if (param_interatee.active) { 
         return true 
     }
 }
 
 assert.test(A.filter([1,2,3,-10,1.9],Func("fn_filter2")), [2,3])
-fn_filter2(para_interatee) {
-    if (para_interatee >= 2) {
-        return para_interatee
+fn_filter2(param_interatee) {
+    if (param_interatee >= 2) {
+        return param_interatee
     }
     return false
 }

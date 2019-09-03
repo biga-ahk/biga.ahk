@@ -4,7 +4,7 @@
 
 
 #include %A_ScriptDir%\lib
-#include biga.ahk\export.ahk
+#include biga.ahk\export-manual.ahk
 ; #include transformStringVars.ahk\export.ahk
 #include util-array.ahk\export.ahk
 ; #include json.ahk\export.ahk
@@ -22,13 +22,15 @@ newline := "`r`n"
 ; Test RegEx
 ; testtest := "test\(.*\),\s*(.*)\)"
 testtest := "test\(A\.\w*(.*\)),\s*(.*)\)"
-testtrue := "true\(.*\(.+?,(.+)\)\)"
-testfalse := "false\(.*\(.+?,(.+)\)\)"
+testtrue := "true\(A\.\w*(.*\))\)"
+testfalse := "false\(A\.\w*(.*\))\)"
 
 ; Files
 Readme_File := A_ScriptDir "\docs\README.md"
 lib_File := A_ScriptDir "\lib\biga.ahk\export-built.ahk"
 test_File := A_ScriptDir "\lib\biga.ahk\test.ahk"
+
+Ignoremethods := ["internal"]
 
 The_Array := []
 msgarray := []
@@ -78,8 +80,11 @@ FileDelete, % Readme_File
 DOCS_Array := []
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    txt := ["# " "." element.name newline element.doc newline newline]
+    if (A.Indexof(Ignoremethods,element.name) != -1) { ; skip ignored methods
+        continue
+    }
 
+    txt := ["# " "." element.name newline element.doc newline newline]
     ; if examples not staticly defined in .md file
     if (!A.includes(element.doc,"Example") && A.includes(element.tests, "A.")) {
         txt.push("#### Example" newline newline "``````autohotkey" newline)
@@ -111,19 +116,18 @@ head =
 	}
 
 )
-
 tail = 
 (
     }
 )
 
 FileDelete, % lib_File
-FileAppend, %head%, % test_File
+FileAppend, %head%, % lib_File
 loop, % The_Array.MaxIndex() {
-    element := The_Array[A_Index].lib
-    FileAppend, % element "`r`n", % lib_File
+    element := The_Array[A_Index]
+    FileAppend, % newline element.lib newline newline, % lib_File
 }
-FileAppend, %tail%, % test_File
+FileAppend, %tail%, % lib_File
 
 
 
@@ -133,7 +137,7 @@ FileAppend, %tail%, % test_File
 FileDelete, % test_File
 head = 
 (
-    #Include export.ahk
+    #Include export-built.ahk
     #Include ..\unit-testing.ahk\export.ahk
     #Include ..\util-array.ahk\export.ahk
     ; #Include ..\util-misc.ahk\export.ahk
@@ -169,9 +173,8 @@ tail =
 FileAppend, %head%, % test_File
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    FileAppend, % "assert.label(""" element.name "()""" ")" "`r`n", % test_File
-    FileAppend, % element.tests "`r`n", % test_File
-
+    FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
+    FileAppend, % element.tests newline newline newline newline newline, % test_File
 }
 FileAppend, %tail%, % test_File
 
@@ -191,7 +194,20 @@ fn_BuildExample(param_tests) {
         hey := Fn_QuickRegEx(Value,testtest,0)
         if (hey.count() = 2) {
             return_array.push("A." element.name hey.Value(1) "`n; => " hey.Value(2) newline newline)
-        } else if (StrLen(Value) > 4) {
+            continue
+        }
+        hey := Fn_QuickRegEx(Value,testtrue,0)
+        if (hey.count() = 1) {
+            return_array.push("A." element.name hey.Value(1) "`n; => true" newline newline)
+            continue
+        }
+        hey := Fn_QuickRegEx(Value,testfalse,0)
+        if (hey.count() = 1) {
+            return_array.push("A." element.name hey.Value(1) "`n; => false" newline newline)
+            continue
+        }
+
+        if (StrLen(Value) > 4) {
             return_array.push(Value)
         }
     }
