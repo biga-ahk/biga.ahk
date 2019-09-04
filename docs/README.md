@@ -548,10 +548,13 @@ Truncates string if it's longer than the given maximum string length. The last c
 string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbo..."
 
-options := {"length": 24, "separator": " "}A.truncate(string,options)
+A.truncate(string, {"length": 24, "separator": " "})
 ; => "hi-diddly-ho there,..."
 
-options := {"length": 24, "separator": "/,? +/"}A.truncate(string,options)
+; options := {"length": 24, "separator": "/,? +/"}A.truncate(string,options)
+; => "hi-diddly-ho there..."
+
+A.truncate(string, {"length": 24, "separator": "/, /"})
 ; => "hi-diddly-ho there..."
 
 ```
