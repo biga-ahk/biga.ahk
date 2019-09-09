@@ -24,6 +24,7 @@ newline := "`r`n"
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
 testtrue := "true\(A\.\w*(.*\))\)"
 testfalse := "false\(A\.\w*(.*\))\)"
+testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
 ; Files
 Readme_File := A_ScriptDir "\docs\README.md"
@@ -194,7 +195,14 @@ fn_BuildExample(param_tests) {
         if (A.includes(Value,"; omit")) {
             break
         }
+
+
         hey := Fn_QuickRegEx(Value,testtest,0)
+        if (hey.count() = 2) {
+            return_array.push("A" hey.Value(1) "`n; => " hey.Value(2) newline newline)
+            continue
+        }
+        hey := Fn_QuickRegEx(Value,testnotequal,0)
         if (hey.count() = 2) {
             return_array.push("A" hey.Value(1) "`n; => " hey.Value(2) newline newline)
             continue
@@ -209,6 +217,7 @@ fn_BuildExample(param_tests) {
             return_array.push("A" hey.Value(1) "`n; => false" newline newline)
             continue
         }
+        
 
         if (StrLen(Value) > 4) {
             return_array.push(Value)
