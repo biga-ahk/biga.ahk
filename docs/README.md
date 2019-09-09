@@ -299,7 +299,7 @@ collection (Array|Object): The collection to shuffle.
 #### Example
 
 ```autohotkey
-users := ["barney", "fred", "fred", "fred", "pebbles"]msgbox, % A.join(A.shuffle([1, 2, 3, 4]))assert.notequal(A.shuffle(users),["pebbles", "fred", "barney", "fred", "fred"])msgbox, % A.join(users)assert.notequal(A.shuffle([1, 2, 3, 4]),[4, 1, 3, 2])```
+assert.notequal(A.shuffle([1, 2, 3, 4]),[4, 1, 3, 2])users := ["barney", "fred", "fred", "fred", "pebbles"]assert.notequal(A.shuffle(users),["pebbles", "fred", "barney", "fred", "fred"])```
 
 *******
 
@@ -569,114 +569,3 @@ Removes leading and trailing whitespace or specified characters from string.
 #### Example
 
 ```autohotkey
-A.trim("  abc  ")
-; => "abc"
-
-A.trim("-_-abc-_-","_-")
-; => "abc"
-
-A.map([" foo  ", "  bar  "],A.trim)
-; => ["foo", "bar"]
-
-```
-
-*******
-
-
-# .trimEnd
-Removes trailing whitespace or specified characters from string.
-
-#### Arguments
-
-[string=''] (string): The string to trim.
-
-[chars=whitespace] (string): The characters to trim.
-
-
-#### Returns
-
-(string): Returns the trimmed string.
-
-
-#### Example
-
-```autohotkey
-A.trimEnd("  abc  ")
-; => "  abc"
-
-A.trimEnd("-_-abc-_-","_-")
-; => "-_-abc"
-
-```
-
-*******
-
-
-# .trimStart
-Removes leading whitespace or specified characters from string.
-
-#### Arguments
-
-[string=''] (string): The string to trim.
-
-[chars=whitespace] (string): The characters to trim.
-
-
-#### Returns
-
-(string): Returns the trimmed string.
-
-
-#### Example
-
-```autohotkey
-A.trimStart("  abc  ")
-; => "abc  "
-
-A.trimStart("-_-abc-_-","_-")
-; => "abc-_-"
-
-```
-
-*******
-
-
-# .truncate
-Truncates string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
-
-
-
-#### Arguments
-
-[string=''] (string): The string to truncate.
-
-[options={}] (Object): The options object.
-
-[options.length=30] (number): The maximum string length.
-
-[options.omission='...'] (string): The string to indicate text is omitted.
-
-[options.separator] (RegExp|string): The separator pattern to truncate to.
-
-#### Returns
-
-(string): Returns the truncated string.
-
-
-#### Example
-
-```autohotkey
-string := "hi-diddly-ho there, neighborino"A.truncate(string)
-; => "hi-diddly-ho there, neighbo..."
-
-A.truncate(string, {"length": 24, "separator": " "})
-; => "hi-diddly-ho there,..."
-
-A.truncate(string, {"length": 24, "separator": "/, /"})
-; => "hi-diddly-ho there..."
-
-```
-
-*******
-
-
