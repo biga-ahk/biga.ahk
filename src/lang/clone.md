@@ -1,4 +1,4 @@
-Creates a shallow clone of value.
+Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
 ## Arguments
 

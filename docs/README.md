@@ -284,7 +284,7 @@ output := A.sampleSize([1, 2, 3], 4)
 
 
 # .clone
-Creates a shallow clone of value.
+Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
 #### Arguments
 
