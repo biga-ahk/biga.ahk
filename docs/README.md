@@ -458,17 +458,17 @@ string (string): The string to inspect.
 #### Example
 
 ```autohotkey
-A("String","S")
+A("abc","a")
 ; => true
 
-A("String","s")
+A("abc","b")
+; => false
+
+A("abc","b",2)
 ; => true
 
-A("; String",";")
-; => true
-
-A("; String","; ")
-; => true
+A.caseSensitive := trueA("abc","A")
+; => false
 
 ```
 

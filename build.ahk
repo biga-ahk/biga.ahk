@@ -191,6 +191,9 @@ fn_BuildExample(param_tests) {
 
     for Key, Value in param_tests
     {
+        if (A.includes(Value,"; omit")) {
+            break
+        }
         hey := Fn_QuickRegEx(Value,testtest,0)
         if (hey.count() = 2) {
             return_array.push("A" hey.Value(1) "`n; => " hey.Value(2) newline newline)
@@ -211,6 +214,5 @@ fn_BuildExample(param_tests) {
             return_array.push(Value)
         }
     }
-
     return return_array
 }

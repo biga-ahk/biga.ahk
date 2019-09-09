@@ -9,7 +9,16 @@ startsWith(param_string, param_needle, param_fromIndex := 1) {
 
 
 ; tests
-assert.true(A.startsWith("String","S"))
-assert.true(A.startsWith("String","s"))
+assert.true(A.startsWith("abc","a"))
+assert.false(A.startsWith("abc","b"))
+assert.true(A.startsWith("abc","b",2))
+A.caseSensitive := true
+assert.false(A.startsWith("abc","A"))
+
+; omit
+; set caseSensitive back to false
+A.caseSensitive := false
+
+; make sure comment detection works
 assert.true(A.startsWith("; String",";"))
 assert.true(A.startsWith("; String","; "))
