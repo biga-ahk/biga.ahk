@@ -1,0 +1,18 @@
+{
+    "name": "biga.ahk",
+    "version": "0.1.1",
+    "description": "A modern immutable utility library for AutoHotKey",
+    "main": "export.ahk",
+    "scripts": {
+        "newinstall": "yarn install --modules-folder ./lib"
+    },
+    "dependencies": {
+        "biga.ahk": "chunjee/biga.ahk",
+        "json.ahk": "chunjee/json.ahk"
+    },
+    "devDependencies": {
+        "unit-testing.ahk": "github:chunjee/unit-testing.ahk"
+    },
+    "author": "Shawn Brooker",
+    "license": "MIT"
+}

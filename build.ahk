@@ -45,7 +45,6 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
     bbb.raw := The_MemoryFile
     ; bbb.test := Fn_QuickRegEx(bbb.raw,testsRegEx)
     bbb.category := Fn_QuickRegEx(A_LoopFileFullPath,categoryRegEx)
-    clipboard := A_LoopFileFullPath
 
     ; markdown file
     markdown_File := A_LoopFileDir "\" bbb.name ".md"
@@ -179,7 +178,7 @@ loop, % The_Array.MaxIndex() {
 FileAppend, %tail%, % test_File
 
 
-
+; exitmsg := A.join(msgarray, "`n")
 ExitApp, 1
 
 ; /--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\

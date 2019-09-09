@@ -75,3 +75,4 @@
     }
 
 ; tests
+assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")

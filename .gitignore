@@ -25,3 +25,4 @@ npm-debug.log
 .ts.flag
 .idea
 .DS_Store
+yarn.lock

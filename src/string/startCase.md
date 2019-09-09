@@ -1,19 +1,9 @@
-#### Arguments {docsify-ignore}
+Converts string to start case.
 
-string (string): The string to convert.
+#### Arguments
 
-#### Returns {docsify-ignore}
+[string=''] (string): The string to convert.
+
+#### Returns
+
 (string): Returns the start cased string.
-
-#### Examples {docsify-ignore}
-
-```autohotkey
-A.startCase("--foo-bar--");
-; => "Foo Bar"
- 
-A.startCase("fooBar");
-; => "Foo Bar"
- 
-A.startCase("__FOO_BAR__");
-; => "FOO BAR"
-```

@@ -413,26 +413,30 @@ A.replace("1234","/(\d+)/","numbers")
 
 
 # .startCase
-#### Arguments {docsify-ignore}
+Converts string to start case.
 
-string (string): The string to convert.
+#### Arguments
 
-#### Returns {docsify-ignore}
+[string=''] (string): The string to convert.
+
+#### Returns
+
 (string): Returns the start cased string.
 
-#### Example {docsify-ignore}
+
+#### Example
 
 ```autohotkey
 A.startCase("--foo-bar--")
 ; => "Foo Bar"
- 
+
 A.startCase("fooBar")
 ; => "Foo Bar"
- 
-A.startCase("__FOO_BAR__")
-; => "FOO BAR"
-```
 
+A.startCase("__FOO_BAR__")
+; => "Foo Bar"
+
+```
 
 *******
 
@@ -440,26 +444,32 @@ A.startCase("__FOO_BAR__")
 # .startsWith
 Checks if string starts with the given target string.
 
-#### Arguments {docsify-ignore}
+#### Arguments
 string (string): The string to inspect.
 
 [target] (string): The string to search for.
 
 [position=0] (number): The position to search from.
 
-#### Returns {docsify-ignore}
+#### Returns
 (boolean): Returns true if string starts with target, else false.
 
-#### Example {docsify-ignore}
+
+#### Example
+
 ```autohotkey
-A.startsWith("abc", "a")
+A.startsWith("String","S")
 ; => true
 
-A.startsWith("abc", "b")
-; => false
-
-A.startsWith("abc", "b", 2)
+A.startsWith("String","s")
 ; => true
+
+A.startsWith("; String",";")
+; => true
+
+A.startsWith("; String","; ")
+; => true
+
 ```
 
 *******
@@ -520,6 +530,29 @@ A.toUpper("__foo_bar__")
 *******
 
 
+# .trim
+
+
+#### Example
+
+```autohotkey
+A.trim("  abc  ")
+; => "abc"
+
+A.trim("-_-abc-_-","_-")
+; => "abc"
+
+A.trim("  hey man ")
+; => "hey man"
+
+A.trim([" foo  ", "  bar  "],A.trim)
+; => ["foo", "bar"]
+
+```
+
+*******
+
+
 # .truncate
 Truncates string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
 
@@ -550,9 +583,6 @@ string := "hi-diddly-ho there, neighborino"A.truncate(string)
 
 A.truncate(string, {"length": 24, "separator": " "})
 ; => "hi-diddly-ho there,..."
-
-; options := {"length": 24, "separator": "/,? +/"}A.truncate(string,options)
-; => "hi-diddly-ho there..."
 
 A.truncate(string, {"length": 24, "separator": "/, /"})
 ; => "hi-diddly-ho there..."

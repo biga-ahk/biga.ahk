@@ -5,7 +5,7 @@ replace(param_string := "",param_needle := "",param_replacement := "") {
         return % RegExReplace(param_string, l_needle, param_replacement, , this.limit)
     }
     output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
-    return % output
+    return output
 }
 
 ; tests
