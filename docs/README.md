@@ -542,9 +542,6 @@ A.trim("  abc  ")
 A.trim("-_-abc-_-","_-")
 ; => "abc"
 
-A.trim("  hey man ")
-; => "hey man"
-
 A.trim([" foo  ", "  bar  "],A.trim)
 ; => ["foo", "bar"]
 

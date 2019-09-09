@@ -17,5 +17,4 @@ trim(param_string,param_chars := " ") {
 ; tests
 assert.test(A.trim("  abc  "),"abc")
 assert.test(A.trim("-_-abc-_-","_-"),"abc")
-assert.test(A.trim("  hey man "),"hey man")
-assert.test(A.map([" foo  ", "  bar  "],A.trim),["foo", "bar"])
+assert.test(A.map([" foo  ", "  bar  "],A.trim),["foo", "bar"]) ;; failing

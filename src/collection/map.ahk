@@ -6,7 +6,12 @@ map(param_collection,param_iteratee) {
     for Key, Value in param_collection
     {
         if (IsFunc(param_iteratee)) {
-            l_array.push(%param_iteratee%(Value))
+            BoundFunc := param_iteratee.Bind(this, Value)
+            if (BoundFunc.Call()) {
+                l_array.push(BoundFunc.Call())
+            } else {
+                l_array.push(param_iteratee.Call(Value))
+            }
         }
         if (param_iteratee is string) {
             l_array.push(param_collection[A_Index][param_iteratee])
