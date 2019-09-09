@@ -193,17 +193,17 @@ fn_BuildExample(param_tests) {
     {
         hey := Fn_QuickRegEx(Value,testtest,0)
         if (hey.count() = 2) {
-            return_array.push("A." hey.Value(1) "`n; => " hey.Value(2) newline newline)
+            return_array.push("A" hey.Value(1) "`n; => " hey.Value(2) newline newline)
             continue
         }
         hey := Fn_QuickRegEx(Value,testtrue,0)
         if (hey.count() = 1) {
-            return_array.push("A." hey.Value(1) "`n; => true" newline newline)
+            return_array.push("A" hey.Value(1) "`n; => true" newline newline)
             continue
         }
         hey := Fn_QuickRegEx(Value,testfalse,0)
         if (hey.count() = 1) {
-            return_array.push("A." hey.Value(1) "`n; => false" newline newline)
+            return_array.push("A" hey.Value(1) "`n; => false" newline newline)
             continue
         }
 
