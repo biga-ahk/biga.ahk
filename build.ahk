@@ -22,8 +22,8 @@ newline := "`r`n"
 ; Test RegEx
 ; testtest := "test\(.*\),\s*(.*)\)"
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
-testtrue := "true\(A\.\w*(.*\))\)"
-testfalse := "false\(A\.\w*(.*\))\)"
+testtrue := "true\(A(\.\w+)(.+\))\)"
+testfalse := "false\(A(\.\w+)(.+\))\)"
 testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
 ; Files
@@ -115,6 +115,8 @@ head =
         this.info_Array
         this.caseSensitive := false
         this.limit := -1
+
+        this.matchesObj
 	}
 
 )
@@ -210,13 +212,13 @@ fn_BuildExample(param_tests) {
             continue
         }
         hey := Fn_QuickRegEx(Value,testtrue,0)
-        if (hey.count() = 1) {
-            return_array.push("A" hey.Value(1) "`n; => true" newline newline)
+        if (hey.count() = 2) {
+            return_array.push("A" hey.Value(1) hey.Value(2) "`n; => true" newline newline)
             continue
         }
         hey := Fn_QuickRegEx(Value,testfalse,0)
-        if (hey.count() = 1) {
-            return_array.push("A" hey.Value(1) "`n; => false" newline newline)
+        if (hey.count() = 2) {
+            return_array.push("A" hey.Value(1) hey.Value(2)"`n; => false" newline newline)
             continue
         }
         
