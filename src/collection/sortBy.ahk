@@ -17,7 +17,7 @@ sortBy(param_collection, param_iteratees) {
     ;     l_array := this.cloneDeep(temp_array)
     ;     temp_array := [] ; free memory
     ; }
-    
+
     return l_array
 }
 
@@ -29,4 +29,4 @@ users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }]
 
-assert.test(A.sortBy(users,["age", "name"]),["barney", 34], ["barney", 36], ["fred", 40], ["freddy", 48])
+assert.test(A.sortBy(users,["age", "name"]),[{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}])
