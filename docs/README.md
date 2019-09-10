@@ -255,6 +255,29 @@ users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 *******
 
 
+# .sample
+Gets a single random element from collection.
+
+#### Arguments
+
+collection (Array|Object): The collection to sample.
+
+
+#### Returns
+
+(*): Returns the random element.
+
+#### Example
+
+```autohotkey
+A.sample([1, 2, 3, 4])
+; => 2
+
+```
+
+*******
+
+
 # .samplesize
 Gets `n` random elements at unique keys from collection up to the size of collection.
 
@@ -328,8 +351,9 @@ value (*): The value to clone.
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
 object.a := 2
-
-msgbox, % A.printObj(shallowclone)
+A.printObj(object)
+; => [{ "a": 2 }, { "b": 2 }]
+A.printObj(shallowclone)
 ; => [{ "a": 1 }, { "b": 2 }]
 ```
 
@@ -343,7 +367,7 @@ msgbox, % A.printObj(shallowclone)
 #### Example
 
 ```autohotkey
-object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object.a := 2assert.test(deepclone,[{ "a": [[1,2,3]] }, { "b": 2 }])```
+object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1,2,3]] }, { "b": 2 }]```
 
 *******
 
