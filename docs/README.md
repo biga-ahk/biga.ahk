@@ -343,6 +343,26 @@ users := ["barney", "fred", "fred", "fred", "pebbles"]A.shuffle(users)
 *******
 
 
+# .sort
+
+
+#### Example
+
+```autohotkey
+users := [  , { "name": "fred",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sort(users,"age")
+; => [{"age":34,"name":"fred"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"barney"}]
+
+A.sort(users,"name")
+; => [{"age":48,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":34,"name":"fred"}]
+
+A.sort([3,1,2,4])
+; => [1,2,3,4]
+
+```
+
+*******
+
+
 # .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
@@ -775,4 +795,15 @@ Truncates string if it's longer than the given maximum string length. The last c
 ```autohotkey
 string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbo..."
+
+A.truncate(string, {"length": 24, "separator": " "})
+; => "hi-diddly-ho there,..."
+
+A.truncate(string, {"length": 24, "separator": "/, /"})
+; => "hi-diddly-ho there..."
+
+```
+
+*******
+
 

@@ -27,5 +27,5 @@ includes(param_collection,param_value,param_fromIndex := 1) {
 assert.true(A.includes([1,2,3],3))
 assert.true(A.includes("InStr","Str"))
 assert.false(A.includes("InStr","Other"))
-    ; RegEx object
+; RegEx object
 assert.true(A.includes("hello!","/\D/"))
