@@ -463,6 +463,36 @@ A.replace("1234","/(\d+)/","numbers")
 *******
 
 
+# .split
+Splits string by separator.
+
+
+#### Arguments
+
+[string:=""] (string): The string to split.
+
+[separator:=","] (RegExp|string): The separator pattern to split by.
+
+[limit:=0] (number): The length to truncate results to.
+
+#### Returns
+
+(Array): Returns the string segments.
+
+#### Example
+
+```autohotkey
+A.split("a-b-c","-",2)
+; => ["a", "b"]
+
+A.split("a--b-c","/[\-]+/")
+; => ["a", "b", "c"]
+
+```
+
+*******
+
+
 # .startCase
 Converts string to start case.
 

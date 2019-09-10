@@ -42,10 +42,12 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
     
     ; chunk that b
     bbb := {}
-    bbb.name := SubStr(A_LoopFileName,1,StrLen(A_LoopFileName) - 4)
     bbb.raw := The_MemoryFile
+    ; bbb.name := SubStr(A_LoopFileName,1,StrLen(A_LoopFileName) - 4)
+    bbb.name := A.split(A_LoopFileName,".")[1]
     ; bbb.test := Fn_QuickRegEx(bbb.raw,testsRegEx)
     bbb.category := Fn_QuickRegEx(A_LoopFileFullPath,categoryRegEx)
+    ; msgbox, % bbb.name " -  " bbb.category
 
     ; markdown file
     markdown_File := A_LoopFileDir "\" bbb.name ".md"
