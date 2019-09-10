@@ -1,5 +1,5 @@
 
-# __**Array**__
+# **Array**
 ## .concat
 
 
@@ -126,7 +126,7 @@ A.uniq([2, 1, 2])
 
 
 
-# __**Collection**__
+# **Collection**
 ## .filter
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
@@ -386,7 +386,7 @@ A.sort(users,"name")
 #### Example
 
 ```autohotkey
-users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
+users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }A.sortBy(users,["age", "name"])
 ; => [{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}]
 
 ```
@@ -395,7 +395,7 @@ users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 
 
 
 
-# __**Lang**__
+# **Lang**
 ## .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
@@ -507,7 +507,7 @@ A.isMatch(object,{"b": 2, "z": 99})
 
 
 
-# __**Object**__
+# **Object**
 ## .merge
 This method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 
@@ -537,7 +537,7 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 
 
 
-# __**String**__
+# **String**
 ## .replace
 #### Arguments
 
@@ -581,6 +581,20 @@ Splits string by separator.
 #### Returns
 
 (Array): Returns the string segments.
+
+
+#### Example
+
+```autohotkey
+A.split("a-b-c","-",2)
+; => ["a", "b"]
+
+A.split("a--b-c","/[\-]+/")
+; => ["a", "b", "c"]
+
+```
+
+*******
 
 
 ## .startCase
