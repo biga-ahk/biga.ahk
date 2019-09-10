@@ -221,7 +221,7 @@ fn_BuildExample(param_tests) {
         }
         
 
-        if (StrLen(Value) > 4) {
+        if (StrLen(Value) > 1) {
             return_array.push(Value)
         }
     }

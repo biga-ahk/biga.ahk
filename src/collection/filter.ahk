@@ -26,6 +26,8 @@ filter(param_collection,param_func) {
 
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
+assert.test(A.filter(users,"active"), [{"user":"barney", "age":36, "active":true}])
+
 assert.test(A.filter(users,Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
 fn_filter1(param_interatee) {
     if (param_interatee.active) { 
@@ -33,8 +35,7 @@ fn_filter1(param_interatee) {
     }
 }
 
-assert.label("filter() shorthands")
-assert.test(A.filter(users,"active"), [{"user":"barney", "age":36, "active":true}])
+
 
 ; omit
 
