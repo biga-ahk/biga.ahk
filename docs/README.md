@@ -1,4 +1,6 @@
-# .concat
+
+# __**Array**__
+## .concat
 
 
 #### Example
@@ -15,7 +17,7 @@ A.concat(array)
 *******
 
 
-# .difference
+## .difference
 Creates an array of array values not included in the other given arrays using SameValueZero for equality comparisons. The order and references of result values are determined by the first array.
 
 #### Arguments
@@ -43,7 +45,7 @@ A.difference([2, 1], [3])
 *******
 
 
-# .join
+## .join
 Converts all elements in array into a string separated by separator.
 
 
@@ -71,7 +73,7 @@ A.join(["a", "b", "c"])
 *******
 
 
-# .reverse
+## .reverse
 Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
 
 
@@ -100,7 +102,7 @@ A.reverse([[1,2,3],"b","c"])
 *******
 
 
-# .uniq
+## .uniq
 Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
 
@@ -123,7 +125,9 @@ A.uniq([2, 1, 2])
 *******
 
 
-# .filter
+
+# __**Collection**__
+## .filter
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
 #### Arguments
@@ -151,7 +155,7 @@ fn_filter1(param_interatee) {    if (param_interatee.active) {         return 
 *******
 
 
-# .find
+## .find
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
 #### Arguments
@@ -184,7 +188,7 @@ A.find(users,Func("fn_filter1"))
 *******
 
 
-# .includes
+## .includes
 Checks if value is in collection. If collection is a string, it's checked for a substring of value, otherwise SameValueZero is used for equality comparisons.
 
 
@@ -221,7 +225,7 @@ A.includes("InStr","Other")
 *******
 
 
-# .map
+## .map
 Creates an array of values by running each element in collection thru iteratee.
 
 #### Arguments
@@ -251,21 +255,7 @@ users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 *******
 
 
-# .matches
-
-
-#### Example
-
-```autohotkey
-objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]function := A.matches({ "a": 4, "c": 6 })A.filter(objects, function)
-; => [{ "a": 4, "b": 5, "c": 6 }]
-
-```
-
-*******
-
-
-# .sample
+## .sample
 Gets a single random element from collection.
 
 #### Arguments
@@ -288,7 +278,7 @@ A.sample([1, 2, 3, 4])
 *******
 
 
-# .samplesize
+## .samplesize
 Gets `n` random elements at unique keys from collection up to the size of collection.
 
 
@@ -316,7 +306,7 @@ output := A.sampleSize([1, 2, 3], 4)
 *******
 
 
-# .shuffle
+## .shuffle
 Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
 
 #### Arguments
@@ -343,7 +333,37 @@ users := ["barney", "fred", "fred", "fred", "pebbles"]A.shuffle(users)
 *******
 
 
-# .sort
+## .size
+Gets the size of collection by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
+
+
+#### Arguments
+
+collection (Array|Object|string): The collection to inspect.
+
+#### Returns
+
+(number): Returns the collection size.
+
+
+#### Example
+
+```autohotkey
+A.size([1, 2, 3])
+; => 3
+
+A.size({ "a": 1, "b": 2 })
+; => 2
+
+A.size("pebbles")
+; => 7
+
+```
+
+*******
+
+
+## .sort
 
 
 #### Example
@@ -355,15 +375,28 @@ users := [  , { "name": "fred",   "age": 48 }  , { "name": "barney", "age": 36
 A.sort(users,"name")
 ; => [{"age":48,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":34,"name":"fred"}]
 
-A.sort([3,1,2,4])
-; => [1,2,3,4]
+```
+
+*******
+
+
+## .sortBy
+
+
+#### Example
+
+```autohotkey
+users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
+; => ["barney", 34], ["barney", 36], ["fred", 40], ["freddy", 48]
 
 ```
 
 *******
 
 
-# .clone
+
+# __**Lang**__
+## .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
 #### Arguments
@@ -391,7 +424,7 @@ A.printObj(shallowclone)
 *******
 
 
-# .cloneDeep
+## .cloneDeep
 
 
 #### Example
@@ -402,7 +435,7 @@ object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)obje
 *******
 
 
-# .isEqual
+## .isEqual
 Performs a deep comparison between two values to determine if they are equivalent.
 
 This method supports comparing strings and objects.
@@ -438,7 +471,7 @@ A.caseSensitive := trueA.isEqual({ "a": "a" },{ "a": "A" })
 *******
 
 
-# .ismatch
+## .ismatch
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See _.isEqual for a list of supported value comparisons.
@@ -473,7 +506,9 @@ A.isMatch(object,{"b": 2, "z": 99})
 *******
 
 
-# .merge
+
+# __**Object**__
+## .merge
 This method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 
 
@@ -501,7 +536,9 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 *******
 
 
-# .replace
+
+# __**String**__
+## .replace
 #### Arguments
 
 string (string): The string to modify.
@@ -529,7 +566,7 @@ A.replace("1234","/(\d+)/","numbers")
 *******
 
 
-# .split
+## .split
 Splits string by separator.
 
 
@@ -560,7 +597,7 @@ A.split("a--b-c","/[\-]+/")
 *******
 
 
-# .startCase
+## .startCase
 Converts string to start case.
 
 #### Arguments
@@ -589,7 +626,7 @@ A.startCase("__FOO_BAR__")
 *******
 
 
-# .startsWith
+## .startsWith
 Checks if string starts with the given target string.
 
 #### Arguments
@@ -623,7 +660,7 @@ A.caseSensitive := trueA.startsWith("abc","A")
 *******
 
 
-# .toLower
+## .toLower
 Converts string, as a whole, to lower case.
 
 #### Arguments
@@ -651,7 +688,7 @@ A.toLower("__FOO_BAR__")
 *******
 
 
-# .toUpper
+## .toUpper
 Converts string, as a whole, to upper case
 
 
@@ -678,7 +715,7 @@ A.toUpper("__foo_bar__")
 *******
 
 
-# .trim
+## .trim
 Removes leading and trailing whitespace or specified characters from string.
 
 #### Arguments
@@ -710,7 +747,7 @@ A.map([" foo  ", "  bar  "],A.trim)
 *******
 
 
-# .trimEnd
+## .trimEnd
 Removes trailing whitespace or specified characters from string.
 
 #### Arguments
@@ -739,7 +776,7 @@ A.trimEnd("-_-abc-_-","_-")
 *******
 
 
-# .trimStart
+## .trimStart
 Removes leading whitespace or specified characters from string.
 
 #### Arguments
@@ -768,7 +805,7 @@ A.trimStart("-_-abc-_-","_-")
 *******
 
 
-# .truncate
+## .truncate
 Truncates string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
 
 

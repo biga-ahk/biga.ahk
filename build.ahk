@@ -31,7 +31,7 @@ Readme_File := A_ScriptDir "\docs\README.md"
 lib_File := A_ScriptDir "\lib\biga.ahk\export-built.ahk"
 test_File := A_ScriptDir "\lib\biga.ahk\test.ahk"
 
-Ignoremethods := ["internal"]
+Ignoremethods := ["internal","matches"]
 
 The_Array := []
 msgarray := []
@@ -61,7 +61,6 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
     bbb.lib := StrSplit(bbb.raw, "; tests")[1]
     ; tests
     bbb.tests := StrSplit(bbb.raw, "; tests")[2]
-    ; msgbox, % bbb.tests
 
     bbb.doc := A.replace(bbb.doc,"/\#{1,10}\s*Returns*/", "#### Returns") ;replace accidental headers
     bbb.doc := A.replace(bbb.doc,"/\#{1,10}\s*Arguments*/", "#### Arguments") ;replace accidental headers
@@ -69,6 +68,7 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
     bbb.doc := A.replace(bbb.doc,");", ")") ;replace accidental js semicolons
     The_Array.push(bbb)
 }
+; The_Array := A.sortBy(The_Array,["name", "category"])
 ; Array_Gui(The_Array)
 if (msgarray.length > 0) {
     msgbox, % A.join(msgarray, newline)
@@ -85,8 +85,11 @@ loop, % The_Array.MaxIndex() {
     if (A.Indexof(Ignoremethods,element.name) != -1) { ; skip ignored methods
         continue
     }
-
-    txt := ["# " "." element.name newline element.doc newline newline]
+    txt := []
+    if (element.category != The_Array[A_Index - 1].category) {
+        txt.push(newline "# __**" A.startCase(element.category) "**__" newline)
+    }
+    txt.push("## " "." element.name newline element.doc newline newline)
     ; if examples not staticly defined in .md file
     if (!A.includes(element.doc,"Example") && A.includes(element.tests, "A.")) {
         txt.push("#### Example" newline newline "``````autohotkey" newline)
@@ -96,7 +99,6 @@ loop, % The_Array.MaxIndex() {
         txt := A.concat(txt,ExampleArray)
     }
     txt.push("*******" newline newline newline)
-
     DOCS_Array := A.concat(DOCS_Array,txt)
 }
 loop, % DOCS_Array.MaxIndex() {
