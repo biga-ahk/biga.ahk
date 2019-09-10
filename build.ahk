@@ -87,7 +87,7 @@ loop, % The_Array.MaxIndex() {
     }
     txt := []
     if (element.category != The_Array[A_Index - 1].category) {
-        txt.push(newline "# __**" A.startCase(element.category) "**__" newline)
+        txt.push(newline "# **" A.startCase(element.category) "**" newline)
     }
     txt.push("## " "." element.name newline element.doc newline newline)
     ; if examples not staticly defined in .md file
@@ -98,14 +98,14 @@ loop, % The_Array.MaxIndex() {
         ExampleArray.push("``````" newline newline)
         txt := A.concat(txt,ExampleArray)
     }
-    txt.push("*******" newline newline newline)
+    txt.push(newline newline newline)
     DOCS_Array := A.concat(DOCS_Array,txt)
 }
 loop, % DOCS_Array.MaxIndex() {
     FileAppend, % DOCS_Array[A_Index], % Readme_File
 }
 
-
+clipboard := A.join(A.map(The_Array,"name")," ")
 ; ===============
 ; LIBRARY EXPORT
 ; ===============

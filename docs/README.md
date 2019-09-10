@@ -14,7 +14,7 @@ A.concat(array)
 
 ```
 
-*******
+
 
 
 ## .difference
@@ -42,7 +42,7 @@ A.difference([2, 1], [3])
 
 ```
 
-*******
+
 
 
 ## .join
@@ -70,7 +70,7 @@ A.join(["a", "b", "c"])
 
 ```
 
-*******
+
 
 
 ## .reverse
@@ -99,7 +99,7 @@ A.reverse([[1,2,3],"b","c"])
 
 ```
 
-*******
+
 
 
 ## .uniq
@@ -122,7 +122,7 @@ A.uniq([2, 1, 2])
 
 ```
 
-*******
+
 
 
 
@@ -152,7 +152,7 @@ A.filter(users,Func("fn_filter1"))
 
 fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }}```
 
-*******
+
 
 
 ## .find
@@ -185,7 +185,7 @@ A.find(users,Func("fn_filter1"))
 
 ```
 
-*******
+
 
 
 ## .includes
@@ -222,7 +222,7 @@ A.includes("InStr","Other")
 
 ```
 
-*******
+
 
 
 ## .map
@@ -252,7 +252,7 @@ users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 
 ```
 
-*******
+
 
 
 ## .sample
@@ -275,7 +275,7 @@ A.sample([1, 2, 3, 4])
 
 ```
 
-*******
+
 
 
 ## .samplesize
@@ -303,7 +303,7 @@ output := A.sampleSize([1, 2, 3], 4)
 ```
 
 
-*******
+
 
 
 ## .shuffle
@@ -330,7 +330,7 @@ users := ["barney", "fred", "fred", "fred", "pebbles"]A.shuffle(users)
 
 ```
 
-*******
+
 
 
 ## .size
@@ -360,7 +360,7 @@ A.size("pebbles")
 
 ```
 
-*******
+
 
 
 ## .sort
@@ -377,7 +377,7 @@ A.sort(users,"name")
 
 ```
 
-*******
+
 
 
 ## .sortBy
@@ -386,12 +386,12 @@ A.sort(users,"name")
 #### Example
 
 ```autohotkey
-users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }A.sortBy(users,["age", "name"])
+users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
 ; => [{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}]
 
 ```
 
-*******
+
 
 
 
@@ -421,7 +421,7 @@ A.printObj(shallowclone)
 ```
 
 
-*******
+
 
 
 ## .cloneDeep
@@ -432,7 +432,7 @@ A.printObj(shallowclone)
 ```autohotkey
 object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1,2,3]] }, { "b": 2 }]```
 
-*******
+
 
 
 ## .isEqual
@@ -468,7 +468,7 @@ A.caseSensitive := trueA.isEqual({ "a": "a" },{ "a": "A" })
 
 ```
 
-*******
+
 
 
 ## .ismatch
@@ -503,7 +503,7 @@ A.isMatch(object,{"b": 2, "z": 99})
 
 ```
 
-*******
+
 
 
 
@@ -533,7 +533,7 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 
 ```
 
-*******
+
 
 
 
@@ -563,7 +563,7 @@ A.replace("1234","/(\d+)/","numbers")
 
 ```
 
-*******
+
 
 
 ## .split
@@ -594,7 +594,7 @@ A.split("a--b-c","/[\-]+/")
 
 ```
 
-*******
+
 
 
 ## .startCase
@@ -623,7 +623,7 @@ A.startCase("__FOO_BAR__")
 
 ```
 
-*******
+
 
 
 ## .startsWith
@@ -657,7 +657,7 @@ A.caseSensitive := trueA.startsWith("abc","A")
 
 ```
 
-*******
+
 
 
 ## .toLower
@@ -685,7 +685,7 @@ A.toLower("__FOO_BAR__")
 
 ```
 
-*******
+
 
 
 ## .toUpper
@@ -712,7 +712,7 @@ A.toUpper("__foo_bar__")
 
 ```
 
-*******
+
 
 
 ## .trim
@@ -744,7 +744,7 @@ A.map([" foo  ", "  bar  "],A.trim)
 
 ```
 
-*******
+
 
 
 ## .trimEnd
@@ -773,7 +773,7 @@ A.trimEnd("-_-abc-_-","_-")
 
 ```
 
-*******
+
 
 
 ## .trimStart
@@ -802,7 +802,7 @@ A.trimStart("-_-abc-_-","_-")
 
 ```
 
-*******
+
 
 
 ## .truncate
@@ -841,6 +841,6 @@ A.truncate(string, {"length": 24, "separator": "/, /"})
 
 ```
 
-*******
+
 
 

@@ -294,13 +294,13 @@ body.sticky .sidebar,body.sticky .sidebar-toggle{
 }
 .markdown-section{
 	margin:0 auto;
-	max-width: 80%;
+	max-width: 90%;
 	padding:30px 15px 40px;
-	position:relative
+	position:relative;
 }
 .markdown-section>*{
 	box-sizing:border-box;
-	font-size:inherit
+	font-size:inherit;
 }
 .markdown-section>:first-child{
 	margin-top:0!important
@@ -604,7 +604,10 @@ section.cover blockquote>p>a:hover{
 }
 .markdown-section h2{
 	font-size:2rem;
-	margin:45px 0 .8rem
+	background-color: #eee;
+    margin: 0 -999rem;
+	padding: 1rem 999rem;
+	white-space: nowrap;
 }
 .markdown-section h3{
 	font-size:1.5rem;
@@ -646,7 +649,7 @@ section.cover blockquote>p>a:hover{
 .markdown-section em{
 	color:#7f8c8d
 }
-.markdown-section code{
+.markdown-section code{	
 	border-radius:2px;
 	color:#e96900;
 	font-size:.8rem;
@@ -655,7 +658,7 @@ section.cover blockquote>p>a:hover{
 	white-space:pre-wrap
 }
 .markdown-section code,.markdown-section pre{
-	background-color:#f8f8f8;
+	background-color:#283646;
 	font-family:Roboto Mono,Monaco,courier,monospace
 }
 .markdown-section pre{
@@ -732,12 +735,12 @@ section.cover blockquote>p>a:hover{
 .markdown-section pre>code{
 	-moz-osx-font-smoothing:initial;
 	-webkit-font-smoothing:initial;
-	background-color:#7f8c8d
+	background-color:#283646;
 	border-radius:2px;
-	color:#525252;
+	color:#ddd;
 	display:block;
-	font-family:Roboto Mono,Monaco,courier,monospace;
-	font-size:.8rem;
+	font-family:Consolas,Source Code Pro,Courier New;
+	font-size:1rem;
 	line-height:inherit;
 	margin:0 2px;
 	max-width:inherit;

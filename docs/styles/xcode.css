@@ -4,11 +4,12 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 
 */
 
+
 .hljs {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #fff;
+  background: #283646; /*  #283646 */
   color: black;
 }
 
@@ -19,7 +20,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 
 .hljs-comment,
 .hljs-quote {
-  color: #007400;
+  color: #b9b9b9
 }
 
 .hljs-tag,
@@ -28,7 +29,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 .hljs-selector-tag,
 .hljs-literal,
 .hljs-name {
-  color: #aa0d91;
+  color: #86b9f5;
 }
 
 .hljs-variable,
@@ -39,7 +40,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 .hljs-code,
 .hljs-string,
 .hljs-meta-string {
-  color: #ee970e
+  color: #62d543
 }
 
 .hljs-regexp,
@@ -51,7 +52,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 .hljs-symbol,
 .hljs-bullet,
 .hljs-number {
-  color: #1c00cf;
+  color: #fee937;
 }
 
 .hljs-section,
@@ -65,7 +66,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 .hljs-built_in,
 .hljs-builtin-name,
 .hljs-params {
-  color: #5c2699;
+  color: #86b9f5;
 }
 
 .hljs-attr {
