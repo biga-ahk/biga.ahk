@@ -387,7 +387,7 @@ A.sort(users,"name")
 
 ```autohotkey
 users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
-; => ["barney", 34], ["barney", 36], ["fred", 40], ["freddy", 48]
+; => [{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}]
 
 ```
 
@@ -581,20 +581,6 @@ Splits string by separator.
 #### Returns
 
 (Array): Returns the string segments.
-
-
-#### Example
-
-```autohotkey
-A.split("a-b-c","-",2)
-; => ["a", "b"]
-
-A.split("a--b-c","/[\-]+/")
-; => ["a", "b", "c"]
-
-```
-
-*******
 
 
 ## .startCase

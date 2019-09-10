@@ -17,7 +17,7 @@ sort(param_collection, param_iteratees := "name") {
     }
 
     ; remove any blank items if ahk array was made poorly
-    if (l_array.MaxIndex() != param_collection.MaxIndex() || StrLen(this.printObj(l_array[1])) < 2 || StrLen(this.printObj(l_array[l_array.MaxIndex()])) < 2) {
+    if (l_array.Count() != param_collection.MaxIndex() || StrLen(this.printObj(l_array[1])) < 2 || StrLen(this.printObj(l_array[l_array.MaxIndex()])) < 2) {
         loop, % l_array.MaxIndex() {
             if (StrLen(this.printObj(l_array[A_Index])) < 2) {
                 l_array.RemoveAt(A_Index)
