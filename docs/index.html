@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>biga.ahk - A modern immutable utility library for AutoHotKey</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="A modern immutable utility library for AutoHotKey">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="styles/style.css">
   <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css"> -->
   <link rel="stylesheet" href="styles/xcode.css">
   <script src="js/highlight.autohotkey.js"></script>
-  
+
 </head>
+
 <body>
   <div id="app"></div>
   <script>
@@ -20,20 +23,34 @@
       repo: '',
       maxLevel: 3,
       subMaxLevel: 2,
-      // loadSidebar: true,
-      // formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
-      // formatUpdated: function(time) {
-      //   console.log(time)
-      //   return time;
-      // }
+
+      // searchbar settings
+      search: {
+        noData: {
+          '/de-de/': 'Keine Ergebnisse!',
+          '/zh-cn/': '没有结果!',
+          '/': 'No results!'
+        },
+        paths: ['/'],
+        placeholder: {
+          '/de-de/': 'Suche',
+          '/zh-cn/': '搜索',
+          '/': 'Type to Search'
+        }
+      }
+      // end of searchbar
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 </body>
 <footer>
-  <script>setTimeout(function(){ 
+  <script>
+    setTimeout(function () {
       hljs.initHighlightingOnLoad();
       console.log("highlight attempted");
-    },200)</script>
+    }, 200)
+  </script>
 </footer>
+
 </html>

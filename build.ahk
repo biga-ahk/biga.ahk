@@ -192,7 +192,10 @@ ExitApp, 1
 ; functions
 ; \--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/
 
+
 fn_BuildExample(param_tests) {
+    ; Input - > array containing `n separated textfile of assert.{{x}} tests
+    ; Output - > array suitable for export to markdown for example code
     global
     return_array := []
 
