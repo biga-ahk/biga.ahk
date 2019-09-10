@@ -1,38 +1,36 @@
 sortBy(param_collection, param_iteratees) {
-    param_collection := this.cloneDeep(param_collection)
+    l_array := this.cloneDeep(param_collection)
     Order := 1
 
-    for index2, obj2 in param_collection {           
-        for index, obj in param_collection {
+    for index2, obj2 in l_array {           
+        for index, obj in l_array {
             if (lastIndex = index)
                 break
-            if !(A_Index = 1) && ((Order = 1) ? (param_collection[prevIndex][param_iteratees] > param_collection[index][param_iteratees]) : (param_collection[prevIndex][param_iteratees] < param_collection[index][param_iteratees])) {    
-               tmp := param_collection[index][param_iteratees] 
-               param_collection[index][param_iteratees] := param_collection[prevIndex][param_iteratees]
-               param_collection[prevIndex][param_iteratees] := tmp  
+            if !(A_Index = 1) && ((Order = 1) ? (l_array[prevIndex][param_iteratees] > l_array[index][param_iteratees]) : (l_array[prevIndex][param_iteratees] < l_array[index][param_iteratees])) {    
+               tmp := l_array[index][param_iteratees] 
+               l_array[index][param_iteratees] := l_array[prevIndex][param_iteratees]
+               l_array[prevIndex][param_iteratees] := tmp  
             }         
             prevIndex := index
         }     
         lastIndex := prevIndex
     }
 
-    remove any blank items
-    filtering := true
-    while, (filtering) {
-        loop, % param_collection.MaxIndex() {
-            filtering := false
-            if (StrLen(this.printObj(param_collection[A_Index])) < 2 ) {
-                param_collection.RemoveAt(A_Index)
-                filtering := true
+    ; remove any blank items if ahk array was made poorly
+    if (l_array.MaxIndex() != param_collection.MaxIndex() || StrLen(this.printObj(l_array[1])) < 2 || StrLen(this.printObj(l_array[l_array.MaxIndex()])) < 2) {
+        loop, % l_array.MaxIndex() {
+            if (StrLen(this.printObj(l_array[A_Index])) < 2 ) {
+                l_array.RemoveAt(A_Index)
             }
         }
     }
-    return param_collection
+    return l_array
 }
 
 ; tests
 
-users := [{ "name": "fred",   "age": 48 }
+users := [
+  , { "name": "fred",   "age": 48 }
   , { "name": "barney", "age": 36 }
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }]
