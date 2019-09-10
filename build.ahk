@@ -4,7 +4,7 @@
 
 
 #include %A_ScriptDir%\lib
-#include biga.ahk\export-manual.ahk
+#include biga.ahk\export-built.ahk
 ; #include transformStringVars.ahk\export.ahk
 #include util-array.ahk\export.ahk
 ; #include json.ahk\export.ahk
@@ -223,9 +223,8 @@ fn_BuildExample(param_tests) {
             return_array.push("A" hey.Value(1) hey.Value(2)"`n; => false" newline newline)
             continue
         }
-        
 
-        if (StrLen(Value) > 1) {
+        if (A.size(Value) > 2) {
             return_array.push(Value)
         }
     }

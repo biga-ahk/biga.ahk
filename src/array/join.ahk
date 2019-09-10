@@ -3,7 +3,7 @@ join(param_array,param_sepatator := ",") {
         throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
     }
     l_array := this.clone(param_array)
-    loop, % l_array.MaxIndex() {
+    loop, % l_array.Count() {
         if (A_Index == 1) {
             l_string := "" l_array[A_Index]
             continue

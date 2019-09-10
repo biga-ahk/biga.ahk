@@ -745,7 +745,7 @@ section.cover blockquote>p>a:hover{
 	margin:0 2px;
 	max-width:inherit;
 	overflow:inherit;
-	padding:2.2em 5px;
+	padding:1.2em 0px 0.8em;
 	white-space:inherit
 }
 .markdown-section code:after,.markdown-section code:before{
