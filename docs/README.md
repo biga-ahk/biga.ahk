@@ -204,16 +204,16 @@ value (*): The value to search for.
 #### Example
 
 ```autohotkey
-A([1,2,3],3)
+A.includes([1,2,3],3)
 ; => true
 
-A("InStr","Str")
+A.includes("InStr","Str")
 ; => true
 
-A("InStr","Other")
+A.includes("InStr","Other")
 ; => false
 
-    ; RegEx objectA("hello!","/\D/")
+; RegEx objectA.includes("hello!","/\D/")
 ; => true
 
 ```
@@ -245,6 +245,20 @@ A.map({ "a": 4, "b": 8 },Func("square"))
 
 users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 ; => ["barney","fred"]
+
+```
+
+*******
+
+
+# .matches
+
+
+#### Example
+
+```autohotkey
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]function := A.matches({ "a": 4, "c": 6 })A.filter(objects, function)
+; => [{ "a": 4, "b": 5, "c": 6 }]
 
 ```
 
@@ -368,6 +382,42 @@ object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)obje
 *******
 
 
+# .isEqual
+Performs a deep comparison between two values to determine if they are equivalent.
+
+This method supports comparing strings and objects.
+
+
+#### Arguments
+
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+#### Returns
+
+(boolean): Returns true if the values are equivalent, else false.
+
+#### Example
+
+```autohotkey
+A.isEqual(1,1)
+; => true
+
+A.isEqual({ "a": 1 },{ "a": 1 })
+; => true
+
+A.isEqual(1,2)
+; => false
+
+A.caseSensitive := trueA.isEqual({ "a": "a" },{ "a": "A" })
+; => false
+
+```
+
+*******
+
+
 # .ismatch
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
@@ -386,16 +436,16 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }A(object,{"b": 2})
+object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object,{"b": 2})
 ; => true
 
-A(object,{"b": 2, "c": 3})
+A.isMatch(object,{"b": 2, "c": 3})
 ; => true
 
-A(object,{"b": 1})
+A.isMatch(object,{"b": 1})
 ; => false
 
-A(object,{"b": 2, "z": 99})
+A.isMatch(object,{"b": 2, "z": 99})
 ; => false
 
 ```
@@ -536,16 +586,16 @@ string (string): The string to inspect.
 #### Example
 
 ```autohotkey
-A("abc","a")
+A.startsWith("abc","a")
 ; => true
 
-A("abc","b")
+A.startsWith("abc","b")
 ; => false
 
-A("abc","b",2)
+A.startsWith("abc","b",2)
 ; => true
 
-A.caseSensitive := trueA("abc","A")
+A.caseSensitive := trueA.startsWith("abc","A")
 ; => false
 
 ```
@@ -725,15 +775,4 @@ Truncates string if it's longer than the given maximum string length. The last c
 ```autohotkey
 string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbo..."
-
-A.truncate(string, {"length": 24, "separator": " "})
-; => "hi-diddly-ho there,..."
-
-A.truncate(string, {"length": 24, "separator": "/, /"})
-; => "hi-diddly-ho there..."
-
-```
-
-*******
-
 
