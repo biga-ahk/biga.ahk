@@ -191,7 +191,7 @@ A.find(users,"active")
 A.find(users,"active",2)
 ; => { "user": "pebbles", "age": 1, "active": true }
 
-A.find(users,Func("fn_filter1"))
+A.find(users,Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
 ```

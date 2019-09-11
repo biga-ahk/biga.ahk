@@ -116,7 +116,6 @@ lib_array := A.map(The_Array,Func("fn_AddIndent"))
 fn_AddIndent(value) {
     global
     x := A.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
-    ; msgbox, % x " - " value.lib
     return x
 }
 FileDelete, % lib_File
@@ -125,7 +124,7 @@ lib_tail := "`n}"
 FileAppend, %lib_head%, % lib_File
 loop, % lib_array.MaxIndex() {
     element := lib_array[A_Index]
-    FileAppend, % newline element newline newline, % lib_File
+    FileAppend, % element, % lib_File
 }
 FileAppend, %lib_tail%, % lib_File
 
