@@ -35,8 +35,7 @@ internal_IsCircle(param_obj, param_objs=0) {
     if (!param_objs) {
         param_objs := {}
     }
-    for Key, Val in param_obj
-    {
+    for Key, Val in param_obj {
         if (IsObject(Val)&&(param_objs[&Val]||this.internal_IsCircle(Val,(param_objs,param_objs[&Val]:=1)))) {
             return true
         }

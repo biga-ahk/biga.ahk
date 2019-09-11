@@ -3,6 +3,7 @@ map(param_collection,param_iteratee) {
         throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
     }
     l_array := []
+    ; check what kind of param_iteratee being worked with
     if (IsFunc(param_iteratee)) {
         BoundFunc := param_iteratee.Bind(this)
     } else {
@@ -10,8 +11,7 @@ map(param_collection,param_iteratee) {
     }
 
     ; run against every value in the collection
-    for Key, Value in param_collection
-    {
+    for Key, Value in param_collection {
         if (!BoundFunc) { ; is property/string
             vReturn := param_collection[A_Index][param_iteratee]
             l_array.push(vReturn)
