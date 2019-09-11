@@ -1,26 +1,3 @@
-mapslow(param_collection,param_iteratee) {
-    if (!IsObject(param_collection)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
-    }
-    l_array := []
-    for Key, Value in param_collection
-    {
-        if (IsFunc(param_iteratee)) {
-            BoundFunc := param_iteratee.Bind(this, Value)
-            if (BoundFunc.Call()) {
-                l_array.push(BoundFunc.Call())
-            } else {
-                l_array.push(param_iteratee.Call(Value))
-            }
-        }
-        if (param_iteratee is string) {
-            l_array.push(param_collection[A_Index][param_iteratee])
-        }
-    }
-    return l_array
-}
-
-
 map(param_collection,param_iteratee) {
     if (!IsObject(param_collection)) {
         throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
