@@ -76,6 +76,21 @@ if (IsObject(msgarray)) {
     ; msgbox, % A.join(msgarray, newline)
 }
 
+; ===============
+; TESTS
+; ===============
+
+FileDelete, % test_File
+test_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_head.ahk")
+test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
+
+FileAppend, %test_head%, % test_File
+loop, % The_Array.MaxIndex() {
+    element := The_Array[A_Index]
+    FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
+    FileAppend, % element.tests newline newline newline newline newline, % test_File
+}
+FileAppend, %test_tail%, % test_File
 
 ; ===============
 ; DOCS
@@ -127,23 +142,6 @@ loop, % lib_array.MaxIndex() {
     FileAppend, % element, % lib_File
 }
 FileAppend, %lib_tail%, % lib_File
-
-
-; ===============
-; TESTS
-; ===============
-
-FileDelete, % test_File
-test_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_head.ahk")
-test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
-
-FileAppend, %test_head%, % test_File
-loop, % The_Array.MaxIndex() {
-    element := The_Array[A_Index]
-    FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
-    FileAppend, % element.tests newline newline newline newline newline, % test_File
-}
-FileAppend, %test_tail%, % test_File
 
 
 ; exitmsg := A.join(msgarray, "`n")
