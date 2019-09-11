@@ -4,7 +4,7 @@ indexOf(param_array,param_value,fromIndex := 1) {
             continue
         }
         if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-            return %Index%
+            return Index
         }
     }
     return -1
@@ -20,7 +20,5 @@ assert.test(A.indexOf(["fred", "barney"], "pebbles"),"-1")
 
 A.caseSensitive := true
 assert.test(A.indexOf(["fred", "barney"], "Fred"),"-1")
-
 ; omit
 A.caseSensitive := false
-assert.test(A.indexOf([{name: "fred"},{name: "barney"}], {name: "barney"}),"2")
