@@ -32,8 +32,8 @@ users := [ { "user": "barney", "age": 36, "active": true }
 
 assert.test(A.find(users,"active"), { "user": "barney", "age": 36, "active": true })
 assert.test(A.find(users,"active",2), { "user": "pebbles", "age": 1, "active": true }) ;fromindex argument
-assert.test(A.find(users,Func("fn_filter1")), { "user": "barney", "age": 36, "active": true })
-fn_filter1(param_interatee) {
+assert.test(A.find(users,Func("fn_find1")), { "user": "barney", "age": 36, "active": true })
+fn_find1(param_interatee) {
     if (param_interatee.active) { 
         return true 
     } 
