@@ -73,7 +73,7 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
 ; The_Array := A.sortBy(The_Array,["name", "category"])
 ; Array_Gui(The_Array)
 if (IsObject(msgarray)) {
-    ; msgbox, % A.join(msgarray, newline)
+    msgbox, % A.join(msgarray, newline)
 }
 
 ; ===============
@@ -136,17 +136,14 @@ fn_AddIndent(value) {
     return x
 }
 FileDelete, % lib_File
-lib_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk")
-lib_tail := "}`n"
-FileAppend, %lib_head%, % lib_File
-loop, % lib_array.MaxIndex() {
-    element := lib_array[A_Index]
-    FileAppend, % element, % lib_File
-}
-FileAppend, %lib_tail%, % lib_File
-
+lib_head := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk"))
+lib_tail := A.split("}`n")
+lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
+FileAppend, %lib_txt%, % lib_File
 
 ; exitmsg := A.join(msgarray, "`n")
+sleep, 500
+Run, %test_File%, % A_ScriptDir "/lib/biga.ahk"
 ExitApp, 1
 
 
