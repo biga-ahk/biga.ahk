@@ -4,7 +4,7 @@
 
 
 #include %A_ScriptDir%\lib
-#include biga.ahk\export.ahk
+#include biga.ahk\export-manual.ahk
 ; #include transformStringVars.ahk\export.ahk
 ; #include util-array.ahk\export.ahk
 ; #include json.ahk\export.ahk
@@ -20,7 +20,6 @@ categoryRegEx := "(\w+)\\\w+\.\w{3}"
 newline := "`r`n"
 
 ; Test RegEx
-; testtest := "test\(.*\),\s*(.*)\)"
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
 testtrue := "true\(A(\.\w+)(.+\))\)"
 testfalse := "false\(A(\.\w+)(.+\))\)"
@@ -73,8 +72,8 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
 }
 ; The_Array := A.sortBy(The_Array,["name", "category"])
 ; Array_Gui(The_Array)
-if (msgarray.length > 0) {
-    msgbox, % A.join(msgarray, newline)
+if (IsObject(msgarray)) {
+    ; msgbox, % A.join(msgarray, newline)
 }
 
 
@@ -89,6 +88,7 @@ loop, % The_Array.MaxIndex() {
         continue
     }
     txt := []
+    ExampleArray := []
     if (element.category != The_Array[A_Index - 1].category) {
         txt.push(newline "# **" A.startCase(element.category) "**" newline)
     }
@@ -112,12 +112,11 @@ loop, % DOCS_Array.MaxIndex() {
 ; ===============
 ; LIBRARY EXPORT
 ; ===============
-
 lib_array := A.map(The_Array,Func("fn_AddIndent"))
 fn_AddIndent(value) {
     global
-    x := A.replace(value.lib,"/(^)/",A_Tab)
-    ; msgbox, % x
+    x := A.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
+    ; msgbox, % x " - " value.lib
     return x
 }
 FileDelete, % lib_File
@@ -129,7 +128,6 @@ loop, % lib_array.MaxIndex() {
     FileAppend, % newline element newline newline, % lib_File
 }
 FileAppend, %lib_tail%, % lib_File
-
 
 
 ; ===============
@@ -171,7 +169,6 @@ fn_BuildExample(param_tests) {
         if (A.includes(Value,"; omit")) {
             break
         }
-
 
         hey := Fn_QuickRegEx(Value,testtest,0)
         if (hey.count() = 2) {
