@@ -2,16 +2,6 @@
 ; Internal functions
 ; \--/--\--/--\--/--\--/--\--/
 
-indexOf(param_array,param_searchTerm) {
-    for index, value in param_array {
-        if (this.caseSensitive ? (value == param_searchTerm) : (value = param_searchTerm)) {
-            return index
-        }
-    }
-    return -1
-}
-
-
 printObj(param_obj) {
     if (!IsObject(param_obj)) {
         return param_obj
