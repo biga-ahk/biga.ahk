@@ -11,3 +11,6 @@ collection (Array|Object): The collection to inspect.
 ## Returns
 
 (*): Returns the matched element, else undefined.
+
+> [!Warning|style:callout]
+> This method is incomplete. _.matches, 
