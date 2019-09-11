@@ -7,10 +7,10 @@
         "newinstall": "yarn install --modules-folder ./lib"
     },
     "dependencies": {
-        "biga.ahk": "chunjee/biga.ahk",
+        "biga.ahk": "github:chunjee/biga.ahk"
     },
     "devDependencies": {
-        "json.ahk": "chunjee/json.ahk",
+        "json.ahk": "github:chunjee/json.ahk",
         "unit-testing.ahk": "github:chunjee/unit-testing.ahk"
     },
     "author": "Shawn Brooker",

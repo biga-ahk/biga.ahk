@@ -4,9 +4,9 @@
 
 
 #include %A_ScriptDir%\lib
-#include biga.ahk\export-built.ahk
+#include biga.ahk\export.ahk
 ; #include transformStringVars.ahk\export.ahk
-#include util-array.ahk\export.ahk
+; #include util-array.ahk\export.ahk
 ; #include json.ahk\export.ahk
 ; #include wrappers.ahk\export.ahk
 #include util-misc.ahk\export.ahk
@@ -38,6 +38,9 @@ msgarray := []
 
 loop, Files, %A_ScriptDir%\src\*.ahk, R
 {
+    if (A.includes(A_LoopFileName,"head") || A.includes(A_LoopFileName,"tail")) {
+        continue
+    }
     FileRead, The_MemoryFile, % A_LoopFileFullPath
     
     ; chunk that b
@@ -82,7 +85,7 @@ FileDelete, % Readme_File
 DOCS_Array := []
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    if (A.Indexof(Ignoremethods,element.name) != -1) { ; skip ignored methods
+    if (A.indexof(Ignoremethods,element.name) != -1) { ; skip ignored methods
         continue
     }
     txt := []
@@ -90,11 +93,10 @@ loop, % The_Array.MaxIndex() {
         txt.push(newline "# **" A.startCase(element.category) "**" newline)
     }
     txt.push("## " "." element.name newline element.doc newline newline)
-    ; if examples not staticly defined in .md file
+    ; if examples not staticly defined in .md file, parse tests for use in documentation
     if (!A.includes(element.doc,"Example") && A.includes(element.tests, "A.")) {
         txt.push("#### Example" newline newline "``````autohotkey" newline)
-        ExampleArray := StrSplit(element.tests, "`n")
-        ExampleArray := fn_BuildExample(ExampleArray)
+        ExampleArray := fn_BuildExample(StrSplit(element.tests, "`n"))
         ExampleArray.push("``````" newline newline)
         txt := A.concat(txt,ExampleArray)
     }
@@ -105,88 +107,53 @@ loop, % DOCS_Array.MaxIndex() {
     FileAppend, % DOCS_Array[A_Index], % Readme_File
 }
 
-clipboard := A.join(A.map(The_Array,"name")," ")
+
+
 ; ===============
 ; LIBRARY EXPORT
 ; ===============
-head =
-(
-    Class biga {
 
-	__New() {
-        this.info_Array
-        this.caseSensitive := false
-        this.limit := -1
-
-        this.matchesObj
-	}
-
-)
-tail = 
-(
-    }
-)
-
-FileDelete, % lib_File
-FileAppend, %head%, % lib_File
-loop, % The_Array.MaxIndex() {
-    element := The_Array[A_Index]
-    FileAppend, % newline element.lib newline newline, % lib_File
+lib_array := A.map(The_Array,Func("fn_AddIndent"))
+fn_AddIndent(value) {
+    global
+    x := A.replace(value.lib,"/(^)/",A_Tab)
+    ; msgbox, % x
+    return x
 }
-FileAppend, %tail%, % lib_File
+FileDelete, % lib_File
+lib_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk")
+lib_tail := "`n}"
+FileAppend, %lib_head%, % lib_File
+loop, % lib_array.MaxIndex() {
+    element := lib_array[A_Index]
+    FileAppend, % newline element newline newline, % lib_File
+}
+FileAppend, %lib_tail%, % lib_File
 
 
 
 ; ===============
 ; TESTS
 ; ===============
+
 FileDelete, % test_File
-head = 
-(
-    #Include export-built.ahk
-    #Include ..\unit-testing.ahk\export.ahk
-    #Include ..\util-array.ahk\export.ahk
-    ; #Include ..\util-misc.ahk\export.ahk
-    #Include ..\json.ahk\export.ahk
-    #NoTrayIcon
-    #SingleInstance, force
-    SetBatchLines, -1
+test_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_head.ahk")
+test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
 
-    A := new biga()
-    assert := new unittesting()
-
-    ; Star timer
-    Start := A_TickCount
-    QPC(1)
-
-)
-tail = 
-(
-    ;; Display test results in GUI
-    speed := QPC(0)
-    assert.fullreport()
-
-    ExitApp
-
-    QPC(R := 0)
-    {
-        static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-        return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
-    }
-
-)
-
-FileAppend, %head%, % test_File
+FileAppend, %test_head%, % test_File
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
     FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
     FileAppend, % element.tests newline newline newline newline newline, % test_File
 }
-FileAppend, %tail%, % test_File
+FileAppend, %test_tail%, % test_File
 
 
 ; exitmsg := A.join(msgarray, "`n")
 ExitApp, 1
+
+
+
 
 ; /--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\
 ; functions
@@ -232,4 +199,9 @@ fn_BuildExample(param_tests) {
         }
     }
     return return_array
+}
+
+fn_ReadFile(param_FileToRead) {
+    FileRead, l_MemoryFile, % param_FileToRead
+    return l_MemoryFile
 }
