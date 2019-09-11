@@ -3,6 +3,7 @@ find(param_collection,param_iteratee,param_fromindex := 1) {
         if (param_fromindex > A_Index) {
             continue
         }
+        ; A.property handling
         if (param_iteratee is string) {
             if (param_collection[A_Index][param_iteratee]) {
                 return param_collection[A_Index]
