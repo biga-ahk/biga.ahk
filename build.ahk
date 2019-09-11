@@ -17,7 +17,7 @@ A := new biga()
 docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
 testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
 categoryRegEx := "(\w+)\\\w+\.\w{3}"
-newline := "`r`n"
+newline := "`r`n" ;do not change this as docsify needs `r
 
 ; Test RegEx
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
@@ -131,11 +131,13 @@ lib_array := A.map(The_Array,Func("fn_AddIndent"))
 fn_AddIndent(value) {
     global
     x := A.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
+    x := A.replace(x,"/m`n)^([\s\n\r]*)$/","")
+    x := A.replace(x,"/m`n)(^[\s\n\r]*$)/","")
     return x
 }
 FileDelete, % lib_File
 lib_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk")
-lib_tail := "`n}"
+lib_tail := "}`n"
 FileAppend, %lib_head%, % lib_File
 loop, % lib_array.MaxIndex() {
     element := lib_array[A_Index]
@@ -161,8 +163,7 @@ fn_BuildExample(param_tests) {
     global
     return_array := []
 
-    for Key, Value in param_tests
-    {
+    for Key, Value in param_tests {
         if (A.includes(Value,"; omit")) {
             break
         }
