@@ -1,5 +1,8 @@
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
+> [!Warning]
+> This method has not reached pairity with Lodash.
+
 ## Arguments
 
 collection (Array|Object): The collection to inspect.
@@ -12,5 +15,4 @@ collection (Array|Object): The collection to inspect.
 
 (*): Returns the matched element, else undefined.
 
-> [!Warning|style:callout]
-> This method is incomplete.
+
