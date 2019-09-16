@@ -24,7 +24,7 @@ sortBy(param_collection, param_iteratees) {
 ; tests
 
 users := [
-  , { "name": "freddy",   "age": 48 }
+  , { "name": "freddy", "age": 48 }
   , { "name": "barney", "age": 36 }
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }]

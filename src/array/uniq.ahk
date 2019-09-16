@@ -4,7 +4,7 @@ uniq(param_collection) {
     }
     dummy_Array := []
     this.info_Array := []
-    Loop, % param_collection.MaxIndex() {
+    loop, % param_collection.MaxIndex() {
         printedelement := this.internal_MD5(this.printObj(param_collection[A_Index]))
         if (this.indexOf(dummy_Array,printedelement) == -1) {
             dummy_Array.push(printedelement)

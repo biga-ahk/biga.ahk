@@ -1,6 +1,6 @@
 filter(param_collection,param_func) {
     this.info_Array := []
-    Loop, % param_collection.MaxIndex() {
+    loop, % param_collection.MaxIndex() {
         if (param_func is string) {
             if (param_collection[A_Index][param_func]) {
                 this.info_Array.push(param_collection[A_Index])

@@ -6,7 +6,7 @@
 
     for i, obj in param_values
     {
-        Loop, % obj.MaxIndex() {
+        loop, % obj.MaxIndex() {
             if (this.indexOf(l_array,obj[A_Index]) != -1) {
                 l_array.RemoveAt(A_Index)
             }
