@@ -27,7 +27,7 @@ printObj(param_obj) {
         Output .= ", "
     }
     StringTrimRight, OutPut, OutPut, 2
-    Return OutPut
+    return OutPut
 }
 
 

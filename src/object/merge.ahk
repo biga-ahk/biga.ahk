@@ -2,7 +2,7 @@ merge(param_collections*) {
     result := param_collections[1]
     for i, obj in param_collections {
         if(A_Index = 1) {
-            Continue 
+            continue 
         }
         result := this.internal_Merge(result, obj)
     }
