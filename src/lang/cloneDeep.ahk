@@ -5,8 +5,8 @@ cloneDeep(param_array,Objs := 0) {
     Obj := param_array.Clone()
     Objs[&param_array] := Obj ; Save this new array
     for Key, Val in Obj {
-        if (IsObject(Val)) ; If it is a subarray
-            Obj[Key] := Objs[&Val] ; If we already know of a refrence to this array
+        if (IsObject(Val)) ; if it is a subarray
+            Obj[Key] := Objs[&Val] ; if we already know of a refrence to this array
             ? Objs[&Val] ; Then point it to the new array
             : this.clone(Val,Objs) ; Otherwise, clone this sub-array
     }

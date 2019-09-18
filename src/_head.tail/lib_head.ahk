@@ -1,4 +1,4 @@
-Class biga {
+class biga {
 
 	__New() {
         this.info_Array

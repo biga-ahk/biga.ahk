@@ -516,7 +516,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [  , { "name": "freddy",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
+users := [  , { "name": "freddy", "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
 ; => [{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}]
 
 ```
