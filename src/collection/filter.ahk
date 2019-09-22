@@ -36,7 +36,6 @@ fn_filter1(param_interatee) {
 }
 
 
-
 ; omit
 
 assert.test(A.filter([1,2,3,-10,1.9],Func("fn_filter2")), [2,3])

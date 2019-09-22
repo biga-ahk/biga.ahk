@@ -62,22 +62,25 @@ A.difference([2, 1], [3])
 #### Example
 
 ```autohotkey
-A.indexOf([1, 2, 1, 2], 2)
+A.findIndex([1, 2, 1, 2], 2)
 ; => "2"
 
-; Search from the `fromIndex`.A.indexOf([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.findIndex([1, 2, 1, 2], 2, 3)
 ; => "4"
 
-A.indexOf(["fred", "barney"], "pebbles")
+A.findIndex(["fred", "barney"], "pebbles")
 ; => "-1"
 
-A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
+A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
 ; => "-1"
 
-A.indexOf([{name: "fred"},{name: "barney"}], {name: "barney"})
+A.findIndex([{name: "fred"},{name: "barney"}], {name: "barney"})
 ; => "2"
 
-```
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users,Func("findIndexFunc"))
+; => "1"
+
+findIndexFunc(o) {    return % o.user == "barney"}```
 
 
 
@@ -263,7 +266,7 @@ users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, 
 A.filter(users,Func("fn_filter1"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }```
+fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }}```
 
 
 
@@ -359,7 +362,7 @@ iteratee=_.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-square(n) {  return % n * nA.map([4,8],Func("square"))
+square(n) {  return % n * n}A.map([4,8],Func("square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 },Func("square"))
