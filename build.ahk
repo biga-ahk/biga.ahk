@@ -35,6 +35,9 @@ Ignoremethods := ["internal","matches"]
 The_Array := []
 msgarray := []
 
+; method names
+vMethodNames_Array := []
+
 loop, Files, %A_ScriptDir%\src\*.ahk, R
 {
     if (A.includes(A_LoopFileName,"head") || A.includes(A_LoopFileName,"tail")) {
@@ -89,8 +92,19 @@ loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
     FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
     FileAppend, % element.tests newline newline newline newline newline, % test_File
+    
 }
 FileAppend, %test_tail%, % test_File
+
+; ===============
+; TESTS
+; ===============
+loop, % The_Array.Count() {
+    element := The_Array[A_Index]
+    vMethodNames_Array.push(element.name)
+}
+clipboard := A.join(vMethodNames_Array," ")
+
 
 ; ===============
 ; DOCS
@@ -186,7 +200,7 @@ fn_BuildExample(param_tests) {
             continue
         }
 
-        if (A.size(Value) > 2) {
+        if (A.size(Value) > 1) {
             return_array.push(Value)
         }
     }

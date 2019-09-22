@@ -5,7 +5,7 @@ Converts all elements in array into a string separated by separator.
 
 array (Array): The array to convert.
 
-[separator=','] (string): The element separator.
+[separator:=","] (string): The element separator.
 
 ## Returns
 

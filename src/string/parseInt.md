@@ -7,7 +7,7 @@ Converts string to an integer.
 
 string (string): The string to convert.
 
-[radix=10] (number): The radix to interpret value by.
+<!-- [radix:=10] (number): The radix to interpret value by. -->
 
 ## Returns
 

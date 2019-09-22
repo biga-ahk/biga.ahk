@@ -2,9 +2,9 @@ Removes leading and trailing whitespace or specified characters from string.
 
 ## Arguments
 
-[string=''] (string): The string to trim.
+[string:=""] (string): The string to trim.
 
-[chars=whitespace] (string): The characters to trim.
+[chars:=whitespace] (string): The characters to trim.
 
 
 ## Returns
