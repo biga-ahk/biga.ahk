@@ -716,6 +716,66 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 
 
 # **String**
+## .parseInt
+Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used unless value is a hexadecimal, in which case a radix of 16 is used.
+
+#### Arguments
+
+string (string): The string to convert.
+
+[radix=10] (number): The radix to interpret value by.
+
+#### Returns
+
+(number): Returns the converted integer.
+
+
+#### Example
+
+```autohotkey
+A.parseInt("08")
+; => 8
+
+A.map(["6", "08", "10"], A.parseInt)
+; => [6, 8, 10]
+
+```
+
+
+
+
+## .repeat
+Repeats the given string `n` times.
+
+
+#### Arguments
+
+[string=''] (string): The string to repeat.
+
+[n:=1] (number): The number of times to repeat the string.
+
+#### Returns
+
+(string): Returns the repeated string.
+
+
+#### Example
+
+```autohotkey
+A.repeat("*",3)
+; => "***"
+
+A.repeat("abc",2)
+; => "abcabc"
+
+A.repeat("abc",0)
+; => ""
+
+```
+
+
+
+
 ## .replace
 #### Arguments
 
