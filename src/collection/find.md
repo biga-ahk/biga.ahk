@@ -14,5 +14,3 @@ function (Function): The function invoked per iteration.
 ## Returns
 
 (*): Returns the matched element, else undefined.
-
-

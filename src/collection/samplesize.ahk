@@ -7,12 +7,12 @@ sampleSize(param_collection,param_SampleSize := 1) {
     }
 
     this.info_Array := []
-    l_dummyArray := []
+    tempArray := []
     loop, %param_SampleSize%
     {
         Random, randomNum, 1, param_collection.MaxIndex()
-        while (this.indexOf(l_dummyArray,randomNum) != -1) {
-            l_dummyArray.push(randomNum)
+        while (this.indexOf(tempArray,randomNum) != -1) {
+            tempArray.push(randomNum)
             Random, randomNum, 1, param_collection.MaxIndex()
         }
         this.info_Array.push(param_collection[randomNum])

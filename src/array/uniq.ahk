@@ -2,12 +2,12 @@ uniq(param_collection) {
     if (!IsObject(param_collection)) {
         return false
     }
-    dummy_Array := []
+    temp_Array := []
     this.info_Array := []
-    loop, % param_collection.MaxIndex() {
+    loop, % param_collection.Count() {
         printedelement := this.internal_MD5(this.printObj(param_collection[A_Index]))
-        if (this.indexOf(dummy_Array,printedelement) == -1) {
-            dummy_Array.push(printedelement)
+        if (this.indexOf(temp_Array,printedelement) == -1) {
+            temp_Array.push(printedelement)
             this.info_Array.push(param_collection[A_Index])
         }
     }
@@ -16,3 +16,7 @@ uniq(param_collection) {
 
 ; tests
 assert.test(A.uniq([2, 1, 2]),[2, 1])
+
+; omit
+
+assert.test(A.uniq(["Fred", "Barney", "barney", "barney"]),["Fred", "Barney", "barney"])
