@@ -7,9 +7,9 @@ Iterates over elements of collection, returning the first element predicate retu
 
 collection (Array|Object): The collection to inspect.
 
-[predicate=_.identity] (Function): The function invoked per iteration.
+function (Function): The function invoked per iteration.
 
-[fromIndex=0] (number): The index to search from.
+[fromIndex:=1] (number): The index to search from.
 
 ## Returns
 

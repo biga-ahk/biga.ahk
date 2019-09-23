@@ -7,7 +7,7 @@ Iterates over elements of collection, returning an array of all elements predica
 
 collection (Array|Object): The collection to iterate over.
 
-[predicate=_.identity] (Function): The function invoked per iteration.
+function (Function): The function invoked per iteration.
 
 ## Returns
 
