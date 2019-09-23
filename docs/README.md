@@ -215,6 +215,23 @@ A.reverse([[1,2,3],"b","c"])
 
 
 
+## .sortedIndex
+
+
+#### Example
+
+```autohotkey
+A.sortedIndex([30, 50], 40)
+; => 2
+
+A.sortedIndex([30, 50], 20)
+; => "1"
+
+```
+
+
+
+
 ## .uniq
 Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
@@ -482,23 +499,6 @@ A.size("pebbles")
 
 
 
-## .sort
-
-
-#### Example
-
-```autohotkey
-users := [  , { "name": "fred",   "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sort(users,"age")
-; => [{"age":34,"name":"fred"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"barney"}]
-
-A.sort(users,"name")
-; => [{"age":48,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":34,"name":"fred"}]
-
-```
-
-
-
-
 ## .sortBy
 Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This method performs a stable sort, that is, it preserves the original sort order of equal elements. The iteratees are invoked with one argument: (value).
 
@@ -517,8 +517,11 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [  , { "name": "freddy", "age": 48 }  , { "name": "barney", "age": 36 }  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }]A.sortBy(users,["age", "name"])
-; => [{"age":34,"name":"barney"},{"age":36,"name":"barney"},{"age":40,"name":"fred"},{"age":48,"name":"freddy"}]
+users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zeddy", "age": 40 }]A.sortBy(users,["age", "name"])
+; => [{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"fred"},{"age":40,"name":"zeddy"}]
+
+A.sortBy(users,"age")
+; => [{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"fred"},{"age":40,"name":"zeddy"}]
 
 ```
 
