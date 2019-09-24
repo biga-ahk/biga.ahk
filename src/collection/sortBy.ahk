@@ -40,4 +40,4 @@ enemies := [
     , {"name": "bear", "hp": 200, "armor": 20}
     , {"name": "wolf", "hp": 100, "armor": 12}]
 sortedEnemies := A.sortBy(enemies,"hp")
-assert.test(A.sortBy(enemies,"hp"),[{"name": "wolf", "hp": "100", "armor": "12"},{"name": "bear", "hp": "200", "armor": "20"}])
+assert.test(A.sortBy(enemies,"hp"),[{"name": "wolf", "hp": 100, "armor": 12},{"name": "bear", "hp": 200, "armor": 20}])

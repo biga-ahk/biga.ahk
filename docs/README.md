@@ -236,9 +236,12 @@ A.sortedIndex([30, 50], 40)
 ; => 2
 
 A.sortedIndex([30, 50], 20)
-; => "1"
+; => 1
 
-```
+A.sortedIndex([30, 50], 99)
+; => 3
+
+tstArray := [30, 50]tstArray.InsertAt(3, 99)msgbox, % A.printObj(tstArray)```
 
 
 
