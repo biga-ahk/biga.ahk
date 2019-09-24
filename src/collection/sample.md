@@ -14,5 +14,4 @@ collection (Array|Object): The collection to sample.
 ```autohotkey
 A.sample([1, 2, 3, 4])
 ; => 2
-
 ```
