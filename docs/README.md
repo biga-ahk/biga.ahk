@@ -63,22 +63,22 @@ A.difference([2, 1], [3])
 
 ```autohotkey
 A.findIndex([1, 2, 1, 2], 2)
-; => "2"
+; => 2
 
 ; Search from the `fromIndex`.A.findIndex([1, 2, 1, 2], 2, 3)
-; => "4"
+; => 4
 
 A.findIndex(["fred", "barney"], "pebbles")
-; => "-1"
+; => -1
 
 A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
-; => "-1"
+; => -1
 
 A.findIndex([{name: "fred"},{name: "barney"}], {name: "barney"})
-; => "2"
+; => 2
 
 users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users,Func("findIndexFunc"))
-; => "1"
+; => 1
 
 findIndexFunc(o) {    return % o.user == "barney"}```
 
@@ -107,16 +107,16 @@ value (*): The value to search for.
 
 ```autohotkey
 A.indexOf([1, 2, 1, 2], 2)
-; => "2"
+; => 2
 
 ; Search from the `fromIndex`.A.indexOf([1, 2, 1, 2], 2, 3)
-; => "4"
+; => 4
 
 A.indexOf(["fred", "barney"], "pebbles")
-; => "-1"
+; => -1
 
 A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
-; => "-1"
+; => -1
 
 ```
 
@@ -173,13 +173,13 @@ value (*): The value to search for.
 
 ```autohotkey
 A.lastIndexOf([1, 2, 1, 2], 2)
-; => "4"
+; => 4
 
 ; Search from the `fromIndex`.A.lastIndexOf([1, 2, 1, 2], 1, 2)
-; => "1"
+; => 1
 
 A.caseSensitive := trueA.lastIndexOf(["fred", "barney"], "Fred")
-; => "-1"
+; => -1
 
 ```
 
@@ -422,8 +422,8 @@ collection (Array|Object): The collection to sample.
 ```autohotkey
 A.sample([1, 2, 3, 4])
 ; => 2
-
 ```
+
 
 
 
@@ -721,7 +721,7 @@ object (Object): The destination object.
 object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"false"}]}A.merge(object,other)
 ; => {"options":[{"option1":"true","option2":"false"}]}
 
-object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object ,other)
+object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object,other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
