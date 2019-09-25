@@ -7,7 +7,7 @@ printObj(param_obj) {
         return param_obj
     }
     if this.internal_IsCircle(param_obj) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
     for Key, Value in param_obj {
         if Key is not Number 

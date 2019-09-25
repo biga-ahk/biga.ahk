@@ -36,7 +36,8 @@ lessTags := A.sampleSize(lowercaseTags, 3)
 ; For the main page let's make a preview of the blogpost. 40 characters ought to do
 postPreview := A.truncate(blogPost, 40)
 
-; actually I prefer 15 words. You can put different methods together for more power
+; actually I prefer 15 words. You can combine different methods together for more power.
+; .split creates an array limited to 15 items and .join turns it back into a string
 postPreview := A.join(A.split(blogPost," ",15)," ") " [...]"
 ; => This recipe is for a really scrumptious soup from Thailand. Grab a big bunch of [...]
 

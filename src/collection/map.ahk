@@ -1,6 +1,6 @@
 map(param_collection,param_iteratee) {
     if (!IsObject(param_collection)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
     l_array := []
     ; check what kind of param_iteratee being worked with

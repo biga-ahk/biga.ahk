@@ -1,6 +1,6 @@
 concat(param_array,param_values*) {
     if (!IsObject(param_array)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
     l_array := this.clone(param_array)
     for i, obj in param_values
@@ -21,3 +21,7 @@ concat(param_array,param_values*) {
 array := [1]
 assert.test(A.concat(array, 2, [3], [[4]]),[1, 2, 3, [4]])
 assert.test(A.concat(array),[1])
+
+; omit
+
+assert.test(A.concat(array, 1),[1, 1])

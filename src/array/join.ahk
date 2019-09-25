@@ -1,6 +1,6 @@
 join(param_array,param_sepatator := ",") {
-    if (!IsObject(param_array)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+    if (!IsObject(param_array) || IsObject(param_sepatator)) {
+        throw Exception("Type Error", -1)
     }
     l_array := this.clone(param_array)
     loop, % l_array.Count() {

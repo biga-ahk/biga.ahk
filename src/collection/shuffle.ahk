@@ -1,6 +1,6 @@
 shuffle(param_collection) {
     if (!IsObject(param_collection)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
     l_shuffledArray := []
     loop, % param_collection.MaxIndex() {

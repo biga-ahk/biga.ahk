@@ -1,6 +1,6 @@
 reverse(param_collection) {
     if (!IsObject(param_collection)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
     this.info_Array := []
     while (param_collection.MaxIndex() != "") {

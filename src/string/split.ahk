@@ -1,6 +1,6 @@
 split(param_string := "",param_separator := ",", param_limit := 0) {
-    if (IsObject(param_string)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+    if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
+        throw Exception("Type Error", -1)
     }
     ; regex
     if (this.internal_JSRegEx(param_separator)) {

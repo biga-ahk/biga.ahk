@@ -1,6 +1,6 @@
 matches(param_source) {
     if (!IsObject(param_source)) {
-        throw { error: "Type Error", file: A_LineFile, line: A_LineNumber }
+        throw Exception("Type Error", -1)
     }
 
     ; this.matchesObj := this.cloneDeep(param_source)
