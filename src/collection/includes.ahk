@@ -1,10 +1,10 @@
 includes(param_collection,param_value,param_fromIndex := 1) {
     if (IsObject(param_collection)) {
-        loop, % param_collection.MaxIndex() {
+        for Key, Value in param_collection {
             if (param_fromIndex > A_Index) {
                 continue
             }
-            if (param_collection[A_Index] = param_value) {
+            if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
                 return true
             }
         }
@@ -27,5 +27,11 @@ includes(param_collection,param_value,param_fromIndex := 1) {
 assert.true(A.includes([1,2,3],3))
 assert.true(A.includes("InStr","Str"))
 assert.false(A.includes("InStr","Other"))
+A.caseSensitive := true
+assert.false(A.includes("InStr","str"))
 ; RegEx object
 assert.true(A.includes("hello!","/\D/"))
+
+; omit
+
+A.caseSensitive := false
