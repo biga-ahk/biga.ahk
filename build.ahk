@@ -97,7 +97,7 @@ loop, % The_Array.MaxIndex() {
 FileAppend, %test_tail%, % test_File
 
 ; ===============
-; TESTS
+; method names
 ; ===============
 loop, % The_Array.Count() {
     element := The_Array[A_Index]
@@ -113,7 +113,7 @@ FileDelete, % Readme_File
 DOCS_Array := []
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    if (A.indexof(Ignoremethods,element.name) != -1) { ; skip ignored methods
+    if (A.indexof(Ignoremethods,element.name) != -1 || A.startsWith(element.name,"internal")) { ; skip ignored methods
         continue
     }
     txt := []
@@ -141,6 +141,7 @@ loop, % DOCS_Array.MaxIndex() {
 ; ===============
 ; LIBRARY EXPORT
 ; ===============
+
 lib_array := A.map(The_Array,Func("fn_AddIndent"))
 fn_AddIndent(value) {
     global
@@ -149,10 +150,20 @@ fn_AddIndent(value) {
     x := A.replace(x,"/m`n)(^[\s\n\r]*$)/","")
     return x
 }
+; lib_array := A.replace(lib_array,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
+; while (RegExMatch(x, "(^\s*;(?:.*))(?:\r?\n\g<1>)+", RE_Match)) {
+;     A.replace(x,RE_Match.Value(),"")
+; }
+
+
 FileDelete, % lib_File
 lib_head := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk"))
 lib_tail := A.split("}`n")
 lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
+; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
+while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
+    lib_txt := A.replace(lib_txt, RE_Match.Value(), "")
+}
 FileAppend, %lib_txt%, % lib_File
 
 ; exitmsg := A.join(msgarray, "`n")
