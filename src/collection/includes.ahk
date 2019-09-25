@@ -24,14 +24,15 @@ includes(param_collection,param_value,param_fromIndex := 1) {
 }
 
 ; tests
-assert.true(A.includes([1,2,3],3))
-assert.true(A.includes("InStr","Str"))
-assert.false(A.includes("InStr","Other"))
+assert.true(A.includes([1,2,3], 1))
+assert.true(A.includes({ "a": 1, "b": 2 }, 1))
+assert.true(A.includes("InStr", "Str"))
 A.caseSensitive := true
-assert.false(A.includes("InStr","str"))
+assert.false(A.includes("InStr", "str"))
 ; RegEx object
-assert.true(A.includes("hello!","/\D/"))
+assert.true(A.includes("hello!", "/\D/"))
 
 ; omit
 
 A.caseSensitive := false
+assert.false(A.includes("InStr", "Other"))
