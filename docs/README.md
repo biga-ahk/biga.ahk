@@ -17,8 +17,7 @@ array (Array): The array to concatenate.
 #### Example
 
 ```autohotkey
-array := [1]
-A.concat(array, 2, [3], [[4]])
+array := [1]A.concat(array, 2, [3], [[4]])
 ; => [1, 2, 3, [4]]
 
 A.concat(array)
@@ -79,30 +78,22 @@ array (Array): The array to inspect.
 A.findIndex([1, 2, 1, 2], 2)
 ; => 2
 
-; Search from the `fromIndex`.
-A.findIndex([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.findIndex([1, 2, 1, 2], 2, 3)
 ; => 4
 
 A.findIndex(["fred", "barney"], "pebbles")
 ; => -1
 
-A.caseSensitive := true
-A.findIndex(["fred", "barney"], "Fred")
+A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
 ; => -1
 
 A.findIndex([{name: "fred"},{name: "barney"}], {name: "barney"})
 ; => 2
 
-users := [ { "user": "barney", "age": 36, "active": true }
-    , { "user": "fred", "age": 40, "active": false }
-    , { "user": "pebbles", "age": 1, "active": true } ]
-A.findIndex(users,Func("findIndexFunc"))
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users,Func("findIndexFunc"))
 ; => 1
 
-findIndexFunc(o) {
-    return % o.user == "barney"
-}
-```
+findIndexFunc(o) {    return % o.user == "barney"}```
 
 
 
@@ -131,15 +122,13 @@ value (*): The value to search for.
 A.indexOf([1, 2, 1, 2], 2)
 ; => 2
 
-; Search from the `fromIndex`.
-A.indexOf([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.indexOf([1, 2, 1, 2], 2, 3)
 ; => 4
 
 A.indexOf(["fred", "barney"], "pebbles")
 ; => -1
 
-A.caseSensitive := true
-A.indexOf(["fred", "barney"], "Fred")
+A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -199,12 +188,10 @@ value (*): The value to search for.
 A.lastIndexOf([1, 2, 1, 2], 2)
 ; => 4
 
-; Search from the `fromIndex`.
-A.lastIndexOf([1, 2, 1, 2], 1, 2)
+; Search from the `fromIndex`.A.lastIndexOf([1, 2, 1, 2], 1, 2)
 ; => 1
 
-A.caseSensitive := true
-A.lastIndexOf(["fred", "barney"], "Fred")
+A.caseSensitive := trueA.lastIndexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -295,6 +282,20 @@ A.uniq([2, 1, 2])
 
 
 
+## .without
+
+
+#### Example
+
+```autohotkey
+A.without([2, 1, 2, 3], 1, 2)
+; => [3]
+
+```
+
+
+
+
 
 # **Collection**
 ## .filter
@@ -317,19 +318,13 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
-A.filter(users,"active")
+users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users,"active")
 ; => [{"user":"barney", "age":36, "active":true}]
 
 A.filter(users,Func("fn_filter1"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
-}
-```
+fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }}```
 
 
 
@@ -356,10 +351,7 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }
-    , { "user": "fred", "age": 40, "active": false }
-    , { "user": "pebbles", "age": 1, "active": true } ]
-A.find(users,"active")
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users,"active")
 ; => { "user": "barney", "age": 36, "active": true }
 
 A.find(users,"active",2)
@@ -368,12 +360,7 @@ A.find(users,"active",2)
 A.find(users,Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_find1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    } 
-} 
-```
+fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ```
 
 
 
@@ -407,12 +394,10 @@ A.includes({ "a": 1, "b": 2 }, 1)
 A.includes("InStr", "Str")
 ; => true
 
-A.caseSensitive := true
-A.includes("InStr", "str")
+A.caseSensitive := trueA.includes("InStr", "str")
 ; => false
 
-; RegEx object
-A.includes("hello!", "/\D/")
+; RegEx objectA.includes("hello!", "/\D/")
 ; => true
 
 ```
@@ -427,7 +412,7 @@ Creates an array of values by running each element in collection thru iteratee.
 
 collection (Array|Object): The collection to iterate over.
 
-iteratee=_.identity (Function): The function invoked per iteration.
+iteratee:=A.identity (Function): The function invoked per iteration.
 
 #### Returns
 
@@ -436,17 +421,13 @@ iteratee=_.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-square(n) {
-  return % n * n
-}
-A.map([4,8], Func("square"))
+square(n) {  return % n * n}A.map([4,8], Func("square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 },Func("square"))
 ; => [16, 64]
 
-users := [{ "user": "barney" }, { "user": "fred" }]
-A.map(users,"user")
+users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
 ; => ["barney","fred"]
 
 ```
@@ -524,8 +505,7 @@ collection (Array|Object): The collection to shuffle.
 A.shuffle([1, 2, 3, 4])
 ; => [4, 1, 3, 2]
 
-users := ["barney", "fred", "fred", "fred", "pebbles"]
-A.shuffle(users)
+users := ["barney", "fred", "fred", "fred", "pebbles"]A.shuffle(users)
 ; => ["pebbles", "fred", "barney", "fred", "fred"]
 
 ```
@@ -581,12 +561,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [
-  , { "name": "fred",   "age": 40 }
-  , { "name": "barney", "age": 34 }
-  , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
-A.sortBy(users,["age", "name"])
+users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zeddy", "age": 40 }]A.sortBy(users,["age", "name"])
 ; => [{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"fred"},{"age":40,"name":"zeddy"}]
 
 A.sortBy(users,"age")
@@ -628,7 +603,7 @@ A.printObj(shallowclone)
 
 
 ## .cloneDeep
-This method is like _.clone except that it recursively clones value.
+This method is like A.clone except that it recursively clones value.
 
 
 #### Arguments
@@ -644,14 +619,7 @@ value (*): The value to recursively clone.
 #### Example
 
 ```autohotkey
-object := [{ "a": [[1,2,3]] }, { "b": 2 }]
-deepclone := A.cloneDeep(object)
-object[1].a := 2
-; object
-; => [{ "a": 2 }, { "b": 2 }]
-; deepclone
-; => [{ "a": [[1,2,3]] }, { "b": 2 }]
-```
+object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1,2,3]] }, { "b": 2 }]```
 
 
 
@@ -684,8 +652,7 @@ A.isEqual({ "a": 1 },{ "a": 1 })
 A.isEqual(1,2)
 ; => false
 
-A.caseSensitive := true
-A.isEqual({ "a": "a" },{ "a": "A" })
+A.caseSensitive := trueA.isEqual({ "a": "a" },{ "a": "A" })
 ; => false
 
 ```
@@ -696,7 +663,7 @@ A.isEqual({ "a": "a" },{ "a": "A" })
 ## .ismatch
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
-Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See _.isEqual for a list of supported value comparisons.
+Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See A.isEqual for a list of supported value comparisons.
 
 #### Arguments
 
@@ -711,8 +678,7 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }
-A.isMatch(object,{"b": 2})
+object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object,{"b": 2})
 ; => true
 
 A.isMatch(object,{"b": 2, "c": 3})
@@ -782,14 +748,10 @@ object (Object): The destination object.
 #### Example
 
 ```autohotkey
-object := {"options":[{"option1":"true"}]}
-other := {"options":[{"option2":"false"}]}
-A.merge(object,other)
+object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"false"}]}A.merge(object,other)
 ; => {"options":[{"option1":"true","option2":"false"}]}
 
-object := { "a": [{ "b": 2 }, { "d": 4 }] }
-other := { "a": [{ "c": 3 }, { "e": 5 }] }
-A.merge(object,other)
+object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object,other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
@@ -976,8 +938,7 @@ A.startsWith("abc","b")
 A.startsWith("abc","b",2)
 ; => true
 
-A.caseSensitive := true
-A.startsWith("abc","A")
+A.caseSensitive := trueA.startsWith("abc","A")
 ; => false
 
 ```
@@ -1155,8 +1116,7 @@ Truncates string if it's longer than the given maximum string length. The last c
 #### Example
 
 ```autohotkey
-string := "hi-diddly-ho there, neighborino"
-A.truncate(string)
+string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbo..."
 
 A.truncate(string, {"length": 24, "separator": " "})
@@ -1191,8 +1151,7 @@ string:="" (string): The string to inspect.
 A.words("fred, barney, & pebbles")
 ; => ["fred", "barney", "pebbles"]
 
- 
-A.words("fred, barney, & pebbles", "/[^, ]+/")
+ A.words("fred, barney, & pebbles", "/[^, ]+/")
 ; => ["fred", "barney", "&", "pebbles"]
 
 ```
