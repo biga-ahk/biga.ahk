@@ -7,7 +7,7 @@ printObj(param_obj) {
         return param_obj
     }
     if this.internal_IsCircle(param_obj) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     for Key, Value in param_obj {
         if Key is not Number 
@@ -61,6 +61,12 @@ internal_JSRegEx(param_string) {
         return % SubStr(param_string, 2 , StrLen(param_string) - 2)
     }
     return false
+}
+
+internal_ThrowException() {
+    if (this.throwExceptions == true) {
+        throw Exception("Type Error", -2)
+    }
 }
 
 ; tests

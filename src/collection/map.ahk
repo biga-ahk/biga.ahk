@@ -1,6 +1,6 @@
 map(param_collection,param_iteratee) {
     if (!IsObject(param_collection)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     l_array := []
     ; check what kind of param_iteratee being worked with

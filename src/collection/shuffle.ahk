@@ -1,6 +1,6 @@
 shuffle(param_collection) {
     if (!IsObject(param_collection)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     l_shuffledArray := []
     loop, % param_collection.MaxIndex() {

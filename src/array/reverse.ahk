@@ -1,6 +1,6 @@
 reverse(param_collection) {
     if (!IsObject(param_collection)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     this.info_Array := []
     while (param_collection.MaxIndex() != "") {

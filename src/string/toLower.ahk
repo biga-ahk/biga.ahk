@@ -1,6 +1,6 @@
 toLower(param_string) {
     if (IsObject(param_string)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     StringLower, OutputVar, param_string
     return % OutputVar

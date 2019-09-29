@@ -1,6 +1,6 @@
 matches(param_source) {
     if (!IsObject(param_source)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
 
     ; this.matchesObj := this.cloneDeep(param_source)

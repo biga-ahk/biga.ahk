@@ -1,6 +1,6 @@
 split(param_string := "",param_separator := ",", param_limit := 0) {
     if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     ; regex
     if (this.internal_JSRegEx(param_separator)) {

@@ -1,6 +1,6 @@
 join(param_array,param_sepatator := ",") {
     if (!IsObject(param_array) || IsObject(param_sepatator)) {
-        throw Exception("Type Error", -1)
+        this.internal_ThrowException()
     }
     l_array := this.clone(param_array)
     loop, % l_array.Count() {
