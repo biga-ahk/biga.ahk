@@ -8,3 +8,13 @@ collection (Array|Object): The collection to shuffle.
 ## Returns
 
 (Array): Returns the new shuffled array.
+
+## Example
+
+```autohotkey
+A.shuffle([1, 2, 3, 4])
+; => [4, 1, 3, 2]
+
+A.shuffle(["barney", "fred", "pebbles"])
+; => ["pebbles", "barney", "fred"]
+```

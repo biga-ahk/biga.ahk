@@ -25,6 +25,7 @@ findIndex(param_array,param_value,fromIndex := 1) {
     return % -1 + 0
 }
 
+
 ; tests
 
 assert.test(A.findIndex([1, 2, 1, 2], 2),2)
@@ -51,5 +52,6 @@ findIndexFunc(o) {
 
 
 ; omit
+
 A.caseSensitive := false
 assert.test(A.findIndex([{name: "fred"},{name: "barney"}], {name: "fred"}),1)

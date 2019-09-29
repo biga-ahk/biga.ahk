@@ -3,8 +3,7 @@ concat(param_array,param_values*) {
         this.internal_ThrowException()
     }
     l_array := this.clone(param_array)
-    for i, obj in param_values
-    {
+    for i, obj in param_values {
         if (!IsObject(obj)) {
             ; push on any plain values
             l_array.push(obj)

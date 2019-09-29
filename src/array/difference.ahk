@@ -8,9 +8,9 @@
     for i, obj in param_values
     {
         loop, % obj.MaxIndex() {
-            vIndexSearch := this.indexOf(l_array,obj[A_Index])
-            if (vIndexSearch != -1) {
-                l_array.RemoveAt(vIndexSearch)
+            foundIndex := this.indexOf(l_array,obj[A_Index])
+            if (foundIndex != -1) {
+                l_array.RemoveAt(foundIndex)
             }
         }
     }

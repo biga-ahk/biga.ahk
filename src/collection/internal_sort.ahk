@@ -1,21 +1,21 @@
 internal_sort(param_collection, param_iteratees := "name") {
-    a := this.cloneDeep(param_collection)
+    l_array := this.cloneDeep(param_collection)
 
-        for index, obj in a {
-            out .= obj[param_iteratees] "+" index "|" ; "+" allows for sort to work with just the value
+        for Index, obj in l_array {
+            out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
             ; out will look like:   value+index|value+index|
         }
 
-        v := a[a.minIndex(), param_iteratees]
-        if v is number 
+        Value := l_array[l_array.minIndex(), param_iteratees]
+        if Value is number 
             type := " N "
         StringTrimRight, out, out, 1 ; remove trailing | 
         Sort, out, % "D| "
-        aStorage := []
+        arrStorage := []
         loop, parse, out, |
-        aStorage.insert(a[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
-        a := aStorage
-        return a
+        arrStorage.insert(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+        l_array := arrStorage
+        return l_array
 }
 
 ; tests

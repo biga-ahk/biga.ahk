@@ -10,7 +10,13 @@ shuffle(param_collection) {
     return l_shuffledArray
 }
 
+
 ; tests
-assert.notequal(A.shuffle([1, 2, 3, 4]),[4, 1, 3, 2])
-users := ["barney", "fred", "fred", "fred", "pebbles"]
-assert.notequal(A.shuffle(users),["pebbles", "fred", "barney", "fred", "fred"])
+
+
+; omit
+shuffleTestVar := A.shuffle([1, 2, 3, 4])
+assert.test(shuffleTestVar.Count(), 4)
+
+shuffleTestVar := A.shuffle(["barney", "fred", "pebbles"])
+assert.test(shuffleTestVar.Count(), 3)

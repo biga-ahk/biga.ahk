@@ -23,5 +23,8 @@ assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2),1)
 
 A.caseSensitive := true
 assert.test(A.lastIndexOf(["fred", "barney"], "Fred"),-1)
+
+
 ; omit
+
 A.caseSensitive := false

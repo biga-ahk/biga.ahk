@@ -20,5 +20,8 @@ assert.test(A.indexOf(["fred", "barney"], "pebbles"),-1)
 
 A.caseSensitive := true
 assert.test(A.indexOf(["fred", "barney"], "Fred"),-1)
+
+
 ; omit
+
 A.caseSensitive := false

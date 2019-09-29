@@ -13,13 +13,13 @@ map(param_collection,param_iteratee) {
     ; run against every value in the collection
     for Key, Value in param_collection {
         if (!BoundFunc) { ; is property/string
-            vReturn := param_collection[A_Index][param_iteratee]
-            l_array.push(vReturn)
+            vValue := param_collection[A_Index][param_iteratee]
+            l_array.push(vValue)
             continue
         }
-        vReturn := BoundFunc.Call(Value)
-        if (vReturn) {
-            l_array.push(vReturn)
+        vValue := BoundFunc.Call(Value)
+        if (vValue) {
+            l_array.push(vValue)
         } else {
             l_array.push(param_iteratee.Call(Value))
         }
