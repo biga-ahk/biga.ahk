@@ -10,6 +10,6 @@ repeat(param_string,param_number:=1) {
 
 ; tests
 
-assert.test(A.repeat("*",3), "***")
-assert.test(A.repeat("abc",2), "abcabc")
-assert.test(A.repeat("abc",0), "")
+assert.test(A.repeat("*", 3), "***")
+assert.test(A.repeat("abc", 2), "abcabc")
+assert.test(A.repeat("abc", 0), "")

@@ -1,5 +1,29 @@
 
 # **Array**
+## .compact
+Creates an array with all falsey values removed. The values false, 0, and "" 
+
+
+#### Arguments
+
+array (Array): The array to compact.
+
+#### Returns
+
+(Array): Returns the new array of filtered values.
+
+
+#### Example
+
+```autohotkey
+A.compact([0, 1, false, 2, "", 3])
+; => [1, 2, 3]
+
+```
+
+
+
+
 ## .concat
 Creates a new array concatenating array with any additional arrays and/or values.
 
@@ -283,6 +307,16 @@ A.uniq([2, 1, 2])
 
 
 ## .without
+Creates an array excluding all given values.
+
+#### Arguments
+
+array (Array): The array to inspect.
+[values] (...*): The values to exclude.
+
+#### Returns
+
+(Array): Returns the new array of filtered values.
 
 
 #### Example
@@ -810,13 +844,13 @@ Repeats the given string `n` times.
 #### Example
 
 ```autohotkey
-A.repeat("*",3)
+A.repeat("*", 3)
 ; => "***"
 
-A.repeat("abc",2)
+A.repeat("abc", 2)
 ; => "abcabc"
 
-A.repeat("abc",0)
+A.repeat("abc", 0)
 ; => ""
 
 ```
