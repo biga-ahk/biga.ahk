@@ -12,13 +12,13 @@ isEqual(param_value, param_other) {
 
 ; tests
 
-assert.true(A.isEqual(1,1))
-assert.true(A.isEqual({ "a": 1 },{ "a": 1 }))
-assert.false(A.isEqual(1,2))
+assert.true(A.isEqual(1, 1))
+assert.true(A.isEqual({ "a": 1 }, { "a": 1 }))
+assert.false(A.isEqual(1, 2))
 A.caseSensitive := true
-assert.false(A.isEqual({ "a": "a" },{ "a": "A" }))
+assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 
 ; omit
 
 A.caseSensitive := false
-assert.false(A.isEqual({ "a": 1 },{ "a": 2 }))
+assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))

@@ -12,8 +12,8 @@ isMatch(param_obj,param_iteratee) {
 
 ; tests
 object := { "a": 1, "b": 2, "c": 3 }
-assert.true(A.isMatch(object,{"b": 2}))
-assert.true(A.isMatch(object,{"b": 2, "c": 3}))
+assert.true(A.isMatch(object, {"b": 2}))
+assert.true(A.isMatch(object, {"b": 2, "c": 3}))
 
-assert.false(A.isMatch(object,{"b": 1}))
-assert.false(A.isMatch(object,{"b": 2, "z": 99}))
+assert.false(A.isMatch(object, {"b": 1}))
+assert.false(A.isMatch(object, {"b": 2, "z": 99}))

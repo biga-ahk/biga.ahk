@@ -14,4 +14,4 @@ trimEnd(param_string,param_chars := " ") {
 
 ; tests
 assert.test(A.trimEnd("  abc  "),"  abc")
-assert.test(A.trimEnd("-_-abc-_-","_-"),"-_-abc")
+assert.test(A.trimEnd("-_-abc-_-", "_-"),"-_-abc")

@@ -13,4 +13,4 @@ trimStart(param_string,param_chars := " ") {
 
 ; tests
 assert.test(A.trimStart("  abc  "),"abc  ")
-assert.test(A.trimStart("-_-abc-_-","_-"),"abc-_-")
+assert.test(A.trimStart("-_-abc-_-", "_-"),"abc-_-")
