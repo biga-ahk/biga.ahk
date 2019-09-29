@@ -111,10 +111,10 @@ A.findIndex(["fred", "barney"], "pebbles")
 A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
 ; => -1
 
-A.findIndex([{name: "fred"},{name: "barney"}], {name: "barney"})
+A.findIndex([{name: "fred"}, {name: "barney"}], {name: "barney"})
 ; => 2
 
-users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users,Func("findIndexFunc"))
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users, Func("findIndexFunc"))
 ; => 1
 
 findIndexFunc(o) {    return % o.user == "barney"}```
@@ -385,13 +385,13 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users,"active")
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users, "active")
 ; => { "user": "barney", "age": 36, "active": true }
 
-A.find(users,"active",2)
+A.find(users, "active", 2)
 ; => { "user": "pebbles", "age": 1, "active": true }
 
-A.find(users,Func("fn_find1"))
+A.find(users, Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
 fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ```
@@ -419,7 +419,7 @@ value (*): The value to search for.
 #### Example
 
 ```autohotkey
-A.includes([1,2,3], 1)
+A.includes([1, 2, 3], 1)
 ; => true
 
 A.includes({ "a": 1, "b": 2 }, 1)
@@ -455,14 +455,14 @@ iteratee:=A.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-square(n) {  return % n * n}A.map([4,8], Func("square"))
+square(n) {  return % n * n}A.map([4, 8], Func("square"))
 ; => [16, 64]
 
-A.map({ "a": 4, "b": 8 },Func("square"))
+A.map({ "a": 4, "b": 8 }, Func("square"))
 ; => [16, 64]
 
-users := [{ "user": "barney" }, { "user": "fred" }]A.map(users,"user")
-; => ["barney","fred"]
+users := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
+; => ["barney", "fred"]
 
 ```
 
@@ -594,11 +594,11 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zeddy", "age": 40 }]A.sortBy(users,["age", "name"])
-; => [{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"fred"},{"age":40,"name":"zeddy"}]
+users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zeddy", "age": 40 }]A.sortBy(users, ["age", "name"])
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
 
-A.sortBy(users,"age")
-; => [{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"fred"},{"age":40,"name":"zeddy"}]
+A.sortBy(users, "age")
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
 
 ```
 
@@ -652,7 +652,7 @@ value (*): The value to recursively clone.
 #### Example
 
 ```autohotkey
-object := [{ "a": [[1,2,3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1,2,3]] }, { "b": 2 }]```
+object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]```
 
 
 
@@ -676,16 +676,16 @@ other (*): The other value to compare.
 #### Example
 
 ```autohotkey
-A.isEqual(1,1)
+A.isEqual(1, 1)
 ; => true
 
-A.isEqual({ "a": 1 },{ "a": 1 })
+A.isEqual({ "a": 1 }, { "a": 1 })
 ; => true
 
-A.isEqual(1,2)
+A.isEqual(1, 2)
 ; => false
 
-A.caseSensitive := trueA.isEqual({ "a": "a" },{ "a": "A" })
+A.caseSensitive := trueA.isEqual({ "a": "a" }, { "a": "A" })
 ; => false
 
 ```
@@ -711,16 +711,16 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object,{"b": 2})
+object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object, {"b": 2})
 ; => true
 
-A.isMatch(object,{"b": 2, "c": 3})
+A.isMatch(object, {"b": 2, "c": 3})
 ; => true
 
-A.isMatch(object,{"b": 1})
+A.isMatch(object, {"b": 1})
 ; => false
 
-A.isMatch(object,{"b": 2, "z": 99})
+A.isMatch(object, {"b": 2, "z": 99})
 ; => false
 
 ```
@@ -781,10 +781,10 @@ object (Object): The destination object.
 #### Example
 
 ```autohotkey
-object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"false"}]}A.merge(object,other)
-; => {"options":[{"option1":"true","option2":"false"}]}
+object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"false"}]}A.merge(object, other)
+; => {"options":[{"option1":"true", "option2":"false"}]}
 
-object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object,other)
+object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
@@ -874,10 +874,10 @@ replacement (string): The match replacement.
 #### Example
 
 ```autohotkey
-A.replace("Hi Fred","Fred","Barney")
+A.replace("Hi Fred", "Fred", "Barney")
 ; => "Hi Barney"
 
-A.replace("1234","/(\d+)/","numbers")
+A.replace("1234", "/(\d+)/", "numbers")
 ; => "numbers"
 
 ```
@@ -905,10 +905,10 @@ Splits string by separator.
 #### Example
 
 ```autohotkey
-A.split("a-b-c","-",2)
+A.split("a-b-c", "-", 2)
 ; => ["a", "b"]
 
-A.split("a--b-c","/[\-]+/")
+A.split("a--b-c", "/[\-]+/")
 ; => ["a", "b", "c"]
 
 ```
@@ -962,16 +962,16 @@ string (string): The string to inspect.
 #### Example
 
 ```autohotkey
-A.startsWith("abc","a")
+A.startsWith("abc", "a")
 ; => true
 
-A.startsWith("abc","b")
+A.startsWith("abc", "b")
 ; => false
 
-A.startsWith("abc","b",2)
+A.startsWith("abc", "b", 2)
 ; => true
 
-A.caseSensitive := trueA.startsWith("abc","A")
+A.caseSensitive := trueA.startsWith("abc", "A")
 ; => false
 
 ```
@@ -1055,10 +1055,10 @@ Removes leading and trailing whitespace or specified characters from string.
 A.trim("  abc  ")
 ; => "abc"
 
-A.trim("-_-abc-_-","_-")
+A.trim("-_-abc-_-", "_-")
 ; => "abc"
 
-A.map([" foo  ", "  bar  "],A.trim)
+A.map([" foo  ", "  bar  "], A.trim)
 ; => ["foo", "bar"]
 
 ```
@@ -1087,7 +1087,7 @@ Removes trailing whitespace or specified characters from string.
 A.trimEnd("  abc  ")
 ; => "  abc"
 
-A.trimEnd("-_-abc-_-","_-")
+A.trimEnd("-_-abc-_-", "_-")
 ; => "-_-abc"
 
 ```
@@ -1116,7 +1116,7 @@ Removes leading whitespace or specified characters from string.
 A.trimStart("  abc  ")
 ; => "abc  "
 
-A.trimStart("-_-abc-_-","_-")
+A.trimStart("-_-abc-_-", "_-")
 ; => "abc-_-"
 
 ```

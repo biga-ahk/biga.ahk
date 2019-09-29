@@ -12,7 +12,7 @@ truncate(param_string, param_options := "") {
         return param_string
     }
     
-    l_array := StrSplit(param_string,"")
+    l_array := StrSplit(param_string, "")
     l_string := ""
     ; cut length of the string by character count + the omission's length
     if (param_options.length) {
@@ -31,8 +31,8 @@ truncate(param_string, param_options := "") {
     }
     if (param_options.separator) {
         return % RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
-        ; reversestring := this.join(this.reverse(StrSplit(l_string)),"")
-        ; param_options.reverseseparator := this.join(this.reverse(StrSplit(param_options.separator)),"")
+        ; reversestring := this.join(this.reverse(StrSplit(l_string)), "")
+        ; param_options.reverseseparator := this.join(this.reverse(StrSplit(param_options.separator)), "")
         ; l_match := RegExMatch(reversestring, "P)" param_options.reverseseparator, RE_Match)
         ; ; msgbox, % "REGEX: " RE_MatchPos1 " / " RE_MatchLen1 "/" l_match "`n-" param_options.separator "-`n`n" param_string "`n" l_string
         ; if (l_match) {
@@ -43,16 +43,17 @@ truncate(param_string, param_options := "") {
         ; }
         ; if (param_options.regexmatchposition) {
         ;     l_string := SubStr(reversestring, param_options.regexmatchposition + StrLen(param_options.separator))
-        ;     return % this.join(this.reverse(StrSplit(l_string)),"") . param_options.omission
+        ;     return % this.join(this.reverse(StrSplit(l_string)), "") . param_options.omission
         ; }
     }
     return l_string
 }
 
+
 ; tests
 string := "hi-diddly-ho there, neighborino"
-assert.test(A.truncate(string),"hi-diddly-ho there, neighbo...")
+assert.test(A.truncate(string), "hi-diddly-ho there, neighbo...")
 
-assert.test(A.truncate(string, {"length": 24, "separator": " "}),"hi-diddly-ho there,...")
+assert.test(A.truncate(string, {"length": 24, "separator": " "}), "hi-diddly-ho there,...")
 
-assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}),"hi-diddly-ho there...")
+assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}), "hi-diddly-ho there...")

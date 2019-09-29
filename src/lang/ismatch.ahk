@@ -1,6 +1,6 @@
-isMatch(param_obj,param_iteratee) {
-    for Key, Value in param_iteratee {
-        if (param_obj[key] == Value) {
+isMatch(param_object,param_source) {
+    for Key, Value in param_source {
+        if (param_object[key] == Value) {
             continue
         } else {
             return false

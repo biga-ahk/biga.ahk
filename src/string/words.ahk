@@ -14,12 +14,12 @@ words(param_string,param_pattern:="/[^\W]+/") {
     return l_array
 }
 
-; tests
 
-assert.test(A.words("fred, barney, & pebbles"),["fred", "barney", "pebbles"])
+; tests
+assert.test(A.words("fred, barney, & pebbles"), ["fred", "barney", "pebbles"])
  
-assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"),["fred", "barney", "&", "pebbles"])
+assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "&", "pebbles"])
+
 
 ; omit
-
-assert.test(A.words("One, and a two, and a one two three"),["One", "and", "a", "two", "and", "a", "one", "two", "three"])
+assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])

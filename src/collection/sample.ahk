@@ -8,7 +8,6 @@ sample(param_collection) {
 
 
 ; omit
-
 output := A.sample([1, 2, 3])
-assert.test(A.size(output),1)
+assert.test(A.size(output), 1)
 assert.false(IsObject(output))

@@ -12,7 +12,6 @@ sortedIndex(param_array,param_value) {
 
 
 ; tests
-
 assert.test(A.sortedIndex([30, 50], 40),2)
 assert.test(A.sortedIndex([30, 50], 20),1)
 assert.test(A.sortedIndex([30, 50], 99),3)

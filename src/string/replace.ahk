@@ -8,6 +8,7 @@ replace(param_string := "",param_needle := "",param_replacement := "") {
     return output
 }
 
+
 ; tests
-assert.test(A.replace("Hi Fred", "Fred", "Barney"),"Hi Barney")
-assert.test(A.replace("1234", "/(\d+)/", "numbers"),"numbers")
+assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
+assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")

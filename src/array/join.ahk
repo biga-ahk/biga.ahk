@@ -13,6 +13,7 @@ join(param_array,param_sepatator := ",") {
     return l_string
 }
 
+
 ; tests
-assert.test(A.join(["a", "b", "c"], "~"),"a~b~c")
-assert.test(A.join(["a", "b", "c"]),"a,b,c")
+assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
+assert.test(A.join(["a", "b", "c"]), "a,b,c")

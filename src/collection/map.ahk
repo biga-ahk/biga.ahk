@@ -33,8 +33,8 @@ square(n) {
   return % n * n
 }
 
-assert.test(A.map([4,8], Func("square")),[16, 64])
-assert.test(A.map({ "a": 4, "b": 8 },Func("square")),[16, 64])
+assert.test(A.map([4, 8], Func("square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }, Func("square")), [16, 64])
 
 users := [{ "user": "barney" }, { "user": "fred" }]
-assert.test(A.map(users,"user"), ["barney","fred"])
+assert.test(A.map(users, "user"), ["barney", "fred"])

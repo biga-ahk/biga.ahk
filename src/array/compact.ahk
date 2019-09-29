@@ -14,5 +14,4 @@ compact(param_array) {
 
 
 ; tests
-
-assert.test(A.compact([0, 1, false, 2, "", 3]),[1, 2, 3])
+assert.test(A.compact([0, 1, false, 2, "", 3]), [1, 2, 3])

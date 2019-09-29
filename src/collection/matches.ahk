@@ -20,9 +20,9 @@ internal_matches(input1) {
     
 }
 
+
 ; tests
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
 
-
 function := A.matches({ "a": 4, "c": 6 })
-assert.test(A.filter(objects, function),[{ "a": 4, "b": 5, "c": 6 }])
+assert.test(A.filter(objects, function), [{ "a": 4, "b": 5, "c": 6 }])

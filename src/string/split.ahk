@@ -4,7 +4,7 @@ split(param_string := "",param_separator := ",", param_limit := 0) {
     }
     ; regex
     if (this.internal_JSRegEx(param_separator)) {
-        param_string := this.replace(param_string,param_separator,",")
+        param_string := this.replace(param_string, param_separator, ",")
         param_separator := ","
     }
 
@@ -22,13 +22,14 @@ split(param_string := "",param_separator := ",", param_limit := 0) {
     return oReducedArray
 }
 
-; tests
-assert.test(A.split("a-b-c","-",2),["a", "b"])
 
-assert.test(A.split("a--b-c","/[\-]+/"),["a", "b", "c"])
+; tests
+assert.test(A.split("a-b-c", "-", 2), ["a", "b"])
+
+assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
+
 
 ; omit
+assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
 
-assert.test(A.split("concat.ahk","."),["concat", "ahk"])
-
-assert.test(A.split("a--b-c",","),["a--b-c"])
+assert.test(A.split("a--b-c", ","), ["a--b-c"])

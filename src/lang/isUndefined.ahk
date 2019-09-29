@@ -5,8 +5,8 @@ isUndefined(param_value) {
     return false
 }
 
-; tests
 
+; tests
 assert.true(A.isUndefined(neverIntializedVar))
 assert.true(A.isUndefined(""))
 assert.false(A.isUndefined({}))

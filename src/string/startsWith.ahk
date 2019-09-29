@@ -15,6 +15,7 @@ assert.true(A.startsWith("abc", "b", 2))
 A.caseSensitive := true
 assert.false(A.startsWith("abc", "A"))
 
+
 ; omit
 ; set caseSensitive back to false
 A.caseSensitive := false

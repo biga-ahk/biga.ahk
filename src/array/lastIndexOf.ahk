@@ -15,6 +15,7 @@ lastIndexOf(param_array,param_value,param_fromIndex := 0) {
     return % -1 + 0
 }
 
+
 ; tests
 assert.test(A.lastIndexOf([1, 2, 1, 2], 2),4)
 
@@ -26,5 +27,4 @@ assert.test(A.lastIndexOf(["fred", "barney"], "Fred"),-1)
 
 
 ; omit
-
 A.caseSensitive := false

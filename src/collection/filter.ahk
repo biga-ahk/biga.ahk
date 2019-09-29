@@ -24,6 +24,7 @@ filter(param_collection,param_func) {
     return l_array
 }
 
+
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 assert.test(A.filter(users,"active"), [{"user":"barney", "age":36, "active":true}])
@@ -37,7 +38,6 @@ fn_filter1(param_interatee) {
 
 
 ; omit
-
 assert.test(A.filter([1,2,3,-10,1.9],Func("fn_filter2")), [2,3])
 fn_filter2(param_interatee) {
     if (param_interatee >= 2) {

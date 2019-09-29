@@ -6,13 +6,16 @@ clone(param_value) {
     }
 }
 
+
 ; tests
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
 object.a := 2
-assert.test(shallowclone,[{ "a": 1 }, { "b": 2 }])
+assert.test(shallowclone, [{ "a": 1 }, { "b": 2 }])
+
 
 ; omit
 var := 1
 clone := A.clone(var)
-assert.notequal(var,++clone)
+clone++
+assert.notequal(var, clone)

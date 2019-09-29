@@ -16,11 +16,11 @@ concat(param_array,param_values*) {
     return l_array
 }
 
+
 ; tests
 array := [1]
-assert.test(A.concat(array, 2, [3], [[4]]),[1, 2, 3, [4]])
-assert.test(A.concat(array),[1])
+assert.test(A.concat(array, 2, [3], [[4]]), [1, 2, 3, [4]])
+assert.test(A.concat(array), [1])
 
 ; omit
-
-assert.test(A.concat(array, 1),[1, 1])
+assert.test(A.concat(array, 1), [1, 1])

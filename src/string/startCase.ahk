@@ -22,6 +22,7 @@ startCase(param_string := "") {
     return l_string
 }
 
+
 ; tests
 assert.test(A.startCase("--foo-bar--"),"Foo Bar")
 assert.test(A.startCase("fooBar"),"Foo Bar")

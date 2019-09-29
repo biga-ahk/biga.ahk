@@ -18,8 +18,8 @@ internal_sort(param_collection, param_iteratees := "name") {
         return l_array
 }
 
-; tests
 
+; tests
 users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }

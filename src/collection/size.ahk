@@ -11,8 +11,8 @@ size(param_collection) {
     return % StrLen(param_collection)
 }
 
-; tests
 
-assert.test(A.size([1, 2, 3]),3)
-assert.test(A.size({ "a": 1, "b": 2 }),2)
-assert.test(A.size("pebbles"),7)
+; tests
+assert.test(A.size([1, 2, 3]), 3)
+assert.test(A.size({ "a": 1, "b": 2 }), 2)
+assert.test(A.size("pebbles"), 7)
