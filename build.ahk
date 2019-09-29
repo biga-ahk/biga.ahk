@@ -3,12 +3,9 @@
 #SingleInstance force
 
 
-#include %A_ScriptDir%\lib
-#include biga.ahk\export-manual.ahk
-; #include transformStringVars.ahk\export.ahk
-; #include util-array.ahk\export.ahk
+#include %A_ScriptDir%\node_modules
+#include biga.ahk\export.ahk
 ; #include json.ahk\export.ahk
-; #include wrappers.ahk\export.ahk
 #include util-misc.ahk\export.ahk
 
 
@@ -30,7 +27,8 @@ Readme_File := A_ScriptDir "\docs\README.md"
 lib_File := A_ScriptDir "\lib\biga.ahk\export-built.ahk"
 test_File := A_ScriptDir "\lib\biga.ahk\test.ahk"
 
-Ignoremethods := ["internal","matches"]
+ignoreMethodDocsArr := ["internal","matches"]
+ommitMethodsArr := ["matches"]
 
 The_Array := []
 msgarray := []
@@ -54,6 +52,10 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
     bbb.category := Fn_QuickRegEx(A_LoopFileFullPath,categoryRegEx)
     ; msgbox, % bbb.name " -  " bbb.category
 
+    ; ommit if noted
+    if (foundIndex := A.indexOf(ommitMethodsArr,bbb.name) != -1) {
+        continue
+    }
     ; markdown file
     markdown_File := A_LoopFileDir "\" bbb.name ".md"
     if (!FileExist(markdown_File)) {
@@ -113,7 +115,7 @@ FileDelete, % Readme_File
 DOCS_Array := []
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    if (A.indexof(Ignoremethods,element.name) != -1 || A.startsWith(element.name,"internal")) { ; skip ignored methods
+    if (A.indexof(ignoreMethodDocsArr,element.name) != -1 || A.startsWith(element.name,"internal")) { ; skip ignored methods
         continue
     }
     txt := []

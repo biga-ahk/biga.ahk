@@ -14,14 +14,9 @@ find(param_collection,param_iteratee,param_fromindex := 1) {
                 return param_collection[A_Index]
             }
         }
+        ; A.matches handling
         if (param_iteratee.Count() > 0) {
-            ; for Key, Value in param_func {
-            ;     msgbox, % Key
-            ;     msgbox, % Value
-            ;     if (param_collection[A_Index][param_func]) {
-            ;         return % this.info_Array.push(param_collection[A_Index])
-            ;     }
-            ; }
+
         }
     }
 }
