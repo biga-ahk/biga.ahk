@@ -2,11 +2,11 @@ reverse(param_collection) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
-    this.info_Array := []
+    l_array := []
     while (param_collection.MaxIndex() != "") {
-        this.info_Array.push(param_collection.pop())
+        l_array.push(param_collection.pop())
     }
-    return % this.info_Array
+    return % l_array
 }
 
 

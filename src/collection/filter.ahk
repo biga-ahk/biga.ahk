@@ -1,14 +1,14 @@
 filter(param_collection,param_func) {
-    this.info_Array := []
+    l_array := []
     loop, % param_collection.MaxIndex() {
         if (param_func is string) {
             if (param_collection[A_Index][param_func]) {
-                this.info_Array.push(param_collection[A_Index])
+                l_array.push(param_collection[A_Index])
             }
         }
         if (IsFunc(param_func)) {
             if (%param_func%(param_collection[A_Index])) {
-                this.info_Array.push(param_collection[A_Index])
+                l_array.push(param_collection[A_Index])
             }
         }
         ; if (param_func.Count() > 0) {
@@ -16,12 +16,12 @@ filter(param_collection,param_func) {
         ;         msgbox, % Key
         ;         msgbox, % Value
         ;         if (param_collection[A_Index][param_func]) {
-        ;             this.info_Array.push(param_collection[A_Index])
+        ;             l_array.push(param_collection[A_Index])
         ;         }
         ;     }
         ; }
     }
-    return this.info_Array
+    return l_array
 }
 
 ; tests

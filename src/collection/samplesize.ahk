@@ -6,7 +6,7 @@ sampleSize(param_collection,param_SampleSize := 1) {
         return % param_collection
     }
 
-    this.info_Array := []
+    l_array := []
     tempArray := []
     loop, %param_SampleSize%
     {
@@ -15,10 +15,10 @@ sampleSize(param_collection,param_SampleSize := 1) {
             tempArray.push(randomNum)
             Random, randomNum, 1, param_collection.MaxIndex()
         }
-        this.info_Array.push(param_collection[randomNum])
+        l_array.push(param_collection[randomNum])
         param_collection.RemoveAt(randomNum)
     }
-    return this.info_Array
+    return l_array
 }
 
 ; tests
