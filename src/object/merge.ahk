@@ -1,6 +1,6 @@
 merge(param_collections*) {
     result := param_collections[1]
-    for i, obj in param_collections {
+    for index, obj in param_collections {
         if(A_Index = 1) {
             continue 
         }
@@ -25,12 +25,12 @@ internal_Merge(param_collection1, param_collection2) {
     ; initialize an associative array
     combined := {}
 
-    for key, val in param_collection1 {
-        combined[key] := this.internal_Merge(val, param_collection2[key])
+    for Key, Value in param_collection1 {
+        combined[Key] := this.internal_Merge(Value, param_collection2[Key])
     }
-    for key, val in param_collection2 {
-        if(!combined.HasKey(key)) {
-            combined[key] := val
+    for Key, Value in param_collection2 {
+        if(!combined.HasKey(Key)) {
+            combined[Key] := Value
         }
     }
     return combined

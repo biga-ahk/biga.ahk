@@ -4,9 +4,9 @@ compact(param_array) {
     }
     l_array := []
 
-    for key, value in param_array {
-        if (value != "" && value != 0 && value != false) {
-            l_array.push(value)
+    for Key, Value in param_array {
+        if (Value != "" && Value != 0 && Value != false) {
+            l_array.push(Value)
         }
     }
     return l_array
