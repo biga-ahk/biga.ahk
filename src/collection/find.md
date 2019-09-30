@@ -1,7 +1,7 @@
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
 > [!Warning]
-> This method has not reached pairity with Lodash.
+> This method has not reached pairity with Lodash. A.matches shorthand is not working
 
 ## Arguments
 

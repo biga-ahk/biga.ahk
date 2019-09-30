@@ -25,4 +25,4 @@ zip(param_arrays*) {
 
 
 ; tests
-assert.test(A.zip(["a", "b"], [1, 2], [true , true]),[["a", 1, true], ["b", 2, true]])
+assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
