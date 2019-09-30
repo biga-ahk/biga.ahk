@@ -1,4 +1,4 @@
-map(param_collection,param_iteratee) {
+map(param_collection,param_iteratee := "baseProperty") {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
@@ -13,6 +13,10 @@ map(param_collection,param_iteratee) {
     ; run against every value in the collection
     for Key, Value in param_collection {
         if (!BoundFunc) { ; is property/string
+            if (param_iteratee == "baseProperty") {
+                l_array.push(Value)
+                continue
+            }
             vValue := param_collection[A_Index][param_iteratee]
             l_array.push(vValue)
             continue
@@ -35,6 +39,10 @@ square(n) {
 
 assert.test(A.map([4, 8], Func("square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }, Func("square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
+
+; omit
+
