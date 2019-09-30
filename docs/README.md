@@ -152,6 +152,16 @@ findIndexFunc(o) {    return % o.user == "barney"}```
 
 
 ## .fromPairs
+The inverse of A.toPairs; this method returns an object composed from key-value pairs.
+
+#### Arguments
+
+pairs (Array): The key-value pairs.
+
+
+#### Returns
+
+(Object): Returns the new object.
 
 
 #### Example
@@ -894,6 +904,34 @@ object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"fals
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
+
+```
+
+
+
+
+## .toPairs
+Creates an array of own enumerable string keyed-value pairs for object which can be consumed by A.fromPairs.
+
+
+<!-- ## Aliases
+A.entries -->
+
+#### Arguments
+
+object (Object): The object to query.
+
+
+#### Returns
+
+(Array): Returns the key-value pairs.
+
+
+#### Example
+
+```autohotkey
+A.toPairs({"a": 1, "b": 2})
+; => [["a", 1], ["b", 2]]
 
 ```
 
