@@ -3,7 +3,7 @@ Converts string to an integer.
 > [!Warning]
 > This method has not reached pairity with Lodash.
 
-##Arguments
+## Arguments
 
 string (string): The string to convert.
 

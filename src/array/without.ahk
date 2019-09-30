@@ -4,7 +4,7 @@ without(param_array, param_values*) {
     }
     l_array := this.clone(param_array)
 
-    ; loop all param_values as it is Variadic
+    ; loop all Variadic inputs
     for i, val in param_values {
         while (foundindex := this.indexOf(l_array, val) != -1) {
             l_array.RemoveAt(foundindex)

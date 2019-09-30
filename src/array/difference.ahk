@@ -4,7 +4,7 @@
     }
     l_array := this.clone(param_array)
 
-    ; loop all param_values as it is Variadic
+    ; loop all Variadic inputs
     for i, obj in param_values {
         loop, % obj.MaxIndex() {
             foundIndex := this.indexOf(l_array, obj[A_Index])
