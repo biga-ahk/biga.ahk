@@ -151,6 +151,20 @@ findIndexFunc(o) {    return % o.user == "barney"}```
 
 
 
+## .fromPairs
+
+
+#### Example
+
+```autohotkey
+A.fromPairs([["a", 1], ["b", 2]])
+; => {"a": 1, "b": 2}
+
+```
+
+
+
+
 ## .indexOf
 Gets the index at which the first occurrence of value is found in array using SameValueZero for equality comparisons. If fromIndex is negative, it's used as the offset from the end of array.
 
