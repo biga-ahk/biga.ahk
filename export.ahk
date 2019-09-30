@@ -6,6 +6,28 @@ class biga {
         this.throwExceptions := true
 	}
 
+	chunk(param_array,param_size := 1) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+	    l_array := []
+	    param_array := this.clone(param_array)
+
+	    ; keep working till the parameter array is empty
+	    while (this.size(param_array) > 0) {
+	        l_InnerArr := []
+	        ; fill the Inner Array to the max size of the size parameter
+	        loop, % param_size {
+	            ; exit loop if there is nothing left in parameter array to work with
+	            if (this.size(param_array) == 0) {
+	                break
+	            }
+	            l_InnerArr.push(param_array.RemoveAt(1))
+	        }
+	    l_array.push(l_InnerArr)
+	    }
+	    return l_array
+	}
 	compact(param_array) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
@@ -193,6 +215,21 @@ class biga {
 	        }
 	    }
 	    return l_array
+	}
+	zipObject(param_props,param_values) {
+	    if (!IsObject(param_props)) {
+	        param_props := []
+	    }
+	    if (!IsObject(param_values)) {
+	        param_values := []
+	    }
+
+	    l_obj := {}
+	    for Key, Value in param_props {
+	        vValue := param_values[A_Index]
+	        l_obj[Value] := vValue
+	    }
+	    return l_obj
 	}
 	filter(param_collection,param_func) {
 	    l_array := []

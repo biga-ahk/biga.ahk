@@ -1,6 +1,18 @@
 
 # **Array**
 ## .chunk
+Creates an array of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
+
+
+#### Arguments
+
+array (Array): The array to process.
+[size:=1] (number): The length of each chunk
+
+
+#### Returns
+
+(Array): Returns the new array of chunks.
 
 
 #### Example
@@ -367,6 +379,34 @@ Creates an array of grouped elements, the first of which contains the first elem
 ```autohotkey
 A.zip(["a", "b"], [1, 2], [true, true])
 ; => [["a", 1, true], ["b", 2, true]]
+
+```
+
+
+
+
+## .zipObject
+This method is like A.fromPairs except that it accepts two arrays, one of property identifiers and one of corresponding values.
+
+Since
+0.4.0
+
+#### Arguments
+
+[props:=[]] (Array): The property identifiers.
+[values:=[]] (Array): The property values.
+
+
+#### Returns
+
+(Object): Returns the new object.
+
+
+#### Example
+
+```autohotkey
+A.zipObject(["a", "b"], [1, 2])
+; => {"a": 1, "b": 2}
 
 ```
 

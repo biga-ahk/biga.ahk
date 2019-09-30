@@ -1,4 +1,4 @@
-    #Include export-built.ahk
+    #Include ..\..\export.ahk
     #Include ..\unit-testing.ahk\export.ahk
     #Include ..\util-array.ahk\export.ahk
     ; #Include ..\util-misc.ahk\export.ahk
