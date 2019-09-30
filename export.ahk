@@ -4,6 +4,8 @@ class biga {
         this.caseSensitive := false
         this.limit := -1
         this.throwExceptions := true
+
+        this.matchesObj
 	}
 
 	chunk(param_array,param_size := 1) {
@@ -109,11 +111,6 @@ class biga {
 	    l_obj := {}
 	    for Key, Value in param_pairs {
 	        l_obj[Value[1]] := Value[2]
-
-	        ; for Key2, Value2 in Value {
-	        ;     msgbox, % "Key:" Key2 " Val: " Value2
-	        ;     l_obj[Value2] := Value[Key2 + 1]
-	        ; }
 	    }
 	    return l_obj
 	}
@@ -585,6 +582,17 @@ class biga {
 	        }
 	    }
 	    return combined
+	}
+	toPairs(param_object) {
+	    if (!IsObject(param_object)) {
+	        this.internal_ThrowException()
+	    }
+
+	    l_array := []
+	    for Key, Value in param_object {
+	        l_array.push([Key, Value])
+	    }
+	    return l_array
 	}
 	parseInt(param_string) {
 	    param_string := this.trimStart(param_string,"0 -_")
