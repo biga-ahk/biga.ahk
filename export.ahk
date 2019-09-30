@@ -101,6 +101,22 @@ class biga {
 	    }
 	    return % -1 + 0
 	}
+	fromPairs(param_pairs) {
+	    if (!IsObject(param_pairs)) {
+	        this.internal_ThrowException()
+	    }
+
+	    l_obj := {}
+	    for Key, Value in param_pairs {
+	        l_obj[Value[1]] := Value[2]
+
+	        ; for Key2, Value2 in Value {
+	        ;     msgbox, % "Key:" Key2 " Val: " Value2
+	        ;     l_obj[Value2] := Value[Key2 + 1]
+	        ; }
+	    }
+	    return l_obj
+	}
 	indexOf(param_array,param_value,fromIndex := 1) {
 	    for Index, Value in param_array {
 	        if (Index < fromIndex) {
