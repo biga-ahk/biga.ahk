@@ -30,7 +30,7 @@ A.chunk(["a", "b", "c", "d"], 3)
 
 
 ## .compact
-Creates an array with all falsey values removed. The values false, 0, and "" 
+Creates an array with all falsey values removed. The values false, 0, and "" are falsey.
 
 
 #### Arguments
@@ -506,6 +506,45 @@ fn_find1(param_interatee) {    if (param_interatee.active) {         return tr
 
 
 
+## .forEach
+Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+
+
+<!-- Aliases
+_.each -->
+
+
+#### Arguments
+
+collection (Array|Object): The collection to iterate over.
+[iteratee=_.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+
+(*): Returns collection.
+
+
+#### Example 
+
+```autohotkey
+A.forEach([1, 2], Func("forEachFunc1")
+forEachFunc1(value) {
+    msgbox, % value
+}
+; msgboxes `1` then `2`
+
+A.forEach({ "a": 1, "b": 2 }, Func("forEachFunc2")
+forEachFunc2(value, key) {
+    msgbox, % key
+}
+msgboxes "a" then "b"
+```
+
+
+
+
+
 ## .includes
 Checks if value is in collection. If collection is a string, it's checked for a substring of value, otherwise SameValueZero is used for equality comparisons.
 
@@ -716,14 +755,6 @@ A.sortBy(users, "age")
 
 
 
-# **External**
-## .matchesfunction
-
-
-
-
-
-
 # **Lang**
 ## .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
@@ -743,9 +774,9 @@ value (*): The value to clone.
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
 object.a := 2
-A.printObj(object)
+object
 ; => [{ "a": 2 }, { "b": 2 }]
-A.printObj(shallowclone)
+shallowclone
 ; => [{ "a": 1 }, { "b": 2 }]
 ```
 
