@@ -9,7 +9,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #283646; /*  #283646 */
+  background: #283646;
   color: black;
 }
 
@@ -57,7 +57,7 @@ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
 
 .hljs-section,
 .hljs-meta {
-  color: #643820;
+  color: #62d543
 }
 
 

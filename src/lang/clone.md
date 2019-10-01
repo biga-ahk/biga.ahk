@@ -15,8 +15,8 @@ value (*): The value to clone.
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
 object.a := 2
-A.printObj(object)
+object
 ; => [{ "a": 2 }, { "b": 2 }]
-A.printObj(shallowclone)
+shallowclone
 ; => [{ "a": 1 }, { "b": 2 }]
 ```
