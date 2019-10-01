@@ -24,7 +24,7 @@ testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
 ; Files
 Readme_File := A_ScriptDir "\docs\README.md"
-lib_File := A_ScriptDir "\lib\biga.ahk\export-built.ahk"
+lib_File := A_ScriptDir "\export.ahk"
 test_File := A_ScriptDir "\lib\biga.ahk\test.ahk"
 
 ignoreMethodDocsArr := ["internal","matches"]
@@ -118,6 +118,11 @@ loop, % The_Array.MaxIndex() {
     if (A.indexof(ignoreMethodDocsArr,element.name) != -1 || A.startsWith(element.name,"internal")) { ; skip ignored methods
         continue
     }
+    ; skip if category is any of the following
+    if (A.isMatch(element, {"category": "external"}) || A.isMatch(element, {"category": "internal"})) {
+        continue
+    }
+
     txt := []
     ExampleArray := []
     if (element.category != The_Array[A_Index - 1].category) {
@@ -153,9 +158,9 @@ fn_AddIndent(value) {
     return x
 }
 ; lib_array := A.replace(lib_array,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
-; while (RegExMatch(x, "(^\s*;(?:.*))(?:\r?\n\g<1>)+", RE_Match)) {
-;     A.replace(x,RE_Match.Value(),"")
-; }
+while (RegExMatch(x, "(^\s*;(?:.*))(?:\r?\n\g<1>)+", RE_Match)) {
+    A.replace(x,RE_Match.Value(),"")
+}
 
 
 FileDelete, % lib_File
@@ -169,7 +174,7 @@ while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 FileAppend, %lib_txt%, % lib_File
 
 ; exitmsg := A.join(msgarray, "`n")
-sleep, 500
+sleep, 100
 Run, %test_File%, % A_ScriptDir "/lib/biga.ahk"
 ExitApp, 1
 
