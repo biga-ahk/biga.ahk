@@ -30,7 +30,8 @@ lowercaseTags := A.map(tagShortList, A.toLower)
 tags := A.join(lowercaseTags, ",")
 ; => "scrumptious,thailand,lemongrass,tomatoes"
 
-; Let's pretend this blogpost was a lot longer and we only want {{3}} tags for this post. We can choose some tags at random from the larger collection
+; Let's pretend this blogpost was a lot longer and we only want {{3}} tags for this post.
+; We can choose some tags at random from the larger collection
 lessTags := A.sampleSize(lowercaseTags, 3)
 
 ; For the main page let's make a preview of the blogpost. 40 characters ought to do

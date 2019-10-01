@@ -25,7 +25,8 @@ insertIndex := A.sortedIndex(mappedHP, newEnemy.hp)
 ; => 1
 sortedEnemies.InsertAt(insertIndex, newEnemy)
 
-; Assume rogues get bonus damage to anything with a status of "exposed_{{x}}" let's filter the sorted array by those and call all of them out. In this case there is only 1
+; Assume rogues get bonus damage to anything with a status of "exposed_{{x}}";
+; let's filter the sorted array by those and call all of them out. In this case there is only 1
 exposedTargets := A.filter(sortedEnemies, Func("filterexposedFunc"))
 filterexposedFunc(o) {
     global
