@@ -175,6 +175,35 @@ A.fromPairs([["a", 1], ["b", 2]])
 
 
 
+## .head
+Gets the first element of array.
+
+<!-- Aliases
+_.first -->
+
+#### Arguments
+
+array (Array): The array to query.
+
+
+#### Returns
+
+(*): Returns the first element of array.
+
+#### Example
+
+```autohotkey
+A.head([1, 2, 3])
+; => 1
+
+A.head([])
+; => ""
+
+```
+
+
+
+
 ## .indexOf
 Gets the index at which the first occurrence of value is found in array using SameValueZero for equality comparisons. If fromIndex is negative, it's used as the offset from the end of array.
 
@@ -330,6 +359,31 @@ A.sortedIndex([30, 50], 20)
 
 A.sortedIndex([30, 50], 99)
 ; => 3
+
+```
+
+
+
+
+## .tail
+Gets all but the first element of array.
+
+
+#### Arguments
+
+array (Array): The array to query.
+
+
+#### Returns
+
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.tail([1, 2, 3])
+; => [2, 3]
 
 ```
 
