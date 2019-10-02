@@ -50,4 +50,4 @@ assert.test(A.forEach([1, 2], Func("forEachFunc1")), [1, 2])
 forEachFunc1(value) {
    ; msgbox, % value
 }
-; returns `1` then `2`
+; msgboxes `1` then `2`

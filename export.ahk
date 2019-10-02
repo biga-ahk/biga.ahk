@@ -111,6 +111,12 @@ class biga {
 	    }
 	    return l_obj
 	}
+	head(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+	    return param_array[1]
+	}
 	indexOf(param_array,param_value,fromIndex := 1) {
 	    for Index, Value in param_array {
 	        if (Index < fromIndex) {
@@ -172,6 +178,21 @@ class biga {
 	        }
 	    }
 	    return % param_array.Count() + 1
+	}
+	tail(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    l_array := this.clone(param_array)
+
+	    ; remove Index 1 of array
+	    l_array.RemoveAt(1)
+	    ; return empty array if empty
+	    if (l_array.Count() == 0) {
+	        return []
+	    }
+	    return l_array
 	}
 	uniq(param_collection) {
 	    if (!IsObject(param_collection)) {
@@ -259,6 +280,9 @@ class biga {
 	    return l_array
 	}
 	find(param_collection,param_iteratee,param_fromindex := 1) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
 	    loop, % param_collection.MaxIndex() {
 	        if (param_fromindex > A_Index) {
 	            continue
