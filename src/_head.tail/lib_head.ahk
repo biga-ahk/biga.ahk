@@ -1,8 +1,7 @@
 class biga {
 
-	__New() {
-        this.throwExceptions := true
-        this.caseSensitive := false
-        this.limit := -1
-	}
+    ; class attributes
+    static throwExceptions := true
+    static caseSensitive := false
+    static limit := -1
 

@@ -1,12 +1,9 @@
 class biga {
 
-	__New() {
-        this.caseSensitive := false
-        this.limit := -1
-        this.throwExceptions := true
-
-        this.matchesObj
-	}
+    ; class attributes
+    static throwExceptions := true
+    static caseSensitive := false
+    static limit := -1
 
 	chunk(param_array,param_size := 1) {
 	    if (!IsObject(param_array)) {
@@ -467,7 +464,9 @@ class biga {
 
 	    return l_array
 	}
-
+	; /--\--/--\--/--\--/--\--/--\
+	; Internal functions
+	; \--/--\--/--\--/--\--/--\--/
 
 	printObj(param_obj) {
 	    if (!IsObject(param_obj)) {
@@ -805,4 +804,8 @@ class biga {
 	    }
 	    return l_array
 	}
+}
+
+class A extends biga {
+
 }
