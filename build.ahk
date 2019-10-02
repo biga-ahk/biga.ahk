@@ -3,10 +3,10 @@
 #SingleInstance force
 
 
-#include %A_ScriptDir%\node_modules
-#include biga.ahk\export.ahk
+#Include %A_ScriptDir%\node_modules
+#Include biga.ahk\export.ahk
+#Include util-misc.ahk\export.ahk
 ; #include json.ahk\export.ahk
-#include util-misc.ahk\export.ahk
 
 
 ; FilePaths
@@ -18,7 +18,7 @@ test_File := A_ScriptDir "\tests\test-all.ahk"
 A := new biga()
 docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
 testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
-categoryRegEx := "src\\(\w+)\\\w+\.\w{2,3}"
+categoryRegEx := "src\\(.+)\\\w+\.\w{2,3}"
 newline := "`r`n" ;do not change this as docsify needs `r
 
 ; Test RegEx
@@ -39,22 +39,23 @@ vMethodNames_Array := []
 
 loop, Files, %A_ScriptDir%\src\*.ahk, R
 {
-    if (A.includes(A_LoopFileName,"head") || A.includes(A_LoopFileName,"tail")) {
-        continue
-    }
+    
     FileRead, The_MemoryFile, % A_LoopFileFullPath
     
     ; chunk that b
     bbb := {}
     bbb.raw := The_MemoryFile
     ; bbb.name := SubStr(A_LoopFileName,1,StrLen(A_LoopFileName) - 4)
-    bbb.name := A.split(A_LoopFileName,".")[1]
+    bbb.name := A.split(A_LoopFileName, ".")[1]
     ; bbb.test := Fn_QuickRegEx(bbb.raw,testsRegEx)
-    bbb.category := Fn_QuickRegEx(A_LoopFileFullPath,categoryRegEx)
+    bbb.category := Fn_QuickRegEx(A_LoopFileFullPath, categoryRegEx)
     ; msgbox, % bbb.name " -  " bbb.category
+    if (bbb.category = "_head.tail") { ; skip head and tail folder
+        continue
+    }
 
     ; ommit if noted
-    if (foundIndex := A.indexOf(ommitMethodsArr,bbb.name) != -1) {
+    if (foundIndex := A.indexOf(ommitMethodsArr, bbb.name) != -1) {
         continue
     }
     ; markdown file
