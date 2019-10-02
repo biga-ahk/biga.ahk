@@ -18,7 +18,7 @@ test_File := A_ScriptDir "\tests\test-all.ahk"
 A := new biga()
 docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
 testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
-categoryRegEx := "(\w+)\\\w+\.\w{3}"
+categoryRegEx := "src\\(\w+)\\\w+\.\w{2,3}"
 newline := "`r`n" ;do not change this as docsify needs `r
 
 ; Test RegEx
@@ -94,8 +94,7 @@ FileAppend, %test_head%, % test_File
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
     FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
-    FileAppend, % element.tests newline newline newline newline newline, % test_File
-    
+    FileAppend, % element.tests "`n", % test_File
 }
 FileAppend, %test_tail%, % test_File
 

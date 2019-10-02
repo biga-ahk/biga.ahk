@@ -7,7 +7,8 @@
         "newinstall": "yarn install --modules-folder ./lib"
     },
     "dependencies": {
-        "biga.ahk": "^0.2.0"
+        "biga.ahk": "^0.3.3",
+        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
     },
     "devDependencies": {
         "json.ahk": "github:chunjee/json.ahk",
