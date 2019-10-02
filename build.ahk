@@ -9,6 +9,11 @@
 #include util-misc.ahk\export.ahk
 
 
+; FilePaths
+Readme_File := A_ScriptDir "\docs\README.md"
+lib_File := A_ScriptDir "\export.ahk"
+test_File := A_ScriptDir "\tests\test-all.ahk"
+
 ; Globals
 A := new biga()
 docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
@@ -22,10 +27,6 @@ testtrue := "true\(A(\.\w+)(.+\))\)"
 testfalse := "false\(A(\.\w+)(.+\))\)"
 testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
-; Files
-Readme_File := A_ScriptDir "\docs\README.md"
-lib_File := A_ScriptDir "\export.ahk"
-test_File := A_ScriptDir "\lib\biga.ahk\test.ahk"
 
 ignoreMethodDocsArr := ["internal","matches"]
 ommitMethodsArr := ["matches"]
@@ -162,10 +163,9 @@ while (RegExMatch(x, "(^\s*;(?:.*))(?:\r?\n\g<1>)+", RE_Match)) {
     A.replace(x,RE_Match.Value(),"")
 }
 
-
 FileDelete, % lib_File
 lib_head := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk"))
-lib_tail := A.split("}`n")
+lib_tail := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_tail.ahk"))
 lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
 while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
@@ -175,7 +175,7 @@ FileAppend, %lib_txt%, % lib_File
 
 ; exitmsg := A.join(msgarray, "`n")
 sleep, 100
-Run, %test_File%, % A_ScriptDir "/lib/biga.ahk"
+Run, %test_File%
 ExitApp, 1
 
 
