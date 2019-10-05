@@ -22,6 +22,8 @@ assert.test(A.difference([2, 1], [2, 3]), [1])
 
 assert.test(A.difference([2, 1], [3]), [2, 1])
 
+assert.test(A.difference([2, 1], 3), [2, 1])
+
 ; omit
 assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
