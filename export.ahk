@@ -75,7 +75,8 @@ class biga {
 	    return l_array
 	}
 	drop(param_array,param_n:=1) {
-	    if (param_n is not number) {
+	    if param_n is not number 
+	    {
 	        this.internal_ThrowException()
 	    }
 
@@ -98,7 +99,8 @@ class biga {
 	    return l_array
 	}
 	dropRight(param_array,param_n:=1) {
-	    if (param_n is not number) {
+	    if param_n is not number 
+	    {
 	        this.internal_ThrowException()
 	    }
 
@@ -236,7 +238,8 @@ class biga {
 	    return this.drop(param_array)
 	}
 	take(param_array,param_n:=1) {
-	    if (param_n is not number) {
+	    if param_n is not number 
+	    {
 	        this.internal_ThrowException()
 	    }
 
@@ -264,7 +267,8 @@ class biga {
 	    return l_array
 	}
 	takeRight(param_array,param_n:=1) {
-	    if (param_n is not number) {
+	    if param_n is not number 
+	    {
 	        this.internal_ThrowException()
 	    }
 

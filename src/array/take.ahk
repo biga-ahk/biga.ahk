@@ -1,5 +1,6 @@
 take(param_array,param_n:=1) {
-    if (param_n is not number) {
+    if param_n is not number 
+    {
         this.internal_ThrowException()
     }
 
