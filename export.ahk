@@ -74,6 +74,52 @@ class biga {
 	    }
 	    return l_array
 	}
+	drop(param_array,param_n:=1) {
+	    if (param_n is not number) {
+	        this.internal_ThrowException()
+	    }
+
+	    if (IsObject(param_array)) {
+	        l_array := this.clone(param_array)
+	    }
+	    if (param_array is alnum) {
+	        l_array := StrSplit(param_array)
+	    }
+
+	    ; create the slice
+	    loop, % param_n
+	    {
+	        l_array.RemoveAt(1)
+	    }
+	    ; return empty array if empty
+	    if (l_array.Count() == 0) {
+	        return []
+	    }
+	    return l_array
+	}
+	dropRight(param_array,param_n:=1) {
+	    if (param_n is not number) {
+	        this.internal_ThrowException()
+	    }
+
+	    if (IsObject(param_array)) {
+	        l_array := this.clone(param_array)
+	    }
+	    if (param_array is alnum) {
+	        l_array := StrSplit(param_array)
+	    }
+
+	    ; create the slice
+	    loop, % param_n
+	    {
+	        l_array.RemoveAt(l_array.Count())
+	    }
+	    ; return empty array if empty
+	    if (l_array.Count() == 0) {
+	        return []
+	    }
+	    return l_array
+	}
 	findIndex(param_array,param_value,fromIndex := 1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
@@ -117,13 +163,7 @@ class biga {
 	}
 	head(param_array) {
 
-	    if (IsObject(param_array)) {
-	        return param_array[1]
-	    }
-	    if (param_array is alnum) {
-	        l_array := StrSplit(param_array)
-	        return l_array[1]
-	    }
+	    return this.take(param_array)[1]
 	}
 	indexOf(param_array,param_value,fromIndex := 1) {
 	    if (!IsObject(param_array)) {
@@ -193,20 +233,63 @@ class biga {
 	}
 	tail(param_array) {
 
-	    if (IsObject(param_array)) {
-	        l_array := this.clone(param_array)
-	    }
-	    if (param_array is alnum) {
-	        l_array := StrSplit(param_array)
+	    return this.drop(param_array)
+	}
+	take(param_array,param_n:=1) {
+	    if (param_n is not number) {
+	        this.internal_ThrowException()
 	    }
 
-	    ; remove Index 1 of array
-	    l_array.RemoveAt(1)
+	    if (IsObject(param_array)) {
+	        param_array := this.clone(param_array)
+	    }
+	    if (param_array is alnum) {
+	        param_array := StrSplit(param_array)
+	    }
+	    l_array := []
+
+	    ; create the slice
+	    loop, % param_n
+	    {
+	        ;continue if requested index is higher than param_array can account for
+	        if (param_array.Count() < A_Index) {
+	            continue
+	        }
+	        l_array.push(param_array[A_Index])
+	    }
 	    ; return empty array if empty
-	    if (l_array.Count() == 0) {
+	    if (l_array.Count() == 0 || param_n == 0) {
 	        return []
 	    }
 	    return l_array
+	}
+	takeRight(param_array,param_n:=1) {
+	    if (param_n is not number) {
+	        this.internal_ThrowException()
+	    }
+
+	    if (IsObject(param_array)) {
+	        param_array := this.clone(param_array)
+	    }
+	    if (param_array is alnum) {
+	        param_array := StrSplit(param_array)
+	    }
+	    l_array := []
+
+	    ; create the slice
+	    loop, % param_n
+	    {
+	        if (param_array.Count() == 0) {
+	            continue
+	        }
+	        vValue := param_array.pop()
+	        l_array.push(vValue)
+	    }
+	    ; return empty array if empty
+	    if (l_array.Count() == 0 || param_n == 0) {
+	        return []
+	    }
+	    return this.reverse(l_array)
 	}
 	uniq(param_collection) {
 	    if (!IsObject(param_collection)) {
