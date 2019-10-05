@@ -112,6 +112,87 @@ A.difference([2, 1], 3)
 
 
 
+## .drop
+Creates a slice of array with n elements dropped from the beginning.
+
+
+#### Arguments
+
+array (Array): The array to query.
+[n:=1] (number): The number of elements to drop.
+
+
+#### Returns
+
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.drop([1, 2, 3])
+; => [2, 3]
+
+A.drop([1, 2, 3], 2)
+; => [3]
+
+A.drop([1, 2, 3], 5)
+; => []
+
+A.drop([1, 2, 3], 0)
+; => [1, 2, 3]
+
+A.drop("fred")
+; => ["r", "e", "d"]
+
+A.drop(100)
+; => ["0", "0"]
+
+```
+
+
+
+
+## .dropRight
+Creates a slice of array with n elements dropped from the end.
+
+
+#### Arguments
+
+array (Array): The array to query.
+[n:=1] (number): The number of elements to drop.
+
+#### Returns
+
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.dropRight([1, 2, 3])
+; => [1, 2]
+
+A.dropRight([1, 2, 3], 2)
+; => [1]
+
+A.dropRight([1, 2, 3], 5)
+; => []
+
+A.dropRight([1, 2, 3], 0)
+; => [1, 2, 3]
+
+A.dropRight("fred")
+; => ["f", "r", "e"]
+
+A.dropRight(100)
+; => ["1", "0"]
+
+```
+
+
+
+
 ## .findIndex
 This method is like A.find except that it returns the index of the first element predicate returns truthy for instead of the element itself.
 
@@ -399,6 +480,88 @@ A.tail("fred")
 
 A.tail(100)
 ; => ["0", "0"]
+
+```
+
+
+
+
+## .take
+Creates a slice of array with n elements taken from the beginning.
+
+
+#### Arguments
+
+array (Array): The array to query.
+[n:=1] (number): The number of elements to take.
+
+
+#### Returns
+
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.take([1, 2, 3])
+; => [1]
+
+A.take([1, 2, 3], 2)
+; => [1, 2]
+
+A.take([1, 2, 3], 5)
+; => [1, 2, 3]
+
+A.take([1, 2, 3], 0)
+; => []
+
+A.take("fred")
+; => ["f"]
+
+A.take(100)
+; => ["1"]
+
+```
+
+
+
+
+## .takeRight
+Creates a slice of array with n elements taken from the end.
+
+
+#### Arguments
+
+array (Array): The array to query.
+[n:=1] (number): The number of elements to take.
+
+
+#### Returns
+
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.takeRight([1, 2, 3])
+; => [3]
+
+A.takeRight([1, 2, 3], 2)
+; => [2, 3]
+
+A.takeRight([1, 2, 3], 5)
+; => [1, 2, 3]
+
+A.takeRight([1, 2, 3], 0)
+; => []
+
+A.takeRight("fred")
+; => ["d"]
+
+A.takeRight(100)
+; => ["0"]
 
 ```
 
