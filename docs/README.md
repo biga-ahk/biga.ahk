@@ -104,6 +104,9 @@ A.difference([2, 1], [2, 3])
 A.difference([2, 1], [3])
 ; => [2, 1]
 
+A.difference([2, 1], 3)
+; => [2, 1]
+
 ```
 
 
@@ -198,6 +201,9 @@ A.head([1, 2, 3])
 
 A.head([])
 ; => ""
+
+A.head("fred")
+; => "f"
 
 ```
 
@@ -1111,7 +1117,7 @@ A.replace("Hi Fred", "Fred", "Barney")
 A.replace("1234", "/(\d+)/", "numbers")
 ; => "numbers"
 
-```
+msg := "-" A_Tab A_Tab A_Tab "' hey friend'" A_Tab "-"; msgbox, % A.replace(msg, "/(\t)/", "")msgbox, % A.replace(msg, A_Tab, "")```
 
 
 
