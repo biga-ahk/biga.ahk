@@ -1,12 +1,6 @@
 head(param_array) {
 
-    if (IsObject(param_array)) {
-        return param_array[1]
-    }
-    if (param_array is alnum) {
-        l_array := StrSplit(param_array)
-        return l_array[1]
-    }
+    return this.take(param_array)[1]
 }
 
 

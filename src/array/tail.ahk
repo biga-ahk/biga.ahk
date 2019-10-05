@@ -1,19 +1,6 @@
 tail(param_array) {
 
-    if (IsObject(param_array)) {
-        l_array := this.clone(param_array)
-    }
-    if (param_array is alnum) {
-        l_array := StrSplit(param_array)
-    }
-
-    ; remove Index 1 of array
-    l_array.RemoveAt(1)
-    ; return empty array if empty
-    if (l_array.Count() == 0) {
-        return []
-    }
-    return l_array
+    return this.drop(param_array)
 }
 
 
