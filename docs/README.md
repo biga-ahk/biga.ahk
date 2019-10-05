@@ -205,6 +205,9 @@ A.head([])
 A.head("fred")
 ; => "f"
 
+A.head(100)
+; => "1"
+
 ```
 
 
@@ -390,6 +393,12 @@ array (Array): The array to query.
 ```autohotkey
 A.tail([1, 2, 3])
 ; => [2, 3]
+
+A.tail("fred")
+; => ["r", "e", "d"]
+
+A.tail(100)
+; => ["0", "0"]
 
 ```
 
@@ -1117,7 +1126,7 @@ A.replace("Hi Fred", "Fred", "Barney")
 A.replace("1234", "/(\d+)/", "numbers")
 ; => "numbers"
 
-msg := "-" A_Tab A_Tab A_Tab "' hey friend'" A_Tab "-"; msgbox, % A.replace(msg, "/(\t)/", "")msgbox, % A.replace(msg, A_Tab, "")```
+```
 
 
 

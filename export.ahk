@@ -75,6 +75,10 @@ class biga {
 	    return l_array
 	}
 	findIndex(param_array,param_value,fromIndex := 1) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
 	    if (IsFunc(param_value)) {
 	        vFunctionparam := true
 	    }
@@ -112,12 +116,20 @@ class biga {
 	    return l_obj
 	}
 	head(param_array) {
+
+	    if (IsObject(param_array)) {
+	        return param_array[1]
+	    }
+	    if (param_array is alnum) {
+	        l_array := StrSplit(param_array)
+	        return l_array[1]
+	    }
+	}
+	indexOf(param_array,param_value,fromIndex := 1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
-	    return param_array[1]
-	}
-	indexOf(param_array,param_value,fromIndex := 1) {
+
 	    for Index, Value in param_array {
 	        if (Index < fromIndex) {
 	            continue
@@ -180,11 +192,13 @@ class biga {
 	    return % param_array.Count() + 1
 	}
 	tail(param_array) {
-	    if (!IsObject(param_array)) {
-	        this.internal_ThrowException()
-	    }
 
-	    l_array := this.clone(param_array)
+	    if (IsObject(param_array)) {
+	        l_array := this.clone(param_array)
+	    }
+	    if (param_array is alnum) {
+	        l_array := StrSplit(param_array)
+	    }
 
 	    ; remove Index 1 of array
 	    l_array.RemoveAt(1)
@@ -283,6 +297,7 @@ class biga {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
+
 	    loop, % param_collection.MaxIndex() {
 	        if (param_fromindex > A_Index) {
 	            continue
@@ -393,6 +408,7 @@ class biga {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
+
 	    l_array := []
 	    ; check what kind of param_iteratee being worked with
 	    if (IsFunc(param_iteratee)) {
@@ -422,13 +438,18 @@ class biga {
 	    return l_array
 	}
 	sample(param_collection) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
 	    vSampleArray := this.sampleSize(param_collection)
 	    return vSampleArray[1]
 	}
 	sampleSize(param_collection,param_SampleSize := 1) {
 	    if (!IsObject(param_collection)) {
-	        return false
+	        this.internal_ThrowException()
 	    }
+
 	    if (param_SampleSize > param_collection.MaxIndex()) {
 	        return % param_collection
 	    }
@@ -451,6 +472,7 @@ class biga {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
+
 	    l_shuffledArray := []
 	    loop, % param_collection.MaxIndex() {
 	        Random, randomvar, 1, param_collection.MaxIndex()
@@ -459,7 +481,6 @@ class biga {
 	    return l_shuffledArray
 	}
 	size(param_collection) {
-
 	    if (param_collection.MaxIndex() > 0) {
 	        return % param_collection.MaxIndex()
 	    }
@@ -471,8 +492,12 @@ class biga {
 	    return % StrLen(param_collection)
 	}
 	sortBy(param_collection, param_iteratees) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
 	    l_array := this.cloneDeep(param_collection)
-	    Order := 1
+	    ; Order := 1
 
 	    if (IsObject(param_iteratees)) {
 	        ; sort the collection however many times is requested by the shorthand identity
