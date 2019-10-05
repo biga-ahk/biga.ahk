@@ -1,4 +1,8 @@
 sample(param_collection) {
+    if (!IsObject(param_collection)) {
+        this.internal_ThrowException()
+    }
+    
     vSampleArray := this.sampleSize(param_collection)
     return vSampleArray[1]
 }

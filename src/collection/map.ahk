@@ -2,6 +2,7 @@ map(param_collection,param_iteratee := "baseProperty") {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
+    
     l_array := []
     ; check what kind of param_iteratee being worked with
     if (IsFunc(param_iteratee)) {

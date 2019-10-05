@@ -2,6 +2,7 @@ find(param_collection,param_iteratee,param_fromindex := 1) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
+    
     loop, % param_collection.MaxIndex() {
         if (param_fromindex > A_Index) {
             continue

@@ -1,7 +1,8 @@
 sampleSize(param_collection,param_SampleSize := 1) {
     if (!IsObject(param_collection)) {
-        return false
+        this.internal_ThrowException()
     }
+
     if (param_SampleSize > param_collection.MaxIndex()) {
         return % param_collection
     }

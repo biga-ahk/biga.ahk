@@ -1,4 +1,8 @@
 findIndex(param_array,param_value,fromIndex := 1) {
+    if (!IsObject(param_array)) {
+        this.internal_ThrowException()
+    }
+    
     if (IsFunc(param_value)) {
         vFunctionparam := true
     }

@@ -1,6 +1,10 @@
 sortBy(param_collection, param_iteratees) {
+    if (!IsObject(param_collection)) {
+        this.internal_ThrowException()
+    }
+
     l_array := this.cloneDeep(param_collection)
-    Order := 1
+    ; Order := 1
 
     if (IsObject(param_iteratees)) {
         ; sort the collection however many times is requested by the shorthand identity

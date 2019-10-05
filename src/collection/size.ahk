@@ -1,5 +1,4 @@
 size(param_collection) {
-
     if (param_collection.MaxIndex() > 0) {
         return % param_collection.MaxIndex()
     }

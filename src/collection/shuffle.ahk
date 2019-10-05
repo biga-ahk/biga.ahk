@@ -2,6 +2,7 @@ shuffle(param_collection) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
+    
     l_shuffledArray := []
     loop, % param_collection.MaxIndex() {
         Random, randomvar, 1, param_collection.MaxIndex()
