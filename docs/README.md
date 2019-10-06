@@ -660,7 +660,8 @@ A.without([2, 1, 2, 3], 1, 2)
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
 > [!Warning]
-> This method has not reached pairity with Lodash. Output will not match Lodash output in the event the length of all supplied arrays are not the same.
+> This method has not reached pairity with Lodash. 
+> Output will not match Lodash output in the event the length of all supplied arrays are not the same.
 
 #### Arguments
 
@@ -750,7 +751,9 @@ fn_filter1(param_interatee) {    if (param_interatee.active) {         return 
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
 > [!Warning]
-> This method has not reached pairity with Lodash. A.matches shorthand is not working
+> This method has not reached pairity with Lodash.
+> missing .matchesProperty shorthand
+
 
 #### Arguments
 
@@ -759,6 +762,7 @@ collection (Array|Object): The collection to inspect.
 function (Function): The function invoked per iteration.
 
 [fromIndex:=1] (number): The index to search from.
+
 
 #### Returns
 
@@ -1252,12 +1256,14 @@ Converts string to an integer.
 
 > [!Warning]
 > This method has not reached pairity with Lodash.
+> missing the radix to interpret value by parameter
 
 #### Arguments
 
 string (string): The string to convert.
 
 <!-- [radix:=10] (number): The radix to interpret value by. -->
+
 
 #### Returns
 
