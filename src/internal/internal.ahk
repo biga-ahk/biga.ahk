@@ -64,6 +64,18 @@ internal_JSRegEx(param_string) {
     return false
 }
 
+internal_differenciateObjArry(param_obj) {
+    for Key, Value in param_obj {
+        if Key is number
+        {
+            continue
+        } else {
+            return "object"
+        }
+    }
+    return "array"
+}
+
 internal_ThrowException() {
     if (this.throwExceptions == true) {
         throw Exception("Type Error", -2)
