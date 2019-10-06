@@ -3,7 +3,7 @@ matches(param_source) {
         this.internal_ThrowException()
     }
 
-    fn := Func("external_matches").bind(param_source)
+    fn := Func("biga_external_matches").bind(param_source)
     return fn
 }
 
