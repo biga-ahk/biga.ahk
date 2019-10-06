@@ -531,7 +531,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        Sort, out, % "D| "
 	        arrStorage := []
 	        loop, parse, out, |
-	        arrStorage.insert(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+	        arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
 	        l_array := arrStorage
 	        return l_array
 	}
