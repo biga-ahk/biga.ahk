@@ -1,5 +1,5 @@
 drop(param_array,param_n:=1) {
-    if param_n is not number 
+    if param_n is not number
     {
         this.internal_ThrowException()
     }
@@ -31,6 +31,7 @@ assert.test(A.drop([1, 2, 3], 5), [])
 assert.test(A.drop([1, 2, 3], 0), [1, 2, 3])
 assert.test(A.drop("fred"), ["r", "e", "d"])
 assert.test(A.drop(100), ["0", "0"])
+
 
 ; omit
 assert.test(A.drop([]), [])

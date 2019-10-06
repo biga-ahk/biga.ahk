@@ -224,6 +224,9 @@ class biga {
 	    if (param_array is alnum) {
 	        l_array := StrSplit(param_array)
 	    }
+	    if (param_n == 0) {
+	        param_n := 1
+	    }
 
 	    ; create the slice
 	    if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size

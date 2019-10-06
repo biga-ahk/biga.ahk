@@ -395,6 +395,47 @@ A.caseSensitive := trueA.lastIndexOf(["fred", "barney"], "Fred")
 
 
 
+## .nth
+Gets the element at index n of array. If n is negative, the nth element from the end is returned.
+
+
+#### Arguments
+
+array (Array): The array to query.
+[n:=1] (number): The index of the element to return.
+
+
+#### Returns
+
+(*): Returns the nth element of array.
+
+
+#### Example
+
+```autohotkey
+A.nth([1, 2, 3])
+; => 1
+
+A.nth([1, 2, 3], -3)
+; => 1
+
+A.nth([1, 2, 3], 5)
+; => ""
+
+A.nth("fred")
+; => "f"
+
+A.nth(100)
+; => "1"
+
+A.nth([1, 2, 3], 0)
+; => 1
+
+```
+
+
+
+
 ## .reverse
 Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
 

@@ -10,6 +10,9 @@ nth(param_array,param_n:=1) {
     if (param_array is alnum) {
         l_array := StrSplit(param_array)
     }
+    if (param_n == 0) {
+        param_n := 1
+    }
 
     ; create the slice
     if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size
@@ -35,6 +38,7 @@ assert.test(A.nth([1, 2, 3], -3), 1)
 assert.test(A.nth([1, 2, 3], 5), "")
 assert.test(A.nth("fred"), "f")
 assert.test(A.nth(100), "1")
+assert.test(A.nth([1, 2, 3], 0), 1)
 
 
 ; omit
