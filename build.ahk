@@ -24,7 +24,7 @@ newline := "`r`n" ;do not change this as docsify needs `r
 ; Test RegEx
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
 testtrue := "true\(A(\.\w+)(.+\))\)"
-testfalse := "false\(A(\.\w+)(.+\))\)"
+testfalse := "false\((.+\.\w+)(.+\))\)"
 testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
 
@@ -210,7 +210,7 @@ fn_BuildExample(param_tests) {
         }
         hey := Fn_QuickRegEx(Value,testfalse,0)
         if (hey.count() = 2) {
-            return_array.push("A" hey.Value(1) hey.Value(2)"`n; => false" newline newline)
+            return_array.push(hey.Value(1) hey.Value(2)"`n; => false" newline newline)
             continue
         }
 

@@ -1667,6 +1667,9 @@ objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.filter(obj
 functor := A.matches({ "a": 4 })A.filter(objects, functor)
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
+functor.call({ "a": 1 })
+; => false
+
 ```
 
 
