@@ -652,7 +652,8 @@ class biga {
 	        }
 	        if (IsObject(Value)) {
 	            Output .= "[" . this.printObj(Value) . "]"
-	        } else if (Value is not number) {
+	        } else if Value is not number
+	        {
 	            Output .= """" . Value . """"
 	        }
 	        else {
