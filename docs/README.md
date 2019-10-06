@@ -1642,3 +1642,33 @@ A.words("fred, barney, & pebbles")
 
 
 
+
+# **Util**
+## .matches
+Creates a function that performs a shallow comparison between a given object and source, returning true if the given object has equivalent property values, else false.
+
+
+#### Arguments
+
+source (Object): The object of property values to match.
+
+
+#### Returns
+
+(Function): Returns the new spec function.
+
+
+#### Example
+
+```autohotkey
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.filter(objects, A.matches({ "a": 4, "c": 6 }))
+; => [{ "a": 4, "b": 5, "c": 6 }]
+
+functor := A.matches({ "a": 4 })A.filter(objects, functor)
+; => [{ "a": 4, "b": 5, "c": 6 }]
+
+```
+
+
+
+
