@@ -717,12 +717,15 @@ Iterates over elements of collection, returning an array of all elements predica
 
 > [!Warning]
 > This method has not reached pairity with Lodash.
+> missing .matchesProperty shorthand
+
 
 #### Arguments
 
 collection (Array|Object): The collection to iterate over.
 
 function (Function): The function invoked per iteration.
+
 
 #### Returns
 
@@ -765,17 +768,14 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users, "active")
-; => { "user": "barney", "age": 36, "active": true }
-
-A.find(users, "active", 2)
-; => { "user": "pebbles", "age": 1, "active": true }
-
-A.find(users, Func("fn_find1"))
+users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users, Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
 fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ; The `A.matches` iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
+
+; The `A.property` iteratee shorthand.A.find(users, "active")
+; => { "user": "barney", "age": 36, "active": true }
 
 ```
 

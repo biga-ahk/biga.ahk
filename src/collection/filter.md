@@ -2,12 +2,15 @@ Iterates over elements of collection, returning an array of all elements predica
 
 > [!Warning]
 > This method has not reached pairity with Lodash.
+> missing .matchesProperty shorthand
+
 
 ## Arguments
 
 collection (Array|Object): The collection to iterate over.
 
 function (Function): The function invoked per iteration.
+
 
 ## Returns
 
