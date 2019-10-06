@@ -389,8 +389,21 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return l_obj
 	}
 	filter(param_collection,param_func) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    if (IsObject(param_func)) {
+	        short_hand := this.internal_differenciateObjArry(param_func)
+	        if (short_hand == "object") {
+	            fn := this.matches(param_func)
+	        }
+	    }
 	    l_array := []
-	    loop, % param_collection.MaxIndex() {
+
+	    ; create the slice
+	    for Key, Value in param_collection {
 	        if (param_func is string) {
 	            if (param_collection[A_Index][param_func]) {
 	                l_array.push(param_collection[A_Index])
@@ -403,7 +416,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 
-	        ; matches
+	        ; matches shorthand
+	        if (short_hand == "object") {
+	            if (fn.call(param_collection[Key])) {
+	                l_array.push(param_collection[Key])
+	            }
+	        }
+	        ; matchesProperty shorthand
+	        ; none yet
+
+	        ; matches functor
 	        ; predefined !functor handling (slower as it .calls blindly)
 	        vValue := param_func.call(param_collection[A_Index])
 	        if (vValue) {
@@ -412,40 +434,52 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            }
 	        }
 
-	        ; matches shorthand
-
-
-	        ; matchesProperty shorthand
-	        ; not yet
 	    }
 	    return l_array
 	}
-	find(param_collection,param_iteratee,param_fromindex := 1) {
+	find(param_collection,param_predicate,param_fromindex := 1) {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
 
-	    loop, % param_collection.MaxIndex() {
+	    ; data setup
+	    if (IsObject(param_predicate)) {
+	        msgbox, % param_predicate
+	        short_hand := this.internal_differenciateObjArry(param_predicate)
+	        if (short_hand == "object") {
+	            fn := this.matches(param_predicate)
+	        }
+	    }
+
+	    ; create the return
+	    for Key, Value in param_collection {
 	        if (param_fromindex > A_Index) {
 	            continue
 	        }
-	        ; A.property handling
-	        if (param_iteratee is string) {
-	            if (param_collection[A_Index][param_iteratee]) {
-	                return param_collection[A_Index]
-	            }
-	        }
-	        if (IsFunc(param_iteratee)) {
-	            if (param_iteratee.call(param_collection[A_Index])) {
-	                return param_collection[A_Index]
+	        ; .matches shorthand
+	        if (short_hand == "object") {
+	            if (fn.call(param_collection[Key])) {
+	                return param_collection[Key]
 	            }
 	            continue
 	        }
-	        ; .matches shorthand
-	        if (param_iteratee.Count() > 0) {
-	            fn := this.matches(param_iteratee)
-	            if (fn.call(param_collection[A_Index])) {
-	                return param_collection[A_Index]
+	        ; .matchesProperty shorthand
+	        ; not yet
+
+	        ; .property shorthand
+	        if (!IsFunc(param_predicate) && !IsObject(param_predicate)) {
+	            if param_predicate is alnum
+	            {
+	                msgbox, % IsFunc(param_predicate) ""
+	                if (param_collection[Key][param_predicate]) {
+	                    return param_collection[Key]
+	                }
+	            }
+	        }
+	        ; regular function
+	        if (IsFunc(param_predicate)) {
+	            if (param_predicate.call(param_collection[Key])) {
+	                return param_collection[Key]
 	            }
 	        }
 	    }
@@ -705,6 +739,18 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        return % SubStr(param_string, 2 , StrLen(param_string) - 2)
 	    }
 	    return false
+	}
+
+	internal_differenciateObjArry(param_obj) {
+	    for Key, in param_obj {
+	        if Key is number
+	        {
+	            continue
+	        } else {
+	            return "object"
+	        }
+	    }
+	    return "array"
 	}
 
 	internal_ThrowException() {

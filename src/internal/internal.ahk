@@ -65,7 +65,7 @@ internal_JSRegEx(param_string) {
 }
 
 internal_differenciateObjArry(param_obj) {
-    for Key, Value in param_obj {
+    for Key, in param_obj {
         if Key is number
         {
             continue
