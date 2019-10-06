@@ -22,11 +22,11 @@ map(param_collection,param_iteratee := "baseProperty") {
             l_array.push(vValue)
             continue
         }
-        vValue := BoundFunc.Call(Value)
+        vValue := BoundFunc.call(Value)
         if (vValue) {
             l_array.push(vValue)
         } else {
-            l_array.push(param_iteratee.Call(Value))
+            l_array.push(param_iteratee.call(Value))
         }
     }
     return l_array

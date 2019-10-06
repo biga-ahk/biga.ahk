@@ -19,18 +19,18 @@ forEach(param_collection,param_iteratee := "baseProperty") {
             ;nothing currently
         }
         if (l_paramAmmount == 3) {
-            if (!BoundFunc.Call(Value, Key, collectionClone)) {
-                vIteratee := param_iteratee.Call(Value, Key, collectionClone)
+            if (!BoundFunc.call(Value, Key, collectionClone)) {
+                vIteratee := param_iteratee.call(Value, Key, collectionClone)
             }
         }
         if (l_paramAmmount == 2) {
-            if (!BoundFunc.Call(Value, Key)) {
-                vIteratee := param_iteratee.Call(Value, Key)
+            if (!BoundFunc.call(Value, Key)) {
+                vIteratee := param_iteratee.call(Value, Key)
             }
         }
         if (l_paramAmmount == 1) {
-            if (!BoundFunc.Call(Value)) {
-                vIteratee := param_iteratee.Call(Value)
+            if (!BoundFunc.call(Value)) {
+                vIteratee := param_iteratee.call(Value)
             }
         }
         ; exit iteration early by explicitly returning false

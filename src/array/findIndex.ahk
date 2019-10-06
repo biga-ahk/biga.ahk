@@ -18,7 +18,7 @@ findIndex(param_array,param_value,fromIndex := 1) {
             Value := this.printObj(Value)
         }
         if (vFunctionparam) {
-            if (param_value.Call(param_array[A_Index])) {
+            if (param_value.call(param_array[A_Index])) {
                 return % Index + 0
             }
         }
