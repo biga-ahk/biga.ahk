@@ -774,7 +774,10 @@ A.find(users, "active", 2)
 A.find(users, Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ```
+fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ; The `A.matches` iteratee shorthand.A.find(users, { "age": 1, "active": true })
+; => { "user": "pebbles", "age": 1, "active": true }
+
+```
 
 
 
