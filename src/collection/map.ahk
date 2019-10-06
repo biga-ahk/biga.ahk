@@ -1,4 +1,4 @@
-map(param_collection,param_iteratee := "baseProperty") {
+map(param_collection,param_iteratee:="baseProperty") {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }

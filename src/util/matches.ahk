@@ -3,8 +3,17 @@ matches(param_source) {
         this.internal_ThrowException()
     }
 
-    fn := Func("biga_external_matches").bind(param_source)
-    return fn
+    BoundFunc := ObjBindMethod(this, "internal_matches", param_source)
+    return BoundFunc
+}
+
+internal_matches(param_matches,param_itaree) {
+    for Key, Value in param_matches {
+        if (param_matches[Key] != param_itaree[Key]) {
+            return false
+        }
+    }
+    return true
 }
 
 

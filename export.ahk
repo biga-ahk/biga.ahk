@@ -559,7 +559,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        l_array := arrStorage
 	        return l_array
 	}
-	map(param_collection,param_iteratee := "baseProperty") {
+	map(param_collection,param_iteratee:="baseProperty") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
@@ -1033,7 +1033,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    fn := Func("biga_external_matches").bind(param_source)
-	    return fn
+	    BoundFunc := ObjBindMethod(this, "internal_matches", param_source)
+	    return BoundFunc
 	}
-}class A extends biga {}biga_external_matches(param_matches,param_itaree) {    for Key, Value in param_matches {        if (param_matches[Key] != param_itaree[Key]) {            return false        }    }    return true}
+
+	internal_matches(param_matches,param_itaree) {
+	    for Key, Value in param_matches {
+	        if (param_matches[Key] != param_itaree[Key]) {
+	            return false
+	        }
+	    }
+	    return true
+	}
+}class A extends biga {}
