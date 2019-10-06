@@ -7,10 +7,22 @@ filter(param_collection,param_func) {
             }
         }
         if (IsFunc(param_func)) {
-            if (%param_func%(param_collection[A_Index])) {
+            if (param_func.call(param_collection[A_Index])) {
+                l_array.push(param_collection[A_Index])
+            }
+            continue
+        }
+
+        ; matches
+        ; predefined !functor handling (slower as it .calls blindly)
+        vValue := param_func.call(param_collection[A_Index])
+        if (vValue) {
+            if (param_func.call(param_collection[A_Index])) {
                 l_array.push(param_collection[A_Index])
             }
         }
+
+        ; matches shorthand
         ; if (param_func.Count() > 0) {
         ;     for Key, Value in param_func {
         ;         msgbox, % Key
@@ -20,6 +32,9 @@ filter(param_collection,param_func) {
         ;         }
         ;     }
         ; }
+
+        ; matchesProperty shorthand
+        ; not yet
     }
     return l_array
 }

@@ -1,11 +1,4 @@
-class biga {
-
-    ; class attributes
-    static throwExceptions := true
-    static caseSensitive := false
-    static limit := -1
-
-	chunk(param_array,param_size := 1) {
+class biga {    ; class attributes    static throwExceptions := true    static caseSensitive := false    static limit := -1	chunk(param_array,param_size := 1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
@@ -142,7 +135,7 @@ class biga {
 	            Value := this.printObj(Value)
 	        }
 	        if (vFunctionparam) {
-	            if (param_value.Call(param_array[A_Index])) {
+	            if (param_value.call(param_array[A_Index])) {
 	                return % Index + 0
 	            }
 	        }
@@ -404,11 +397,26 @@ class biga {
 	            }
 	        }
 	        if (IsFunc(param_func)) {
-	            if (%param_func%(param_collection[A_Index])) {
+	            if (param_func.call(param_collection[A_Index])) {
+	                l_array.push(param_collection[A_Index])
+	            }
+	            continue
+	        }
+
+	        ; matches
+	        ; predefined !functor handling (slower as it .calls blindly)
+	        vValue := param_func.call(param_collection[A_Index])
+	        if (vValue) {
+	            if (param_func.call(param_collection[A_Index])) {
 	                l_array.push(param_collection[A_Index])
 	            }
 	        }
 
+	        ; matches shorthand
+
+
+	        ; matchesProperty shorthand
+	        ; not yet
 	    }
 	    return l_array
 	}
@@ -459,18 +467,18 @@ class biga {
 	            ;nothing currently
 	        }
 	        if (l_paramAmmount == 3) {
-	            if (!BoundFunc.Call(Value, Key, collectionClone)) {
-	                vIteratee := param_iteratee.Call(Value, Key, collectionClone)
+	            if (!BoundFunc.call(Value, Key, collectionClone)) {
+	                vIteratee := param_iteratee.call(Value, Key, collectionClone)
 	            }
 	        }
 	        if (l_paramAmmount == 2) {
-	            if (!BoundFunc.Call(Value, Key)) {
-	                vIteratee := param_iteratee.Call(Value, Key)
+	            if (!BoundFunc.call(Value, Key)) {
+	                vIteratee := param_iteratee.call(Value, Key)
 	            }
 	        }
 	        if (l_paramAmmount == 1) {
-	            if (!BoundFunc.Call(Value)) {
-	                vIteratee := param_iteratee.Call(Value)
+	            if (!BoundFunc.call(Value)) {
+	                vIteratee := param_iteratee.call(Value)
 	            }
 	        }
 	        ; exit iteration early by explicitly returning false
@@ -547,11 +555,11 @@ class biga {
 	            l_array.push(vValue)
 	            continue
 	        }
-	        vValue := BoundFunc.Call(Value)
+	        vValue := BoundFunc.call(Value)
 	        if (vValue) {
 	            l_array.push(vValue)
 	        } else {
-	            l_array.push(param_iteratee.Call(Value))
+	            l_array.push(param_iteratee.call(Value))
 	        }
 	    }
 	    return l_array
@@ -973,8 +981,12 @@ class biga {
 	    }
 	    return l_array
 	}
-}
+	matches(param_source) {
+	    if (!IsObject(param_source)) {
+	        this.internal_ThrowException()
+	    }
 
-class A extends biga {
-
-}
+	    fn := Func("external_matches").bind(param_source)
+	    return fn
+	}
+}class A extends biga {}external_matches(param_matches,param_itaree) {    for Key, Value in param_matches {        if (param_matches[Key] != param_itaree[Key]) {            return false        }    }    return true}
