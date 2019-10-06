@@ -64,16 +64,23 @@ internal_JSRegEx(param_string) {
     return false
 }
 
-internal_differenciateObjArry(param_obj) {
-    for Key, in param_obj {
-        if Key is number
-        {
-            continue
-        } else {
-            return "object"
+internal_differenciateShorthand(param_shorthand) {
+    if (IsObject(param_shorthand)) {
+        for Key, in param_shorthand {
+            if Key is number
+            {
+                continue
+            } else {
+                return ".matches"
+            }
         }
+        return ".matchesProperty"
     }
-    return "array"
+    if param_shorthand is alnum
+    {
+        return ".property"
+    }
+    return false
 }
 
 internal_ThrowException() {

@@ -4,12 +4,9 @@ find(param_collection,param_predicate,param_fromindex := 1) {
     }
     
     ; data setup
-    if (IsObject(param_predicate)) {
-        msgbox, % param_predicate
-        short_hand := this.internal_differenciateObjArry(param_predicate)
-        if (short_hand == "object") {
-            fn := this.matches(param_predicate)
-        }
+    shorthand := this.internal_differenciateShorthand(param_predicate)
+    if (shorthand == ".matches") {
+        fn := this.matches(param_predicate)
     }
 
     ; create the return
@@ -18,7 +15,7 @@ find(param_collection,param_predicate,param_fromindex := 1) {
             continue
         }
         ; .matches shorthand
-        if (short_hand == "object") {
+        if (shorthand == ".matches") {
             if (fn.call(param_collection[Key])) {
                 return param_collection[Key]
             }
@@ -27,18 +24,15 @@ find(param_collection,param_predicate,param_fromindex := 1) {
         ; .matchesProperty shorthand
         ; not yet
 
-        ; .property shorthand
-        if (!IsFunc(param_predicate) && !IsObject(param_predicate)) {
-            if param_predicate is alnum
-            {
-                if (param_collection[Key][param_predicate]) {
-                    return param_collection[Key]
-                }
-            }
-        }
         ; regular function
         if (IsFunc(param_predicate)) {
             if (param_predicate.call(param_collection[Key])) {
+                return param_collection[Key]
+            }
+        }
+        ; .property shorthand
+        if (shorthand == ".property") {
+            if (param_collection[Key][param_predicate]) {
                 return param_collection[Key]
             }
         }

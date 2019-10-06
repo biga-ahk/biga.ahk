@@ -394,17 +394,15 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; data setup
-	    if (IsObject(param_func)) {
-	        short_hand := this.internal_differenciateObjArry(param_func)
-	        if (short_hand == "object") {
-	            fn := this.matches(param_func)
-	        }
+	    short_hand := this.internal_differenciateShorthand(param_func)
+	    if (short_hand == ".matches") {
+	        fn := this.matches(param_func)
 	    }
 	    l_array := []
 
 	    ; create the slice
 	    for Key, Value in param_collection {
-	        if (param_func is string) {
+	        if (short_hand == ".property") {
 	            if (param_collection[A_Index][param_func]) {
 	                l_array.push(param_collection[A_Index])
 	            }
@@ -416,16 +414,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 
-	        ; matches shorthand
-	        if (short_hand == "object") {
+	        ; .matches shorthand
+	        if (short_hand == ".matches") {
 	            if (fn.call(param_collection[Key])) {
 	                l_array.push(param_collection[Key])
 	            }
 	        }
-	        ; matchesProperty shorthand
+	        ; .matchesProperty shorthand
 	        ; none yet
 
-	        ; matches functor
+	        ; functor
 	        ; predefined !functor handling (slower as it .calls blindly)
 	        vValue := param_func.call(param_collection[A_Index])
 	        if (vValue) {
@@ -433,7 +431,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	                l_array.push(param_collection[A_Index])
 	            }
 	        }
-
 	    }
 	    return l_array
 	}
@@ -443,12 +440,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; data setup
-	    if (IsObject(param_predicate)) {
-	        msgbox, % param_predicate
-	        short_hand := this.internal_differenciateObjArry(param_predicate)
-	        if (short_hand == "object") {
-	            fn := this.matches(param_predicate)
-	        }
+	    shorthand := this.internal_differenciateShorthand(param_predicate)
+	    if (shorthand == ".matches") {
+	        fn := this.matches(param_predicate)
 	    }
 
 	    ; create the return
@@ -457,7 +451,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	        ; .matches shorthand
-	        if (short_hand == "object") {
+	        if (shorthand == ".matches") {
 	            if (fn.call(param_collection[Key])) {
 	                return param_collection[Key]
 	            }
@@ -466,19 +460,15 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        ; .matchesProperty shorthand
 	        ; not yet
 
-	        ; .property shorthand
-	        if (!IsFunc(param_predicate) && !IsObject(param_predicate)) {
-	            if param_predicate is alnum
-	            {
-	                msgbox, % IsFunc(param_predicate) ""
-	                if (param_collection[Key][param_predicate]) {
-	                    return param_collection[Key]
-	                }
-	            }
-	        }
 	        ; regular function
 	        if (IsFunc(param_predicate)) {
 	            if (param_predicate.call(param_collection[Key])) {
+	                return param_collection[Key]
+	            }
+	        }
+	        ; .property shorthand
+	        if (shorthand == ".property") {
+	            if (param_collection[Key][param_predicate]) {
 	                return param_collection[Key]
 	            }
 	        }
@@ -741,16 +731,23 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return false
 	}
 
-	internal_differenciateObjArry(param_obj) {
-	    for Key, in param_obj {
-	        if Key is number
-	        {
-	            continue
-	        } else {
-	            return "object"
+	internal_differenciateShorthand(param_shorthand) {
+	    if (IsObject(param_shorthand)) {
+	        for Key, in param_shorthand {
+	            if Key is number
+	            {
+	                continue
+	            } else {
+	                return ".matches"
+	            }
 	        }
+	        return ".matchesProperty"
 	    }
-	    return "array"
+	    if param_shorthand is alnum
+	    {
+	        return ".property"
+	    }
+	    return false
 	}
 
 	internal_ThrowException() {

@@ -4,17 +4,15 @@ filter(param_collection,param_func) {
     }
 
     ; data setup
-    if (IsObject(param_func)) {
-        short_hand := this.internal_differenciateObjArry(param_func)
-        if (short_hand == "object") {
-            fn := this.matches(param_func)
-        }
+    short_hand := this.internal_differenciateShorthand(param_func)
+    if (short_hand == ".matches") {
+        fn := this.matches(param_func)
     }
     l_array := []
 
     ; create the slice
     for Key, Value in param_collection {
-        if (param_func is string) {
+        if (short_hand == ".property") {
             if (param_collection[A_Index][param_func]) {
                 l_array.push(param_collection[A_Index])
             }
@@ -26,16 +24,16 @@ filter(param_collection,param_func) {
             continue
         }
 
-        ; matches shorthand
-        if (short_hand == "object") {
+        ; .matches shorthand
+        if (short_hand == ".matches") {
             if (fn.call(param_collection[Key])) {
                 l_array.push(param_collection[Key])
             }
         }
-        ; matchesProperty shorthand
+        ; .matchesProperty shorthand
         ; none yet
 
-        ; matches functor
+        ; functor
         ; predefined !functor handling (slower as it .calls blindly)
         vValue := param_func.call(param_collection[A_Index])
         if (vValue) {
@@ -43,7 +41,6 @@ filter(param_collection,param_func) {
                 l_array.push(param_collection[A_Index])
             }
         }
-
     }
     return l_array
 }
