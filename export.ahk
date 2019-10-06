@@ -436,13 +436,17 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            }
 	        }
 	        if (IsFunc(param_iteratee)) {
-	            if (%param_iteratee%(param_collection[A_Index])) {
+	            if (param_iteratee.call(param_collection[A_Index])) {
 	                return param_collection[A_Index]
 	            }
+	            continue
 	        }
-	        ; A.matches handling
+	        ; .matches shorthand
 	        if (param_iteratee.Count() > 0) {
-
+	            fn := this.matches(param_iteratee)
+	            if (fn.call(param_collection[A_Index])) {
+	                return param_collection[A_Index]
+	            }
 	        }
 	    }
 	}
@@ -986,7 +990,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    fn := Func("external_matches").bind(param_source)
+	    fn := Func("biga_external_matches").bind(param_source)
 	    return fn
 	}
-}class A extends biga {}external_matches(param_matches,param_itaree) {    for Key, Value in param_matches {        if (param_matches[Key] != param_itaree[Key]) {            return false        }    }    return true}
+}class A extends biga {}biga_external_matches(param_matches,param_itaree) {    for Key, Value in param_matches {        if (param_matches[Key] != param_itaree[Key]) {            return false        }    }    return true}
