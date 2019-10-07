@@ -1057,7 +1057,10 @@ users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34
 A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
 
-```
+A.sortBy(users, Func("sortby1"))
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
+
+sortby1(o) {    return o.name}```
 
 
 

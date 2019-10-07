@@ -683,6 +683,22 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    l_array := this.cloneDeep(param_collection)
 	    ; Order := 1
 
+	    ; create the slice
+	    ; func
+	    if (IsFunc(param_iteratees)) {
+	        tempArray := []
+	        for Key, Value in param_collection {
+	            bigaIndex := param_iteratees.call(param_collection[Key])
+	            param_collection[Key].bigaIndex := bigaIndex
+	            tempArray.push(param_collection[Key])
+	        }
+	        l_array := this.sortBy(tempArray, "bigaIndex")
+	        for Key, Value in l_array {
+	            l_array[Key].Remove("bigaIndex")
+	        }
+	        return l_array
+	    }
+
 	    if (IsObject(param_iteratees)) {
 	        ; sort the collection however many times is requested by the shorthand identity
 	        for Key, Value in param_iteratees {
@@ -691,10 +707,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    } else {
 	        l_array := this.internal_sort(l_array, param_iteratees)
 	    }
-
-	    ; if (IsFunc(param_iteratees)) {
-
-
 	    return l_array
 	}
 	; /--\--/--\--/--\--/--\--/--\

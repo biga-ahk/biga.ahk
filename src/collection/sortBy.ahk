@@ -6,6 +6,22 @@ sortBy(param_collection, param_iteratees) {
     l_array := this.cloneDeep(param_collection)
     ; Order := 1
 
+    ; create the slice
+    ; func
+    if (IsFunc(param_iteratees)) {
+        tempArray := []
+        for Key, Value in param_collection {
+            bigaIndex := param_iteratees.call(param_collection[Key])
+            param_collection[Key].bigaIndex := bigaIndex
+            tempArray.push(param_collection[Key])
+        }
+        l_array := this.sortBy(tempArray, "bigaIndex")
+        for Key, Value in l_array {
+            l_array[Key].Remove("bigaIndex")
+        }
+        return l_array
+    }
+
     if (IsObject(param_iteratees)) {
         ; sort the collection however many times is requested by the shorthand identity
         for Key, Value in param_iteratees {
@@ -14,16 +30,6 @@ sortBy(param_collection, param_iteratees) {
     } else {
         l_array := this.internal_sort(l_array, param_iteratees)
     }
-
-    ; if (IsFunc(param_iteratees)) {
-    ;     temp_array := []
-    ;     for Key, Value in param_collection {
-    ;         temp_array.push(param_iteratees.__Call(param_collection[key]))
-    ;     }
-    ;     l_array := this.cloneDeep(temp_array)
-    ;     temp_array := [] ; free memory
-    ; }
-
     return l_array
 }
 
@@ -38,6 +44,10 @@ users := [
 
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
+assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
+sortby1(o) {
+    return o.name
+}
 ; omit
 
 enemies := [ 
