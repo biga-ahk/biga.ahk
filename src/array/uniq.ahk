@@ -2,12 +2,16 @@ uniq(param_collection) {
     if (!IsObject(param_collection)) {
         return false
     }
-    temp_Array := []
+
+    ; prepare data
+    tempArray := []
     l_array := []
+    
+    ; create the slice
     loop, % param_collection.Count() {
         printedelement := this.internal_MD5(this.printObj(param_collection[A_Index]))
-        if (this.indexOf(temp_Array, printedelement) == -1) {
-            temp_Array.push(printedelement)
+        if (this.indexOf(tempArray, printedelement) == -1) {
+            tempArray.push(printedelement)
             l_array.push(param_collection[A_Index])
         }
     }
