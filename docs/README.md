@@ -332,6 +332,31 @@ A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
 
 
 
+## .intersection
+Creates an array of unique values that are included in all given arrays. The order and references of result values are determined by the first array.
+
+
+#### Arguments
+
+[arrays*] (...Array): The arrays to inspect.
+
+
+#### Returns
+
+(Array): Returns the new array of intersecting values.
+
+
+#### Example
+
+```autohotkey
+A.intersection([2, 1], [2, 3])
+; => [2]
+
+```
+
+
+
+
 ## .join
 Converts all elements in array into a string separated by separator.
 

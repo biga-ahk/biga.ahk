@@ -175,6 +175,31 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return % -1 + 0
 	}
+	intersection(param_arrays*) {
+	    if (!IsObject(param_arrays)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    tempArray := A.cloneDeep(param_arrays[1])
+	    l_array := []
+
+	    ; create the slice
+	    for Key, Value in tempArray { ;for each value in first array
+	        for Key2, Value2 in param_arrays { ;for each array sent to the method
+	            ; search entire array for value in first array
+	            if (this.indexOf(Value2, Value) != -1) {
+	                found := true
+	            } else {
+	                found := false
+	            }
+	        }
+	        if (found) {
+	            l_array.push(Value)
+	        }
+	    }
+	    return l_array
+	}
 	join(param_array,param_sepatator := ",") {
 	    if (!IsObject(param_array) || IsObject(param_sepatator)) {
 	        this.internal_ThrowException()
@@ -324,12 +349,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (!IsObject(param_collection)) {
 	        return false
 	    }
-	    temp_Array := []
+
+	    ; prepare data
+	    tempArray := []
 	    l_array := []
+
+	    ; create the slice
 	    loop, % param_collection.Count() {
 	        printedelement := this.internal_MD5(this.printObj(param_collection[A_Index]))
-	        if (this.indexOf(temp_Array, printedelement) == -1) {
-	            temp_Array.push(printedelement)
+	        if (this.indexOf(tempArray, printedelement) == -1) {
+	            tempArray.push(printedelement)
 	            l_array.push(param_collection[A_Index])
 	        }
 	    }
