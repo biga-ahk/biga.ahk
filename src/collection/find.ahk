@@ -4,7 +4,7 @@ find(param_collection,param_predicate,param_fromindex := 1) {
     }
     
     ; data setup
-    shorthand := this.internal_differenciateShorthand(param_predicate)
+    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
     if (shorthand == ".matches") {
         fn := this.matches(param_predicate)
     }

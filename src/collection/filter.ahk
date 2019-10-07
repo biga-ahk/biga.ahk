@@ -4,7 +4,7 @@ filter(param_collection,param_func) {
     }
 
     ; data setup
-    short_hand := this.internal_differenciateShorthand(param_func)
+    short_hand := this.internal_differenciateShorthand(param_func, param_collection)
     if (short_hand == ".matches") {
         fn := this.matches(param_func)
     }

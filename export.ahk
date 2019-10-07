@@ -423,7 +423,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; data setup
-	    short_hand := this.internal_differenciateShorthand(param_func)
+	    short_hand := this.internal_differenciateShorthand(param_func, param_collection)
 	    if (short_hand == ".matches") {
 	        fn := this.matches(param_func)
 	    }
@@ -469,7 +469,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; data setup
-	    shorthand := this.internal_differenciateShorthand(param_predicate)
+	    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
 	    if (shorthand == ".matches") {
 	        fn := this.matches(param_predicate)
 	    }
@@ -594,29 +594,33 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    l_array := []
-	    ; check what kind of param_iteratee being worked with
-	    if (IsFunc(param_iteratee)) {
-	        BoundFunc := param_iteratee.Bind(this)
-	    } else {
-	        BoundFunc := false
-	    }
 
-	    ; run against every value in the collection
+	    ; data setup
+	    short_hand := this.internal_differenciateShorthand(param_iteratee, param_collection)
+	    if (short_hand == ".property") {
+	        param_iteratee := this.property(param_iteratee)
+	    }
 	    for Key, Value in param_collection {
-	        if (!BoundFunc) { ; is property/string
-	            if (param_iteratee == "baseProperty") {
-	                l_array.push(Value)
-	                continue
-	            }
-	            vValue := param_collection[A_Index][param_iteratee]
-	            l_array.push(vValue)
+	        if (param_iteratee.call(Value)) {
+	            thisthing := "function"
+	        }
+	        break
+	    }
+	    l_array := []
+
+	    ; create the array
+	    for Key, Value in param_collection {
+	        if (param_iteratee == "baseProperty") {
+	            l_array.push(Value)
 	            continue
 	        }
-	        vValue := BoundFunc.call(Value)
-	        if (vValue) {
-	            l_array.push(vValue)
-	        } else {
+	        if (thisthing == "function") {
 	            l_array.push(param_iteratee.call(Value))
+	            continue
+	        }
+	        if (IsFunc(param_iteratee)) { ;if calling own method
+	            BoundFunc := param_iteratee.Bind(this)
+	            l_array.push(BoundFunc.call(Value))
 	        }
 	    }
 	    return l_array
@@ -772,7 +776,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return false
 	}
 
-	internal_differenciateShorthand(param_shorthand) {
+	internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	    if (IsObject(param_shorthand)) {
 	        for Key, in param_shorthand {
 	            if Key is number
@@ -785,8 +789,12 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        return ".matchesProperty"
 	    }
 	    if param_shorthand is alnum
-	    {
-	        return ".property"
+	    {   
+	        if (IsObject(param_objects)) {
+	            if (param_objects[1][param_shorthand] != "") {
+	                return ".property"
+	            }
+	        }
 	    }
 	    return false
 	}
@@ -1085,5 +1093,41 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	    }
 	    return true
+	}
+	property(param_source) {
+
+	    ; prepare the data
+	    if (this.includes(param_source, ".")) {
+	        param_source := this.split(param_source, ".")
+	    }
+
+	    ; create the fn
+	    if (IsObject(param_source)) {
+	        keyArray := []
+	        for Key, Value in param_source {
+	            keyArray.push(Value) 
+	        }
+	        BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
+	        return BoundFunc
+	    } else {
+	        BoundFunc := ObjBindMethod(this, "internal_property", param_source)
+	    return BoundFunc
+	    }
+	}
+
+	internal_property(param_property,param_itaree) {
+	    ; msgbox, % "called with " this.printObj(param_itaree) " AND`n" this.printObj(param_property)
+	    if (IsObject(param_property)) {
+	        for Key, Value in param_property {
+	            if (param_property.Count() == 1) {
+	                ; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
+	                return % ObjRawGet(param_itaree, Value)
+	            } else if (param_itaree.hasKey(Value)){
+	                rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
+	            }
+	        }
+	        return rvalue
+	    }
+	    return % param_itaree[param_property]
 	}
 }class A extends biga {}

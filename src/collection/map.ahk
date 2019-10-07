@@ -4,29 +4,33 @@ map(param_collection,param_iteratee:="baseProperty") {
     }
     
     l_array := []
-    ; check what kind of param_iteratee being worked with
-    if (IsFunc(param_iteratee)) {
-        BoundFunc := param_iteratee.Bind(this)
-    } else {
-        BoundFunc := false
-    }
 
-    ; run against every value in the collection
+    ; data setup
+    short_hand := this.internal_differenciateShorthand(param_iteratee, param_collection)
+    if (short_hand == ".property") {
+        param_iteratee := this.property(param_iteratee)
+    }
     for Key, Value in param_collection {
-        if (!BoundFunc) { ; is property/string
-            if (param_iteratee == "baseProperty") {
-                l_array.push(Value)
-                continue
-            }
-            vValue := param_collection[A_Index][param_iteratee]
-            l_array.push(vValue)
+        if (param_iteratee.call(Value)) {
+            thisthing := "function"
+        }
+        break
+    }
+    l_array := []
+
+    ; create the array
+    for Key, Value in param_collection {
+        if (param_iteratee == "baseProperty") {
+            l_array.push(Value)
             continue
         }
-        vValue := BoundFunc.call(Value)
-        if (vValue) {
-            l_array.push(vValue)
-        } else {
+        if (thisthing == "function") {
             l_array.push(param_iteratee.call(Value))
+            continue
+        }
+        if (IsFunc(param_iteratee)) { ;if calling own method
+            BoundFunc := param_iteratee.Bind(this)
+            l_array.push(BoundFunc.call(Value))
         }
     }
     return l_array
@@ -42,6 +46,7 @@ assert.test(A.map([4, 8], Func("square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }, Func("square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
+; The `A.property` shorthand
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 

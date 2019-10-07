@@ -918,7 +918,7 @@ A.map({ "a": 4, "b": 8 }, Func("square"))
 A.map({ "a": 4, "b": 8 })
 ; => [4, 8]
 
-users := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
+; The `A.property` shorthandusers := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
 ; => ["barney", "fred"]
 
 ```
@@ -1709,6 +1709,26 @@ functor := A.matches({ "a": 4 })A.filter(objects, functor)
 
 functor.call({ "a": 1 })
 ; => false
+
+```
+
+
+
+
+## .property
+
+
+#### Example
+
+```autohotkey
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b"))
+; => ["2", "1"]
+
+objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
+; => ["fred", "barney"]
+
+A.map(A.sortBy(objects, A.property(["a", "b"])))
+; => [2, 1]
 
 ```
 

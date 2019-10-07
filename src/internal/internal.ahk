@@ -64,7 +64,7 @@ internal_JSRegEx(param_string) {
     return false
 }
 
-internal_differenciateShorthand(param_shorthand) {
+internal_differenciateShorthand(param_shorthand,param_objects:="") {
     if (IsObject(param_shorthand)) {
         for Key, in param_shorthand {
             if Key is number
@@ -77,8 +77,12 @@ internal_differenciateShorthand(param_shorthand) {
         return ".matchesProperty"
     }
     if param_shorthand is alnum
-    {
-        return ".property"
+    {   
+        if (IsObject(param_objects)) {
+            if (param_objects[1][param_shorthand] != "") {
+                return ".property"
+            }
+        }
     }
     return false
 }
