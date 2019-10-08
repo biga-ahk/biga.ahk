@@ -1099,7 +1099,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    ; prepare data
+	    ; prepare the data
 	    l_array := []
 	    if (IsObject(param_path)) {
 	        l_matcheskey := ""
@@ -1108,13 +1108,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        l_matcheskey := this.trimEnd(l_matcheskey, ".")
 	        l_array[l_matcheskey] := param_srcValue
+	        ; create the fn
 	        BoundFunc := ObjBindMethod(this, "internal_matchesProperty", l_array)
 	        return BoundFunc
 	    }
+	    ; create the fn
 	    if (!IsObject(param_path)) {
 	        l_array[param_path] := param_srcValue
 	        return this.matches(l_array)
 	    }
+
 	}
 
 	internal_matchesProperty(param_propertyMatches,param_itaree) {
