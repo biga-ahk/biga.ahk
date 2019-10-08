@@ -3,36 +3,18 @@ matchesProperty(param_path,param_srcValue) {
         this.internal_ThrowException()
     }
 
-    ; prepare the data
-    l_array := []
-    if (IsObject(param_path)) {
-        l_matcheskey := ""
-        for Key, Value in param_path {
-            l_matcheskey .= Value "."
-        }
-        l_matcheskey := this.trimEnd(l_matcheskey, ".")
-        l_array[l_matcheskey] := param_srcValue
-        ; create the fn
-        BoundFunc := ObjBindMethod(this, "internal_matchesProperty", l_array)
-        return BoundFunc
-    }
+    ; create the property fn
+    fnProperty := this.property(param_path)
     ; create the fn
-    if (!IsObject(param_path)) {
-        l_array[param_path] := param_srcValue
-        return this.matches(l_array)
-    }
-
-    
+    BoundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
+    return BoundFunc
 }
 
-internal_matchesProperty(param_propertyMatches,param_itaree) {
-    for Key, Value in param_propertyMatches {
-        fn := this.property(Key)
-        itareeValue := fn.call(param_itaree)
-        ; msgbox, % "Comparison to " itareeValue " from " param_itaree "`n prop: " this.printObj(Key) "`n Value: " Value
-        if (this.caseSensitive ? (itareeValue == Value) : (itareeValue = Value)) {
-            return true
-        }
+internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
+    itareeValue := param_property.call(param_itaree)
+    ; msgbox, % "Comparison to " itareeValue " from " this.printObj(param_itaree)
+    if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
+        return true
     }
     return false
 }
@@ -58,3 +40,8 @@ assert.false(fn.call({}))
 assert.false(fn.call([]))
 assert.false(fn.call(""))
 assert.false(fn.call(" "))
+
+objects := [{ "options": {"private": true} }, { "options": {"private": false} }, { "options": {"private": false} }]
+assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
+
+; "name": "barney"

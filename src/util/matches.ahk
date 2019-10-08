@@ -9,7 +9,7 @@ matches(param_source) {
 
 internal_matches(param_matches,param_itaree) {
     for Key, Value in param_matches {
-        if (param_matches[Key] != param_itaree[Key]) {
+        if (this.caseSensitive ? (param_matches[Key] !== param_itaree[Key]) : (param_matches[Key] != param_itaree[Key])) {
             return false
         }
     }
