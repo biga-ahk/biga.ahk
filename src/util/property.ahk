@@ -20,7 +20,6 @@ property(param_source) {
 }
 
 internal_property(param_property,param_itaree) {
-    ; msgbox, % "called with " this.printObj(param_itaree) " AND`n" this.printObj(param_property)
     if (IsObject(param_property)) {
         for Key, Value in param_property {
             if (param_property.Count() == 1) {

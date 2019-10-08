@@ -1715,6 +1715,38 @@ functor.call({ "a": 1 })
 
 
 
+## .matchesProperty
+Creates a function that performs a partial deep comparison between the value at path of a given object to srcValue, returning true if the object value is equivalent, else false.
+
+
+#### Arguments
+
+path (Array|string): The path of the property to get.
+srcValue (*): The value to match.
+
+
+#### Returns
+
+(Function): Returns the new spec function.
+
+
+#### Example
+
+```autohotkey
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.find(objects, A.matchesProperty("a", 4))
+; => { "a": 4, "b": 5, "c": 6 }
+
+A.filter(objects, A.matchesProperty("a", 4))
+; => [{ "a": 4, "b": 5, "c": 6 }]
+
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesProperty(["a", "b"], 1))
+; => { "a": {"b": 1} }
+
+```
+
+
+
+
 ## .property
 
 
