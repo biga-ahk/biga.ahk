@@ -1,5 +1,5 @@
 parseInt(param_string) {
-    param_string := this.trimStart(param_string,"0 -_")
+    param_string := this.trimStart(param_string, "0 -_")
     return % param_string + 0
 }
 

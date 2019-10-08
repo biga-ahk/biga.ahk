@@ -17,13 +17,13 @@ lastIndexOf(param_array,param_value,param_fromIndex := 0) {
 
 
 ; tests
-assert.test(A.lastIndexOf([1, 2, 1, 2], 2),4)
+assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
 ; Search from the `fromIndex`.
-assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2),1)
+assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
 A.caseSensitive := true
-assert.test(A.lastIndexOf(["fred", "barney"], "Fred"),-1)
+assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit

@@ -32,8 +32,8 @@ sentimentArray := A.map(comments, "sentiment")
 ; => [-9, 10, 80]
 
 ; If you want to find out who is new in the comment section, how about mapping all the author names and finding the difference with regular posters
-newFaces := A.difference(A.map(comments,"author"), ["Regular1","Regular2","Fred"])
-; => ["Bob","Barney"]
+newFaces := A.difference(A.map(comments, "author"), ["Regular1", "Regular2", "Fred"])
+; => ["Bob", "Barney"]
 
 ; Let's choose a random subscriber comment to feature. Obviously we could filter by subscribers only and choose, but for the sake of example let's perform some logic
 while (!featureComment) {
