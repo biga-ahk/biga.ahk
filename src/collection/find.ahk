@@ -16,25 +16,25 @@ find(param_collection,param_predicate,param_fromindex := 1) {
         }
         ; .matches shorthand
         if (shorthand == ".matches") {
-            if (fn.call(param_collection[Key])) {
-                return param_collection[Key]
+            if (fn.call(Value)) {
+                return Value
             }
-            continue
         }
-        ; .matchesProperty shorthand
-        ; not yet
-
         ; regular function
         if (IsFunc(param_predicate)) {
-            if (param_predicate.call(param_collection[Key])) {
-                return param_collection[Key]
+            if (param_predicate.call(Value)) {
+                return Value
             }
         }
         ; .property shorthand
         if (shorthand == ".property") {
             if (param_collection[Key][param_predicate]) {
-                return param_collection[Key]
+                return Value
             }
+        }
+        ; .matchesProperty shorthand
+        if (param_predicate.call(Value)) {
+            return Value
         }
     }
 }

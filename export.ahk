@@ -481,25 +481,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        ; .matches shorthand
 	        if (shorthand == ".matches") {
-	            if (fn.call(param_collection[Key])) {
-	                return param_collection[Key]
+	            if (fn.call(Value)) {
+	                return Value
 	            }
-	            continue
 	        }
-	        ; .matchesProperty shorthand
-	        ; not yet
-
 	        ; regular function
 	        if (IsFunc(param_predicate)) {
-	            if (param_predicate.call(param_collection[Key])) {
-	                return param_collection[Key]
+	            if (param_predicate.call(Value)) {
+	                return Value
 	            }
 	        }
 	        ; .property shorthand
 	        if (shorthand == ".property") {
 	            if (param_collection[Key][param_predicate]) {
-	                return param_collection[Key]
+	                return Value
 	            }
+	        }
+	        ; .matchesProperty shorthand
+	        if (param_predicate.call(Value)) {
+	            return Value
 	        }
 	    }
 	}
@@ -1094,6 +1094,40 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return true
 	}
+	matchesProperty(param_path,param_srcValue) {
+	    if (IsObject(param_srcValue)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    l_array := []
+	    if (IsObject(param_path)) {
+	        l_matcheskey := ""
+	        for Key, Value in param_path {
+	            l_matcheskey .= Value "."
+	        }
+	        l_matcheskey := this.trimEnd(l_matcheskey, ".")
+	        l_array[l_matcheskey] := param_srcValue
+	        BoundFunc := ObjBindMethod(this, "internal_matchesProperty", l_array)
+	        return BoundFunc
+	    }
+	    if (!IsObject(param_path)) {
+	        l_array[param_path] := param_srcValue
+	        return this.matches(l_array)
+	    }
+	}
+
+	internal_matchesProperty(param_propertyMatches,param_itaree) {
+	    for Key, Value in param_propertyMatches {
+	        fn := this.property(Key)
+	        itareeValue := fn.call(param_itaree)
+	        ; msgbox, % "Comparison to " itareeValue " from " param_itaree "`n prop: " this.printObj(Key) "`n Value: " Value
+	        if (this.caseSensitive ? (itareeValue == Value) : (itareeValue = Value)) {
+	            return true
+	        }
+	    }
+	    return false
+	}
 	property(param_source) {
 
 	    ; prepare the data
@@ -1116,7 +1150,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 
 	internal_property(param_property,param_itaree) {
-	    ; msgbox, % "called with " this.printObj(param_itaree) " AND`n" this.printObj(param_property)
 	    if (IsObject(param_property)) {
 	        for Key, Value in param_property {
 	            if (param_property.Count() == 1) {
