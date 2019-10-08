@@ -476,14 +476,14 @@ array (Array): The array to modify.
 #### Example
 
 ```autohotkey
-A.reverse(["a","b","c"])
-; => ["c","b","a"]
+A.reverse(["a", "b", "c"])
+; => ["c", "b", "a"]
 
-A.reverse([{"foo":"bar"},"b","c"])
-; => ["c","b",{"foo":"bar"}]
+A.reverse([{"foo": "bar"}, "b", "c"])
+; => ["c", "b", {"foo": "bar"}]
 
-A.reverse([[1,2,3],"b","c"])
-; => ["c","b",[1,2,3]]
+A.reverse([[1, 2, 3], "b", "c"])
+; => ["c", "b", [1, 2, 3]]
 
 ```
 
@@ -741,10 +741,6 @@ A.zipObject(["a", "b"], [1, 2])
 ## .filter
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
-> [!Warning]
-> This method has not reached pairity with Lodash.
-> missing .matchesProperty shorthand
-
 
 #### Arguments
 
@@ -777,10 +773,6 @@ fn_filter1(param_interatee) {    if (param_interatee.active) {         return 
 
 ## .find
 Iterates over elements of collection, returning the first element predicate returns truthy for.
-
-> [!Warning]
-> This method has not reached pairity with Lodash.
-> missing .matchesProperty shorthand
 
 
 #### Arguments
@@ -1722,6 +1714,7 @@ Creates a function that performs a partial deep comparison between the value at 
 #### Arguments
 
 path (Array|string): The path of the property to get.
+
 srcValue (*): The value to match.
 
 

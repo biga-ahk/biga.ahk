@@ -1,9 +1,5 @@
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
-> [!Warning]
-> This method has not reached pairity with Lodash.
-> missing .matchesProperty shorthand
-
 
 ## Arguments
 

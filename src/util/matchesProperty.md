@@ -4,6 +4,7 @@ Creates a function that performs a partial deep comparison between the value at 
 ## Arguments
 
 path (Array|string): The path of the property to get.
+
 srcValue (*): The value to match.
 
 
