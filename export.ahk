@@ -899,7 +899,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return l_array
 	}
 	parseInt(param_string) {
-	    param_string := this.trimStart(param_string,"0 -_")
+	    param_string := this.trimStart(param_string, "0 -_")
 	    return % param_string + 0
 	}
 	repeat(param_string,param_number:=1) {
@@ -944,14 +944,14 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return oReducedArray
 	}
 	startCase(param_string := "") {
-	    l_string := this.replace(param_string,"/(\W)/"," ")
-	    l_string := this.replace(l_string,"/([\_])/"," ")
+	    l_string := this.replace(param_string, "/(\W)/", " ")
+	    l_string := this.replace(l_string, "/([\_])/", " ")
 
 	    ; add space before each capitalized character
 	    RegExMatch(l_string, "O)([A-Z])", RE_Match)
 	    if (RE_Match.Count()) {
 	        loop, % RE_Match.Count() {
-	            l_string := % SubStr(l_string,1,RE_Match.Pos(A_Index) - 1) " " SubStr(l_string,RE_Match.Pos(A_Index))
+	            l_string := % SubStr(l_string, 1, RE_Match.Pos(A_Index) - 1) " " SubStr(l_string, RE_Match.Pos(A_Index))
 	        }
 	    }
 	    ; Split the string into array and Titlecase each element in the array
@@ -962,7 +962,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        l_array[A_Index] := x_string
 	    }
 	    ; join the string back together from Titlecased array elements
-	    l_string := this.join(l_array," ")
+	    l_string := this.join(l_array, " ")
 	    l_string := this.trim(l_string)
 	    return l_string
 	}

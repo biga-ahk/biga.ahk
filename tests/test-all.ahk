@@ -141,13 +141,13 @@ assert.test(A.join(["a", "b", "c"]), "a,b,c")
 
 
 assert.label("lastIndexOf()")
-assert.test(A.lastIndexOf([1, 2, 1, 2], 2),4)
+assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
 ; Search from the `fromIndex`.
-assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2),1)
+assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
 A.caseSensitive := true
-assert.test(A.lastIndexOf(["fred", "barney"], "Fred"),-1)
+assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
@@ -168,9 +168,9 @@ assert.test(A.nth([]), "")
 
 
 assert.label("reverse()")
-assert.test(A.reverse(["a","b","c"]), ["c","b","a"])
-assert.test(A.reverse([{"foo":"bar"},"b","c"]), ["c","b",{"foo":"bar"}])
-assert.test(A.reverse([[1,2,3],"b","c"]), ["c","b",[1,2,3]])
+assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
+assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
+assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
 
 
 assert.label("sortedIndex()")
@@ -510,9 +510,9 @@ assert.test(A.split("a--b-c", ","), ["a--b-c"])
 
 
 assert.label("startCase()")
-assert.test(A.startCase("--foo-bar--"),"Foo Bar")
-assert.test(A.startCase("fooBar"),"Foo Bar")
-assert.test(A.startCase("__FOO_BAR__"),"Foo Bar")
+assert.test(A.startCase("--foo-bar--"), "Foo Bar")
+assert.test(A.startCase("fooBar"), "Foo Bar")
+assert.test(A.startCase("__FOO_BAR__"), "Foo Bar")
 
 
 assert.label("startsWith()")
@@ -613,7 +613,6 @@ assert.false(fn.call(" "))
 objects := [{ "options": {"private": true} }, { "options": {"private": false} }, { "options": {"private": false} }]
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
-
 
 objects := [{ "name": "fred", "options": {"private": true} }
     , { "name": "barney", "options": {"private": false} }
