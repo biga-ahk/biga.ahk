@@ -43,5 +43,10 @@ assert.false(fn.call(" "))
 
 objects := [{ "options": {"private": true} }, { "options": {"private": false} }, { "options": {"private": false} }]
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
+assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
 
-; "name": "barney"
+objects := [{ "name": "fred", "options": {"private": true} }
+    , { "name": "barney", "options": {"private": false} }
+    , { "name": "pebbles", "options": {"private": false} }]
+assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
+assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
