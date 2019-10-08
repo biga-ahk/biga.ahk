@@ -614,7 +614,8 @@ section.cover blockquote>p>a:hover{
 	margin:40px 0 .6rem
 }
 .markdown-section h4{
-	font-size:1.25rem
+	font-size:1.25rem;
+	margin:1.5rem 0rem .1rem
 }
 .markdown-section h5{
 	font-size:1rem
@@ -624,7 +625,7 @@ section.cover blockquote>p>a:hover{
 	font-size:1rem
 }
 .markdown-section figure,.markdown-section p{
-	margin:1.2em 0
+	margin:.2rem 0
 }
 .markdown-section ol,.markdown-section p,.markdown-section ul{
 	line-height:1.6rem;
@@ -665,7 +666,7 @@ section.cover blockquote>p>a:hover{
 	-moz-osx-font-smoothing:initial;
 	-webkit-font-smoothing:initial;
 	line-height:1.5rem;
-	margin:1.2em 0;
+	margin:.2em 0 2rem;
 	overflow:auto;
 	padding:0 1.4rem;
 	position:relative;
@@ -745,7 +746,7 @@ section.cover blockquote>p>a:hover{
 	margin:0 2px;
 	max-width:inherit;
 	overflow:inherit;
-	padding:1.2em 0px 0.8em;
+	padding:.8rem 0px;
 	white-space:inherit
 }
 .markdown-section code:after,.markdown-section code:before{
