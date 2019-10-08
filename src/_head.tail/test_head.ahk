@@ -11,6 +11,5 @@ SetBatchLines, -1
 A := new biga()
 assert := new unittesting()
 
-; Star timer
-Start := A_TickCount
+; Start speed function
 QPC(1)
