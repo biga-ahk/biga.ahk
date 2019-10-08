@@ -2,11 +2,10 @@ Creates an array of elements, sorted in ascending order by the results of runnin
 
 
 ## Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 [iteratees:=[A.identity]] (...(Function|Function[])): The iteratees to sort by.
 
-## Returns
 
+## Returns
 (Array): Returns the new sorted array.

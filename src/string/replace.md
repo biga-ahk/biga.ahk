@@ -1,5 +1,4 @@
 ## Arguments
-
 string (string): The string to modify.
 
 pattern (RegExp|string): The pattern to replace.

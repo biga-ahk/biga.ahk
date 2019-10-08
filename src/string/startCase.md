@@ -1,7 +1,6 @@
 Converts string to start case.
 
 #### Arguments
-
 [string:=""] (string): The string to convert.
 
 #### Returns

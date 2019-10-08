@@ -2,12 +2,12 @@ Performs a partial deep comparison between object and source to determine if obj
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See A.isEqual for a list of supported value comparisons.
 
-## Arguments
 
+## Arguments
 object (Object): The object to inspect.
 
 source (Object): The object of property values to match.
 
-## Returns
 
+## Returns
 (boolean): Returns true if object is a match, else false.

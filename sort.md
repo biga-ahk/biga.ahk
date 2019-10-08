@@ -2,11 +2,10 @@ Creates an associative array of elements, sorted in ascending order by the resul
 
 
 ## Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 [iteratees := "name" |(Function)): The iteratees to sort by.
 
-## Returns
 
+## Returns
 (Array): Returns the new sorted array.

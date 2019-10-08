@@ -4,8 +4,8 @@ Since
 0.4.0
 
 ##  Arguments
-
 [props:=[]] (Array): The property identifiers.
+
 [values:=[]] (Array): The property values.
 
 

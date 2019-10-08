@@ -5,13 +5,12 @@ Creates an array of elements split into groups the length of size. If array can'
 
 
 #### Arguments
-
 array (Array): The array to process.
+
 [size:=1] (number): The length of each chunk
 
 
 #### Returns
-
 (Array): Returns the new array of chunks.
 
 
@@ -34,11 +33,10 @@ Creates an array with all falsey values removed. The values false, 0, and "" are
 
 
 #### Arguments
-
 array (Array): The array to compact.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new array of filtered values.
 
 
@@ -57,13 +55,12 @@ A.compact([0, 1, false, 2, "", 3])
 Creates a new array concatenating array with any additional arrays and/or values.
 
 #### Arguments
-
 array (Array): The array to concatenate.
 
 [values] (...*): The values to concatenate.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new concatenated array.
 
 
@@ -85,13 +82,12 @@ A.concat(array)
 Creates an array of array values not included in the other given arrays using SameValueZero for equality comparisons. The order and references of result values are determined by the first array.
 
 #### Arguments
-
 array (Array): The array to inspect.
 
 values (...Array): The values to exclude.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new array of filtered values.
 
 
@@ -117,13 +113,12 @@ Creates a slice of array with n elements dropped from the beginning.
 
 
 #### Arguments
-
 array (Array): The array to query.
+
 [n:=1] (number): The number of elements to drop.
 
 
 #### Returns
-
 (Array): Returns the slice of array.
 
 
@@ -158,12 +153,12 @@ Creates a slice of array with n elements dropped from the end.
 
 
 #### Arguments
-
 array (Array): The array to query.
+
 [n:=1] (number): The number of elements to drop.
 
-#### Returns
 
+#### Returns
 (Array): Returns the slice of array.
 
 
@@ -198,14 +193,14 @@ This method is like A.find except that it returns the index of the first element
 
 
 #### Arguments
-
 array (Array): The array to inspect.
+
 [predicate:=A.identity] (Function): The function invoked per iteration.
+
 [fromIndex:=0] (number): The index to search from.
 
 
 #### Returns
-
 (number): Returns the index of the found element, else -1.
 
 
@@ -239,12 +234,10 @@ findIndexFunc(o) {    return % o.user == "barney"}```
 The inverse of A.toPairs; this method returns an object composed from key-value pairs.
 
 #### Arguments
-
 pairs (Array): The key-value pairs.
 
 
 #### Returns
-
 (Object): Returns the new object.
 
 
@@ -266,7 +259,6 @@ Gets the first element of array.
 _.first -->
 
 #### Arguments
-
 array (Array): The array to query.
 
 
@@ -299,7 +291,6 @@ Gets the index at which the first occurrence of value is found in array using Sa
 
 
 #### Arguments
-
 array (Array): The array to inspect.
 
 value (*): The value to search for.
@@ -308,7 +299,6 @@ value (*): The value to search for.
 
 
 #### Returns
-
 (number): Returns the index of the matched value, else -1.
 
 
@@ -337,12 +327,10 @@ Creates an array of unique values that are included in all given arrays. The ord
 
 
 #### Arguments
-
 [arrays*] (...Array): The arrays to inspect.
 
 
 #### Returns
-
 (Array): Returns the new array of intersecting values.
 
 
@@ -362,14 +350,14 @@ Converts all elements in array into a string separated by separator.
 
 
 #### Arguments
-
 array (Array): The array to convert.
 
 [separator:=","] (string): The element separator.
 
-#### Returns
 
+#### Returns
 (string): Returns the joined string.
+
 
 #### Example
 
@@ -390,7 +378,6 @@ This method is like .indexOf except that it iterates over elements of array from
 
 
 #### Arguments
-
 array (Array): The array to inspect.
 
 value (*): The value to search for.
@@ -399,7 +386,6 @@ value (*): The value to search for.
 
 
 #### Returns
-
 (number): Returns the index of the matched value, else -1.
 
 
@@ -425,13 +411,12 @@ Gets the element at index n of array. If n is negative, the nth element from the
 
 
 #### Arguments
-
 array (Array): The array to query.
+
 [n:=1] (number): The index of the element to return.
 
 
 #### Returns
-
 (*): Returns the nth element of array.
 
 
@@ -466,12 +451,12 @@ Reverses array so that the first element becomes the last, the second element be
 
 
 #### Arguments
-
 array (Array): The array to modify.
 
-#### Returns
 
+#### Returns
 (Array): Returns array.
+
 
 #### Example
 
@@ -495,12 +480,12 @@ Uses a search to determine the lowest index at which value should be inserted in
 
 
 #### Arguments
-
 array (Array): The sorted array to inspect.
+
 value (*): The value to evaluate.
 
-#### Returns
 
+#### Returns
 (number): Returns the index at which value should be inserted into array.
 
 
@@ -526,12 +511,10 @@ Gets all but the first element of array.
 
 
 #### Arguments
-
 array (Array): The array to query.
 
 
 #### Returns
-
 (Array): Returns the slice of array.
 
 
@@ -557,13 +540,12 @@ Creates a slice of array with n elements taken from the beginning.
 
 
 #### Arguments
-
 array (Array): The array to query.
+
 [n:=1] (number): The number of elements to take.
 
 
 #### Returns
-
 (Array): Returns the slice of array.
 
 
@@ -598,13 +580,12 @@ Creates a slice of array with n elements taken from the end.
 
 
 #### Arguments
-
 array (Array): The array to query.
+
 [n:=1] (number): The number of elements to take.
 
 
 #### Returns
-
 (Array): Returns the slice of array.
 
 
@@ -639,11 +620,10 @@ Creates a duplicate-free version of an array, in which only the first occurrence
 
 
 #### Arguments
-
 array (Array): The array to inspect.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new duplicate free array.
 
 #### Example
@@ -661,12 +641,12 @@ A.uniq([2, 1, 2])
 Creates an array excluding all given values.
 
 #### Arguments
-
 array (Array): The array to inspect.
+
 [values] (...*): The values to exclude.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new array of filtered values.
 
 
@@ -689,7 +669,6 @@ Creates an array of grouped elements, the first of which contains the first elem
 > Output will not match Lodash output in the event the length of all supplied arrays are not the same.
 
 #### Arguments
-
 [arrays*] (...Array): The arrays to process.
 
 
@@ -715,8 +694,8 @@ Since
 0.4.0
 
 #### Arguments
-
 [props:=[]] (Array): The property identifiers.
+
 [values:=[]] (Array): The property values.
 
 
@@ -743,14 +722,12 @@ Iterates over elements of collection, returning an array of all elements predica
 
 
 #### Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 function (Function): The function invoked per iteration.
 
 
 #### Returns
-
 (Array): Returns the new filtered array.
 
 
@@ -776,7 +753,6 @@ Iterates over elements of collection, returning the first element predicate retu
 
 
 #### Arguments
-
 collection (Array|Object): The collection to inspect.
 
 function (Function): The function invoked per iteration.
@@ -785,7 +761,6 @@ function (Function): The function invoked per iteration.
 
 
 #### Returns
-
 (*): Returns the matched element, else undefined.
 
 
@@ -815,13 +790,12 @@ _.each -->
 
 
 #### Arguments
-
 collection (Array|Object): The collection to iterate over.
+
 [iteratee=_.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
-
 (*): Returns collection.
 
 
@@ -850,15 +824,14 @@ Checks if value is in collection. If collection is a string, it's checked for a 
 
 
 #### Arguments
-
 collection (Array|Object|string): The collection to inspect.
 
 value (*): The value to search for.
 
 [fromIndex=1] (number): The index to search from.
 
-#### Returns
 
+#### Returns
 (boolean): Returns true if value is found, else false.
 
 
@@ -889,14 +862,14 @@ A.caseSensitive := trueA.includes("InStr", "str")
 Creates an array of values by running each element in collection thru iteratee.
 
 #### Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 iteratee:=A.identity (Function): The function invoked per iteration.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new mapped array.
+
 
 #### Example
 
@@ -922,16 +895,14 @@ A.map({ "a": 4, "b": 8 })
 Gets a single random element from collection.
 
 #### Arguments
-
 collection (Array|Object): The collection to sample.
 
 
 #### Returns
-
 (*): Returns the random element.
 
-#### Example
 
+#### Example
 ```autohotkey
 A.sample([1, 2, 3, 4])
 ; => 2
@@ -946,17 +917,16 @@ Gets `n` random elements at unique keys from collection up to the size of collec
 
 
 #### Arguments
-
 collection (Array|Object): The collection to sample.
 
 [n=1] (number): The number of elements to sample.
 
-#### Returns
 
+#### Returns
 (Array): Returns the random elements.
 
-#### Example
 
+#### Example
 ```autohotkey
 output := A.sampleSize([1, 2, 3], 2)
 ; => [3, 1]
@@ -973,16 +943,14 @@ output := A.sampleSize([1, 2, 3], 4)
 Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
 
 #### Arguments
-
 collection (Array|Object): The collection to shuffle.
 
 
 #### Returns
-
 (Array): Returns the new shuffled array.
 
-#### Example
 
+#### Example
 ```autohotkey
 A.shuffle([1, 2, 3, 4])
 ; => [4, 1, 3, 2]
@@ -1000,11 +968,10 @@ Gets the size of collection by returning its length for array-like values or the
 
 
 #### Arguments
-
 collection (Array|Object|string): The collection to inspect.
 
-#### Returns
 
+#### Returns
 (number): Returns the collection size.
 
 
@@ -1030,13 +997,12 @@ Creates an array of elements, sorted in ascending order by the results of runnin
 
 
 #### Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 [iteratees:=[A.identity]] (...(Function|Function[])): The iteratees to sort by.
 
-#### Returns
 
+#### Returns
 (Array): Returns the new sorted array.
 
 
@@ -1063,16 +1029,14 @@ sortby1(o) {    return o.name}```
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
 #### Arguments
-
 value (*): The value to clone.
 
 
 #### Returns
-
 (*): Returns the cloned value.
 
-#### Example
 
+#### Example
 ```autohotkey
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
@@ -1092,12 +1056,10 @@ This method is like A.clone except that it recursively clones value.
 
 
 #### Arguments
-
 value (*): The value to recursively clone.
 
 
 #### Returns
-
 (*): Returns the deep cloned value.
 
 
@@ -1116,13 +1078,12 @@ This method supports comparing strings and objects.
 
 
 #### Arguments
-
 value (*): The value to compare.
 
 other (*): The other value to compare.
 
-#### Returns
 
+#### Returns
 (boolean): Returns true if the values are equivalent, else false.
 
 #### Example
@@ -1150,14 +1111,14 @@ Performs a partial deep comparison between object and source to determine if obj
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See A.isEqual for a list of supported value comparisons.
 
-#### Arguments
 
+#### Arguments
 object (Object): The object to inspect.
 
 source (Object): The object of property values to match.
 
-#### Returns
 
+#### Returns
 (boolean): Returns true if object is a match, else false.
 
 #### Example
@@ -1185,12 +1146,10 @@ Checks if value is undefined or blank
 
 
 #### Arguments
-
 value (*): The value to check.
 
 
 #### Returns
-
 (boolean): Returns true if value is undefined, else false.
 
 
@@ -1221,13 +1180,12 @@ This method recursively merges own and inherited enumerable string keyed propert
 
 
 #### Arguments
-
 object (Object): The destination object.
 
 [sources] (...Object): The source objects.
 
-#### Returns
 
+#### Returns
 (Object): Returns object.
 
 #### Example
@@ -1251,13 +1209,12 @@ Creates an array of own enumerable string keyed-value pairs for object which can
 <!-- ## Aliases
 A.entries -->
 
-#### Arguments
 
+#### Arguments
 object (Object): The object to query.
 
 
 #### Returns
-
 (Array): Returns the key-value pairs.
 
 
@@ -1282,7 +1239,6 @@ Converts string to an integer.
 > missing the radix to interpret value by parameter
 
 #### Arguments
-
 string (string): The string to convert.
 
 <!-- [radix:=10] (number): The radix to interpret value by. -->
@@ -1312,7 +1268,6 @@ Repeats the given string `n` times.
 
 
 #### Arguments
-
 [string:=""] (string): The string to repeat.
 
 [n:=1] (number): The number of times to repeat the string.
@@ -1341,7 +1296,6 @@ A.repeat("abc", 0)
 
 ## .replace
 #### Arguments
-
 string (string): The string to modify.
 
 pattern (RegExp|string): The pattern to replace.
@@ -1372,7 +1326,6 @@ Splits string by separator.
 
 
 #### Arguments
-
 [string:=""] (string): The string to split.
 
 [separator:=","] (RegExp|string): The separator pattern to split by.
@@ -1402,7 +1355,6 @@ A.split("a--b-c", "/[\-]+/")
 Converts string to start case.
 
 #### Arguments
-
 [string:=""] (string): The string to convert.
 
 #### Returns
@@ -1465,7 +1417,6 @@ A.caseSensitive := trueA.startsWith("abc", "A")
 Converts string, as a whole, to lower case.
 
 #### Arguments
-
 string (string): The string to convert.
 
 #### Returns
@@ -1520,7 +1471,6 @@ A.toUpper("__foo_bar__")
 Removes leading and trailing whitespace or specified characters from string.
 
 #### Arguments
-
 [string:=""] (string): The string to trim.
 
 [chars:=whitespace] (string): The characters to trim.
@@ -1552,7 +1502,6 @@ A.map([" foo  ", "  bar  "], A.trim)
 Removes trailing whitespace or specified characters from string.
 
 #### Arguments
-
 [strins:=""] (string): The string to trim.
 
 [chars=whitespace] (string): The characters to trim.
@@ -1581,7 +1530,6 @@ A.trimEnd("-_-abc-_-", "_-")
 Removes leading whitespace or specified characters from string.
 
 #### Arguments
-
 [string:=""] (string): The string to trim.
 
 [chars:=whitespace] (string): The characters to trim.
@@ -1612,7 +1560,6 @@ Truncates string if it's longer than the given maximum string length. The last c
 
 
 #### Arguments
-
 [string:=""] (string): The string to truncate.
 
 [options:={}] (Object): The options object.
@@ -1650,8 +1597,8 @@ Splits string into an array of its words.
 
 
 #### Arguments
-
 string:="" (string): The string to inspect.
+
 [pattern] (RegExp|string): The pattern to match words.
 
 
@@ -1681,12 +1628,10 @@ Creates a function that performs a shallow comparison between a given object and
 
 
 #### Arguments
-
 source (Object): The object of property values to match.
 
 
 #### Returns
-
 (Function): Returns the new spec function.
 
 
@@ -1712,14 +1657,12 @@ Creates a function that performs a partial deep comparison between the value at 
 
 
 #### Arguments
-
 path (Array|string): The path of the property to get.
 
 srcValue (*): The value to match.
 
 
 #### Returns
-
 (Function): Returns the new spec function.
 
 
@@ -1745,12 +1688,10 @@ Creates a function that returns the value at path of a given object.
 
 
 #### Arguments
-
 path (Array|string): The path of the property to get.
 
 
 #### Returns
-
 (Function): Returns the new accessor function.
 
 

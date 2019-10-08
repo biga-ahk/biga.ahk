@@ -5,7 +5,6 @@ Converts string to an integer.
 > missing the radix to interpret value by parameter
 
 ## Arguments
-
 string (string): The string to convert.
 
 <!-- [radix:=10] (number): The radix to interpret value by. -->

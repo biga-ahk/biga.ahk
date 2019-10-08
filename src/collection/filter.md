@@ -2,12 +2,10 @@ Iterates over elements of collection, returning an array of all elements predica
 
 
 ## Arguments
-
 collection (Array|Object): The collection to iterate over.
 
 function (Function): The function invoked per iteration.
 
 
 ## Returns
-
 (Array): Returns the new filtered array.

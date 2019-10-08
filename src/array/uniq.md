@@ -2,9 +2,8 @@ Creates a duplicate-free version of an array, in which only the first occurrence
 
 
 ## Arguments
-
 array (Array): The array to inspect.
 
-## Returns
 
+## Returns
 (Array): Returns the new duplicate free array.

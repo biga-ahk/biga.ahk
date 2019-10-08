@@ -2,7 +2,6 @@ Gets the index at which the first occurrence of value is found in array using Sa
 
 
 ## Arguments
-
 array (Array): The array to inspect.
 
 value (*): The value to search for.
@@ -11,5 +10,4 @@ value (*): The value to search for.
 
 
 ## Returns
-
 (number): Returns the index of the matched value, else -1.

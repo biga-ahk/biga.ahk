@@ -2,11 +2,10 @@ This method recursively merges own and inherited enumerable string keyed propert
 
 
 ## Arguments
-
 object (Object): The destination object.
 
 [sources] (...Object): The source objects.
 
-## Returns
 
+## Returns
 (Object): Returns object.

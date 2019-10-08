@@ -2,7 +2,6 @@ Iterates over elements of collection, returning the first element predicate retu
 
 
 ## Arguments
-
 collection (Array|Object): The collection to inspect.
 
 function (Function): The function invoked per iteration.
@@ -11,5 +10,4 @@ function (Function): The function invoked per iteration.
 
 
 ## Returns
-
 (*): Returns the matched element, else undefined.

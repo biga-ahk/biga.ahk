@@ -2,9 +2,8 @@ Reverses array so that the first element becomes the last, the second element be
 
 
 ## Arguments
-
 array (Array): The array to modify.
 
-## Returns
 
+## Returns
 (Array): Returns array.

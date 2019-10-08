@@ -2,7 +2,6 @@ Splits string by separator.
 
 
 ## Arguments
-
 [string:=""] (string): The string to split.
 
 [separator:=","] (RegExp|string): The separator pattern to split by.

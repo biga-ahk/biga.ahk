@@ -2,9 +2,8 @@ Gets the size of collection by returning its length for array-like values or the
 
 
 ## Arguments
-
 collection (Array|Object|string): The collection to inspect.
 
-## Returns
 
+## Returns
 (number): Returns the collection size.

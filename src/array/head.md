@@ -4,7 +4,6 @@ Gets the first element of array.
 _.first -->
 
 ## Arguments
-
 array (Array): The array to query.
 
 

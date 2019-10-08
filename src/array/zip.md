@@ -5,7 +5,6 @@ Creates an array of grouped elements, the first of which contains the first elem
 > Output will not match Lodash output in the event the length of all supplied arrays are not the same.
 
 ## Arguments
-
 [arrays*] (...Array): The arrays to process.
 
 

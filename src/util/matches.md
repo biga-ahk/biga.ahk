@@ -2,10 +2,8 @@ Creates a function that performs a shallow comparison between a given object and
 
 
 ## Arguments
-
 source (Object): The object of property values to match.
 
 
 ## Returns
-
 (Function): Returns the new spec function.

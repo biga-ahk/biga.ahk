@@ -2,7 +2,6 @@ This method is like .indexOf except that it iterates over elements of array from
 
 
 ## Arguments
-
 array (Array): The array to inspect.
 
 value (*): The value to search for.
@@ -11,5 +10,4 @@ value (*): The value to search for.
 
 
 ## Returns
-
 (number): Returns the index of the matched value, else -1.

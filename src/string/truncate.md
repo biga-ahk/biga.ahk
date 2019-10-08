@@ -3,7 +3,6 @@ Truncates string if it's longer than the given maximum string length. The last c
 
 
 ## Arguments
-
 [string:=""] (string): The string to truncate.
 
 [options:={}] (Object): The options object.

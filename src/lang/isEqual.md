@@ -4,11 +4,10 @@ This method supports comparing strings and objects.
 
 
 ## Arguments
-
 value (*): The value to compare.
 
 other (*): The other value to compare.
 
-## Returns
 
+## Returns
 (boolean): Returns true if the values are equivalent, else false.
