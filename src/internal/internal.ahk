@@ -87,6 +87,19 @@ internal_differenciateShorthand(param_shorthand,param_objects:="") {
     return false
 }
 
+internal_createShorthandfn(param_shorthand,param_objects) {
+    short_hand := this.internal_differenciateShorthand(param_shorthand, param_objects)
+    if (short_hand == ".matches") {
+        return this.matches(param_shorthand)
+    }
+    if (short_hand == ".matchesProperty") {
+        return this.matchesProperty(param_shorthand[1], param_shorthand[2])
+    }
+    if (short_hand == ".property") {
+        return this.property(param_shorthand)
+    }
+}
+
 internal_ThrowException() {
     if (this.throwExceptions == true) {
         throw Exception("Type Error", -2)

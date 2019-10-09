@@ -30,6 +30,7 @@ testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
 ignoreMethodDocsArr := ["internal"]
 ; ommitMethodsArr := ["matches"]
+; onlyTest := ["matchesProperty"]
 
 The_Array := []
 msgarray := []
@@ -80,7 +81,7 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
 ; The_Array := A.sortBy(The_Array,["name", "category"])
 ; Array_Gui(The_Array)
 if (IsObject(msgarray)) {
-    msgbox, % A.join(msgarray, newline)
+    ; msgbox, % A.join(msgarray, newline)
 }
 
 ; ===============
@@ -94,8 +95,10 @@ test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
 FileAppend, %test_head%, % test_File
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
-    FileAppend, % element.tests "`n", % test_File
+    if (A.indexOf(onlyTest, element.name) != -1 || onlyTest.Count() = "") {
+        FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
+        FileAppend, % element.tests "`n", % test_File
+    }
 }
 FileAppend, %test_tail%, % test_File
 

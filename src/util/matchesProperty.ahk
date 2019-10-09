@@ -12,7 +12,7 @@ matchesProperty(param_path,param_srcValue) {
 
 internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
     itareeValue := param_property.call(param_itaree)
-    ; msgbox, % "Comparison to " itareeValue " from " this.printObj(param_itaree)
+    ; msgbox, % "comparing matchvalue " param_matchvalue " to " itareeValue " from(" this.printObj(param_itaree) ")"
     if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
         return true
     }
