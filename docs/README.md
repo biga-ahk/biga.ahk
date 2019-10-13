@@ -740,7 +740,10 @@ collection (Array|Object): The collection to iterate over.
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]; The `A.matches` iteratee shorthandA.every(users, { "user": "barney", "age": 36, "active": false })
 ; => false
 
-; The `A.matchesProperty` iteratee shorthand.assert.true(A.every(users, ["active", false]), ["barney", "fred"]); The `A.property` iteratee shorthand.A.every(users, "active")
+; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
+; => true
+
+; The `A.property` iteratee shorthand.A.every(users, "active")
 ; => false
 
 ```
