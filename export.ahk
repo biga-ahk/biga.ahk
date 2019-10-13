@@ -1,11 +1,4 @@
-class biga {
-
-    ; class attributes
-    static throwExceptions := true
-    static caseSensitive := false
-    static limit := -1
-
-	chunk(param_array,param_size := 1) {
+class biga {    ; class attributes    static throwExceptions := true    static caseSensitive := false    static limit := -1	chunk(param_array,param_size := 1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
@@ -433,17 +426,15 @@ class biga {
 	    l_array := []
 	    short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
 	    if (short_hand != false) {
-	        fn := this.internal_createShorthandfn(param_predicate, param_collection)
-	    }
-	    if (IsFunc(param_predicate)) {
-	        fn := param_predicate.clone()
+	        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	    }
 
 	    ; perform the action
 	    for Key, Value in param_collection {
-	        if (fn.call(Value, Key, param_collection) == false) {
-	            return false
+	        if (BoundFunc.call(Value, Key, param_collection) == true) {
+	            continue
 	        }
+	        return false
 	    }
 	    return true
 	}
@@ -842,7 +833,6 @@ class biga {
 	    }
 	}
 
-
 	internal_ThrowException() {
 	    if (this.throwExceptions == true) {
 	        throw Exception("Type Error", -2)
@@ -889,7 +879,8 @@ class biga {
 	    return true
 	}
 	isUndefined(param_value) {
-	    if (!param_value || param_value == "") {
+	    msgbox, % "looking at: " param_value
+	    if (!param_value) {
 	        return true
 	    }
 	    return false
@@ -1178,6 +1169,7 @@ class biga {
 	    return BoundFunc
 	    }
 	}
+
 	internal_property(param_property,param_itaree) {
 	    if (IsObject(param_property)) {
 	        for Key, Value in param_property {
@@ -1192,8 +1184,4 @@ class biga {
 	    }
 	    return % param_itaree[param_property]
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}

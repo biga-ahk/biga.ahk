@@ -720,7 +720,9 @@ A.zipObject(["a", "b"], [1, 2])
 ## .every
 Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
 
-Note: This method returns true for empty collections because everything is true of elements of empty collections.
+> [!Note]
+> This method returns true for empty collections because everything is true of elements of empty collections.
+
 
 #### Arguments
 collection (Array|Object): The collection to iterate over.

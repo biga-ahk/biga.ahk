@@ -7,17 +7,15 @@ every(param_collection,param_predicate) {
     l_array := []
     short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
     if (short_hand != false) {
-        fn := this.internal_createShorthandfn(param_predicate, param_collection)
-    }
-    if (IsFunc(param_predicate)) {
-        fn := param_predicate.clone()
+        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
     }
 
     ; perform the action
     for Key, Value in param_collection {
-        if (fn.call(Value, Key, param_collection) == false) {
-            return false
+        if (BoundFunc.call(Value, Key, param_collection) == true) {
+            continue
         }
+        return false
     }
     return true
 }
@@ -37,12 +35,36 @@ assert.false(A.every(users, "active"))
 
 
 ; omit
-assert.label("hey")
+assert.label("UNDEFINED")
 assert.true(A.every(["", "", ""], A.isUndefined))
+assert.label("2")
 assert.true(A.every([1, 2, 3], func("isPositive")))
 isPositive(value) {
     if (value > 0) {
         return true
     }
     return false
+}
+
+votes := [true, false, true, true]
+A.every(votes, Func("fn_istrue")) " was the result"
+fn_istrue(value) {
+    if (value == true) {
+        return true
+    } 
+    return false
+}
+
+
+userVotes := [{"name":"fred", "votes": ["yes","yes"]}
+            , {"name":"bill", "votes": ["no","yes"]}
+            , {"name":"jake", "votes": ["no","yes"]}]
+
+msgbox, % A.every(userVotes, ["votes.1", "yes"])
+; => false
+msgbox, % A.every(userVotes, ["votes.2", "yes"])
+; => true
+
+if (A.every(userVotes, "votes.2")) {
+    msgbox, % "everyone voted yes on option #2"
 }
