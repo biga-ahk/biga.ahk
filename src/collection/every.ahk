@@ -10,7 +10,7 @@ every(param_collection,param_predicate) {
         fn := this.internal_createShorthandfn(param_predicate, param_collection)
     }
     if (IsFunc(param_predicate)) {
-        fn := param_predicate
+        fn := param_predicate.clone()
     }
 
     ; perform the action
@@ -39,11 +39,10 @@ assert.false(A.every(users, "active"))
 ; omit
 assert.label("hey")
 assert.true(A.every(["", "", ""], A.isUndefined))
-assert.false(A.every([1, 2, 3], func("isZero")))
-isZero(value) {
-    msgbox, % value
-    if (value != 0) {
-        return false
+assert.true(A.every([1, 2, 3], func("isPositive")))
+isPositive(value) {
+    if (value > 0) {
+        return true
     }
-    return true
+    return false
 }

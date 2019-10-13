@@ -717,6 +717,35 @@ A.zipObject(["a", "b"], [1, 2])
 
 
 # **Collection**
+## .every
+Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
+
+Note: This method returns true for empty collections because everything is true of elements of empty collections.
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[predicate=_.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(boolean): Returns true if all elements pass the predicate check, else false.
+
+
+#### Example
+
+```autohotkey
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]; The `A.matches` iteratee shorthandA.every(users, { "user": "barney", "age": 36, "active": false })
+; => false
+
+; The `A.matchesProperty` iteratee shorthand.assert.true(A.every(users, ["active", false]), ["barney", "fred"]); The `A.property` iteratee shorthand.A.every(users, "active")
+; => false
+
+```
+
+
+
+
 ## .filter
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 

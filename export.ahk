@@ -417,6 +417,29 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_obj
 	}
+	every(param_collection,param_predicate) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    l_array := []
+	    short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	    if (short_hand != false) {
+	        fn := this.internal_createShorthandfn(param_predicate, param_collection)
+	    }
+	    if (IsFunc(param_predicate)) {
+	        fn := param_predicate.clone()
+	    }
+
+	    ; perform the action
+	    for Key, Value in param_collection {
+	        if (fn.call(Value, Key, param_collection) == false) {
+	            return false
+	        }
+	    }
+	    return true
+	}
 	filter(param_collection,param_func) {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
@@ -799,6 +822,19 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return false
 	}
 
+	internal_createShorthandfn(param_shorthand,param_objects) {
+	    short_hand := this.internal_differenciateShorthand(param_shorthand, param_objects)
+	    if (short_hand == ".matches") {
+	        return this.matches(param_shorthand)
+	    }
+	    if (short_hand == ".matchesProperty") {
+	        return this.matchesProperty(param_shorthand[1], param_shorthand[2])
+	    }
+	    if (short_hand == ".property") {
+	        return this.property(param_shorthand)
+	    }
+	}
+
 	internal_ThrowException() {
 	    if (this.throwExceptions == true) {
 	        throw Exception("Type Error", -2)
@@ -1108,7 +1144,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 	    itareeValue := param_property.call(param_itaree)
-	    ; msgbox, % "Comparison to " itareeValue " from " this.printObj(param_itaree)
+	    ; msgbox, % "comparing matchvalue " param_matchvalue " to " itareeValue " from(" this.printObj(param_itaree) ")"
 	    if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
 	        return true
 	    }
