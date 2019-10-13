@@ -737,7 +737,10 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]; The `A.matches` iteratee shorthandA.every(users, { "user": "barney", "age": 36, "active": false })
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("isOver18")
+; => true
+
+isOver18(x) {    if (x.age > 18) {        return true    }}; The `A.matches` iteratee shorthandA.every(users, { "user": "barney", "age": 36, "active": false })
 ; => false
 
 ; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
