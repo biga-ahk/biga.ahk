@@ -428,8 +428,24 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (short_hand != false) {
 	        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	    }
+	    for Key, Value in param_collection {
+	        if (param_predicate.call(Value)) {
+	            thisthing := "function"
+	        }
+	        break
+	    }
 
 	    ; perform the action
+	    if (thisthing == "function") {
+	        for Key, Value in param_collection {
+	                if (param_predicate.call(Value, Key, param_collection) == true) {
+	                continue
+	            }
+	            return false
+	        }
+	        return true
+	    }
+
 	    for Key, Value in param_collection {
 	        if (BoundFunc.call(Value, Key, param_collection) == true) {
 	            continue
@@ -879,7 +895,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return true
 	}
 	isUndefined(param_value) {
-	    msgbox, % "looking at: " param_value
 	    if (!param_value) {
 	        return true
 	    }

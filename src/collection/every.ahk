@@ -9,8 +9,24 @@ every(param_collection,param_predicate) {
     if (short_hand != false) {
         BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
     }
+    for Key, Value in param_collection {
+        if (param_predicate.call(Value)) {
+            thisthing := "function"
+        }
+        break
+    }
 
     ; perform the action
+    if (thisthing == "function") {
+        for Key, Value in param_collection {
+                if (param_predicate.call(Value, Key, param_collection) == true) {
+                continue
+            }
+            return false
+        }
+        return true
+    }
+
     for Key, Value in param_collection {
         if (BoundFunc.call(Value, Key, param_collection) == true) {
             continue
@@ -46,25 +62,19 @@ isPositive(value) {
     return false
 }
 
-votes := [true, false, true, true]
-A.every(votes, Func("fn_istrue")) " was the result"
+assert.false(A.every([true, false, true, true], Func("fn_istrue")))
 fn_istrue(value) {
-    if (value == true) {
-        return true
+    if (value != true) {
+        return false
     } 
-    return false
+    return true
 }
+assert.true(A.every([true, true, true, true], Func("fn_istrue")))
 
 
 userVotes := [{"name":"fred", "votes": ["yes","yes"]}
             , {"name":"bill", "votes": ["no","yes"]}
             , {"name":"jake", "votes": ["no","yes"]}]
 
-msgbox, % A.every(userVotes, ["votes.1", "yes"])
-; => false
-msgbox, % A.every(userVotes, ["votes.2", "yes"])
-; => true
-
-if (A.every(userVotes, "votes.2")) {
-    msgbox, % "everyone voted yes on option #2"
-}
+assert.false(A.every(userVotes, ["votes.1", "yes"]))
+assert.true(A.every(userVotes, ["votes.2", "yes"]))
