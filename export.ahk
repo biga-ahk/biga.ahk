@@ -1,4 +1,11 @@
-class biga {    ; class attributes    static throwExceptions := true    static caseSensitive := false    static limit := -1	chunk(param_array,param_size := 1) {
+class biga {
+
+    ; class attributes
+    static throwExceptions := true
+    static caseSensitive := false
+    static limit := -1
+
+	chunk(param_array,param_size := 1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
@@ -835,6 +842,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	}
 
+
 	internal_ThrowException() {
 	    if (this.throwExceptions == true) {
 	        throw Exception("Type Error", -2)
@@ -1170,7 +1178,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return BoundFunc
 	    }
 	}
-
 	internal_property(param_property,param_itaree) {
 	    if (IsObject(param_property)) {
 	        for Key, Value in param_property {
@@ -1185,4 +1192,8 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return % param_itaree[param_property]
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}
