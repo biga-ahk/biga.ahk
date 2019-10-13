@@ -58,9 +58,8 @@ assert.false(A.every(users, "active"))
 
 
 ; omit
-assert.label("UNDEFINED")
+assert.true(A.every([], func("fn_istrue")))
 assert.true(A.every(["", "", ""], A.isUndefined))
-assert.label("2")
 assert.true(A.every([1, 2, 3], func("isPositive")))
 isPositive(value) {
     if (value > 0) {
