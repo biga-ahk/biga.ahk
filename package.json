@@ -6,12 +6,11 @@
     "scripts": {
         "newinstall": "yarn install --modules-folder ./lib"
     },
-    "dependencies": {
-        "biga.ahk": "^0.3.3",
-        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
-    },
+    "dependencies": { },
     "devDependencies": {
+        "biga.ahk": "^0.10.2",
         "json.ahk": "github:chunjee/json.ahk",
+        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa",
         "unit-testing.ahk": "github:chunjee/unit-testing.ahk"
     },
     "author": "Shawn Brooker",

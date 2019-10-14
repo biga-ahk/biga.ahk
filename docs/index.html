@@ -52,10 +52,13 @@
 </body>
 <footer>
   <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-      });
+    document.addEventListener('readystatechange', event => {
+      if (event.target.readyState === "complete") {
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+        console.log("ahk highlighting applied")
+      }
     });
   </script>
 </footer>
