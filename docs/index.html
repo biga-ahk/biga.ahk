@@ -52,15 +52,9 @@
 </body>
 <footer>
   <script>
-    var attempts = 0;
-    var intervalID = setInterval(function () {
-      hljs.initHighlightingOnLoad();
-      console.log("highlight attempted");
-      attempts++;
-      if (attempts > 20) {
-        clearInterval(intervalID)
-      }
-    }, 200)
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
   </script>
 </footer>
 
