@@ -11,7 +11,7 @@ map(param_collection,param_iteratee:="baseProperty") {
         param_iteratee := this.property(param_iteratee)
     }
     for Key, Value in param_collection {
-        if (param_iteratee.call(Value)) {
+        if (!this.isUndefined(param_iteratee.call(Value))) {
             thisthing := "function"
         }
         break

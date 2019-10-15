@@ -10,7 +10,7 @@ every(param_collection,param_predicate) {
         BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
     }
     for Key, Value in param_collection {
-        if (param_predicate.call(Value)) {
+        if (!this.isUndefined(param_predicate.call(Value))) {
             thisthing := "function"
         }
         break
