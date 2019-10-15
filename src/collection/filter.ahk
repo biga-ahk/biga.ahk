@@ -57,7 +57,7 @@ fn_filter1(param_interatee) {
     }
 }
  
-; matches shorthand
+; The A.matches shorthand
 assert.test(A.filter(users,{"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
 
 ; omit

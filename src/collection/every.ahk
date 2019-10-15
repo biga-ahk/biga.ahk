@@ -47,13 +47,13 @@ isOver18(x) {
     }
 }
 
-; The `A.matches` iteratee shorthand
+; The A.matches iteratee shorthand
 assert.false(A.every(users, { "user": "barney", "age": 36, "active": false }))
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.true(A.every(users, ["active", false]))
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.false(A.every(users, "active"))
 
 
