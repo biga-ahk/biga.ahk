@@ -116,10 +116,11 @@ clipboard := A.join(vMethodNames_Array," ")
 ; DOCS
 ; ===============
 FileDelete, % Readme_File
-DOCS_Array := []
+DOCS_Array := [fn_ReadFile(A_ScriptDir "\src\_head.tail\doc_head.md")]
+
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    if (A.indexof(ignoreMethodDocsArr,element.name) != -1 || A.startsWith(element.name,"internal")) { ; skip ignored methods
+    if (A.indexof(ignoreMethodDocsArr, element.name) != -1 || A.startsWith(element.name, "internal")) { ; skip ignored methods
         continue
     }
     ; skip if category is any of the following
@@ -130,7 +131,7 @@ loop, % The_Array.MaxIndex() {
     txt := []
     ExampleArray := []
     if (element.category != The_Array[A_Index - 1].category) {
-        txt.push(newline "# **" A.startCase(element.category) "**" newline)
+        txt.push(newline "# **&ldquo;" A.startCase(element.category) "&rdquo; Methods**" newline)
     }
     txt.push("## " "." element.name newline element.doc newline newline)
     ; if examples not staticly defined in .md file, parse tests for use in documentation
