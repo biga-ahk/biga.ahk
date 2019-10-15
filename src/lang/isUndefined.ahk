@@ -1,4 +1,7 @@
 isUndefined(param_value) {
+    if (param_value == 0) {
+        return false
+    }
     if (!param_value) {
         return true
     }
@@ -7,7 +10,9 @@ isUndefined(param_value) {
 
 
 ; tests
-assert.true(A.isUndefined(neverIntializedVar))
+assert.true(A.isUndefined(nonexistantVar))
 assert.true(A.isUndefined(""))
 assert.false(A.isUndefined({}))
 assert.false(A.isUndefined(" "))
+assert.false(A.isUndefined(0))
+assert.false(A.isUndefined(false))
