@@ -11,22 +11,12 @@ every(param_collection,param_predicate) {
     }
     for Key, Value in param_collection {
         if (!this.isUndefined(param_predicate.call(Value))) {
-            thisthing := "function"
+            BoundFunc := param_predicate.bind()
         }
         break
     }
 
     ; perform the action
-    if (thisthing == "function") {
-        for Key, Value in param_collection {
-                if (param_predicate.call(Value, Key, param_collection) == true) {
-                continue
-            }
-            return false
-        }
-        return true
-    }
-
     for Key, Value in param_collection {
         if (BoundFunc.call(Value, Key, param_collection) == true) {
             continue

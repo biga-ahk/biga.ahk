@@ -430,22 +430,12 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    for Key, Value in param_collection {
 	        if (!this.isUndefined(param_predicate.call(Value))) {
-	            thisthing := "function"
+	            BoundFunc := param_predicate.bind()
 	        }
 	        break
 	    }
 
 	    ; perform the action
-	    if (thisthing == "function") {
-	        for Key, Value in param_collection {
-	                if (param_predicate.call(Value, Key, param_collection) == true) {
-	                continue
-	            }
-	            return false
-	        }
-	        return true
-	    }
-
 	    for Key, Value in param_collection {
 	        if (BoundFunc.call(Value, Key, param_collection) == true) {
 	            continue
@@ -676,23 +666,12 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    for Key, Value in param_collection {
 	        if (!this.isUndefined(param_predicate.call(Value))) {
-	            thisthing := "function"
+	            BoundFunc := param_predicate.bind()
 	        }
 	        break
 	    }
 
 	    ; perform the action
-	    if (thisthing == "function") {
-	        for Key, Value in param_collection {
-	            if (param_predicate.call(Value) == true) {
-	                trueArray.push(Value)
-	            } else {
-	                falseArray.push(Value)
-	            }
-	        }
-	        return [trueArray, falseArray]
-	    }
-
 	    for Key, Value in param_collection {
 	        if (BoundFunc.call(Value) == true) {
 	            trueArray.push(Value)
