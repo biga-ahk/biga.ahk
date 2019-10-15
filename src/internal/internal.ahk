@@ -76,8 +76,7 @@ internal_differenciateShorthand(param_shorthand,param_objects:="") {
         }
         return ".matchesProperty"
     }
-    if param_shorthand is alnum
-    {   
+    if (this.size(param_shorthand) > 0) {   
         if (IsObject(param_objects)) {
             if (param_objects[1][param_shorthand] != "") {
                 return ".property"
