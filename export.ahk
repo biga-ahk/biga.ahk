@@ -682,7 +682,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; perform the action
-
+	    if (thisthing == "function") {
+	        for Key, Value in param_collection {
+	            if (param_predicate.call(Value) == true) {
+	                trueArray.push(Value)
+	            } else {
+	                falseArray.push(Value)
+	            }
+	        }
+	        return [trueArray, falseArray]
+	    }
 
 	    for Key, Value in param_collection {
 	        if (BoundFunc.call(Value) == true) {
