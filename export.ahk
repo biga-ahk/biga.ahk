@@ -662,6 +662,37 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+	partition(param_collection,param_predicate) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    trueArray := []
+	    falseArray := []
+	    short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	    if (short_hand != false) {
+	        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+	    }
+	    for Key, Value in param_collection {
+	        if (!this.isUndefined(param_predicate.call(Value))) {
+	            thisthing := "function"
+	        }
+	        break
+	    }
+
+	    ; perform the action
+
+
+	    for Key, Value in param_collection {
+	        if (BoundFunc.call(Value) == true) {
+	            trueArray.push(Value)
+	        } else {
+	            falseArray.push(Value)
+	        }
+	    }
+	    return [trueArray, falseArray] 
+	}
 	sample(param_collection) {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
@@ -825,8 +856,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        return ".matchesProperty"
 	    }
-	    if param_shorthand is alnum
-	    {   
+	    if (this.size(param_shorthand) > 0) {   
 	        if (IsObject(param_objects)) {
 	            if (param_objects[1][param_shorthand] != "") {
 	                return ".property"
@@ -895,6 +925,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return true
 	}
 	isUndefined(param_value) {
+	    if (param_value == 0) {
+	        return false
+	    }
 	    if (!param_value) {
 	        return true
 	    }
