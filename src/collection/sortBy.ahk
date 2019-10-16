@@ -34,13 +34,11 @@ sortBy(param_collection, param_iteratees) {
 }
 
 ; tests
-
 users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
   , { "name": "zeddy", "age": 40 }]
-
 
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
@@ -48,8 +46,9 @@ assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"ag
 sortby1(o) {
     return o.name
 }
-; omit
 
+
+; omit
 enemies := [ 
     , {"name": "bear", "hp": 200, "armor": 20}
     , {"name": "wolf", "hp": 100, "armor": 12}]

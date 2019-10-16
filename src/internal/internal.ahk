@@ -3,12 +3,14 @@
 ; \--/--\--/--\--/--\--/--\--/
 
 printObj(param_obj) {
+    
     if (!IsObject(param_obj)) {
-        return param_obj
+        return """" param_obj """"
     }
     if this.internal_IsCircle(param_obj) {
         this.internal_ThrowException()
     }
+
     for Key, Value in param_obj {
         if Key is not Number 
         {
