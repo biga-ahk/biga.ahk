@@ -47,3 +47,6 @@ assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
 ; omit
 fn := A.property("a.b")
 assert.test(fn.call({ "a": {"b": 2} }), "2")
+
+fn := A.property("a")
+assert.test(fn.call({ "a": 1, "b": 2 }), 1)
