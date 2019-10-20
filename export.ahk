@@ -426,66 +426,51 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    l_array := []
 	    short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
 	    if (short_hand != false) {
-	        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
-	    }
-	    for Key, Value in param_collection {
-	        if (!this.isUndefined(param_predicate.call(Value))) {
-	            BoundFunc := param_predicate.bind()
-	        }
-	        break
+	        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	    }
 
 	    ; perform the action
 	    for Key, Value in param_collection {
-	        if (BoundFunc.call(Value, Key, param_collection) == true) {
+	        if (boundFunc.call(Value, Key, param_collection) == true) {
 	            continue
 	        }
 	        return false
 	    }
 	    return true
 	}
-	filter(param_collection,param_func) {
+	filter(param_collection,param_predicate) {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
 
 	    ; data setup
-	    short_hand := this.internal_differenciateShorthand(param_func, param_collection)
-	    if (short_hand == ".matches") {
-	        fn := this.matches(param_func)
+	    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	    if (short_hand != false) {
+	        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	    }
 	    l_array := []
 
 	    ; create the slice
 	    for Key, Value in param_collection {
-	        if (short_hand == ".property") {
-	            if (param_collection[A_Index][param_func]) {
-	                l_array.push(param_collection[A_Index])
-	            }
-	        }
-	        if (IsFunc(param_func)) {
-	            if (param_func.call(param_collection[A_Index])) {
-	                l_array.push(param_collection[A_Index])
+	        ; functor
+	        ; predefined !functor handling (slower as it .calls blindly)
+	        if (IsFunc(param_predicate)) {
+	            if (param_predicate.call(Value)) {
+	                l_array.push(Value)
 	            }
 	            continue
 	        }
-
-	        ; .matches shorthand
-	        if (short_hand == ".matches") {
-	            if (fn.call(param_collection[Key])) {
-	                l_array.push(param_collection[Key])
-	            }
-	        }
-	        ; .matchesProperty shorthand
-	        ; none yet
-
-	        ; functor
-	        ; predefined !functor handling (slower as it .calls blindly)
-	        vValue := param_func.call(param_collection[A_Index])
+	        vValue := param_predicate.call(Value)
 	        if (vValue) {
-	            if (param_func.call(param_collection[A_Index])) {
-	                l_array.push(param_collection[A_Index])
+	            l_array.push(Value)
+	            continue
+	        }
+	        ; shorthand
+	        if (short_hand != false) {
+	            if (boundFunc.call(Value)) {
+	                l_array.push(Value)
 	            }
+	            continue
 	        }
 	    }
 	    return l_array
@@ -497,36 +482,32 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; data setup
 	    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
-	    if (shorthand == ".matches") {
-	        fn := this.matches(param_predicate)
+	    if (short_hand != false) {
+	        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	    }
 
-	    ; create the return
+	    ; perform
 	    for Key, Value in param_collection {
 	        if (param_fromindex > A_Index) {
 	            continue
-	        }
-	        ; .matches shorthand
-	        if (shorthand == ".matches") {
-	            if (fn.call(Value)) {
-	                return Value
-	            }
 	        }
 	        ; regular function
 	        if (IsFunc(param_predicate)) {
 	            if (param_predicate.call(Value)) {
 	                return Value
 	            }
+	            continue
 	        }
-	        ; .property shorthand
-	        if (shorthand == ".property") {
-	            if (param_collection[Key][param_predicate]) {
-	                return Value
-	            }
-	        }
-	        ; .matchesProperty shorthand
+	        ; undeteriminable functor
 	        if (param_predicate.call(Value)) {
 	            return Value
+	        }
+	        ; shorthand
+	        if (shorthand) {
+	            if (boundFunc.call(Value)) {
+	                return Value
+	            }
+	            continue
 	        }
 	    }
 	}
@@ -774,12 +755,14 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	; \--/--\--/--\--/--\--/--\--/
 
 	printObj(param_obj) {
+
 	    if (!IsObject(param_obj)) {
-	        return param_obj
+	        return """" param_obj """"
 	    }
 	    if this.internal_IsCircle(param_obj) {
 	        this.internal_ThrowException()
 	    }
+
 	    for Key, Value in param_obj {
 	        if Key is not Number 
 	        {
@@ -969,7 +952,8 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
-	parseInt(param_string) {
+	parseInt(param_string:="0") {
+
 	    param_string := this.trimStart(param_string, "0 -_")
 	    return % param_string + 0
 	}
@@ -977,6 +961,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (IsObject(param_string)) {
 	        this.internal_ThrowException()
 	    }
+
 	    if (param_number == 0) {
 	        return ""
 	    }
@@ -1166,23 +1151,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return true
 	}
 	matchesProperty(param_path,param_srcValue) {
-	    if (IsObject(param_srcValue)) {
-	        this.internal_ThrowException()
-	    }
+	    ; if (IsObject(param_srcValue)) {
+	    ;     this.internal_ThrowException()
+	    ; }
 
 	    ; create the property fn
 	    fnProperty := this.property(param_path)
 	    ; create the fn
-	    BoundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
-	    return BoundFunc
+	    boundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
+	    return boundFunc
 	}
 
 	internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 	    itareeValue := param_property.call(param_itaree)
-	    ; msgbox, % "comparing matchvalue " param_matchvalue " to " itareeValue " from(" this.printObj(param_itaree) ")"
-	    if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
-	        return true
-	    }
+	    ; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
+	    if (!this.isUndefined(itareeValue)) {
+	        if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
+	            return true
+	        }
+	    }    
 	    return false
 	}
 	property(param_source) {

@@ -787,13 +787,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, "active")
+users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filter1"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-A.filter(users, Func("fn_filter1"))
+; fn_filter1(param_interatee) {;     if (param_interatee.active) { ;         return true ;     }; } ; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }} ; The A.matches shorthandA.filter(users,{"age": 36,"active":true})
+; The A.matchesProperty shorthandA.filter(users, ["active", false])
+; => [{"user":"fred", "age":40, "active":false}]
+
+;the A.property shorthand A.filter(users, "active")
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ```
@@ -823,8 +826,11 @@ function (Function): The function invoked per iteration.
 users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.find(users, Func("fn_find1"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_find1(param_interatee) {    if (param_interatee.active) {         return true     } } ; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
+fn_find1(o) {    if (o.active) {         return true     }} ; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
+
+; The A.matchesProperty iteratee shorthand.A.find(users, ["active", false])
+; => { "user": "fred", "age": 40, "active": false }
 
 ; The A.property iteratee shorthand.A.find(users, "active")
 ; => { "user": "barney", "age": 36, "active": true }
@@ -1771,7 +1777,7 @@ A.filter(objects, A.matchesProperty("a", 4))
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesProperty(["a", "b"], 1))
 ; => { "a": {"b": 1} }
 
-```
+; fn := A.matchesProperty(["a", "b"], 1); msgbox, % fn.call({ "a": {"b": 2} })```
 
 
 

@@ -1,45 +1,36 @@
-filter(param_collection,param_func) {
+filter(param_collection,param_predicate) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
 
     ; data setup
-    short_hand := this.internal_differenciateShorthand(param_func, param_collection)
-    if (short_hand == ".matches") {
-        fn := this.matches(param_func)
+    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+    if (short_hand != false) {
+        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
     }
     l_array := []
 
     ; create the slice
     for Key, Value in param_collection {
-        if (short_hand == ".property") {
-            if (param_collection[A_Index][param_func]) {
-                l_array.push(param_collection[A_Index])
-            }
-        }
-        if (IsFunc(param_func)) {
-            if (param_func.call(param_collection[A_Index])) {
-                l_array.push(param_collection[A_Index])
+        ; functor
+        ; predefined !functor handling (slower as it .calls blindly)
+        if (IsFunc(param_predicate)) {
+            if (param_predicate.call(Value)) {
+                l_array.push(Value)
             }
             continue
         }
-
-        ; .matches shorthand
-        if (short_hand == ".matches") {
-            if (fn.call(param_collection[Key])) {
-                l_array.push(param_collection[Key])
-            }
-        }
-        ; .matchesProperty shorthand
-        ; none yet
-
-        ; functor
-        ; predefined !functor handling (slower as it .calls blindly)
-        vValue := param_func.call(param_collection[A_Index])
+        vValue := param_predicate.call(Value)
         if (vValue) {
-            if (param_func.call(param_collection[A_Index])) {
-                l_array.push(param_collection[A_Index])
+            l_array.push(Value)
+            continue
+        }
+        ; shorthand
+        if (short_hand != false) {
+            if (boundFunc.call(Value)) {
+                l_array.push(Value)
             }
+            continue
         }
     }
     return l_array
@@ -48,30 +39,32 @@ filter(param_collection,param_func) {
 
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
-assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
 
-assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
-}
+; assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
+; fn_filter1(param_interatee) {
+;     if (param_interatee.active) { 
+;         return true 
+;     }
+; }
  
 ; The A.matches shorthand
-assert.test(A.filter(users,{"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+
+; The A.matchesProperty shorthand
+assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])
+
+;the A.property shorthand 
+assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
 
 
 ; omit
-assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-fn_filter2(param_interatee) {
-    if (param_interatee >= 2) {
-        return param_interatee
-    }
-    return false
-}
-
-assert.label("filter() shorthands")
-assert.test(A.filter(users,"active"), [{"user":"barney", "age":36, "active":true}])
+; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+; fn_filter2(param_interatee) {
+;     if (param_interatee >= 2) {
+;         return param_interatee
+;     }
+;     return false
+; }
 
 ;     ;matchesProperty shorthand
 ; assert.test(A.filter(users,["active",true]), {"user":"barney", "age":36, "active":true})
