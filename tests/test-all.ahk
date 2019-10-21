@@ -263,7 +263,6 @@ assert.false(A.every(users, "active"))
 
 ; omit
 assert.true(A.every([], func("fn_istrue")))
-assert.true(A.every(["", "", ""], A.isUndefined))
 assert.true(A.every([1, 2, 3], func("isPositive")))
 isPositive(value) {
     if (value > 0) {
@@ -292,29 +291,32 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 
 assert.label("filter()")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
-assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
 
-assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
-}
+; assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
+; fn_filter1(param_interatee) {
+;     if (param_interatee.active) { 
+;         return true 
+;     }
+; }
  
 ; The A.matches shorthand
-assert.test(A.filter(users,{"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+
+; The A.matchesProperty shorthand
+assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])
+
+;the A.property shorthand 
+assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
+
 
 ; omit
-assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-fn_filter2(param_interatee) {
-    if (param_interatee >= 2) {
-        return param_interatee
-    }
-    return false
-}
-
-assert.label("filter() shorthands")
-assert.test(A.filter(users,"active"), [{"user":"barney", "age":36, "active":true}])
+; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+; fn_filter2(param_interatee) {
+;     if (param_interatee >= 2) {
+;         return param_interatee
+;     }
+;     return false
+; }
 
 ;     ;matchesProperty shorthand
 ; assert.test(A.filter(users,["active",true]), {"user":"barney", "age":36, "active":true})
@@ -325,14 +327,17 @@ users := [ { "user": "barney", "age": 36, "active": true }
     , { "user": "pebbles", "age": 1, "active": true } ]
 
 assert.test(A.find(users, Func("fn_find1")), { "user": "barney", "age": 36, "active": true })
-fn_find1(param_interatee) {
-    if (param_interatee.active) { 
+fn_find1(o) {
+    if (o.active) { 
         return true 
-    } 
+    }
 } 
 
 ; The A.matches iteratee shorthand.
 assert.test(A.find(users, { "age": 1, "active": true }), { "user": "pebbles", "age": 1, "active": true })
+
+; The A.matchesProperty iteratee shorthand.
+assert.test(A.find(users, ["active", false]), { "user": "fred", "age": 40, "active": false })
 
 ; The A.property iteratee shorthand.
 assert.test(A.find(users, "active"), { "user": "barney", "age": 36, "active": true })
@@ -452,13 +457,11 @@ assert.test(A.size("pebbles"), 7)
 
 
 assert.label("sortBy()")
-
 users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
   , { "name": "zeddy", "age": 40 }]
-
 
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
@@ -466,8 +469,9 @@ assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"ag
 sortby1(o) {
     return o.name
 }
-; omit
 
+
+; omit
 enemies := [ 
     , {"name": "bear", "hp": 200, "armor": 20}
     , {"name": "wolf", "hp": 100, "armor": 12}]
@@ -556,6 +560,10 @@ assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 assert.label("parseInt()")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
+
+
+; omit
+assert.test(A.parseInt("0"), 0)
 
 
 assert.label("repeat()")
@@ -668,10 +676,12 @@ assert.test(A.filter(objects, A.matchesProperty("a", 4)), [{ "a": 4, "b": 5, "c"
 
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
 assert.test(A.find(objects, A.matchesProperty(["a", "b"], 1)), { "a": {"b": 1} })
-
+; fn := A.matchesProperty(["a", "b"], 1)
+; msgbox, % fn.call({ "a": {"b": 2} })
 
 ; omit
 fn := A.matchesProperty("a", 1)
+
 assert.true(fn.call({ "a": 1, "b": 2, "c": 3 }))
 
 fn := A.matchesProperty("b", 2)
@@ -705,6 +715,10 @@ assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
 ; omit
 fn := A.property("a.b")
 assert.test(fn.call({ "a": {"b": 2} }), "2")
+
+fn := A.property("a")
+assert.test(fn.call({ "a": 1, "b": 2 }), 1)
+
 ;; Display test results in GUI
 speed := QPC(0)
 assert.fullreport()

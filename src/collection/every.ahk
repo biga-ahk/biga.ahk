@@ -7,21 +7,27 @@ every(param_collection,param_predicate) {
     l_array := []
     short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
     if (short_hand != false) {
-        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
     }
     for Key, Value in param_collection {
         if (!this.isUndefined(param_predicate.call(Value))) {
-            BoundFunc := param_predicate.bind()
+            boundFunc := param_predicate.bind()
         }
         break
     }
 
     ; perform the action
     for Key, Value in param_collection {
-        if (BoundFunc.call(Value, Key, param_collection) == true) {
+        ; msgbox, % "value is " this.printObj(Value)
+        if (short_hand != false) {
+            if (boundFunc.call(Value, Key, param_collection) == true) {
+                continue
+            }
+            return false
+        }
+        if (param_predicate.call(Value, Key, param_collection) == true) {
             continue
         }
-        return false
     }
     return true
 }
@@ -49,7 +55,6 @@ assert.false(A.every(users, "active"))
 
 ; omit
 assert.true(A.every([], func("fn_istrue")))
-assert.true(A.every(["", "", ""], A.isUndefined))
 assert.true(A.every([1, 2, 3], func("isPositive")))
 isPositive(value) {
     if (value > 0) {

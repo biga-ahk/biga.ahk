@@ -1,8 +1,5 @@
 isUndefined(param_value) {
-    if (param_value == 0) {
-        return false
-    }
-    if (!param_value) {
+    if (param_value == "") {
         return true
     }
     return false
