@@ -790,7 +790,7 @@ function (Function): The function invoked per iteration.
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filter1"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-; fn_filter1(param_interatee) {;     if (param_interatee.active) { ;         return true ;     }; } ; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
+fn_filter1(param_interatee) {    if (param_interatee.active) {         return true     }} ; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ; The A.matchesProperty shorthandA.filter(users, ["active", false])

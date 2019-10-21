@@ -40,12 +40,12 @@ filter(param_collection,param_predicate) {
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
-; assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-; fn_filter1(param_interatee) {
-;     if (param_interatee.active) { 
-;         return true 
-;     }
-; }
+assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
+fn_filter1(param_interatee) {
+    if (param_interatee.active) { 
+        return true 
+    }
+}
  
 ; The A.matches shorthand
 assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
@@ -58,13 +58,10 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 
 
 ; omit
-; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-; fn_filter2(param_interatee) {
-;     if (param_interatee >= 2) {
-;         return param_interatee
-;     }
-;     return false
-; }
-
-;     ;matchesProperty shorthand
-; assert.test(A.filter(users,["active",true]), {"user":"barney", "age":36, "active":true})
+assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+fn_filter2(param_interatee) {
+    if (param_interatee >= 2) {
+        return param_interatee
+    }
+    return false
+}
