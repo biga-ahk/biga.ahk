@@ -1287,6 +1287,7 @@ object (Object): The destination object.
 #### Returns
 (Object): Returns object.
 
+
 #### Example
 
 ```autohotkey
@@ -1295,6 +1296,30 @@ object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"fals
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
+
+```
+
+
+
+
+## .pick
+Creates an object composed of the picked object properties.
+
+
+#### Arguments
+object (Object): The source object.
+
+[paths] (...(string|string[])): The property paths to pick.
+
+#### Returns
+(Object): Returns the new object.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
+; => {"a": 1, "c": 3}
 
 ```
 

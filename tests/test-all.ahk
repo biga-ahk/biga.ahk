@@ -292,12 +292,12 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 assert.label("filter()")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
-; assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-; fn_filter1(param_interatee) {
-;     if (param_interatee.active) { 
-;         return true 
-;     }
-; }
+assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
+fn_filter1(param_interatee) {
+    if (param_interatee.active) { 
+        return true 
+    }
+}
  
 ; The A.matches shorthand
 assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
@@ -310,16 +310,14 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 
 
 ; omit
-; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-; fn_filter2(param_interatee) {
-;     if (param_interatee >= 2) {
-;         return param_interatee
-;     }
-;     return false
-; }
+assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+fn_filter2(param_interatee) {
+    if (param_interatee >= 2) {
+        return param_interatee
+    }
+    return false
+}
 
-;     ;matchesProperty shorthand
-; assert.test(A.filter(users,["active",true]), {"user":"barney", "age":36, "active":true})
 
 assert.label("find()")
 users := [ { "user": "barney", "age": 36, "active": true }
@@ -551,6 +549,15 @@ assert.test(A.merge(object, other), {"options":[{"option1":"true", "option2":"fa
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
 assert.test(A.merge(object, other), { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] })
+
+
+assert.label("pick()")
+object := {"a": 1, "b": "2", "c": 3}
+assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
+
+
+; omit
+assert.test(A.pick(object, "a"), {"a": 1})
 
 
 assert.label("toPairs()")
