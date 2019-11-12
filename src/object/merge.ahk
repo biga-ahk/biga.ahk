@@ -1,4 +1,8 @@
 merge(param_collections*) {
+    if (!IsObject(param_collections)) {
+        this.internal_ThrowException()
+    }
+
     result := param_collections[1]
     for index, obj in param_collections {
         if(A_Index = 1) {
