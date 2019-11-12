@@ -913,7 +913,154 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return false
 	}
+	add(param_augend,param_addend) {
+	    if (IsObject(param_augend) || IsObject(param_addend)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    param_augend += param_addend
+	    return % param_augend + 0
+	}
+	divide(param_dividend,param_divisor) {
+	    if (IsObject(param_dividend) || IsObject(param_divisor)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    vValue := param_dividend / param_divisor
+	    return vValue + 0
+	}
+	max(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    for Key, Value in param_array {
+	        if (vMax < Value || vMax == "") {
+	            vMax := Value
+	        }
+	    }
+	    return vMax
+	}
+	mean(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    vSum := 0
+	    for Key, Value in param_array {
+	        vSum += Value
+	    }
+	    return % vSum / this.size(param_array)
+	}
+	min(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    for Key, Value in param_array {
+	        if (vMin > Value || vMin == "") {
+	            vMin := Value
+	        }
+	    }
+	    return vMin
+	}
+	multiply(param_multiplier,param_multiplicand) {
+	    if (IsObject(param_multiplier) || IsObject(param_multiplicand)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    vValue := param_multiplier * param_multiplicand
+	    return vValue + 0
+	}
+	round(param_number,param_precision:=0) {
+	    if (IsObject(param_number) || IsObject(param_precision)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    return % round(param_number, param_precision)
+	}
+	subtract(param_minuend,param_subtrahend) {
+	    if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    param_minuend -= param_subtrahend
+	    return % param_minuend + 0
+	}
+	sum(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    vSum := 0
+	    for Key, Value in param_array {
+	        vSum += Value
+	    }
+	    return vSum
+	}
+	clamp(param_number,param_lower,param_upper) {
+	    if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; check the lower bound
+	    if (param_number < param_lower) {
+	        param_number := param_lower
+	    }
+	    ; check the upper bound
+	    if (param_number > param_upper) {
+	        param_number := param_upper
+	    }
+	    return % param_number + 0
+	}
+	inRange(param_number,param_lower,param_upper) {
+	    if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    if (param_lower > param_upper) {
+	        x := param_lower
+	        param_lower := param_upper
+	        param_upper := x
+	    }
+
+	    ; check the bounds
+	    if (param_number > param_lower && param_number < param_upper) {
+	        return true
+	    }
+	    return false
+	}
+	random(param_lower:=0,param_upper:=1,param_floating:=false) {
+	    if (IsObject(param_lower) || IsObject(param_upper) || IsObject(param_floating)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    if (param_lower > param_upper) {
+	        x := param_lower
+	        param_lower := param_upper
+	        param_upper := x
+	    }
+	    if (param_floating) {
+	        param_lower += 0.0
+	        param_upper += 0.0
+	    }
+
+	    ; create the return
+	    Random, vRandom, param_lower, param_upper
+	    return vRandom
+	}
 	merge(param_collections*) {
+	    if (!IsObject(param_collections)) {
+	        this.internal_ThrowException()
+	    }
+
 	    result := param_collections[1]
 	    for index, obj in param_collections {
 	        if(A_Index = 1) {
@@ -957,9 +1104,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; data setup
 	    l_obj := {}
-	    for Key, Value in param_paths {
-
-	    }
 
 	    ; create the return
 	    if (IsObject(param_paths)) {
@@ -1206,7 +1350,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 	property(param_source) {
 
-	    ; prepare the data
+	    ; prepare data
 	    if (this.includes(param_source, ".")) {
 	        param_source := this.split(param_source, ".")
 	    }

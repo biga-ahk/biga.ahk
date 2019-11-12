@@ -1273,6 +1273,345 @@ A.isUndefined(false)
 
 
 
+# **&ldquo;Math&rdquo; Methods**
+## .add
+Adds two numbers.
+
+
+#### Arguments
+augend (number): The first number in an addition.
+
+addend (number): The second number in an addition.
+
+
+#### Returns
+(number): Returns the total.
+
+
+#### Example
+
+```autohotkey
+A.add(6, 4)
+; => 10
+
+```
+
+
+
+
+## .divide
+Divide two numbers.
+
+
+#### Arguments
+dividend (number): The first number in a division.
+
+divisor (number): The second number in a division.
+
+
+#### Returns
+(number): Returns the quotient.
+
+
+#### Example
+
+```autohotkey
+A.divide(6, 4)
+; => 1.5
+
+```
+
+
+
+
+## .max
+Computes the maximum value of array. If array is empty or falsey, undefined is returned.
+
+
+#### Arguments
+array (Array): The array to iterate over.
+
+
+#### Returns
+(*): Returns the maximum value.
+
+
+#### Example
+
+```autohotkey
+A.max([4, 2, 8, 6])
+; => 8
+
+A.max([])
+; => ""
+
+```
+
+
+
+
+## .mean
+Computes the mean of the values in array.
+
+
+#### Arguments
+array (Array): The array to iterate over.
+
+
+#### Returns
+(number): Returns the mean.
+
+
+#### Example
+
+```autohotkey
+A.mean([4, 2, 8, 6])
+; => 5
+
+```
+
+
+
+
+## .min
+Computes the minimum value of array. If array is empty or falsey, undefined is returned.
+
+
+#### Arguments
+array (Array): The array to iterate over.
+
+
+#### Returns
+(*): Returns the minimum value.
+
+
+#### Example
+
+```autohotkey
+A.min([4, 2, 8, 6])
+; => 2
+
+A.min([])
+; => ""
+
+```
+
+
+
+
+## .multiply
+Multiply two numbers.
+
+
+#### Arguments
+multiplier (number): The first number in a multiplication.
+
+multiplicand (number): The second number in a multiplication.
+
+
+#### Returns
+(number): Returns the product.
+
+
+#### Example
+
+```autohotkey
+A.multiply(6, 4)
+; => 24
+
+```
+
+
+
+
+## .round
+Computes number rounded to precision.
+
+
+#### Arguments
+number (number): The number to round.
+
+[precision:=0] (number): The precision to round to.
+
+
+#### Returns
+(number): Returns the rounded number.
+
+
+#### Example
+
+```autohotkey
+A.round(4.006)
+; => 4
+
+A.round(4.006, 2)
+; => 4.01
+
+A.round(4060, -2)
+; => 4100
+
+```
+
+
+
+
+## .subtract
+Subtract two numbers.
+
+
+#### Arguments
+minuend (number): The first number in a subtraction.
+
+subtrahend (number): The second number in a subtraction.
+
+
+#### Returns
+(number): Returns the difference.
+
+
+#### Example
+
+```autohotkey
+A.subtract(6, 4)
+; => 2
+
+```
+
+
+
+
+## .sum
+Computes the sum of the values in array.
+
+
+#### Arguments
+array (Array): The array to iterate over.
+
+
+#### Returns
+(number): Returns the sum.
+
+
+#### Example
+
+```autohotkey
+A.sum([4, 2, 8, 6])
+; => 20
+
+```
+
+
+
+
+
+# **&ldquo;Number&rdquo; Methods**
+## .clamp
+Clamps number within the inclusive lower and upper bounds.
+
+
+#### Arguments
+number (number): The number to clamp.
+
+lower (number): The lower bound.
+
+upper (number): The upper bound.
+
+
+#### Returns
+(number): Returns the clamped number.
+
+
+#### Example
+
+```autohotkey
+A.clamp(-10, -5, 5)
+; => -5
+
+A.clamp(10, -5, 5)
+; => 5
+
+```
+
+
+
+
+## .inRange
+Checks if n is between start and up to, but not including, end. If end is not specified, it's set to start with start then set to 0. If start is greater than end the params are swapped to support negative ranges.
+
+
+#### Arguments
+number (number): The number to check.
+
+start (number): The start of the range.
+
+end (number): The end of the range.
+
+
+#### Returns
+(boolean): Returns true if number is in the range, else false.
+
+
+#### Example
+
+```autohotkey
+A.inRange(3, 2, 4)
+; => true
+
+A.inRange(4, 0, 8)
+; => true
+
+A.inRange(4, 0, 2)
+; => false
+
+A.inRange(2, 0, 2)
+; => false
+
+A.inRange(1.2, 0, 2)
+; => true
+
+A.inRange(5.2, 0, 4)
+; => false
+
+A.inRange(-3, -2, -6)
+; => true
+
+```
+
+
+
+
+## .random
+Produces a random number between the inclusive lower and upper bounds. If floating is true, or either lower or upper are floats, a floating-point number is returned instead of an integer.
+
+
+#### Arguments
+[lower:=0] (number): The lower bound.
+
+[upper:=1] (number): The upper bound.
+
+[floating:=false] (boolean): Specify returning a floating-point number.
+
+
+#### Returns
+(number): Returns the random number.
+
+
+#### Example
+```autohotkey
+A.random(0, 5)
+; => an integer between 0 and 5
+
+A.random(5)
+; => an integer between 0 and 5
+
+A.random(1.2, 5.2)
+; => a floating-point number between 1.2 and 5.2
+```
+
+
+
+
+
 # **&ldquo;Object&rdquo; Methods**
 ## .merge
 This method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
