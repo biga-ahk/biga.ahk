@@ -5,10 +5,7 @@ pick(param_object,param_paths) {
 
     ; data setup
     l_obj := {}
-    for Key, Value in param_paths {
-
-    }
-
+    
     ; create the return
     if (IsObject(param_paths)) {
         for Key, Value in param_paths {
@@ -30,3 +27,5 @@ assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
 
 ; omit
 assert.test(A.pick(object, "a"), {"a": 1})
+assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
+; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})

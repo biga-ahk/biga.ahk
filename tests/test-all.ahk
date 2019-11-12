@@ -541,6 +541,116 @@ assert.false(A.isUndefined(0))
 assert.false(A.isUndefined(false))
 
 
+assert.label("add()")
+assert.test(A.add(6, 4), 10)
+
+
+; omit
+assert.test(A.add(10, -1), 9)
+assert.test(A.add(-10, -10), -20)
+assert.test(A.add(10, 0.01), 10.01)
+
+
+assert.label("divide()")
+assert.test(A.divide(6, 4), 1.5)
+
+
+; omit
+assert.test(A.divide(10, -1), -10)
+assert.test(A.divide(-10, -10), 1)
+
+
+assert.label("max()")
+assert.test(A.max([4, 2, 8, 6]), 8)
+assert.test(A.max([]), "")
+
+
+; omit
+
+
+assert.label("mean()")
+assert.test(A.mean([4, 2, 8, 6]), 5)
+
+
+; omit
+
+
+assert.label("min()")
+assert.test(A.min([4, 2, 8, 6]), 2)
+assert.test(A.min([]), "")
+
+
+; omit
+
+
+assert.label("multiply()")
+assert.test(A.multiply(6, 4), 24)
+
+
+; omit
+assert.test(A.multiply(10, -1), -10)
+assert.test(A.multiply(-10, -10), 100)
+
+
+assert.label("round()")
+assert.test(A.round(4.006), 4)
+assert.test(A.round(4.006, 2), 4.01)
+assert.test(A.round(4060, -2), 4100)
+
+
+; omit
+
+
+assert.label("subtract()")
+assert.test(A.subtract(6, 4), 2)
+
+
+; omit
+assert.test(A.subtract(10, -1), 11)
+assert.test(A.subtract(-10, -10), 0)
+assert.test(A.subtract(10, 0.01), 9.99)
+
+
+assert.label("sum()")
+assert.test(A.sum([4, 2, 8, 6]), 20)
+
+
+; omit
+
+
+assert.label("clamp()")
+assert.test(A.clamp(-10, -5, 5), -5)
+assert.test(A.clamp(10, -5, 5), 5)
+
+
+; omit
+
+
+assert.label("inRange()")
+assert.test(A.inRange(3, 2, 4), true)
+assert.test(A.inRange(4, 0, 8), true)
+assert.test(A.inRange(4, 0, 2), false)
+assert.test(A.inRange(2, 0, 2), false)
+assert.test(A.inRange(1.2, 0, 2), true)
+assert.test(A.inRange(5.2, 0, 4), false)
+assert.test(A.inRange(-3, -2, -6), true)
+
+
+; omit
+
+
+assert.label("random()")
+
+
+; omit
+output := A.random(0, 1)
+assert.false(IsObject(output))
+
+; test that floating point is returned
+output := A.random(0, 1, true)
+assert.test(A.includes(output, "."), true)
+
+
 assert.label("merge()")
 object := {"options":[{"option1":"true"}]}
 other := {"options":[{"option2":"false"}]}
@@ -558,6 +668,8 @@ assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
 
 ; omit
 assert.test(A.pick(object, "a"), {"a": 1})
+assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
+; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
 
 
 assert.label("toPairs()")

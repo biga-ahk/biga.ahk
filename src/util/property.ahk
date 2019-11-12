@@ -1,6 +1,6 @@
 property(param_source) {
 
-    ; prepare the data
+    ; prepare data
     if (this.includes(param_source, ".")) {
         param_source := this.split(param_source, ".")
     }
