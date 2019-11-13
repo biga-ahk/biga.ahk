@@ -3,7 +3,6 @@
 ; \--/--\--/--\--/--\--/--\--/
 
 printObj(param_obj) {
-    
     if (!IsObject(param_obj)) {
         return """" param_obj """"
     }
@@ -34,19 +33,6 @@ printObj(param_obj) {
 }
 
 
-internal_IsCircle(param_obj, param_objs=0) {
-    if (!param_objs) {
-        param_objs := {}
-    }
-    for Key, Value in param_obj {
-        if (IsObject(Value)&&(param_objs[&Value]||this.internal_IsCircle(Value,(param_objs,param_objs[&Value]:=1)))) {
-            return true
-        }
-    }
-    return false
-}
-
-
 internal_MD5(param_string, case := 0) {
     static MD5_DIGEST_LENGTH := 16
     hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
@@ -65,6 +51,7 @@ internal_JSRegEx(param_string) {
     }
     return false
 }
+
 
 internal_differenciateShorthand(param_shorthand,param_objects:="") {
     if (IsObject(param_shorthand)) {
@@ -88,6 +75,7 @@ internal_differenciateShorthand(param_shorthand,param_objects:="") {
     return false
 }
 
+
 internal_createShorthandfn(param_shorthand,param_objects) {
     short_hand := this.internal_differenciateShorthand(param_shorthand, param_objects)
     if (short_hand == ".matches") {
@@ -101,11 +89,13 @@ internal_createShorthandfn(param_shorthand,param_objects) {
     }
 }
 
+
 internal_ThrowException() {
     if (this.throwExceptions == true) {
         throw Exception("Type Error", -2)
     }
 }
+
 
 ; tests
 assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
