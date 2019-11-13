@@ -1,4 +1,8 @@
 words(param_string,param_pattern:="/[^\W]+/") {
+    if (IsObject(param_string) || IsObject(param_pattern)) {
+        this.internal_ThrowException()
+    }
+
     l_string := param_string
     l_array := []
     if (l_needle := this.internal_JSRegEx(param_pattern)) {
