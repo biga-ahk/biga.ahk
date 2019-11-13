@@ -1364,9 +1364,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return true
 	}
 	matchesProperty(param_path,param_srcValue) {
-	    ; if (IsObject(param_srcValue)) {
-	    ;     this.internal_ThrowException()
-	    ; }
+	    if (IsObject(param_srcValue)) {
+	        this.internal_ThrowException()
+	    }
 
 	    ; create the property fn
 	    fnProperty := this.property(param_path)
@@ -1386,6 +1386,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return false
 	}
 	property(param_source) {
+	    if (IsObject(param_srcValue)) {
+	        this.internal_ThrowException()
+	    }
 
 	    ; prepare data
 	    if (this.includes(param_source, ".")) {

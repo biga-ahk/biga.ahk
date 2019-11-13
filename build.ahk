@@ -40,7 +40,6 @@ vMethodNames_Array := []
 
 loop, Files, %A_ScriptDir%\src\*.ahk, R
 {
-    
     FileRead, The_MemoryFile, % A_LoopFileFullPath
     
     ; chunk that b

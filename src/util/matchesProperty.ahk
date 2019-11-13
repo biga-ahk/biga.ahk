@@ -1,7 +1,7 @@
 matchesProperty(param_path,param_srcValue) {
-    ; if (IsObject(param_srcValue)) {
-    ;     this.internal_ThrowException()
-    ; }
+    if (IsObject(param_srcValue)) {
+        this.internal_ThrowException()
+    }
 
     ; create the property fn
     fnProperty := this.property(param_path)

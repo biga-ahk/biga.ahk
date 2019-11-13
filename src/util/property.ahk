@@ -1,5 +1,8 @@
 property(param_source) {
-
+    if (IsObject(param_srcValue)) {
+        this.internal_ThrowException()
+    }
+    
     ; prepare data
     if (this.includes(param_source, ".")) {
         param_source := this.split(param_source, ".")
