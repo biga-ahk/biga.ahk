@@ -19,14 +19,14 @@ findIndex(param_array,param_value,fromIndex := 1) {
         }
         if (vFunctionparam) {
             if (param_value.call(param_array[A_Index])) {
-                return % Index + 0
+                return Index + 0
             }
         }
         if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-            return % Index + 0
+            return Index + 0
         }
     }
-    return % -1 + 0
+    return -1 + 0
 }
 
 
@@ -49,7 +49,7 @@ users := [ { "user": "barney", "age": 36, "active": true }
 
 assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
 findIndexFunc(o) {
-    return % o.user == "barney"
+    return o.user == "barney"
 }
 
 

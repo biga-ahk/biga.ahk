@@ -136,14 +136,14 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        if (vFunctionparam) {
 	            if (param_value.call(param_array[A_Index])) {
-	                return % Index + 0
+	                return Index + 0
 	            }
 	        }
 	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-	            return % Index + 0
+	            return Index + 0
 	        }
 	    }
-	    return % -1 + 0
+	    return -1 + 0
 	}
 	fromPairs(param_pairs) {
 	    if (!IsObject(param_pairs)) {
@@ -170,10 +170,10 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-	            return % Index + 0
+	            return Index + 0
 	        }
 	    }
-	    return % -1 + 0
+	    return -1 + 0
 	}
 	intersection(param_arrays*) {
 	    if (!IsObject(param_arrays)) {
@@ -225,10 +225,10 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	        if (this.caseSensitive ? (param_array[vNegativeIndex] == param_value) : (param_array[vNegativeIndex] = param_value)) {
-	            return % vNegativeIndex + 0
+	            return vNegativeIndex + 0
 	        }
 	    }
-	    return % -1 + 0
+	    return -1 + 0
 	}
 	nth(param_array,param_n:=1) {
 	    if param_n is not number
@@ -270,18 +270,18 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    while (param_collection.MaxIndex() != "") {
 	        l_array.push(param_collection.pop())
 	    }
-	    return % l_array
+	    return l_array
 	}
 	sortedIndex(param_array,param_value) {
 	    if (param_value < param_array[1]) {
-	        return % 1 + 0
+	        return 1 + 0
 	    }
 	    loop, % param_array.Count() {
 	        if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
-	            return % A_Index + 1
+	            return A_Index + 1
 	        }
 	    }
-	    return % param_array.Count() + 1
+	    return param_array.Count() + 1
 	}
 	tail(param_array) {
 
@@ -579,7 +579,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    } else {
 	        ; RegEx
 	        if (RegEx_value := this.internal_JSRegEx(param_value)) {
-	            return % RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
+	            return  RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
 	        }
 	        ; Normal string search
 	        if (InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)) {
@@ -688,7 +688,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    if (param_SampleSize > param_collection.MaxIndex()) {
-	        return % param_collection
+	        return  param_collection
 	    }
 
 	    l_array := []
@@ -719,14 +719,14 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 	size(param_collection) {
 	    if (param_collection.MaxIndex() > 0) {
-	        return % param_collection.MaxIndex()
+	        return  param_collection.MaxIndex()
 	    }
 
 	    if (param_collection.Count() > 0) {
-	        return % param_collection.Count()
+	        return  param_collection.Count()
 	    }
 
-	    return % StrLen(param_collection)
+	    return  StrLen(param_collection)
 	}
 	sortBy(param_collection, param_iteratees) {
 	    if (!IsObject(param_collection)) {
@@ -822,7 +822,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	internal_JSRegEx(param_string) {
 	    if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
-	        return % SubStr(param_string, 2 , StrLen(param_string) - 2)
+	        return  SubStr(param_string, 2 , StrLen(param_string) - 2)
 	    }
 	    return false
 	}
@@ -920,7 +920,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    param_augend += param_addend
-	    return % param_augend + 0
+	    return param_augend + 0
 	}
 	divide(param_dividend,param_divisor) {
 	    if (IsObject(param_dividend) || IsObject(param_divisor)) {
@@ -952,7 +952,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    for Key, Value in param_array {
 	        vSum += Value
 	    }
-	    return % vSum / this.size(param_array)
+	    return vSum / this.size(param_array)
 	}
 	min(param_array) {
 	    if (!IsObject(param_array)) {
@@ -981,7 +981,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; create the return
-	    return % round(param_number, param_precision)
+	    return round(param_number, param_precision)
 	}
 	subtract(param_minuend,param_subtrahend) {
 	    if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
@@ -990,7 +990,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    param_minuend -= param_subtrahend
-	    return % param_minuend + 0
+	    return param_minuend + 0
 	}
 	sum(param_array) {
 	    if (!IsObject(param_array)) {
@@ -1016,7 +1016,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (param_number > param_upper) {
 	        param_number := param_upper
 	    }
-	    return % param_number + 0
+	    return param_number + 0
 	}
 	inRange(param_number,param_lower,param_upper) {
 	    if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
@@ -1115,7 +1115,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        vValue := this.internal_property(param_paths, param_object)
 	        l_obj[param_paths] := vValue
 	    }
-	    return % l_obj
+	    return  l_obj
 	}
 	toPairs(param_object) {
 	    if (!IsObject(param_object)) {
@@ -1131,7 +1131,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	parseInt(param_string:="0") {
 
 	    param_string := this.trimStart(param_string, "0 -_")
-	    return % param_string + 0
+	    return  param_string + 0
 	}
 	repeat(param_string,param_number:=1) {
 	    if (IsObject(param_string)) {
@@ -1147,7 +1147,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    l_string := param_string
 	    ; RegEx
 	    if (l_needle := this.internal_JSRegEx(param_needle)) {
-	        return % RegExReplace(param_string, l_needle, param_replacement, , this.limit)
+	        return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
 	    }
 	    output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
 	    return output
@@ -1211,16 +1211,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 	    StringLower, OutputVar, param_string
-	    return % OutputVar
+	    return  OutputVar
 	}
 	toUpper(param_string) {
 	    StringUpper, OutputVar, param_string
-	    return % OutputVar
+	    return  OutputVar
 	}
 	trim(param_string,param_chars := " ") {
 	    if (param_chars = " ") {
 	        l_string := this.trimStart(param_string, param_chars)
-	        return % this.trimEnd(l_string, param_chars)
+	        return  this.trimEnd(l_string, param_chars)
 	    } else {
 	        l_string := param_string
 	        l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
@@ -1235,7 +1235,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	trimEnd(param_string, param_chars := " ") {
 	    if (param_chars = " ") {
 	        l_string := param_string
-	        return % regexreplace(l_string, "(\s+)$") ;trim ending whitespace
+	        return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
 	    } else {
 	        l_string := param_string
 	        l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
@@ -1247,7 +1247,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 	trimStart(param_string,param_chars := " ") {
 	    if (param_chars = " ") {
-	        return % regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
+	        return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
 	    } else {
 	        l_string := param_string
 	        l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
@@ -1289,7 +1289,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        param_options.separator := this.internal_JSRegEx(param_options.separator)
 	    }
 	    if (param_options.separator) {
-	        return % RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
+	        return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
 
 	    }
 	    return l_string
@@ -1374,13 +1374,13 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        for Key, Value in param_property {
 	            if (param_property.Count() == 1) {
 	                ; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
-	                return % ObjRawGet(param_itaree, Value)
+	                return  ObjRawGet(param_itaree, Value)
 	            } else if (param_itaree.hasKey(Value)){
 	                rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
 	            }
 	        }
 	        return rvalue
 	    }
-	    return % param_itaree[param_property]
+	    return  param_itaree[param_property]
 	}
 }class A extends biga {}

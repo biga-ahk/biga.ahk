@@ -30,7 +30,7 @@ truncate(param_string, param_options := "") {
         param_options.separator := this.internal_JSRegEx(param_options.separator)
     }
     if (param_options.separator) {
-        return % RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
+        return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
         ; reversestring := this.join(this.reverse(StrSplit(l_string)), "")
         ; param_options.reverseseparator := this.join(this.reverse(StrSplit(param_options.separator)), "")
         ; l_match := RegExMatch(reversestring, "P)" param_options.reverseseparator, RE_Match)
@@ -43,7 +43,7 @@ truncate(param_string, param_options := "") {
         ; }
         ; if (param_options.regexmatchposition) {
         ;     l_string := SubStr(reversestring, param_options.regexmatchposition + StrLen(param_options.separator))
-        ;     return % this.join(this.reverse(StrSplit(l_string)), "") . param_options.omission
+        ;     return  this.join(this.reverse(StrSplit(l_string)), "") . param_options.omission
         ; }
     }
     return l_string

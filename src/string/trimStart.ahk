@@ -1,6 +1,6 @@
 trimStart(param_string,param_chars := " ") {
     if (param_chars = " ") {
-        return % regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
+        return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
     } else {
         l_string := param_string
         l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")

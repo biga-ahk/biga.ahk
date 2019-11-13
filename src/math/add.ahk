@@ -5,7 +5,7 @@ add(param_augend,param_addend) {
 
     ; create the return
     param_augend += param_addend
-    return % param_augend + 0
+    return param_augend + 0
 }
 
 

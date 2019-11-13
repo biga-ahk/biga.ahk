@@ -89,7 +89,7 @@ users := [ { "user": "barney", "age": 36, "active": true }
 
 assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
 findIndexFunc(o) {
-    return % o.user == "barney"
+    return o.user == "barney"
 }
 
 
@@ -384,7 +384,7 @@ assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,
 
 assert.label("map()")
 square(n) {
-  return % n * n
+  return  n * n
 }
 
 assert.test(A.map([4, 8], Func("square")), [16, 64])

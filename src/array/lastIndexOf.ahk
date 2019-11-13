@@ -9,10 +9,10 @@ lastIndexOf(param_array,param_value,param_fromIndex := 0) {
             continue
         }
         if (this.caseSensitive ? (param_array[vNegativeIndex] == param_value) : (param_array[vNegativeIndex] = param_value)) {
-            return % vNegativeIndex + 0
+            return vNegativeIndex + 0
         }
     }
-    return % -1 + 0
+    return -1 + 0
 }
 
 

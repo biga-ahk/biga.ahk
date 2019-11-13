@@ -7,7 +7,7 @@ mean(param_array) {
     for Key, Value in param_array {
         vSum += Value
     }
-    return % vSum / this.size(param_array)
+    return vSum / this.size(param_array)
 }
 
 

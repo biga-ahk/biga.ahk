@@ -6,7 +6,7 @@ reverse(param_collection) {
     while (param_collection.MaxIndex() != "") {
         l_array.push(param_collection.pop())
     }
-    return % l_array
+    return l_array
 }
 
 

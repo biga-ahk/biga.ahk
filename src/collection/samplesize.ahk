@@ -4,7 +4,7 @@ sampleSize(param_collection,param_SampleSize := 1) {
     }
 
     if (param_SampleSize > param_collection.MaxIndex()) {
-        return % param_collection
+        return  param_collection
     }
 
     l_array := []

@@ -1,13 +1,13 @@
 size(param_collection) {
     if (param_collection.MaxIndex() > 0) {
-        return % param_collection.MaxIndex()
+        return  param_collection.MaxIndex()
     }
 
     if (param_collection.Count() > 0) {
-        return % param_collection.Count()
+        return  param_collection.Count()
     }
 
-    return % StrLen(param_collection)
+    return  StrLen(param_collection)
 }
 
 

@@ -4,7 +4,7 @@ round(param_number,param_precision:=0) {
     }
 
     ; create the return
-    return % round(param_number, param_precision)
+    return round(param_number, param_precision)
 }
 
 

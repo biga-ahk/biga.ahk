@@ -16,7 +16,7 @@ pick(param_object,param_paths) {
         vValue := this.internal_property(param_paths, param_object)
         l_obj[param_paths] := vValue
     }
-    return % l_obj
+    return  l_obj
 }
 
 

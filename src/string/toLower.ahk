@@ -3,7 +3,7 @@ toLower(param_string) {
         this.internal_ThrowException()
     }
     StringLower, OutputVar, param_string
-    return % OutputVar
+    return  OutputVar
 }
 
 

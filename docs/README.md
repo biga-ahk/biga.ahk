@@ -243,7 +243,7 @@ A.findIndex([{name: "fred"}, {name: "barney"}], {name: "barney"})
 users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users, Func("findIndexFunc"))
 ; => 1
 
-findIndexFunc(o) {    return % o.user == "barney"}```
+findIndexFunc(o) {    return o.user == "barney"}```
 
 
 
@@ -933,7 +933,7 @@ iteratee:=A.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-square(n) {  return % n * n}A.map([4, 8], Func("square"))
+square(n) {  return  n * n}A.map([4, 8], Func("square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, Func("square"))

@@ -1,7 +1,7 @@
 trimEnd(param_string, param_chars := " ") {
     if (param_chars = " ") {
         l_string := param_string
-        return % regexreplace(l_string, "(\s+)$") ;trim ending whitespace
+        return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
     } else {
         l_string := param_string
         l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")

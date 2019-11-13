@@ -11,7 +11,7 @@ clamp(param_number,param_lower,param_upper) {
     if (param_number > param_upper) {
         param_number := param_upper
     }
-    return % param_number + 0
+    return param_number + 0
 }
 
 

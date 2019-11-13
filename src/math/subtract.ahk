@@ -5,7 +5,7 @@ subtract(param_minuend,param_subtrahend) {
 
     ; create the return
     param_minuend -= param_subtrahend
-    return % param_minuend + 0
+    return param_minuend + 0
 }
 
 

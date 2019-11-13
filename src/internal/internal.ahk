@@ -61,7 +61,7 @@ internal_MD5(param_string, case := 0) {
 
 internal_JSRegEx(param_string) {
     if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
-        return % SubStr(param_string, 2 , StrLen(param_string) - 2)
+        return  SubStr(param_string, 2 , StrLen(param_string) - 2)
     }
     return false
 }

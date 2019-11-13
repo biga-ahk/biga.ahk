@@ -1,7 +1,7 @@
 trim(param_string,param_chars := " ") {
     if (param_chars = " ") {
         l_string := this.trimStart(param_string, param_chars)
-        return % this.trimEnd(l_string, param_chars)
+        return  this.trimEnd(l_string, param_chars)
     } else {
         l_string := param_string
         l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
