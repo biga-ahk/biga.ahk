@@ -767,7 +767,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	; \--/--\--/--\--/--\--/--\--/
 
 	printObj(param_obj) {
-
 	    if (!IsObject(param_obj)) {
 	        return """" param_obj """"
 	    }
@@ -795,18 +794,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    StringTrimRight, OutPut, OutPut, 2
 	    return OutPut
-	}
-
-	internal_IsCircle(param_obj, param_objs=0) {
-	    if (!param_objs) {
-	        param_objs := {}
-	    }
-	    for Key, Value in param_obj {
-	        if (IsObject(Value)&&(param_objs[&Value]||this.internal_IsCircle(Value,(param_objs,param_objs[&Value]:=1)))) {
-	            return true
-	        }
-	    }
-	    return false
 	}
 
 	internal_MD5(param_string, case := 0) {
@@ -1138,7 +1125,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    for Key, Value in HTMLmap {
 	        element := Value
-	        param_string := this.replace(param_string, element.1, element.2)
+	        param_string := StrReplace(param_string, element.1, element.2, , -1)
 	    }
 	    return param_string
 	}
@@ -1323,7 +1310,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    for Key, Value in HTMLmap {
 	        element := Value
-	        param_string := this.replace(param_string, element.2, element.1)
+	        param_string := StrReplace(param_string, element.2, element.1, , -1)
 	    }
 	    return param_string
 	}

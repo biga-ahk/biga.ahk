@@ -681,6 +681,10 @@ string := "fred, barney, & pebbles"
 assert.test(A.escape(string), "fred, barney, &amp; pebbles")
 
 
+; omit
+assert.test(A.escape("&&&"), "&amp;&amp;&amp;")
+
+
 assert.label("parseInt()")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
@@ -779,6 +783,10 @@ assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}), "hi-diddly-
 assert.label("unescape()")
 string := "fred, barney, &amp; pebbles"
 assert.test(A.unescape(string), "fred, barney, & pebbles")
+
+
+; omit
+assert.test(A.unescape("&amp;&amp;&amp;"), "&&&")
 
 
 assert.label("words()")

@@ -8,7 +8,7 @@ unescape(param_string:="") {
 
     for Key, Value in HTMLmap {
         element := Value
-        param_string := this.replace(param_string, element.2, element.1)
+        param_string := StrReplace(param_string, element.2, element.1, , -1)
     }
     return param_string
 }
@@ -17,3 +17,7 @@ unescape(param_string:="") {
 ; tests
 string := "fred, barney, &amp; pebbles"
 assert.test(A.unescape(string), "fred, barney, & pebbles")
+
+
+; omit
+assert.test(A.unescape("&amp;&amp;&amp;"), "&&&")
