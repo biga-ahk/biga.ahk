@@ -1128,6 +1128,20 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+	escape(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
+
+	    for Key, Value in HTMLmap {
+	        element := Value
+	        param_string := this.replace(param_string, element.1, element.2)
+	    }
+	    return param_string
+	}
 	parseInt(param_string:="0") {
 
 	    param_string := this.trimStart(param_string, "0 -_")
@@ -1257,7 +1271,12 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        return l_string
 	    }
 	}
-	truncate(param_string, param_options := "") {
+	truncate(param_string,param_options:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare default options object
 	    if (!IsObject(param_options)) {
 	        param_options := {}
 	        param_options.length := 30
@@ -1294,7 +1313,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_string
 	}
+	unescape(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
+
+	    for Key, Value in HTMLmap {
+	        element := Value
+	        param_string := this.replace(param_string, element.2, element.1)
+	    }
+	    return param_string
+	}
 	words(param_string,param_pattern:="/[^\W]+/") {
+	    if (IsObject(param_string) || IsObject(param_pattern)) {
+	        this.internal_ThrowException()
+	    }
+
 	    l_string := param_string
 	    l_array := []
 	    if (l_needle := this.internal_JSRegEx(param_pattern)) {

@@ -676,6 +676,11 @@ assert.label("toPairs()")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
 
+assert.label("escape()")
+string := "fred, barney, & pebbles"
+assert.test(A.escape(string), "fred, barney, &amp; pebbles")
+
+
 assert.label("parseInt()")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
@@ -769,6 +774,11 @@ assert.test(A.truncate(string), "hi-diddly-ho there, neighbo...")
 assert.test(A.truncate(string, {"length": 24, "separator": " "}), "hi-diddly-ho there,...")
 
 assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}), "hi-diddly-ho there...")
+
+
+assert.label("unescape()")
+string := "fred, barney, &amp; pebbles"
+assert.test(A.unescape(string), "fred, barney, & pebbles")
 
 
 assert.label("words()")
