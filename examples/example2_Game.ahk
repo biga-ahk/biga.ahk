@@ -31,7 +31,7 @@ exposedTargets := A.filter(sortedEnemies, Func("filterexposedFunc"))
 filterexposedFunc(o) {
     global
     ; We use A.startsWith inside this function to check the status
-    return % A.startsWith(o.status, "exposed")
+    return A.startsWith(o.status, "exposed")
 }
 
 ; We can format our message with StartCase which is a ittle like ahk's TitleCase
