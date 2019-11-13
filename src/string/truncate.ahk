@@ -1,4 +1,9 @@
-truncate(param_string, param_options := "") {
+truncate(param_string,param_options:="") {
+    if (IsObject(param_string)) {
+        this.internal_ThrowException()
+    }
+
+    ; prepare default options object
     if (!IsObject(param_options)) {
         param_options := {}
         param_options.length := 30
