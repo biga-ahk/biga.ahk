@@ -1,4 +1,4 @@
-sampleSize(param_collection,param_SampleSize := 1) {
+sampleSize(param_collection,param_SampleSize:=1) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }

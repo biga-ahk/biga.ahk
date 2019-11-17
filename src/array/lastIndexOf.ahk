@@ -1,4 +1,4 @@
-lastIndexOf(param_array,param_value,param_fromIndex := 0) {
+lastIndexOf(param_array,param_value,param_fromIndex:=0) {
     if (param_fromIndex == 0) {
         param_fromIndex := param_array.Count()
     }

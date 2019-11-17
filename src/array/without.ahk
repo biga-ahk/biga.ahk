@@ -1,4 +1,4 @@
-without(param_array, param_values*) {
+without(param_array,param_values*) {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }

@@ -1,4 +1,4 @@
-﻿difference(param_array, param_values*) {
+﻿difference(param_array,param_values*) {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }

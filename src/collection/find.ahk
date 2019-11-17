@@ -1,4 +1,4 @@
-find(param_collection,param_predicate,param_fromindex := 1) {
+find(param_collection,param_predicate,param_fromindex:=1) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }

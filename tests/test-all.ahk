@@ -125,6 +125,19 @@ assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 A.caseSensitive := false
 
 
+assert.label("initial()")
+assert.test(A.initial([1, 2, 3]), [1, 2])
+assert.test(A.initial([1, 2, 3], 2), [1])
+assert.test(A.initial([1, 2, 3], 5), [])
+assert.test(A.initial([1, 2, 3], 0), [1, 2, 3])
+assert.test(A.initial("fred"), ["f", "r", "e"])
+assert.test(A.initial(100), ["1", "0"])
+
+
+; omit
+assert.test(A.initial([]), [])
+
+
 assert.label("intersection()")
 assert.test(A.intersection([2, 1], [2, 3]), [2])
 

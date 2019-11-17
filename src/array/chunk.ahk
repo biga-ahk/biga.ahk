@@ -1,4 +1,4 @@
-chunk(param_array,param_size := 1) {
+chunk(param_array,param_size:=1) {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }

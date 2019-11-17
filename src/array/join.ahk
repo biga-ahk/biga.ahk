@@ -1,4 +1,4 @@
-join(param_array,param_sepatator := ",") {
+join(param_array,param_sepatator:=",") {
     if (!IsObject(param_array) || IsObject(param_sepatator)) {
         this.internal_ThrowException()
     }

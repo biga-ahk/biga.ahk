@@ -1,4 +1,4 @@
-sortBy(param_collection, param_iteratees) {
+sortBy(param_collection,param_iteratees) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }

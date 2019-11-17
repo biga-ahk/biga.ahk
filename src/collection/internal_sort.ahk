@@ -1,4 +1,4 @@
-internal_sort(param_collection, param_iteratees := "name") {
+internal_sort(param_collection,param_iteratees:="name") {
     l_array := this.cloneDeep(param_collection)
 
         for Index, obj in l_array {

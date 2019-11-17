@@ -340,6 +340,43 @@ A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
 
 
 
+## .initial
+Gets all but the last element of array.
+
+
+#### Arguments
+array (Array): The array to query.
+
+#### Returns
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.initial([1, 2, 3])
+; => [1, 2]
+
+A.initial([1, 2, 3], 2)
+; => [1]
+
+A.initial([1, 2, 3], 5)
+; => []
+
+A.initial([1, 2, 3], 0)
+; => [1, 2, 3]
+
+A.initial("fred")
+; => ["f", "r", "e"]
+
+A.initial(100)
+; => ["1", "0"]
+
+```
+
+
+
+
 ## .intersection
 Creates an array of unique values that are included in all given arrays. The order and references of result values are determined by the first array.
 

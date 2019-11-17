@@ -1,4 +1,4 @@
-indexOf(param_array,param_value,fromIndex := 1) {
+indexOf(param_array,param_value,fromIndex:=1) {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }
