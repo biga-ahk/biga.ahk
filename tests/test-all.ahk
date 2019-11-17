@@ -465,7 +465,6 @@ assert.label("size()")
 assert.test(A.size([1, 2, 3]), 3)
 assert.test(A.size({ "a": 1, "b": 2 }), 2)
 assert.test(A.size("pebbles"), 7)
-assert.test(A.size(200), 0)
 
 
 assert.label("sortBy()")
@@ -828,8 +827,6 @@ assert.test(A.filter(objects, A.matchesProperty("a", 4)), [{ "a": 4, "b": 5, "c"
 
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
 assert.test(A.find(objects, A.matchesProperty(["a", "b"], 1)), { "a": {"b": 1} })
-; fn := A.matchesProperty(["a", "b"], 1)
-; msgbox, % fn.call({ "a": {"b": 2} })
 
 ; omit
 fn := A.matchesProperty("a", 1)
@@ -861,10 +858,10 @@ assert.test(A.map(objects, A.property("a.b")), ["2", "1"])
 
 objects := [{"name": "fred"}, {"name": "barney"}]
 assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
-; assert.test(A.map(A.sortBy(objects, A.property(["a", "b"]))), [2, 1])
 
 
 ; omit
+; assert.test(A.map(A.sortBy(objects, A.property(["a", "b"]))), [2, 1])
 fn := A.property("a.b")
 assert.test(fn.call({ "a": {"b": 2} }), "2")
 

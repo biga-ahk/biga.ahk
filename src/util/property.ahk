@@ -44,10 +44,10 @@ assert.test(A.map(objects, A.property("a.b")), ["2", "1"])
 
 objects := [{"name": "fred"}, {"name": "barney"}]
 assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
-; assert.test(A.map(A.sortBy(objects, A.property(["a", "b"]))), [2, 1])
 
 
 ; omit
+; assert.test(A.map(A.sortBy(objects, A.property(["a", "b"]))), [2, 1])
 fn := A.property("a.b")
 assert.test(fn.call({ "a": {"b": 2} }), "2")
 

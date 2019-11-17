@@ -1117,9 +1117,6 @@ A.size({ "a": 1, "b": 2 })
 A.size("pebbles")
 ; => 7
 
-A.size(200)
-; => 0
-
 ```
 
 
@@ -2236,7 +2233,7 @@ A.filter(objects, A.matchesProperty("a", 4))
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesProperty(["a", "b"], 1))
 ; => { "a": {"b": 1} }
 
-; fn := A.matchesProperty(["a", "b"], 1); msgbox, % fn.call({ "a": {"b": 2} })```
+```
 
 
 
@@ -2261,9 +2258,6 @@ objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b
 
 objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
-
-A.map(A.sortBy(objects, A.property(["a", "b"])))
-; => [2, 1]
 
 ```
 
