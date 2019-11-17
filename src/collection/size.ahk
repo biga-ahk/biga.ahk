@@ -4,10 +4,9 @@ size(param_collection) {
     }
 
     if (param_collection.Count() > 0) {
-        return  param_collection.Count()
+        return param_collection.Count()
     }
-
-    return  StrLen(param_collection)
+    return StrLen(param_collection)
 }
 
 
@@ -15,3 +14,4 @@ size(param_collection) {
 assert.test(A.size([1, 2, 3]), 3)
 assert.test(A.size({ "a": 1, "b": 2 }), 2)
 assert.test(A.size("pebbles"), 7)
+assert.test(A.size(200), 0)

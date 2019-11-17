@@ -748,10 +748,13 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    if (param_collection.Count() > 0) {
-	        return  param_collection.Count()
+	        return param_collection.Count()
 	    }
-
-	    return  StrLen(param_collection)
+	    if param_collection is number
+	    {
+	        return 0
+	    }
+	    return StrLen(param_collection)
 	}
 	sortBy(param_collection,param_iteratees) {
 	    if (!IsObject(param_collection)) {
