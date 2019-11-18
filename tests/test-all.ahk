@@ -565,6 +565,22 @@ assert.test(A.add(-10, -10), -20)
 assert.test(A.add(10, 0.01), 10.01)
 
 
+assert.label("ceil()")
+assert.test(A.ceil(4.006), 5)
+assert.test(A.ceil(6.004, 2), 6.01)
+assert.test(A.ceil(6040, -2), 6100)
+
+
+; omit
+assert.test(A.ceil(4.1), 5)
+assert.test(A.ceil(4.5), 5)
+assert.test(A.ceil(41), 41)
+assert.test(A.ceil(6.004, 2), 6.01)
+assert.test(A.ceil(6.004, 1), 6.1)
+assert.test(A.ceil(6040, -3), 7000)
+assert.test(A.ceil(2.22, 2), 2.22)
+
+
 assert.label("divide()")
 assert.test(A.divide(6, 4), 1.5)
 
@@ -572,6 +588,23 @@ assert.test(A.divide(6, 4), 1.5)
 ; omit
 assert.test(A.divide(10, -1), -10)
 assert.test(A.divide(-10, -10), 1)
+
+
+assert.label("floor()")
+assert.test(A.floor(4.006), 4)
+assert.test(A.floor(0.046, 2), 0.04)
+assert.test(A.floor(4060, -2), 4000)
+
+
+; omit
+assert.test(A.floor(4.1), 4)
+assert.test(A.floor(4.5), 4)
+assert.test(A.floor(41), 41)
+assert.test(A.floor(45), 45)
+assert.test(A.floor(6.004, 2), 6.00)
+assert.test(A.floor(6.004, 1), 6.0)
+assert.test(A.floor(6040, -3), 6000)
+assert.test(A.floor(2.22, 1), 2.2)
 
 
 assert.label("max()")
