@@ -670,6 +670,29 @@ A.takeRight(100)
 
 
 
+## .union
+Creates an array of unique values, in order, from all given arrays.
+
+
+#### Arguments
+[arrays] (...Array): The arrays to inspect.
+
+
+#### Returns
+(Array): Returns the new array of combined values.
+
+
+#### Example
+
+```autohotkey
+A.union([2, 1, 2])
+; => [2, 1]
+
+```
+
+
+
+
 ## .uniq
 Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 

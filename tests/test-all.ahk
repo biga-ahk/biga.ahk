@@ -225,6 +225,14 @@ assert.test(A.takeRight([]), [])
 
 
 
+assert.label("union()")
+assert.test(A.union([2, 1, 2]), [2, 1])
+
+
+; omit
+assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+
+
 assert.label("uniq()")
 assert.test(A.uniq([2, 1, 2]), [2, 1])
 
