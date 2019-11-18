@@ -1336,6 +1336,37 @@ A.add(6, 4)
 
 
 
+## .ceil
+Computes number rounded up to precision.
+
+
+#### Arguments
+number (number): The number to round up.
+
+[precision:=0] (number): The precision to round up to.
+
+
+#### Returns
+(number): Returns the rounded up number.
+
+
+#### Example
+
+```autohotkey
+A.ceil(4.006)
+; => 5
+
+A.ceil(6.004, 2)
+; => 6.01
+
+A.ceil(6040, -2)
+; => 6100
+
+```
+
+
+
+
 ## .divide
 Divide two numbers.
 
@@ -1355,6 +1386,36 @@ divisor (number): The second number in a division.
 ```autohotkey
 A.divide(6, 4)
 ; => 1.5
+
+```
+
+
+
+
+## .floor
+Computes number rounded down to precision.
+
+
+#### Arguments
+number (number): The number to round down.
+
+[precision:=0] (number): The precision to round down to.
+
+
+#### Returns
+(number): Returns the rounded down number.
+
+#### Example
+
+```autohotkey
+A.floor(4.006)
+; => 4
+
+A.floor(0.046, 2)
+; => 0.04
+
+A.floor(4060, -2)
+; => 4000
 
 ```
 
