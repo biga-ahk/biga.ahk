@@ -933,6 +933,22 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    param_augend += param_addend
 	    return param_augend + 0
 	}
+	ceil(param_number,param_precision:=0) {
+	    if (IsObject(param_number) || IsObject(param_precision)) {
+	        this.internal_ThrowException()
+	    }
+
+	    offset := 0.5
+	    if (param_precision != 0) {
+	        offset := offset / (10 ** param_precision)
+	    }
+	    ; trim trailing 0s
+	    sum := Trim(param_number+offset . "", "0")
+	    ; if last char is 5 then remove it
+	    value := (SubStr(sum, 0) = "5") ? SubStr(sum, 1, -1) : sum
+	    result := round(value, param_precision)
+	    return result
+	}
 	divide(param_dividend,param_divisor) {
 	    if (IsObject(param_dividend) || IsObject(param_divisor)) {
 	        this.internal_ThrowException()
@@ -941,6 +957,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    ; create the return
 	    vValue := param_dividend / param_divisor
 	    return vValue + 0
+	}
+	floor(param_number,param_precision:=0) {
+	    if (IsObject(param_number) || IsObject(param_precision)) {
+	        this.internal_ThrowException()
+	    }
+
+	    if (param_precision == 0 && this.parseint(param_number) == param_number) {
+	        return floor(param_number)
+	    }
+	    offset := -0.5
+	    if (param_precision != 0) {
+	        offset := offset / (10 ** param_precision)
+	    }
+	    ; trim trailing 0s
+	    sum := Trim(param_number + offset . "", "0")
+	    ; if last char is 5 then remove it
+	    value := (SubStr(sum, 0) = "5") ? SubStr(sum, 1, -1) : sum
+	    result := round(value, param_precision)
+	    return result
 	}
 	max(param_array) {
 	    if (!IsObject(param_array)) {
