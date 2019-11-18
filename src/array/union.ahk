@@ -1,6 +1,14 @@
-uniq(param_collection) {
+union(arrays*) {
+
+    l_array := []
+    for Key, Array in param_collection {
+        if (!IsObject(Array)) {
+            return false
+        }
+        l_array := this.join(l_array, Array)
+    }
     if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
+        return false
     }
 
     ; prepare data
@@ -20,8 +28,8 @@ uniq(param_collection) {
 
 
 ; tests
-assert.test(A.uniq([2, 1, 2]), [2, 1])
+assert.test(A.union([2, 1, 2]), [2, 1])
 
 
 ; omit
-assert.test(A.uniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
