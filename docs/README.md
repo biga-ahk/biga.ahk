@@ -206,6 +206,41 @@ A.dropRight(100)
 
 
 
+## .fill
+Fills elements of array with value from start up to, but not including, end.
+
+> [!Note]
+> Unlike it's Lodash counterpart, this method does NOT mutate the array.
+
+
+#### Arguments
+array (Array): The array to fill.
+
+value (*): The value to fill array with.
+
+[start:=1] (number): The start position.
+
+[end:=array.length] (number): The end position.
+
+
+#### Returns
+(Array): Returns array.
+
+
+#### Example
+
+```autohotkey
+array := [1, 2, 3]A.fill(array, "a")
+; => ["a", "a", "a"]
+
+A.fill([4, 6, 8, 10], "*", 2, 3)
+; => [4, "*", "*", 10]
+
+```
+
+
+
+
 ## .findIndex
 This method is like A.find except that it returns the index of the first element predicate returns truthy for instead of the element itself.
 
@@ -685,7 +720,7 @@ Creates an array of unique values, in order, from all given arrays.
 #### Example
 
 ```autohotkey
-A.union([2, 1, 2])
+A.union([2], [1, 2])
 ; => [2, 1]
 
 ```
