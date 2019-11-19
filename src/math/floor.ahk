@@ -27,7 +27,7 @@ assert.test(A.floor(4060, -2), 4000)
 
 ; omit
 assert.test(A.floor(4.1), 4)
-assert.test(A.floor(4.5), 4)
+assert.test(A.floor(4.6), 4)
 assert.test(A.floor(41), 41)
 assert.test(A.floor(45), 45)
 assert.test(A.floor(6.004, 2), 6.00)

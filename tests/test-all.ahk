@@ -70,6 +70,17 @@ assert.test(A.dropRight(100), ["1", "0"])
 assert.test(A.dropRight([]), [])
 
 
+assert.label("fill()")
+array := [1, 2, 3]
+assert.test(A.fill(array, "a"), ["a", "a", "a"])
+assert.test(A.fill([4, 6, 8, 10], "*", 2, 3), [4, "*", "*", 10])
+
+
+; omit
+assert.test(A.fill([]), [])
+assert.test(array, [1, 2, 3])
+; ensure that mutation did not occur
+
 assert.label("findIndex()")
 assert.test(A.findIndex([1, 2, 1, 2], 2), 2)
 
@@ -226,11 +237,12 @@ assert.test(A.takeRight([]), [])
 
 
 assert.label("union()")
-assert.test(A.union([2, 1, 2]), [2, 1])
+assert.test(A.union([2], [1, 2]), [2, 1])
 
 
 ; omit
 assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+assert.test(A.union("hello!"), ["hello!"])
 
 
 assert.label("uniq()")
@@ -606,7 +618,7 @@ assert.test(A.floor(4060, -2), 4000)
 
 ; omit
 assert.test(A.floor(4.1), 4)
-assert.test(A.floor(4.5), 4)
+assert.test(A.floor(4.6), 4)
 assert.test(A.floor(41), 41)
 assert.test(A.floor(45), 45)
 assert.test(A.floor(6.004, 2), 6.00)

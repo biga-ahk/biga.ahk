@@ -17,5 +17,5 @@ assert.test(A.union([2], [1, 2]), [2, 1])
 
 
 ; omit
-assert.test(A.union([2, 1, 2]), [2, 1])
 assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+assert.test(A.union("hello!"), ["hello!"])

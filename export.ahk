@@ -115,6 +115,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+	fill(param_array,param_value:="",param_start:=1,param_end:=-1) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare data
+	    l_array := this.clone(param_array)
+	    if (param_end == -1) {
+	        param_end := this.size(param_array)
+	    }
+
+	    ; create the array
+	    for Key, Value in l_array {
+	        if (Key >= param_start && Key <= param_end) {
+	            l_array[Key] := param_value
+	        }
+	    }
+	    return l_array
+	}
 	findIndex(param_array,param_value,fromIndex:=1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
