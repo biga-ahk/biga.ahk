@@ -723,6 +723,16 @@ output := A.random(0, 1, true)
 assert.test(A.includes(output, "."), true)
 
 
+assert.label("defaults()")
+assert.test(A.defaults({"a": 1}, {"b": 2}, {"a": 3}), {"a": 1, "b": 2})
+
+
+; omit
+object := {"a": 1}
+assert.test(A.defaults(object, {"b": 2, "c": 3}), {"a": 1, "b": 2, "c": 3})
+assert.test(object, {"a": 1})
+
+
 assert.label("merge()")
 object := {"options":[{"option1":"true"}]}
 other := {"options":[{"option2":"false"}]}

@@ -1150,6 +1150,25 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    Random, vRandom, param_lower, param_upper
 	    return vRandom
 	}
+	defaults(param_object,param_sources*) {
+	    if (!IsObject(param_object)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    l_obj := this.clone(param_object)
+	    param_sources := this.reverse(param_sources)
+
+	    ; create
+	    for Index, Object in param_sources {
+	        for Key, Value in Object {
+	            if (!l_obj.HasKey(Key)) { ; if the key is not already in use
+	                l_obj[Key] := Value
+	            }
+	        }
+	    }
+	    return l_obj
+	}
 	merge(param_collections*) {
 	    if (!IsObject(param_collections)) {
 	        this.internal_ThrowException()
