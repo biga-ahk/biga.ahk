@@ -411,11 +411,11 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    l_array := []
 
 	    ; create the slice
-	    loop, % param_collection.Count() {
-	        printedelement := this.internal_MD5(this.printObj(param_collection[A_Index]))
+	    for Key, Value in param_collection {
+	        printedelement := this.internal_MD5(this.printObj(param_collection[Key]))
 	        if (this.indexOf(tempArray, printedelement) == -1) {
 	            tempArray.push(printedelement)
-	            l_array.push(param_collection[A_Index])
+	            l_array[Key] := Value
 	        }
 	    }
 	    return l_array
@@ -735,7 +735,15 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
+	    ; prepare data
 	    vSampleArray := this.sampleSize(param_collection)
+	    l_array := []
+	    for Key, Value in param_collection {
+	        l_array.push(Value)
+	    }
+
+	    ; create
+	    vSampleArray := this.sampleSize(l_array)
 	    return vSampleArray[1]
 	}
 	sampleSize(param_collection,param_SampleSize:=1) {
@@ -743,21 +751,24 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    if (param_SampleSize > param_collection.MaxIndex()) {
-	        return  param_collection
+	    ; return immediately if array is smaller than requested sampleSize
+	    if (param_SampleSize > param_collection.Count()) {
+	        return param_collection
 	    }
 
+	    ; prepare data
+	    l_collection := this.clone(param_collection)
 	    l_array := []
 	    tempArray := []
-	    loop, %param_SampleSize%
+	    loop, % param_SampleSize
 	    {
-	        Random, randomNum, 1, param_collection.MaxIndex()
-	        while (this.indexOf(tempArray,randomNum) != -1) {
+	        Random, randomNum, 1, l_collection.Count()
+	        while (this.indexOf(tempArray, randomNum) != -1) {
 	            tempArray.push(randomNum)
-	            Random, randomNum, 1, param_collection.MaxIndex()
+	            Random, randomNum, 1, l_collection.Count()
 	        }
-	        l_array.push(param_collection[randomNum])
-	        param_collection.RemoveAt(randomNum)
+	        l_array.push(l_collection[randomNum])
+	        l_collection.RemoveAt(randomNum)
 	    }
 	    return l_array
 	}
@@ -766,20 +777,26 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
+	    ; prepare data
+	    l_array := this.clone(param_collection)
 	    l_shuffledArray := []
-	    loop, % param_collection.MaxIndex() {
-	        Random, randomvar, 1, param_collection.MaxIndex()
-	        l_shuffledArray.push(param_collection.RemoveAt(randomvar))
+
+	    ; create
+	    loop, % l_array.Count() {
+	        random := this.sample(l_array)
+	        index := this.indexOf(l_array, random)
+	        l_array.RemoveAt(index)
+	        l_shuffledArray.push(random)
 	    }
 	    return l_shuffledArray
 	}
 	size(param_collection) {
-	    if (param_collection.MaxIndex() > 0) {
-	        return  param_collection.MaxIndex()
-	    }
 
 	    if (param_collection.Count() > 0) {
 	        return param_collection.Count()
+	    }
+	    if (param_collection.MaxIndex() > 0) {
+	        return  param_collection.MaxIndex()
 	    }
 	    return StrLen(param_collection)
 	}
