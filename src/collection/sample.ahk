@@ -3,7 +3,15 @@ sample(param_collection) {
         this.internal_ThrowException()
     }
     
+    ; prepare data
     vSampleArray := this.sampleSize(param_collection)
+    l_array := []
+    for Key, Value in param_collection {
+        l_array.push(Value)
+    }
+
+    ; create
+    vSampleArray := this.sampleSize(l_array)
     return vSampleArray[1]
 }
 
