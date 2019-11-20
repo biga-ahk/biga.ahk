@@ -2,11 +2,17 @@ shuffle(param_collection) {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
-    
+
+    ; prepare data
+    l_array := this.clone(param_collection)
     l_shuffledArray := []
-    loop, % param_collection.MaxIndex() {
-        Random, randomvar, 1, param_collection.MaxIndex()
-        l_shuffledArray.push(param_collection.RemoveAt(randomvar))
+
+    ; create
+    loop, % l_array.Count() {
+        random := this.sample(l_array)
+        index := this.indexOf(l_array, random)
+        l_array.RemoveAt(index)
+        l_shuffledArray.push(random)
     }
     return l_shuffledArray
 }
