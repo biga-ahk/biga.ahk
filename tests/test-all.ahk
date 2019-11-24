@@ -409,17 +409,6 @@ A.caseSensitive := false
 assert.false(A.includes("InStr", "Other"))
 
 
-assert.label("internal_sort()")
-users := [
-  , { "name": "fred",   "age": 46 }
-  , { "name": "barney", "age": 34 }
-  , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
-
-assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"zeddy"},{"age":46,"name":"fred"}])
-assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zeddy"}])
-
-
 assert.label("map()")
 square(n) {
   return  n * n
@@ -500,7 +489,7 @@ users := [
   , { "name": "zeddy", "age": 40 }]
 
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
-assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
+assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zeddy"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
 sortby1(o) {
     return o.name
@@ -514,6 +503,16 @@ enemies := [
 sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
+
+
+users := [
+  , { "name": "fred",   "age": 46 }
+  , { "name": "barney", "age": 34 }
+  , { "name": "bernard", "age": 36 }
+  , { "name": "zeddy", "age": 40 }]
+
+assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"zeddy"},{"age":46,"name":"fred"}])
+assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zeddy"}])
 
 assert.label("internal()")
 assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
@@ -605,6 +604,9 @@ assert.test(A.ceil(6.004, 1), 6.1)
 assert.test(A.ceil(6040, -3), 7000)
 assert.test(A.ceil(2.22, 2), 2.22)
 
+assert.test(A.ceil(-2.22000000000000020, 2), -2.22)
+assert.test(A.ceil(2.22000000000000020, 2), 2.23)
+
 
 assert.label("divide()")
 assert.test(A.divide(6, 4), 1.5)
@@ -631,6 +633,8 @@ assert.test(A.floor(6.004, 1), 6.0)
 assert.test(A.floor(6040, -3), 6000)
 assert.test(A.floor(2.22, 1), 2.2)
 
+assert.test(A.floor(-2.22000000000000020, 2), -2.22)
+assert.test(A.floor(2.22000000000000020, 2), 2.22)
 
 assert.label("max()")
 assert.test(A.max([4, 2, 8, 6]), 8)

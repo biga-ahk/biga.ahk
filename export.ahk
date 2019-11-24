@@ -645,25 +645,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	    }
 	}
-	internal_sort(param_collection,param_iteratees:="name") {
-	    l_array := this.cloneDeep(param_collection)
-
-	        for Index, obj in l_array {
-	            out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
-	            ; out will look like:   value+index|value+index|
-	        }
-
-	        Value := l_array[l_array.minIndex(), param_iteratees]
-	        if Value is number 
-	            type := " N "
-	        StringTrimRight, out, out, 1 ; remove trailing | 
-	        Sort, out, % "D| "
-	        arrStorage := []
-	        loop, parse, out, |
-	        arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
-	        l_array := arrStorage
-	        return l_array
-	}
 	map(param_collection,param_iteratee:="baseProperty") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
@@ -834,6 +815,27 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+
+	internal_sort(param_collection,param_iteratees:="name") {
+	    l_array := this.cloneDeep(param_collection)
+
+	    for Index, obj in l_array {
+	        out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
+	        ; out will look like:   value+index|value+index|
+	    }
+
+	    Value := l_array[l_array.minIndex(), param_iteratees]
+	    if Value is number
+	    {
+	        type := " N "
+	    }
+	    StringTrimRight, out, out, 1 ; remove trailing | 
+	    Sort, out, % "D| " type
+	    arrStorage := []
+	    loop, parse, out, |
+	    arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+	    return arrStorage
+	}
 	; /--\--/--\--/--\--/--\--/--\
 	; Internal functions
 	; \--/--\--/--\--/--\--/--\--/
@@ -986,15 +988,23 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    offset := 0.5
-	    if (param_precision != 0) {
-	        offset := offset / (10 ** param_precision)
+		if (param_precision == 0) { ; regular ceil
+			return ceil(param_number)
 	    }
-	    ; trim trailing 0s
-	    sum := Trim(param_number+offset . "", "0")
-	    ; if last char is 5 then remove it
-	    value := (SubStr(sum, 0) = "5") ? SubStr(sum, 1, -1) : sum
-	    result := round(value, param_precision)
+
+		offset := 0.5 / (10**param_precision)
+		if (param_number < 0 && param_precision >= 1) {
+			offset //= 10 ; adjust offset for negative numbers and positive param_precision
+	    }
+		if (param_precision >= 1) {
+			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+		} else {
+			sum := param_number + offset
+	    }
+		sum := trim(sum, "0") ; trim zeroes
+		value := (SubStr(sum, 0) = "5") && param_number != sum ? SubStr(sum, 1, -1) : sum ; if last char is 5 then remove it unless it is part of the original string
+	    result := Round(value, param_precision)
 	    return result
 	}
 	divide(param_dividend,param_divisor) {
@@ -1011,18 +1021,23 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    if (param_precision == 0 && this.parseint(param_number) == param_number) {
-	        return floor(param_number)
+		if (param_precision == 0) { ; regular floor
+			return floor(param_number)
 	    }
-	    offset := -0.5
-	    if (param_precision != 0) {
-	        offset := offset / (10 ** param_precision)
+
+		offset := -0.5 / (10**param_precision)
+		if (param_number < 0 && param_precision >= 1) {
+			offset //= 10 ; adjust offset for negative numbers and positive param_precision
 	    }
-	    ; trim trailing 0s
-	    sum := Trim(param_number + offset . "", "0")
-	    ; if last char is 5 then remove it
-	    value := (SubStr(sum, 0) = "5") ? SubStr(sum, 1, -1) : sum
-	    result := round(value, param_precision)
+		if (param_precision >= 1) {
+			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+		} else {
+			sum := param_number + offset
+	    }
+		sum := trim(sum, "0") ; trim zeroes
+		value := (SubStr(sum, 0) = "5") && param_number != sum ? SubStr(sum, 1, -1) : sum ; if last char is 5 then remove it unless it is part of the original string
+	    result := Round(value, param_precision)
 	    return result
 	}
 	max(param_array) {
