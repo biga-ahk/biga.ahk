@@ -3,18 +3,23 @@ floor(param_number,param_precision:=0) {
         this.internal_ThrowException()
     }
 
-    if (param_precision == 0 && this.parseint(param_number) == param_number) {
-        return floor(param_number)
+	if (param_precision == 0) { ; regular floor
+		return floor(param_number)
     }
-    offset := -0.5
-    if (param_precision != 0) {
-        offset := offset / (10 ** param_precision)
+
+	offset := -0.5 / (10**param_precision)
+	if (param_number < 0 && param_precision >= 1) {
+		offset //= 10 ; adjust offset for negative numbers and positive param_precision
     }
-    ; trim trailing 0s
-    sum := Trim(param_number + offset . "", "0")
-    ; if last char is 5 then remove it
-    value := (SubStr(sum, 0) = "5") ? SubStr(sum, 1, -1) : sum
-    result := round(value, param_precision)
+	if (param_precision >= 1) {
+		n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+		sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+	} else {
+		sum := param_number + offset
+    }
+	sum := trim(sum, "0") ; trim zeroes
+	value := (SubStr(sum, 0) = "5") && param_number != sum ? SubStr(sum, 1, -1) : sum ; if last char is 5 then remove it unless it is part of the original string
+    result := Round(value, param_precision)
     return result
 }
 
@@ -34,3 +39,6 @@ assert.test(A.floor(6.004, 2), 6.00)
 assert.test(A.floor(6.004, 1), 6.0)
 assert.test(A.floor(6040, -3), 6000)
 assert.test(A.floor(2.22, 1), 2.2)
+
+assert.test(A.floor(-2.22000000000000020, 2), -2.22)
+assert.test(A.floor(2.22000000000000020, 2), 2.22)
