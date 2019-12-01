@@ -785,12 +785,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
-
 	    l_array := this.cloneDeep(param_collection)
-	    ; Order := 1
 
-	    ; create the slice
-	    ; func
+	    ; create
 	    if (IsFunc(param_iteratees)) {
 	        tempArray := []
 	        for Key, Value in param_collection {
@@ -998,7 +995,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 		if (param_precision >= 1) {
 			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
-			sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+			sum := format("{:." this.max([n_dec_char, param_precision]) + 1 "f}", param_number + offset)
 		} else {
 			sum := param_number + offset
 	    }
@@ -1031,7 +1028,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 		if (param_precision >= 1) {
 			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
-			sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+			sum := format("{:." this.max([n_dec_char, param_precision]) + 1 "f}", param_number + offset)
 		} else {
 			sum := param_number + offset
 	    }

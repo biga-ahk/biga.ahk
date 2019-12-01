@@ -13,7 +13,7 @@ ceil(param_number,param_precision:=0) {
     }
 	if (param_precision >= 1) {
 		n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
-		sum := format("{:." max(n_dec_char, param_precision) + 1 "f}", param_number + offset)
+		sum := format("{:." this.max([n_dec_char, param_precision]) + 1 "f}", param_number + offset)
 	} else {
 		sum := param_number + offset
     }
