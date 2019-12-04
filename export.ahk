@@ -717,7 +717,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; prepare data
-	    vSampleArray := this.sampleSize(param_collection)
 	    l_array := []
 	    for Key, Value in param_collection {
 	        l_array.push(Value)

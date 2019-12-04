@@ -455,6 +455,10 @@ output := A.sample([1, 2, 3])
 assert.test(A.size(output), 1)
 assert.false(IsObject(output))
 
+output := A.sample([{"obj": 1} , {"obj": 2}, {"obj": 3}])
+assert.test(A.size(output), 1)
+assert.true(IsObject(output))
+
 
 assert.label("samplesize()")
 output := A.sampleSize([1, 2, 3], 2)
@@ -513,6 +517,7 @@ users := [
 
 assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"zeddy"},{"age":46,"name":"fred"}])
 assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zeddy"}])
+
 
 assert.label("internal()")
 assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
