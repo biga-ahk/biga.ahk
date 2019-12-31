@@ -139,30 +139,61 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
-	    if (IsFunc(param_value)) {
-	        vFunctionparam := true
+	    ; data setup
+	    short_hand := this.internal_differenciateShorthand(param_value, param_array)
+	    if (short_hand != false) {
+	        BoundFunc := this.internal_createShorthandfn(param_value, param_array)
 	    }
-	    if (IsObject(param_value) && !vFunctionparam) { ; do not convert objects that are functions
+	    if (IsFunc(param_value)) {
+	        BoundFunc := param_value
+	    }
+	    if (IsObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
 	        vSearchingobjects := true
 	        param_value := this.printObj(param_value)
 	    }
+
+	    ; create the return
 	    for Index, Value in param_array {
 	        if (Index < fromIndex) {
 	            continue
 	        }
-	        if (vSearchingobjects) {
-	            Value := this.printObj(Value)
+
+	        if (short_hand == ".matchesProperty" || short_hand == ".property") {
+	            if (BoundFunc.call(param_array[Index]) == true) {
+	                return Index
+	            }
 	        }
-	        if (vFunctionparam) {
-	            if (param_value.call(param_array[A_Index])) {
-	                return Index + 0
+	        if (vSearchingobjects) {
+	            Value := this.printObj(param_array[Index])
+	        }
+	        if (IsFunc(BoundFunc)) {
+	            if (BoundFunc.call(param_array[Index]) == true) {
+	                return Index
 	            }
 	        }
 	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-	            return Index + 0
+	            return Index
 	        }
 	    }
-	    return -1 + 0
+	    return -1
+	}
+	findLastIndex(param_array,param_value,fromIndex:=1) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    l_array := this.reverse(this.cloneDeep(param_array))
+	    l_count := this.size(l_array)
+	    l_foundIndex := this.findIndex(l_array, param_value, fromIndex)
+
+	    if (l_foundIndex < 0) {
+	        return -1
+	    } else {
+	        finalIndex := l_count + 1
+	        finalIndex := finalIndex - l_foundIndex
+	    }
+	    return finalIndex
 	}
 	fromPairs(param_pairs) {
 	    if (!IsObject(param_pairs)) {
@@ -709,7 +740,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            falseArray.push(Value)
 	        }
 	    }
-	    return [trueArray, falseArray] 
+	    return [trueArray, falseArray]
 	}
 	sample(param_collection) {
 	    if (!IsObject(param_collection)) {

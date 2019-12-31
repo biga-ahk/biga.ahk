@@ -25,7 +25,7 @@ partition(param_collection,param_predicate) {
             falseArray.push(Value)
         }
     }
-    return [trueArray, falseArray] 
+    return [trueArray, falseArray]
 }
 
 
@@ -36,7 +36,6 @@ users := [ { "user": "barney", "age": 36, "active": false }
 
 assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 partitionfunction1(o) {
-    ; msgbox, % "returning " o.active
     return o.active
 }
 

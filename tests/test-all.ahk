@@ -91,13 +91,11 @@ assert.test(A.findIndex(["fred", "barney"], "pebbles"), -1)
 
 A.caseSensitive := true
 assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
-
-assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "barney"}), 2)
+assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 
 users := [ { "user": "barney", "age": 36, "active": true }
     , { "user": "fred", "age": 40, "active": false }
     , { "user": "pebbles", "age": 1, "active": true } ]
-
 assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
 findIndexFunc(o) {
     return o.user == "barney"
@@ -108,6 +106,29 @@ findIndexFunc(o) {
 A.caseSensitive := false
 assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
+users := [{"user": "barney", "active": true}
+    , {"user": "fred", "active": false}
+    , {"user": "pebbles", "active": false}]
+
+assert.test(A.findIndex(users, ["active", false]), 2)
+
+
+assert.label("findLastIndex()")
+users := [{"user": "barney", "active": true}
+    , {"user": "fred", "active": false}
+    , {"user": "pebbles", "active": false}]
+
+assert.test(A.findLastIndex(users, {"user": "barney", "active": true}), 1)
+assert.test(A.findLastIndex(users, ["active", true]), 1)
+assert.test(A.findLastIndex(users, "active"), 1)
+
+
+; omit
+testusers := ["barney","jane","pebbles","barney","bill"]
+assert.test(A.findLastIndex(testusers, "barney"), 4)
+assert.test(A.findLastIndex(testusers, "jane"), 2)
+assert.test(A.findLastIndex(testusers, "bill"), 5)
+assert.test(A.findLastIndex(testusers, "pebbles"), 3)
 
 assert.label("fromPairs()")
 assert.test(A.fromPairs([["a", 1], ["b", 2]]), {"a": 1, "b": 2})
@@ -433,7 +454,6 @@ users := [ { "user": "barney", "age": 36, "active": false }
 
 assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 partitionfunction1(o) {
-    ; msgbox, % "returning " o.active
     return o.active
 }
 
@@ -483,6 +503,13 @@ assert.label("size()")
 assert.test(A.size([1, 2, 3]), 3)
 assert.test(A.size({ "a": 1, "b": 2 }), 2)
 assert.test(A.size("pebbles"), 7)
+
+
+; omit
+users := [{"user": "barney", "active": true}
+    , {"user": "fred", "active": false}
+    , {"user": "pebbles", "active": false}]
+assert.test(A.size(users), 3)
 
 
 assert.label("sortBy()")

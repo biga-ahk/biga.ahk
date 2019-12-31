@@ -272,13 +272,45 @@ A.findIndex(["fred", "barney"], "pebbles")
 A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
 ; => -1
 
-A.findIndex([{name: "fred"}, {name: "barney"}], {name: "barney"})
+A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"})
 ; => 2
 
 users := [ { "user": "barney", "age": 36, "active": true }    , { "user": "fred", "age": 40, "active": false }    , { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users, Func("findIndexFunc"))
 ; => 1
 
 findIndexFunc(o) {    return o.user == "barney"}```
+
+
+
+
+## .findLastIndex
+This method is like A.(findIndex)[/findIndex] except that it iterates over elements of collection from right to left.
+
+#### Arguments
+array (Array): The array to inspect.
+
+[predicate=A.identity] (Function): The function invoked per iteration.
+
+[fromIndex:=array.size] (number): The index to search from.
+
+
+#### Returns
+(key): Returns the key of the found element, else -1.
+
+
+#### Example
+
+```autohotkey
+users := [{"user": "barney", "active": true}    , {"user": "fred", "active": false}    , {"user": "pebbles", "active": false}]A.findLastIndex(users, {"user": "barney", "active": true})
+; => 1
+
+A.findLastIndex(users, ["active", true])
+; => 1
+
+A.findLastIndex(users, "active")
+; => 1
+
+```
 
 
 
@@ -1065,7 +1097,7 @@ collection (Array|Object): The collection to iterate over.
 users := [ { "user": "barney", "age": 36, "active": false }    , { "user": "fred", "age": 40, "active": true }    , { "user": "pebbles", "age": 1, "active": false } ]A.partition(users, func("partitionfunction1"))
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
-partitionfunction1(o) {    ; msgbox, % "returning " o.active    return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
+partitionfunction1(o) {    return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
 ; => [[{ "user": "pebbles", "age": 1, "active": false }], [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": true }]]
 
 ; The A.propertyMatches iteratee shorthand.A.partition(users, ["active", false])
