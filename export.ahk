@@ -609,6 +609,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	    }
+	    return false
 	}
 	forEach(param_collection,param_iteratee:="baseProperty") {
 	    if (!IsObject(param_collection)) {
@@ -1072,8 +1073,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
+	    vMax := false
 	    for Key, Value in param_array {
-	        if (vMax < Value || vMax == "") {
+	        if (vMax < Value || vMax == false) {
 	            vMax := Value
 	        }
 	    }
@@ -1095,8 +1097,9 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
+	    vMin := false
 	    for Key, Value in param_array {
-	        if (vMin > Value || vMin == "") {
+	        if (vMin > Value || vMin == false) {
 	            vMin := Value
 	        }
 	    }

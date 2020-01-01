@@ -3,8 +3,9 @@ min(param_array) {
         this.internal_ThrowException()
     }
 
+    vMin := false
     for Key, Value in param_array {
-        if (vMin > Value || vMin == "") {
+        if (vMin > Value || vMin == false) {
             vMin := Value
         }
     }
@@ -14,7 +15,7 @@ min(param_array) {
 
 ; tests
 assert.test(A.min([4, 2, 8, 6]), 2)
-assert.test(A.min([]), "")
+assert.test(A.min([]), false)
 
 
 ; omit

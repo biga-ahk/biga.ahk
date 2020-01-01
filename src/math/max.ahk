@@ -3,8 +3,9 @@ max(param_array) {
         this.internal_ThrowException()
     }
 
+    vMax := false
     for Key, Value in param_array {
-        if (vMax < Value || vMax == "") {
+        if (vMax < Value || vMax == false) {
             vMax := Value
         }
     }
@@ -14,7 +15,7 @@ max(param_array) {
 
 ; tests
 assert.test(A.max([4, 2, 8, 6]), 8)
-assert.test(A.max([]), "")
+assert.test(A.max([]), false)
 
 
 ; omit

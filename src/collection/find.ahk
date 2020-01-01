@@ -33,6 +33,7 @@ find(param_collection,param_predicate,param_fromindex:=1) {
             continue
         }
     }
+    return false
 }
 
 

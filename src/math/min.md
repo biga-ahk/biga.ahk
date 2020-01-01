@@ -1,4 +1,4 @@
-Computes the minimum value of array. If array is empty or falsey, undefined is returned.
+Computes the minimum value of array. If array is empty or falsey, false is returned.
 
 
 ## Arguments
