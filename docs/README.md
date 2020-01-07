@@ -944,7 +944,7 @@ function (Function): The function invoked per iteration.
 
 
 #### Returns
-(*): Returns the matched element, else undefined.
+(*): Returns the matched element, else false.
 
 
 #### Example
@@ -1513,7 +1513,7 @@ A.floor(4060, -2)
 
 
 ## .max
-Computes the maximum value of array. If array is empty or falsey, undefined is returned.
+Computes the maximum value of array. If array is empty or falsey, `""` is returned.
 
 
 #### Arguments
@@ -1562,7 +1562,7 @@ A.mean([4, 2, 8, 6])
 
 
 ## .min
-Computes the minimum value of array. If array is empty or falsey, undefined is returned.
+Computes the minimum value of array. If array is empty or falsey, `""` is returned.
 
 
 #### Arguments
