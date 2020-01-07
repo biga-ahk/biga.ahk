@@ -1,4 +1,4 @@
-Computes the maximum value of array. If array is empty or falsey, false is returned.
+Computes the maximum value of array. If array is empty or falsey, `""` is returned.
 
 
 ## Arguments
