@@ -292,6 +292,12 @@ assert.label("zip()")
 assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
 
 
+; omit
+obj1 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+obj2 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+assert.test(A.zip(obj1, obj2),[["one", "one"], ["two", "two"], ["three", "three"], ["four", "four"], ["five", "five"], ["six", "six"], ["seven", "seven"], ["eight", "eight"], ["nine", "nine"], ["ten", "ten"]])
+
+
 assert.label("zipObject()")
 assert.test(A.zipObject(["a", "b"], [1, 2]), {"a": 1, "b": 2})
 

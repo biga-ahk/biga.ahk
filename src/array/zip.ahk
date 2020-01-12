@@ -8,10 +8,10 @@ zip(param_arrays*) {
     for Key, Value in param_arrays {
         ; for each value in the supplied set of array(s)
         for Key2, Value2 in Value {
-            loop, % param_arrays.Count() {
+            loop, % Value.Count() {
                 if (Key2 == A_Index) {
                     ; create array if not encountered yet
-                    if (!IsObject(l_array[A_Index])) {
+                    if (IsObject(l_array[A_Index]) == false) {
                         l_array[A_Index] := []
                     }
                     ; push values onto the array for their position in the supplied arrays
@@ -26,3 +26,9 @@ zip(param_arrays*) {
 
 ; tests
 assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
+
+
+; omit
+obj1 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+obj2 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+assert.test(A.zip(obj1, obj2),[["one", "one"], ["two", "two"], ["three", "three"], ["four", "four"], ["five", "five"], ["six", "six"], ["seven", "seven"], ["eight", "eight"], ["nine", "nine"], ["ten", "ten"]])
