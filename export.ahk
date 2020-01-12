@@ -475,10 +475,10 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    for Key, Value in param_arrays {
 	        ; for each value in the supplied set of array(s)
 	        for Key2, Value2 in Value {
-	            loop, % param_arrays.Count() {
+	            loop, % Value.Count() {
 	                if (Key2 == A_Index) {
 	                    ; create array if not encountered yet
-	                    if (!IsObject(l_array[A_Index])) {
+	                    if (IsObject(l_array[A_Index]) == false) {
 	                        l_array[A_Index] := []
 	                    }
 	                    ; push values onto the array for their position in the supplied arrays
