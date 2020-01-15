@@ -1968,7 +1968,7 @@ string := "fred, barney, & pebbles"A.escape(string)
 
 
 ## .lowerCase
-Converts string, as a whole, to lower case just like String#toLowerCase.
+Converts string, as a whole, to lower case.
 
 
 #### Arguments
@@ -2080,6 +2080,34 @@ A.replace("Hi Fred", "Fred", "Barney")
 
 A.replace("1234", "/(\d+)/", "numbers")
 ; => "numbers"
+
+```
+
+
+
+
+## .snakeCase
+Converts string to snake case.
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the snake cased string.
+
+
+#### Example
+
+```autohotkey
+A.snakeCase("Foo Bar")
+; => "foo_bar"
+
+A.snakeCase("fooBar")
+; => "foo_bar"
+
+A.snakeCase("--FOO-BAR--")
+; => "foo_bar"
 
 ```
 
