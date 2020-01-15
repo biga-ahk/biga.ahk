@@ -927,6 +927,16 @@ assert.test(A.unescape(string), "fred, barney, & pebbles")
 assert.test(A.unescape("&amp;&amp;&amp;"), "&&&")
 
 
+assert.label("upperCase()")
+assert.test(A.upperCase("--Foo-Bar--"), "FOO BAR")
+assert.test(A.upperCase("fooBar"), "FOO BAR")
+assert.test(A.upperCase("__FOO_BAR__"), "FOO BAR")
+
+
+; omit
+assert.test(A.upperCase("  Foo-Bar--"), "FOO BAR")
+
+
 assert.label("words()")
 assert.test(A.words("fred, barney, & pebbles"), ["fred", "barney", "pebbles"])
  

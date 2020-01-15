@@ -1312,6 +1312,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return param_string
 	}
+	lowerCase(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    l_string := this.startCase(param_string)
+	    l_string := this.toLower(this.trim(l_string))
+	    return l_string
+	}
 	parseInt(param_string:="0") {
 
 	    param_string := this.trimStart(param_string, "0 -_")
@@ -1399,6 +1409,8 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (IsObject(param_string)) {
 	        this.internal_ThrowException()
 	    }
+
+	    ; create the return
 	    StringLower, OutputVar, param_string
 	    return  OutputVar
 	}
@@ -1501,6 +1513,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        param_string := StrReplace(param_string, element.2, element.1, , -1)
 	    }
 	    return param_string
+	}
+	upperCase(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    l_string := this.startCase(param_string)
+	    l_string := this.toupper(this.trim(l_string))
+	    return l_string
 	}
 	words(param_string,param_pattern:="/[^\W]+/") {
 	    if (IsObject(param_string) || IsObject(param_pattern)) {
