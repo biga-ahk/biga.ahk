@@ -2380,6 +2380,35 @@ string := "fred, barney, &amp; pebbles"A.unescape(string)
 
 
 
+## .upperCase
+Converts string, as space separated words, to upper case.
+
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the upper cased string.
+
+
+#### Example
+
+```autohotkey
+A.upperCase("--Foo-Bar--")
+; => "FOO BAR"
+
+A.upperCase("fooBar")
+; => "FOO BAR"
+
+A.upperCase("__FOO_BAR__")
+; => "FOO BAR"
+
+```
+
+
+
+
 ## .words
 Splits string into an array of its words.
 

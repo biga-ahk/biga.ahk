@@ -1,4 +1,4 @@
-Converts string, as a whole, to lower case just like String#toLowerCase.
+Converts string, as a whole, to lower case.
 
 
 ## Arguments
