@@ -5,7 +5,7 @@ snakeCase(param_string:="") {
 
     ; create the return
     l_string := this.startCase(param_string)
-    l_string := StrReplace(this.trim(l_string), " ", "_")
+    l_string := StrReplace(l_string, " ", "_")
     return l_string
 }
 
