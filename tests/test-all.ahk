@@ -815,6 +815,16 @@ assert.test(A.escape(string), "fred, barney, &amp; pebbles")
 assert.test(A.escape("&&&"), "&amp;&amp;&amp;")
 
 
+assert.label("lowerCase()")
+assert.test(A.lowerCase("--Foo-Bar--"), "foo bar")
+assert.test(A.lowerCase("fooBar"), "foo bar")
+assert.test(A.lowerCase("__FOO_BAR__"), "foo bar")
+
+
+; omit
+assert.test(A.lowerCase("  Foo-Bar--"), "foo bar")
+
+
 assert.label("parseInt()")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])

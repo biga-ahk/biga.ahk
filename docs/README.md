@@ -1967,6 +1967,35 @@ string := "fred, barney, & pebbles"A.escape(string)
 
 
 
+## .lowerCase
+Converts string, as a whole, to lower case just like String#toLowerCase.
+
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the lower cased string.
+
+
+#### Example
+
+```autohotkey
+A.lowerCase("--Foo-Bar--")
+; => "foo bar"
+
+A.lowerCase("fooBar")
+; => "foo bar"
+
+A.lowerCase("__FOO_BAR__")
+; => "foo bar"
+
+```
+
+
+
+
 ## .parseInt
 Converts string to an integer.
 
