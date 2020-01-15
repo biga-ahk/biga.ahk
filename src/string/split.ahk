@@ -25,11 +25,9 @@ split(param_string := "",param_separator := ",", param_limit := 0) {
 
 ; tests
 assert.test(A.split("a-b-c", "-", 2), ["a", "b"])
-
 assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
 
 
 ; omit
 assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
-
 assert.test(A.split("a--b-c", ","), ["a--b-c"])

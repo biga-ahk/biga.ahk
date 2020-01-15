@@ -800,6 +800,12 @@ assert.label("toPairs()")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
 
+assert.label("camelCase()")
+assert.test(A.camelCase("--foo-bar--"), "fooBar")
+assert.test(A.camelCase("fooBar"), "fooBar")
+assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
+
+
 assert.label("escape()")
 string := "fred, barney, & pebbles"
 assert.test(A.escape(string), "fred, barney, &amp; pebbles")
@@ -831,13 +837,11 @@ assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
 
 assert.label("split()")
 assert.test(A.split("a-b-c", "-", 2), ["a", "b"])
-
 assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
 
 
 ; omit
 assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
-
 assert.test(A.split("a--b-c", ","), ["a--b-c"])
 
 

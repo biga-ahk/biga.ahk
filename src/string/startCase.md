@@ -1,8 +1,7 @@
 Converts string to start case.
 
-#### Arguments
+## Arguments
 [string:=""] (string): The string to convert.
 
-#### Returns
-
+## Returns
 (string): Returns the start cased string.

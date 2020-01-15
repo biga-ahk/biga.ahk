@@ -8,5 +8,4 @@ array (Array): The array to query.
 
 
 ## Returns
-
 (*): Returns the first element of array.

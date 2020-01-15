@@ -1286,6 +1286,18 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+	camelCase(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    l_string := this.startCase(param_string)
+	    l_startChar := this.head(l_string)
+	    l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
+
+	    return l_outputString
+	}
 	escape(param_string:="") {
 	    if (IsObject(param_string)) {
 	        this.internal_ThrowException()
@@ -1347,10 +1359,15 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return oReducedArray
 	}
-	startCase(param_string := "") {
+	startCase(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
 	    l_string := this.replace(param_string, "/(\W)/", " ")
 	    l_string := this.replace(l_string, "/([\_])/", " ")
 
+	    ; create the return
 	    ; add space before each capitalized character
 	    RegExMatch(l_string, "O)([A-Z])", RE_Match)
 	    if (RE_Match.Count()) {

@@ -9,5 +9,4 @@ Splits string by separator.
 [limit:=0] (number): The length to truncate results to.
 
 ## Returns
-
 (Array): Returns the string segments.
