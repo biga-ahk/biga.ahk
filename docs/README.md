@@ -348,8 +348,8 @@ array (Array): The array to query.
 
 
 #### Returns
-
 (*): Returns the first element of array.
+
 
 #### Example
 
@@ -1910,6 +1910,33 @@ A.toPairs({"a": 1, "b": 2})
 
 
 # **&ldquo;String&rdquo; Methods**
+## .camelCase
+Converts string to camel case.
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+#### Returns
+(string): Returns the camel cased string.
+
+
+#### Example
+
+```autohotkey
+A.camelCase("--foo-bar--")
+; => "fooBar"
+
+A.camelCase("fooBar")
+; => "fooBar"
+
+A.camelCase("__FOO_BAR__")
+; => "fooBar"
+
+```
+
+
+
+
 ## .escape
 Converts the characters "&", "<", ">", '"', and "'" in string to their corresponding HTML entities.
 
@@ -2042,7 +2069,6 @@ Splits string by separator.
 [limit:=0] (number): The length to truncate results to.
 
 #### Returns
-
 (Array): Returns the string segments.
 
 
@@ -2067,7 +2093,6 @@ Converts string to start case.
 [string:=""] (string): The string to convert.
 
 #### Returns
-
 (string): Returns the start cased string.
 
 
