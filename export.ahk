@@ -1312,6 +1312,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return param_string
 	}
+	kebabCase(param_string:="") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the return
+	    l_string := this.startCase(param_string)
+	    l_string := StrReplace(l_string, " ", "-")
+	    return l_string
+	}
 	lowerCase(param_string:="") {
 	    if (IsObject(param_string)) {
 	        this.internal_ThrowException()
@@ -1353,7 +1363,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    l_string := this.startCase(param_string)
-	    l_string := StrReplace(this.trim(l_string), " ", "_")
+	    l_string := StrReplace(l_string, " ", "_")
 	    return l_string
 	}
 	split(param_string := "",param_separator := ",", param_limit := 0) {

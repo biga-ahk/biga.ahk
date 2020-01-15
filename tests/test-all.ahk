@@ -815,6 +815,16 @@ assert.test(A.escape(string), "fred, barney, &amp; pebbles")
 assert.test(A.escape("&&&"), "&amp;&amp;&amp;")
 
 
+assert.label("kebabCase()")
+assert.test(A.kebabCase("Foo Bar"), "foo-bar")
+assert.test(A.kebabCase("fooBar"), "foo-bar")
+assert.test(A.kebabCase("--FOO_BAR--"), "foo-bar")
+
+
+; omit
+assert.test(A.kebabCase("  Foo-Bar--"), "FOO-BAR")
+
+
 assert.label("lowerCase()")
 assert.test(A.lowerCase("--Foo-Bar--"), "foo bar")
 assert.test(A.lowerCase("fooBar"), "foo bar")
@@ -843,6 +853,16 @@ assert.test(A.repeat("abc", 0), "")
 assert.label("replace()")
 assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
 assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
+
+
+assert.label("snakeCase()")
+assert.test(A.snakeCase("Foo Bar"), "foo_bar")
+assert.test(A.snakeCase("fooBar"), "foo_bar")
+assert.test(A.snakeCase("--FOO-BAR--"), "foo_bar")
+
+
+; omit
+assert.test(A.snakeCase("  Foo-Bar--"), "FOO_BAR")
 
 
 assert.label("split()")
