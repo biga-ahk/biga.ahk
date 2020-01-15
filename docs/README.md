@@ -1967,6 +1967,35 @@ string := "fred, barney, & pebbles"A.escape(string)
 
 
 
+## .kebabCase
+Converts string to kebab case.
+
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the kebab cased string.
+
+
+#### Example
+
+```autohotkey
+A.kebabCase("Foo Bar")
+; => "foo-bar"
+
+A.kebabCase("fooBar")
+; => "foo-bar"
+
+A.kebabCase("--FOO_BAR--")
+; => "foo-bar"
+
+```
+
+
+
+
 ## .lowerCase
 Converts string, as a whole, to lower case.
 
