@@ -1044,6 +1044,31 @@ A.caseSensitive := trueA.includes("InStr", "str")
 
 
 
+## .keyBy
+Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked with one argument: (value).
+
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[iteratee=A.identity] (Function): The iteratee to transform keys.
+
+
+#### Returns
+(Object): Returns the composed aggregate object.
+
+
+#### Example
+
+```autohotkey
+array := [ {"dir": "left", "code": 97}    , {"dir": "right", "code": 100}]A.keyBy(array, Func("keyByFunc1"))
+; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
+
+keyByFunc1(value){    return value.dir}```
+
+
+
+
 ## .map
 Creates an array of values by running each element in collection thru iteratee.
 

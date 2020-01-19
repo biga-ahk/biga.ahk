@@ -2,6 +2,8 @@ join(param_array,param_sepatator:=",") {
     if (!IsObject(param_array) || IsObject(param_sepatator)) {
         this.internal_ThrowException()
     }
+
+    ; create the return
     l_array := this.clone(param_array)
     loop, % l_array.Count() {
         if (A_Index == 1) {

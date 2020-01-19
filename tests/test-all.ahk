@@ -436,6 +436,18 @@ A.caseSensitive := false
 assert.false(A.includes("InStr", "Other"))
 
 
+assert.label("keyBy()")
+array := [ {"dir": "left", "code": 97}
+    , {"dir": "right", "code": 100}]
+assert.test(A.keyBy(array, Func("keyByFunc1")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
+keyByFunc1(value)
+{
+    return value.dir
+}
+
+; omit
+
+
 assert.label("map()")
 square(n) {
   return  n * n
