@@ -7,8 +7,8 @@ isUndefined(param_value) {
 
 
 ; tests
-assert.true(A.isUndefined(nonexistantVar))
 assert.true(A.isUndefined(""))
+assert.true(A.isUndefined(non_existant_Var))
 assert.false(A.isUndefined({}))
 assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))

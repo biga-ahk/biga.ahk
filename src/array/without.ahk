@@ -20,4 +20,4 @@ assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
 
 ; omit
 assert.test(A.without([2, 1, 2, 3], 1), [2, 3])
-assert.test(A.without([2, 1, 2, 3], 1, 2 , 3), [])
+assert.test(A.without([2, 1, 2, 3], 1, 2, 3), [])

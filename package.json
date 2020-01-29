@@ -6,12 +6,12 @@
     "scripts": {
         "newinstall": "yarn install --modules-folder ./lib"
     },
-    "dependencies": { },
+    "dependencies": {},
     "devDependencies": {
-        "biga.ahk": "^0.10.2",
+        "biga.ahk": "^0.22.0",
         "json.ahk": "github:chunjee/json.ahk",
-        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa",
-        "unit-testing.ahk": "github:chunjee/unit-testing.ahk"
+        "unit-testing.ahk": "github:chunjee/unit-testing.ahk",
+        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
     },
     "author": "Shawn Brooker",
     "license": "MIT"

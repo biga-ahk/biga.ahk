@@ -1401,10 +1401,10 @@ value (*): The value to check.
 #### Example
 
 ```autohotkey
-A.isUndefined(nonexistantVar)
+A.isUndefined("")
 ; => true
 
-A.isUndefined("")
+A.isUndefined(non_existant_Var)
 ; => true
 
 A.isUndefined({})
@@ -1582,6 +1582,20 @@ A.mean([4, 2, 8, 6])
 ; => 5
 
 ```
+
+
+
+
+## .meanBy
+
+
+#### Example
+
+```autohotkey
+array := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(array, Func("meanByFunc1"))
+; => 5
+
+meanByFunc1(value){    return value.n}```
 
 
 
