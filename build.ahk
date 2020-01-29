@@ -14,6 +14,10 @@ Readme_File := A_ScriptDir "\docs\README.md"
 lib_File := A_ScriptDir "\export.ahk"
 test_File := A_ScriptDir "\tests\test-all.ahk"
 
+methods_File := A_ScriptDir "\methodslist.txt"
+FileRead, methods_arr, % methods_File
+methods_arr := A.compact(A.split(methods_arr, "`r`n"))
+
 ; Globals
 A := new biga()
 docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
@@ -21,19 +25,20 @@ testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
 categoryRegEx := "src\\(.+)\\\w+\.\w{2,3}"
 newline := "`r`n" ;do not change this as docsify needs `r
 
+; Arrays that control doc and test output. For ommiting or only testing certain areas
+ignoreMethodDocsArr := ["internal"]
+ommitMethodsArr := [""]
+onlyTestArr := [""]
+
+The_Array := [] ; Holds main data
+msgarray := []
+
 ; Test RegEx
 testtest := "test\(A(\.\w*.*\)),\s*(.*)\)"
 testtrue := "true\((.+?)(\(.+?\))\)"
 testfalse := "false\((.+\.\w+)(.+\))\)"
 testnotequal := "notequal\(A(\.\w*.*\)),\s*(.*)\)"
 
-
-ignoreMethodDocsArr := ["internal"]
-; ommitMethodsArr := ["matches"]
-; onlyTest := ["matchesProperty"]
-
-The_Array := []
-msgarray := []
 
 ; method names
 vMethodNames_Array := []
@@ -94,7 +99,8 @@ test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
 FileAppend, %test_head%, % test_File
 loop, % The_Array.MaxIndex() {
     element := The_Array[A_Index]
-    if (A.indexOf(onlyTest, element.name) != -1 || onlyTest.Count() = "") {
+    ; create the tests if in specific array or specific array is less than or 1
+    if (A.indexOf(onlyTestArr, element.name) != -1 || onlyTestArr.Count() >= 1) {
         FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
         FileAppend, % element.tests "`n", % test_File
     }
@@ -108,7 +114,8 @@ loop, % The_Array.Count() {
     element := The_Array[A_Index]
     vMethodNames_Array.push(element.name)
 }
-clipboard := A.join(vMethodNames_Array," ")
+; clipboard := A.join(vMethodNames_Array, " ")
+; msgbox, % A.printObj(A.difference(methods_arr, vMethodNames_Array))
 
 
 ; ===============
