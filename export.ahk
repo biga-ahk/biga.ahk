@@ -349,6 +349,35 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_array
 	}
+	slice(param_array,param_start:=1,param_end:=0) {
+	    if param_start is not number
+	    {
+	        this.internal_ThrowException()
+	    }
+	    if param_end is not number
+	    {
+	        this.internal_ThrowException()
+	    }
+
+	    ; defaults
+	    if (param_array is alnum) {
+	        param_array := this.split(param_array, "")
+	    }
+	    if (param_end == 0)
+	    {
+	        param_end := param_array.Count()
+	    }
+
+	    l_array := []
+
+	    ; create the slice
+	    for Key, Value in param_array {
+	        if (A_Index >= param_start && A_Index <= param_end) {
+	            l_array.push(Value)
+	        }
+	    }
+	    return l_array
+	}
 	sortedIndex(param_array,param_value) {
 	    if (param_value < param_array[1]) {
 	        return 1 + 0
@@ -1133,6 +1162,47 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        vSum += Value
 	    }
 	    return vSum / this.size(param_array)
+	}
+	meanBy(param_array,param_iteratee:="baseProperty") {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+	    ; check what kind of param_iteratee being worked with
+	    if (!IsFunc(param_iteratee)) {
+	        BoundFunc := param_iteratee.Bind(this)
+	    }
+
+	    ; prepare data
+	    l_paramAmmount := param_iteratee.MaxParams
+	    if (l_paramAmmount == 3) {
+	        arrayClone := this.cloneDeep(param_array)
+	    }
+	    l_TotalVal := 0
+
+	    ; run against every value in the array
+	    for Key, Value in param_array {
+
+	        if (!BoundFunc) { ; is property/string
+	            ;nothing currently
+	        }
+	        if (l_paramAmmount == 3) {
+	            if (!BoundFunc.call(Value, Key, arrayClone)) {
+	                vIteratee := param_iteratee.call(Value, Key, arrayClone)
+	            }
+	        }
+	        if (l_paramAmmount == 2) {
+	            if (!BoundFunc.call(Value, Key)) {
+	                vIteratee := param_iteratee.call(Value, Key)
+	            }
+	        }
+	        if (l_paramAmmount == 1) {
+	            if (!BoundFunc.call(Value)) {
+	                vIteratee := param_iteratee.call(Value)
+	            }
+	        }
+	        l_TotalVal += vIteratee 
+	    }
+	    return l_TotalVal / param_array.Count()
 	}
 	min(param_array) {
 	    if (!IsObject(param_array)) {

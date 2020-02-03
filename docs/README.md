@@ -597,6 +597,45 @@ A.reverse([[1, 2, 3], "b", "c"])
 
 
 
+## .slice
+Creates a slice of array from start up to, but not including, end.
+
+
+#### Arguments
+array (Array): The array to slice.
+
+[start:=1] (number): The start position.
+
+[end=array.Count()] (number): The end position.
+
+
+#### Returns
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+A.slice([1, 2, 3], 1, 2)
+; => [1, 2]
+
+A.slice([1, 2, 3], 1)
+; => [1, 2, 3]
+
+A.slice([1, 2, 3], 5)
+; => []
+
+A.slice("fred")
+; => ["f", "r", "e", "d"]
+
+A.slice(100)
+; => ["1", "0", "0"]
+
+```
+
+
+
+
 ## .sortedIndex
 Uses a search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
 
