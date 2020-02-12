@@ -220,10 +220,10 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-	            return Index + 0
+	            return Index
 	        }
 	    }
-	    return -1 + 0
+	    return -1
 	}
 	initial(param_array,param_n:=1) {
 	    if param_n is not number
@@ -302,10 +302,10 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	            continue
 	        }
 	        if (this.caseSensitive ? (param_array[vNegativeIndex] == param_value) : (param_array[vNegativeIndex] = param_value)) {
-	            return vNegativeIndex + 0
+	            return vNegativeIndex 
 	        }
 	    }
-	    return -1 + 0
+	    return -1
 	}
 	nth(param_array,param_n:=1) {
 	    if param_n is not number
@@ -379,7 +379,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 	sortedIndex(param_array,param_value) {
 	    if (param_value < param_array[1]) {
-	        return 1 + 0
+	        return 1
 	    }
 	    loop, % param_array.Count() {
 	        if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
@@ -1079,7 +1079,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    param_augend += param_addend
-	    return param_augend + 0
+	    return param_augend
 	}
 	ceil(param_number,param_precision:=0) {
 	    if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1112,7 +1112,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    vValue := param_dividend / param_divisor
-	    return vValue + 0
+	    return vValue
 	}
 	floor(param_number,param_precision:=0) {
 	    if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1223,7 +1223,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    vValue := param_multiplier * param_multiplicand
-	    return vValue + 0
+	    return vValue
 	}
 	round(param_number,param_precision:=0) {
 	    if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1240,7 +1240,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the return
 	    param_minuend -= param_subtrahend
-	    return param_minuend + 0
+	    return param_minuend
 	}
 	sum(param_array) {
 	    if (!IsObject(param_array)) {
@@ -1266,7 +1266,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (param_number > param_upper) {
 	        param_number := param_upper
 	    }
-	    return param_number + 0
+	    return param_number
 	}
 	inRange(param_number,param_lower,param_upper) {
 	    if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {

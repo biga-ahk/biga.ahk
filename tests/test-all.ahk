@@ -776,6 +776,10 @@ assert.test(A.clamp(10, -5, 5), 5)
 
 
 ; omit
+; ensure no change to params
+var := -10
+assert.test(A.clamp(var, -5, 5), -5)
+assert.test(var, -10)
 
 
 assert.label("inRange()")

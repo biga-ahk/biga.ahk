@@ -5,7 +5,7 @@ multiply(param_multiplier,param_multiplicand) {
 
     ; create the return
     vValue := param_multiplier * param_multiplicand
-    return vValue + 0
+    return vValue
 }
 
 

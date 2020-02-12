@@ -8,10 +8,10 @@ indexOf(param_array,param_value,fromIndex:=1) {
             continue
         }
         if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
-            return Index + 0
+            return Index
         }
     }
-    return -1 + 0
+    return -1
 }
 
 

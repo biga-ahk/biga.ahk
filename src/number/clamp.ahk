@@ -11,7 +11,7 @@ clamp(param_number,param_lower,param_upper) {
     if (param_number > param_upper) {
         param_number := param_upper
     }
-    return param_number + 0
+    return param_number
 }
 
 
@@ -21,3 +21,7 @@ assert.test(A.clamp(10, -5, 5), 5)
 
 
 ; omit
+; ensure no change to params
+var := -10
+assert.test(A.clamp(var, -5, 5), -5)
+assert.test(var, -10)
