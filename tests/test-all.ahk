@@ -23,6 +23,10 @@ assert.label("compact()")
 assert.test(A.compact([0, 1, false, 2, "", 3]), [1, 2, 3])
 
 
+; omit
+assert.test(A.compact([1, 2, 3, 4, 5, 6, "", "", ""]), [1, 2, 3, 4, 5, 6])
+
+
 assert.label("concat()")
 array := [1]
 assert.test(A.concat(array, 2, [3], [[4]]), [1, 2, 3, [4]])
@@ -218,6 +222,17 @@ assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
 assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
 
 
+assert.label("slice()")
+assert.test(A.slice([1, 2, 3], 1, 2), [1, 2])
+assert.test(A.slice([1, 2, 3], 1), [1, 2, 3])
+assert.test(A.slice([1, 2, 3], 5), [])
+assert.test(A.slice("fred"), ["f", "r", "e", "d"])
+assert.test(A.slice(100), ["1", "0", "0"])
+
+
+; omit
+
+
 assert.label("sortedIndex()")
 assert.test(A.sortedIndex([30, 50], 40),2)
 assert.test(A.sortedIndex([30, 50], 20),1)
@@ -285,7 +300,7 @@ assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
 
 ; omit
 assert.test(A.without([2, 1, 2, 3], 1), [2, 3])
-assert.test(A.without([2, 1, 2, 3], 1, 2 , 3), [])
+assert.test(A.without([2, 1, 2, 3], 1, 2, 3), [])
 
 
 assert.label("zip()")
@@ -535,11 +550,11 @@ users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
+  , { "name": "Zoey", "age": 40 }]
 
-assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
-assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zeddy"}, {"age":40, "name":"fred"}])
-assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
+assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
+assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"Zoey"}, {"age":40, "name":"fred"}])
+assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
 sortby1(o) {
     return o.name
 }
@@ -558,10 +573,10 @@ users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
+  , { "name": "Zoey", "age": 40 }]
 
-assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"zeddy"},{"age":46,"name":"fred"}])
-assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zeddy"}])
+assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
+assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
 
 
 assert.label("internal()")
@@ -621,8 +636,8 @@ assert.false(A.isMatch(object, {"b": 1}))
 assert.false(A.isMatch(object, {"b": 2, "z": 99}))
 
 assert.label("isUndefined()")
-assert.true(A.isUndefined(nonexistantVar))
 assert.true(A.isUndefined(""))
+assert.true(A.isUndefined(non_existant_Var))
 assert.false(A.isUndefined({}))
 assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))
@@ -697,6 +712,17 @@ assert.test(A.max([]), "")
 assert.label("mean()")
 assert.test(A.mean([4, 2, 8, 6]), 5)
 
+
+; omit
+
+
+assert.label("meanBy()")
+array := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
+assert.test(A.meanBy(array, Func("meanByFunc1")), 5)
+meanByFunc1(value)
+{
+    return value.n
+}
 
 ; omit
 

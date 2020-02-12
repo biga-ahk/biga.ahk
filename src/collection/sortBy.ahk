@@ -56,11 +56,11 @@ users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
+  , { "name": "Zoey", "age": 40 }]
 
-assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
-assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zeddy"}, {"age":40, "name":"fred"}])
-assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}])
+assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
+assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"Zoey"}, {"age":40, "name":"fred"}])
+assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
 sortby1(o) {
     return o.name
 }
@@ -79,7 +79,7 @@ users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "zeddy", "age": 40 }]
+  , { "name": "Zoey", "age": 40 }]
 
-assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"zeddy"},{"age":46,"name":"fred"}])
-assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zeddy"}])
+assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
+assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])

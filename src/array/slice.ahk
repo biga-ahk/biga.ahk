@@ -12,8 +12,7 @@ slice(param_array,param_start:=1,param_end:=0) {
     if (param_array is alnum) {
         param_array := this.split(param_array, "")
     }
-    if (param_end == 0)
-    {
+    if (param_end == 0) {
         param_end := param_array.Count()
     }
 

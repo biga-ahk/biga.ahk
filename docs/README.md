@@ -1293,14 +1293,14 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zeddy", "age": 40 }]A.sortBy(users, ["age", "name"])
-; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
+users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "Zoey", "age": 40 }]A.sortBy(users, ["age", "name"])
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}]
 
 A.sortBy(users, "age")
-; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zeddy"}, {"age":40, "name":"fred"}]
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"Zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, Func("sortby1"))
-; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zeddy"}]
+; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}]
 
 sortby1(o) {    return o.name}```
 
