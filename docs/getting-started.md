@@ -63,7 +63,7 @@ tags := A.join(lowercaseTags, ",")
 ; => "scrumptious,thailand,lemongrass,tomatoes"
 
 ; Let's pretend this blogpost was a lot longer and we only want {{3}} tags for this post.
-;We can choose some tags at random from the larger collection
+; We can choose some tags at random from the larger collection
 lessTags := A.sampleSize(lowercaseTags, 3)
 
 ; For the main page let's make a preview of the blogpost. 40 characters ought to do
@@ -72,7 +72,7 @@ postPreview := A.truncate(blogPost, 40)
 ; actually I prefer 15 words. You can combine different methods together for more power.
 ; .split creates an array limited to 15 items and .join turns it back into a string
 postPreview := A.join(A.split(blogPost," ",15)," ") " [...]"
-; => This recipe is for a really scrumptious soup from Thailand. Grab a big bunch of [...]
+; => "This recipe is for a really scrumptious soup from Thailand. Grab a big bunch of [...]"
 ```
 
 More examples available at: https://github.com/biga-ahk/biga.ahk/tree/master/examples
