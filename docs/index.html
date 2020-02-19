@@ -54,12 +54,24 @@
   <script>
     document.addEventListener('readystatechange', event => {
       if (event.target.readyState === "complete") {
-        document.querySelectorAll('pre code').forEach((block) => {
-          hljs.highlightBlock(block);
-        });
-        console.log("ahk highlighting applied")
+        fn_applyHighlight()
       }
     });
+    setInterval(() => {
+      fn_applyHighlight()
+    }, 1000);
+
+    function fn_applyHighlight() {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+      // console.log("ahk highlighting applied")
+      // document.getElementsByTagName("a").addEventListener('click', event => {
+      //   setTimeout(() => {
+      //     fn_applyHighlight()
+      //   }, 300);
+      // });
+    }
   </script>
 </footer>
 
