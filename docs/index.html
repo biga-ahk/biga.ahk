@@ -9,10 +9,6 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="styles/style.css">
-  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css"> -->
-  <link rel="stylesheet" href="styles/xcode.css">
-  <script src="js/highlight.autohotkey.js"></script>
-
 </head>
 
 <body>
@@ -49,29 +45,12 @@
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify-copy-code"></script>
   <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <script src="js/prism-autohotkey.min.js"></script>
 </body>
 <footer>
   <script>
-    document.addEventListener('readystatechange', event => {
-      if (event.target.readyState === "complete") {
-        fn_applyHighlight()
-      }
-    });
-    setInterval(() => {
-      fn_applyHighlight()
-    }, 1000);
-
-    function fn_applyHighlight() {
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-      });
-      // console.log("ahk highlighting applied")
-      // document.getElementsByTagName("a").addEventListener('click', event => {
-      //   setTimeout(() => {
-      //     fn_applyHighlight()
-      //   }, 300);
-      // });
-    }
+    // custom js goes here
+    // nothing
   </script>
 </footer>
 
