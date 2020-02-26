@@ -332,6 +332,9 @@ array (Array): The array to flatten.
 A.flatten([1, [2, [3, [4]], 5]])
 ; => [1, 2, [3, [4]], 5]
 
+A.flatten([[1, 2, 3], [4, 5, 6]])
+; => [1, 2, 3, 4, 5, 6]
+
 ```
 
 
@@ -491,6 +494,17 @@ A.intersection([2, 1], [2, 3])
 
 ## .intersectionBy
 
+
+#### Example
+
+```autohotkey
+A.intersectionBy([2.1, 1.2], [2.3, 3.4], A.floor)
+; => [2.1]
+
+A.intersectionBy([{"x": 1}], [{"x": 2}, {"x": 1}], "x")
+; => [{"x": 1}]
+
+```
 
 
 

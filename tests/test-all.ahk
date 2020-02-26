@@ -134,6 +134,15 @@ assert.test(A.findLastIndex(testusers, "jane"), 2)
 assert.test(A.findLastIndex(testusers, "bill"), 5)
 assert.test(A.findLastIndex(testusers, "pebbles"), 3)
 
+
+assert.label("flatten()")
+assert.test(A.flatten([1, [2, [3, [4]], 5]]), [1, 2, [3, [4]], 5])
+assert.test(A.flatten([[1, 2, 3], [4, 5, 6]]), [1, 2, 3, 4, 5, 6])
+
+
+; omit
+
+
 assert.label("fromPairs()")
 assert.test(A.fromPairs([["a", 1], ["b", 2]]), {"a": 1, "b": 2})
 
@@ -182,6 +191,16 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
 ; assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
 assert.test(A.intersection(["hello", "hello"], []))
+
+
+assert.label("intersectionBy()")
+assert.test(A.intersectionBy([2.1, 1.2], [2.3, 3.4], A.floor), [2.1])
+assert.test(A.intersectionBy([{"x": 1}], [{"x": 2}, {"x": 1}], "x"), [{"x": 1}])
+
+
+; omit
+assert.test(A.intersectionBy([2, 1], [2, 3], [1, 2], [2]), [2])
+assert.test(A.intersectionBy(["hello", "hello"], []))
 
 
 assert.label("join()")
