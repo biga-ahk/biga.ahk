@@ -315,6 +315,28 @@ A.findLastIndex(users, "active")
 
 
 
+## .flatten
+Flattens array a single level deep.
+
+
+#### Arguments
+array (Array): The array to flatten.
+
+
+#### Returns
+(Array): Returns the new flattened array.
+
+#### Example
+
+```autohotkey
+A.flatten([1, [2, [3, [4]], 5]])
+; => [1, 2, [3, [4]], 5]
+
+```
+
+
+
+
 ## .fromPairs
 The inverse of A.toPairs; this method returns an object composed from key-value pairs.
 
@@ -463,6 +485,12 @@ A.intersection([2, 1], [2, 3])
 ; => [2]
 
 ```
+
+
+
+
+## .intersectionBy
+
 
 
 
