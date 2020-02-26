@@ -195,6 +195,26 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return finalIndex
 	}
+	flatten(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    l_obj := []
+
+	    ; create the return
+	    for Index, Object in param_array {
+	        if (IsObject(Object)) {
+	            for Index2, Object2 in Object {
+	                l_obj.push(Object2)
+	            }
+	        } else {
+	            l_obj.push(Object)
+	        }
+	    }
+	    return l_obj
+	}
 	fromPairs(param_pairs) {
 	    if (!IsObject(param_pairs)) {
 	        this.internal_ThrowException()
@@ -966,6 +986,16 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    StringTrimRight, OutPut, OutPut, 2
 	    return OutPut
+	}
+	print(param_obj) {
+	    if (!IsObject(param_obj)) {
+	        return """" param_obj """"
+	    }
+	    if this.internal_IsCircle(param_obj) {
+	        this.internal_ThrowException()
+	    }
+
+	    return this.printObj(param_obj)
 	}
 
 	internal_MD5(param_string, case := 0) {

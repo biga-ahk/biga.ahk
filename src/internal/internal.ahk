@@ -31,6 +31,16 @@ printObj(param_obj) {
     StringTrimRight, OutPut, OutPut, 2
     return OutPut
 }
+print(param_obj) {
+    if (!IsObject(param_obj)) {
+        return """" param_obj """"
+    }
+    if this.internal_IsCircle(param_obj) {
+        this.internal_ThrowException()
+    }
+
+    return this.printObj(param_obj)
+}
 
 
 internal_MD5(param_string, case := 0) {
