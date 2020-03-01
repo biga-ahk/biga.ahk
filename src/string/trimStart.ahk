@@ -1,4 +1,4 @@
-trimStart(param_string,param_chars := "") {
+trimStart(param_string,param_chars:="") {
     if (param_chars = "") {
         return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
     } else {
@@ -10,7 +10,7 @@ trimStart(param_string,param_chars := "") {
                 l_removechars .= "\" Value
             }
         }
-        ; replace ending characters
+        ; replace leading characters
         l_string := this.replace(param_string, "/^([" l_removechars "]+)/", "")
         return l_string
     }

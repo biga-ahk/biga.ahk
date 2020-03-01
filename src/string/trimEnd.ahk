@@ -1,4 +1,4 @@
-trimEnd(param_string,param_chars := "") {
+trimEnd(param_string,param_chars:="") {
     if (param_chars = "") {
         l_string := param_string
         return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
