@@ -1,7 +1,10 @@
 parseInt(param_string:="0") {
+    if (IsObject(param_string)) {
+        this.internal_ThrowException()
+    }
 
     param_string := this.trimStart(param_string, "0 -_")
-    return  param_string + 0
+    return param_string + 0
 }
 
 
