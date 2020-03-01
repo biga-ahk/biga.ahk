@@ -12,7 +12,7 @@ includes(param_collection,param_value,param_fromIndex:=1) {
     } else {
         ; RegEx
         if (RegEx_value := this.internal_JSRegEx(param_value)) {
-            return  RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
+            return RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
         }
         ; Normal string search
         if (InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)) {
