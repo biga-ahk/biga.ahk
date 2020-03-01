@@ -3,8 +3,11 @@ parseInt(param_string:="0") {
         this.internal_ThrowException()
     }
 
-    param_string := this.trimStart(param_string, "0 -_")
-    return param_string + 0
+    l_int := this.trimStart(param_string, " 0_")
+    if (this.size(l_int) = 0) {
+        return 0
+    }
+    return l_int + 0
 }
 
 

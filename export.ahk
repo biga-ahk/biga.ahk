@@ -717,7 +717,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    } else {
 	        ; RegEx
 	        if (RegEx_value := this.internal_JSRegEx(param_value)) {
-	            return  RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
+	            return RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
 	        }
 	        ; Normal string search
 	        if (InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)) {
@@ -1474,9 +1474,15 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return l_string
 	}
 	parseInt(param_string:="0") {
+	    if (IsObject(param_string)) {
+	        this.internal_ThrowException()
+	    }
 
-	    param_string := this.trimStart(param_string, "0 -_")
-	    return  param_string + 0
+	    l_int := this.trimStart(param_string, " 0_")
+	    if (this.size(l_int) = 0) {
+	        return 0
+	    }
+	    return l_int + 0
 	}
 	repeat(param_string,param_number:=1) {
 	    if (IsObject(param_string)) {
@@ -1579,8 +1585,8 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    StringUpper, OutputVar, param_string
 	    return  OutputVar
 	}
-	trim(param_string,param_chars := " ") {
-	    if (param_chars = " ") {
+	trim(param_string,param_chars:="") {
+	    if (param_chars = "") {
 	        l_string := this.trimStart(param_string, param_chars)
 	        return  this.trimEnd(l_string, param_chars)
 	    } else {
@@ -1594,28 +1600,38 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        return l_string
 	    }
 	}
-	trimEnd(param_string, param_chars := " ") {
-	    if (param_chars = " ") {
+	trimEnd(param_string,param_chars:="") {
+	    if (param_chars = "") {
 	        l_string := param_string
 	        return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
 	    } else {
-	        l_string := param_string
-	        l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
-
+	        l_array := StrSplit(param_chars, "")
+	        for Key, Value in l_array {
+	            if (this.includes(Value, "/[a-zA-Z0-9]/")) {
+	                l_removechars .= Value
+	            } else {
+	                l_removechars .= "\" Value
+	            }
+	        }
 	        ; replace ending characters
-	        l_string := this.replace(l_string, "/([" l_removechars "]+)$/", "")
+	        l_string := this.replace(param_string, "/([" l_removechars "]+)$/", "")
 	        return l_string
 	    }
 	}
-	trimStart(param_string,param_chars := " ") {
-	    if (param_chars = " ") {
+	trimStart(param_string,param_chars:="") {
+	    if (param_chars = "") {
 	        return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
 	    } else {
-	        l_string := param_string
-	        l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
-
-	        ; replace starting characters
-	        l_string := this.replace(l_string, "/^([" l_removechars "]+)/", "")
+	        l_array := StrSplit(param_chars, "")
+	        for Key, Value in l_array {
+	            if (this.includes(Value, "/[a-zA-Z0-9]/")) {
+	                l_removechars .= Value
+	            } else {
+	                l_removechars .= "\" Value
+	            }
+	        }
+	        ; replace leading characters
+	        l_string := this.replace(param_string, "/^([" l_removechars "]+)/", "")
 	        return l_string
 	    }
 	}
