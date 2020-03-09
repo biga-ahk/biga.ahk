@@ -37,14 +37,17 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
+	    ; data preparation
 	    l_array := this.clone(param_array)
-	    for i, obj in param_values {
-	        if (!IsObject(obj)) {
-	            ; push on any plain values
-	            l_array.push(obj)
-	        } else {
-	            loop, % obj.MaxIndex() {
-	                l_array.push(obj[A_Index])
+
+	    ; create the return
+	    for index, object in param_values {
+	        ; push on any plain values
+	        if (!IsObject(object)) {
+	            l_array.push(object)
+	        } else { ;push object values 1 level deep
+	            for index2, object2 in object {
+	                l_array.push(object2)
 	            }
 	        }
 	    }
@@ -58,7 +61,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; loop all Variadic inputs
 	    for i, obj in param_values {
-	        loop, % obj.MaxIndex() {
+	        loop, % obj.Count() {
 	            foundIndex := this.indexOf(l_array, obj[A_Index])
 	            if (foundIndex != -1) {
 	                l_array.RemoveAt(foundIndex)
@@ -364,7 +367,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 	    l_array := []
-	    while (param_collection.MaxIndex() != "") {
+	    while (param_collection.Count() != 0) {
 	        l_array.push(param_collection.pop())
 	    }
 	    return l_array
@@ -894,6 +897,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	}
 	size(param_collection) {
 
+	    ; create the return
 	    if (param_collection.Count() > 0) {
 	        return param_collection.Count()
 	    }
@@ -1517,19 +1521,21 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
 	        this.internal_ThrowException()
 	    }
-	    ; regex
+
+	    ; prepare inputs if regex detected
 	    if (this.internal_JSRegEx(param_separator)) {
 	        param_string := this.replace(param_string, param_separator, ",")
 	        param_separator := ","
 	    }
 
+	    ; create the return
 	    oSplitArray := StrSplit(param_string, param_separator)
 	    if (!param_limit) {
 	        return oSplitArray
 	    } else {
 	        oReducedArray := []
 	        loop, % param_limit {
-	            if (A_Index <= oSplitArray.MaxIndex()) {
+	            if (A_Index <= oSplitArray.Count()) {
 	                oReducedArray.push(oSplitArray[A_Index])
 	            }
 	        }
@@ -1554,7 +1560,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    ; Split the string into array and Titlecase each element in the array
 	    l_array := StrSplit(l_string, " ")
-	    loop, % l_array.MaxIndex() {
+	    loop, % l_array.Count() {
 	        x_string := l_array[A_Index]
 	        StringUpper, x_string, x_string, T
 	        l_array[A_Index] := x_string
@@ -1658,7 +1664,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    l_string := ""
 	    ; cut length of the string by character count + the omission's length
 	    if (param_options.length) {
-	        loop, % l_array.MaxIndex() {
+	        loop, % l_array.Count() {
 	            if (A_Index > param_options.length - StrLen(param_options.omission)) {
 	                l_string := l_string param_options.omission
 	                break
