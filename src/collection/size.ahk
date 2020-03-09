@@ -1,5 +1,6 @@
 size(param_collection) {
     
+    ; create the return
     if (param_collection.Count() > 0) {
         return param_collection.Count()
     }

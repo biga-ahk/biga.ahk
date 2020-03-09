@@ -2,19 +2,21 @@ split(param_string := "",param_separator := ",", param_limit := 0) {
     if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
         this.internal_ThrowException()
     }
-    ; regex
+
+    ; prepare inputs if regex detected
     if (this.internal_JSRegEx(param_separator)) {
         param_string := this.replace(param_string, param_separator, ",")
         param_separator := ","
     }
 
+    ; create the return
     oSplitArray := StrSplit(param_string, param_separator)
     if (!param_limit) {
         return oSplitArray
     } else {
         oReducedArray := []
         loop, % param_limit {
-            if (A_Index <= oSplitArray.MaxIndex()) {
+            if (A_Index <= oSplitArray.Count()) {
                 oReducedArray.push(oSplitArray[A_Index])
             }
         }

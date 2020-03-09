@@ -6,7 +6,7 @@
 
     ; loop all Variadic inputs
     for i, obj in param_values {
-        loop, % obj.MaxIndex() {
+        loop, % obj.Count() {
             foundIndex := this.indexOf(l_array, obj[A_Index])
             if (foundIndex != -1) {
                 l_array.RemoveAt(foundIndex)

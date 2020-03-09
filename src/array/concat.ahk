@@ -2,14 +2,17 @@ concat(param_array,param_values*) {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }
+    ; data preparation
     l_array := this.clone(param_array)
-    for i, obj in param_values {
-        if (!IsObject(obj)) {
-            ; push on any plain values
-            l_array.push(obj)
-        } else {
-            loop, % obj.MaxIndex() {
-                l_array.push(obj[A_Index])
+
+    ; create the return
+    for index, object in param_values {
+        ; push on any plain values
+        if (!IsObject(object)) {
+            l_array.push(object)
+        } else { ;push object values 1 level deep
+            for index2, object2 in object {
+                l_array.push(object2)
             }
         }
     }

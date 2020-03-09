@@ -21,7 +21,7 @@ truncate(param_string,param_options:="") {
     l_string := ""
     ; cut length of the string by character count + the omission's length
     if (param_options.length) {
-        loop, % l_array.MaxIndex() {
+        loop, % l_array.Count() {
             if (A_Index > param_options.length - StrLen(param_options.omission)) {
                 l_string := l_string param_options.omission
                 break

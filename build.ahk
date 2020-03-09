@@ -97,7 +97,7 @@ test_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_head.ahk")
 test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
 
 FileAppend, %test_head%, % test_File
-loop, % The_Array.MaxIndex() {
+loop, % The_Array.Count() {
     element := The_Array[A_Index]
     ; create the tests if in specific array or specific array is less than or 1
     if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).Count() == 0) {
@@ -124,7 +124,7 @@ loop, % The_Array.Count() {
 FileDelete, % Readme_File
 DOCS_Array := [fn_ReadFile(A_ScriptDir "\src\_head.tail\doc_head.md")]
 
-loop, % The_Array.MaxIndex() {
+loop, % The_Array.Count() {
     element := The_Array[A_Index]
     if (A.indexof(ignoreMethodDocsArr, element.name) != -1 || A.startsWith(element.name, "internal")) { ; skip ignored methods
         continue
@@ -150,7 +150,7 @@ loop, % The_Array.MaxIndex() {
     txt.push(newline newline newline)
     DOCS_Array := A.concat(DOCS_Array,txt)
 }
-loop, % DOCS_Array.MaxIndex() {
+loop, % DOCS_Array.Count() {
     FileAppend, % DOCS_Array[A_Index], % Readme_File
 }
 

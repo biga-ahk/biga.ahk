@@ -3,7 +3,7 @@ reverse(param_collection) {
         this.internal_ThrowException()
     }
     l_array := []
-    while (param_collection.MaxIndex() != "") {
+    while (param_collection.Count() != 0) {
         l_array.push(param_collection.pop())
     }
     return l_array

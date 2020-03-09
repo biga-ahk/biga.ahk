@@ -16,7 +16,7 @@ startCase(param_string:="") {
     }
     ; Split the string into array and Titlecase each element in the array
     l_array := StrSplit(l_string, " ")
-    loop, % l_array.MaxIndex() {
+    loop, % l_array.Count() {
         x_string := l_array[A_Index]
         StringUpper, x_string, x_string, T
         l_array[A_Index] := x_string
