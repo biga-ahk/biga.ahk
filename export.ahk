@@ -1,4 +1,11 @@
-class biga {    ; class attributes    static throwExceptions := true    static caseSensitive := false    static limit := -1	chunk(param_array,param_size:=1) {
+class biga {
+
+    ; class attributes
+    static throwExceptions := true
+    static caseSensitive := false
+    static limit := -1
+
+	chunk(param_array,param_size:=1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
@@ -911,7 +918,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 	    l_array := this.cloneDeep(param_collection)
-
 	    ; if called with a function
 	    if (IsFunc(param_iteratees)) {
 	        tempArray := []
@@ -926,7 +932,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        return l_array
 	    }
-
 	    ; if called with shorthands
 	    if (IsObject(param_iteratees)) {
 	        ; sort the collection however many times is requested by the shorthand identity
@@ -956,7 +961,6 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	        lastValue := l_array[l_array.Count()]
 	    }
-
 	    if lastValue is number
 	    {
 	        sortType := "N"
@@ -1815,4 +1819,8 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return  param_itaree[param_property]
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}
