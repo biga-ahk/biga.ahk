@@ -139,7 +139,6 @@ assert.label("flatten()")
 assert.test(A.flatten([1, [2, [3, [4]], 5]]), [1, 2, [3, [4]], 5])
 assert.test(A.flatten([[1, 2, 3], [4, 5, 6]]), [1, 2, 3, 4, 5, 6])
 
-
 ; omit
 
 
@@ -191,16 +190,6 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
 ; assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
 assert.test(A.intersection(["hello", "hello"], []))
-
-
-assert.label("intersectionBy()")
-assert.test(A.intersectionBy([2.1, 1.2], [2.3, 3.4], A.floor), [2.1])
-assert.test(A.intersectionBy([{"x": 1}], [{"x": 2}, {"x": 1}], "x"), [{"x": 1}])
-
-
-; omit
-assert.test(A.intersectionBy([2, 1], [2, 3], [1, 2], [2]), [2])
-assert.test(A.intersectionBy(["hello", "hello"], []))
 
 
 assert.label("join()")
@@ -288,7 +277,8 @@ assert.test(A.takeRight(100), ["0"])
 
 ; omit
 assert.test(A.takeRight([]), [])
-
+assert.test(A.takeRight("fred", 3), ["r","e","d"])
+assert.test(A.takeRight("fred", 4), ["f","r","e","d"])
 
 
 assert.label("union()")
@@ -565,37 +555,41 @@ assert.test(A.size(users), 3)
 
 
 assert.label("sortBy()")
+assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
 users := [
   , { "name": "fred",   "age": 40 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "Zoey", "age": 40 }]
+  , { "name": "zoey", "age": 40 }]
 
-assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
-assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"Zoey"}, {"age":40, "name":"fred"}])
-assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"Zoey"}])
+assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
+assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
+assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
 sortby1(o) {
     return o.name
 }
 
 
 ; omit
+myArray := [3, 4, 2, 9, 4, 12, 2]
+assert.test(A.sortBy(myArray),[2, 2, 3, 4, 4, 9, 12])
+
+myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
+assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
+
 enemies := [ 
     , {"name": "bear", "hp": 200, "armor": 20}
     , {"name": "wolf", "hp": 100, "armor": 12}]
 sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
-
-
 users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
   , { "name": "Zoey", "age": 40 }]
-
-assert.test(A.internal_sort(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
-assert.test(A.internal_sort(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
+assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
+assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
 
 
 assert.label("internal()")
@@ -985,6 +979,10 @@ assert.test(A.trimEnd("  abc  "), "  abc")
 assert.test(A.trimEnd("-_-abc-_-", "_-"), "-_-abc")
 
 
+; omit
+assert.test(A.trimEnd("filename.txt", ".txt"), "filename")
+
+
 assert.label("trimStart()")
 assert.test(A.trimStart("  abc  "), "abc  ")
 assert.test(A.trimStart("-_-abc-_-", "_-"), "abc-_-")
@@ -1026,6 +1024,7 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 
 ; omit
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
+
 
 assert.label("matches()")
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]

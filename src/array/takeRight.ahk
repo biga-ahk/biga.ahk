@@ -39,4 +39,5 @@ assert.test(A.takeRight(100), ["0"])
 
 ; omit
 assert.test(A.takeRight([]), [])
-
+assert.test(A.takeRight("fred", 3), ["r","e","d"])
+assert.test(A.takeRight("fred", 4), ["f","r","e","d"])

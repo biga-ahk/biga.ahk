@@ -26,8 +26,8 @@ categoryRegEx := "src\\(.+)\\\w+\.\w{2,3}"
 newline := "`r`n" ;do not change this as docsify needs `r
 
 ; Arrays that control doc and test output. For ommiting or only testing certain areas
-ignoreMethodDocsArr := ["internal"]
-ommitMethodsArr := [""]
+ignoreMethodDocsArr := ["internal", "intersectionBy"]
+ommitMethodsArr := ["intersectionBy"]
 onlyTestArr := [""]
 
 The_Array := [] ; Holds main data

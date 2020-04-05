@@ -906,13 +906,13 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return StrLen(param_collection)
 	}
-	sortBy(param_collection,param_iteratees) {
+	sortBy(param_collection,param_iteratees:="") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
 	    l_array := this.cloneDeep(param_collection)
 
-	    ; create
+	    ; if called with a function
 	    if (IsFunc(param_iteratees)) {
 	        tempArray := []
 	        for Key, Value in param_collection {
@@ -927,6 +927,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        return l_array
 	    }
 
+	    ; if called with shorthands
 	    if (IsObject(param_iteratees)) {
 	        ; sort the collection however many times is requested by the shorthand identity
 	        for Key, Value in param_iteratees {
@@ -938,24 +939,35 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    return l_array
 	}
 
-	internal_sort(param_collection,param_iteratees:="name") {
+	internal_sort(param_collection,param_iteratees:="") {
 	    l_array := this.cloneDeep(param_collection)
 
-	    for Index, obj in l_array {
-	        out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
-	        ; out will look like:   value+index|value+index|
+	    if (param_iteratees != "") {
+	        ; sort associative arrays
+	        for Index, obj in l_array {
+	            out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
+	            ; out will look like:   value+index|value+index|
+	        }
+	        lastValue := l_array[Index, param_iteratees]
+	    } else {
+	        ; sort regular arrays
+	        for Index, obj in l_array {
+	            out .= obj "+" Index "|"
+	        }
+	        lastValue := l_array[l_array.Count()]
 	    }
 
-	    Value := l_array[l_array.minIndex(), param_iteratees]
-	    if Value is number
+	    if lastValue is number
 	    {
-	        type := " N "
+	        sortType := "N"
 	    }
 	    StringTrimRight, out, out, 1 ; remove trailing | 
-	    Sort, out, % "D| " type
+	    Sort, out, % "D| " sortType
 	    arrStorage := []
 	    loop, parse, out, |
-	    arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+	    {
+	        arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+	    }
 	    return arrStorage
 	}
 	; /--\--/--\--/--\--/--\--/--\
