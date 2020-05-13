@@ -4,10 +4,7 @@ isEqual(param_value,param_other) {
         param_other := this.printObj(param_other)
     }
 
-    if (this.caseSensitive ? (param_value == param_other) : (param_value = param_other)) {
-        return true
-    }
-    return false
+    return !(param_value != param_other) ; != follows StringCaseSense
 }
 
 
@@ -15,10 +12,10 @@ isEqual(param_value,param_other) {
 assert.true(A.isEqual(1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 2))
-A.caseSensitive := true
+StringCaseSense, On
 assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))

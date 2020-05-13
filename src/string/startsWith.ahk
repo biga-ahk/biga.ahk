@@ -1,7 +1,11 @@
-startsWith(param_string, param_needle, param_fromIndex := 1) {
+startsWith(param_string,param_needle,param_fromIndex:= 1) {
+    if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+        this.internal_ThrowException()
+    }
+    
     l_startString := SubStr(param_string, param_fromIndex, StrLen(param_needle))
     ; check if substring matches
-    if (this.caseSensitive ? (l_startString == param_needle) : (l_startString = param_needle)) {
+    if (this.isEqual(l_startString, param_needle)) {
         return true
     }
     return false
@@ -12,13 +16,13 @@ startsWith(param_string, param_needle, param_fromIndex := 1) {
 assert.true(A.startsWith("abc", "a"))
 assert.false(A.startsWith("abc", "b"))
 assert.true(A.startsWith("abc", "b", 2))
-A.caseSensitive := true
+StringCaseSense, On
 assert.false(A.startsWith("abc", "A"))
 
 
 ; omit
 ; set caseSensitive back to false
-A.caseSensitive := false
+StringCaseSense, Off
 
 ; make sure comment detection works
 assert.true(A.startsWith("; String", ";"))

@@ -35,7 +35,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
                 return Index
             }
         }
-        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
+        if (this.isEqual(Value, param_value)) {
             return Index
         }
     }
@@ -51,7 +51,7 @@ assert.test(A.findIndex([1, 2, 1, 2], 2, 3), 4)
 
 assert.test(A.findIndex(["fred", "barney"], "pebbles"), -1)
 
-A.caseSensitive := true
+StringCaseSense, On
 assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
 assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 
@@ -65,7 +65,7 @@ findIndexFunc(o) {
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
 users := [{"user": "barney", "active": true}

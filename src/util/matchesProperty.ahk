@@ -14,7 +14,7 @@ internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
     itareeValue := param_property.call(param_itaree)
     ; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
     if (!this.isUndefined(itareeValue)) {
-        if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
+        if (itareeValue = param_matchvalue) {
             return true
         }
     }    

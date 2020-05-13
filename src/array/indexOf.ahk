@@ -7,7 +7,7 @@ indexOf(param_array,param_value,fromIndex:=1) {
         if (Index < fromIndex) {
             continue
         }
-        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
+        if (this.isEqual(Value, param_value)) {
             return Index
         }
     }
@@ -23,9 +23,9 @@ assert.test(A.indexOf([1, 2, 1, 2], 2, 3), 4)
 
 assert.test(A.indexOf(["fred", "barney"], "pebbles"), -1)
 
-A.caseSensitive := true
+StringCaseSense On
 assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense Off

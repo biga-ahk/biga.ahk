@@ -1,11 +1,4 @@
-class biga {
-
-    ; class attributes
-    static throwExceptions := true
-    static caseSensitive := false
-    static limit := -1
-
-	chunk(param_array,param_size:=1) {
+class biga {    ; class attributes    static throwExceptions := true    static limit := -1	chunk(param_array,param_size:=1) {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }
@@ -181,7 +174,7 @@ class biga {
 	                return Index
 	            }
 	        }
-	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
+	        if (this.isEqual(Value, param_value)) {
 	            return Index
 	        }
 	    }
@@ -249,7 +242,7 @@ class biga {
 	        if (Index < fromIndex) {
 	            continue
 	        }
-	        if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
+	        if (this.isEqual(Value, param_value)) {
 	            return Index
 	        }
 	    }
@@ -328,10 +321,10 @@ class biga {
 	    for Index, Value in param_array {
 	        Index -= 1
 	        vNegativeIndex := param_array.Count() - Index
-	        if (vNegativeIndex > param_fromIndex) { ;skip search if 
+	        if (vNegativeIndex > param_fromIndex) { ;skip search
 	            continue
 	        }
-	        if (this.caseSensitive ? (param_array[vNegativeIndex] == param_value) : (param_array[vNegativeIndex] = param_value)) {
+	        if (this.isEqual(param_array[vNegativeIndex], param_value)) {
 	            return vNegativeIndex 
 	        }
 	    }
@@ -719,7 +712,7 @@ class biga {
 	            if (param_fromIndex > A_Index) {
 	                continue
 	            }
-	            if (this.caseSensitive ? (Value == param_value) : (Value = param_value)) {
+	            if (Value = param_value) {
 	                return true
 	            }
 	        }
@@ -730,7 +723,12 @@ class biga {
 	            return RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
 	        }
 	        ; Normal string search
-	        if (InStr(param_collection, param_value, this.caseSensitive, param_fromIndex)) {
+	        if (A_StringCaseSense == "On") {
+	            StringCaseSense := 1
+	        } else {
+	            StringCaseSense := 0
+	        }
+	        if (InStr(param_collection, param_value, StringCaseSense, param_fromIndex)) {
 	            return true
 	        } else {
 	            return false
@@ -918,6 +916,7 @@ class biga {
 	        this.internal_ThrowException()
 	    }
 	    l_array := this.cloneDeep(param_collection)
+
 	    ; if called with a function
 	    if (IsFunc(param_iteratees)) {
 	        tempArray := []
@@ -932,6 +931,7 @@ class biga {
 	        }
 	        return l_array
 	    }
+
 	    ; if called with shorthands
 	    if (IsObject(param_iteratees)) {
 	        ; sort the collection however many times is requested by the shorthand identity
@@ -961,6 +961,7 @@ class biga {
 	        }
 	        lastValue := l_array[l_array.Count()]
 	    }
+
 	    if lastValue is number
 	    {
 	        sortType := "N"
@@ -1101,10 +1102,7 @@ class biga {
 	        param_other := this.printObj(param_other)
 	    }
 
-	    if (this.caseSensitive ? (param_value == param_other) : (param_value = param_other)) {
-	        return true
-	    }
-	    return false
+	    return !(param_value != param_other) ; != follows StringCaseSense
 	}
 	isMatch(param_object,param_source) {
 	    for Key, Value in param_source {
@@ -1459,6 +1457,24 @@ class biga {
 
 	    return l_outputString
 	}
+	endsWith(param_string,param_needle,param_fromIndex:="") {
+	    if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; prepare defaults
+	    if (param_fromIndex = "") {
+	        param_fromIndex := StrLen(param_string)
+	    }
+
+	    ; create
+	    l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
+	    ; check if substring matches
+	    if (l_endChar = param_needle) {
+	        return true
+	    }
+	    return false
+	}
 	escape(param_string:="") {
 	    if (IsObject(param_string)) {
 	        this.internal_ThrowException()
@@ -1586,10 +1602,14 @@ class biga {
 	    l_string := this.trim(l_string)
 	    return l_string
 	}
-	startsWith(param_string, param_needle, param_fromIndex := 1) {
+	startsWith(param_string,param_needle,param_fromIndex:= 1) {
+	    if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+	        this.internal_ThrowException()
+	    }
+
 	    l_startString := SubStr(param_string, param_fromIndex, StrLen(param_needle))
 	    ; check if substring matches
-	    if (this.caseSensitive ? (l_startString == param_needle) : (l_startString = param_needle)) {
+	    if (this.isEqual(l_startString, param_needle)) {
 	        return true
 	    }
 	    return false
@@ -1753,7 +1773,7 @@ class biga {
 
 	internal_matches(param_matches,param_itaree) {
 	    for Key, Value in param_matches {
-	        if (this.caseSensitive ? (param_matches[Key] !== param_itaree[Key]) : (param_matches[Key] != param_itaree[Key])) {
+	        if (param_matches[Key] != param_itaree[Key]) {
 	            return false
 	        }
 	    }
@@ -1775,7 +1795,7 @@ class biga {
 	    itareeValue := param_property.call(param_itaree)
 	    ; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
 	    if (!this.isUndefined(itareeValue)) {
-	        if (this.caseSensitive ? (itareeValue == param_matchvalue) : (itareeValue = param_matchvalue)) {
+	        if (itareeValue = param_matchvalue) {
 	            return true
 	        }
 	    }    
@@ -1819,8 +1839,4 @@ class biga {
 	    }
 	    return  param_itaree[param_property]
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}

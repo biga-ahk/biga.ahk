@@ -93,7 +93,7 @@ assert.test(A.findIndex([1, 2, 1, 2], 2, 3), 4)
 
 assert.test(A.findIndex(["fred", "barney"], "pebbles"), -1)
 
-A.caseSensitive := true
+StringCaseSense, On
 assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
 assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 
@@ -107,7 +107,7 @@ findIndexFunc(o) {
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
 users := [{"user": "barney", "active": true}
@@ -161,12 +161,12 @@ assert.test(A.indexOf([1, 2, 1, 2], 2, 3), 4)
 
 assert.test(A.indexOf(["fred", "barney"], "pebbles"), -1)
 
-A.caseSensitive := true
+StringCaseSense On
 assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense Off
 
 
 assert.label("initial()")
@@ -203,12 +203,12 @@ assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 ; Search from the `fromIndex`.
 assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
-A.caseSensitive := true
+StringCaseSense, On
 assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 
 
 assert.label("nth()")
@@ -449,14 +449,15 @@ assert.label("includes()")
 assert.true(A.includes([1, 2, 3], 1))
 assert.true(A.includes({ "a": 1, "b": 2 }, 1))
 assert.true(A.includes("InStr", "Str"))
-A.caseSensitive := true
+assert.label("sup")
+StringCaseSense, On
 assert.false(A.includes("InStr", "str"))
 ; RegEx object
 assert.true(A.includes("hello!", "/\D/"))
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 assert.false(A.includes("InStr", "Other"))
 
 
@@ -631,12 +632,12 @@ assert.label("isEqual()")
 assert.true(A.isEqual(1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 2))
-A.caseSensitive := true
+StringCaseSense, On
 assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
 assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))
 
 
@@ -861,6 +862,18 @@ assert.test(A.camelCase("fooBar"), "fooBar")
 assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
 
 
+assert.label("endsWith()")
+assert.true(A.endsWith("abc", "c"))
+assert.false(A.endsWith("abc", "b"))
+assert.true(A.endsWith("abc", "b", 2))
+
+
+; omit
+
+; make sure comment detection works
+assert.true(A.endsWith("String;", ";"))
+
+
 assert.label("escape()")
 string := "fred, barney, & pebbles"
 assert.test(A.escape(string), "fred, barney, &amp; pebbles")
@@ -940,17 +953,18 @@ assert.label("startsWith()")
 assert.true(A.startsWith("abc", "a"))
 assert.false(A.startsWith("abc", "b"))
 assert.true(A.startsWith("abc", "b", 2))
-A.caseSensitive := true
+StringCaseSense, On
 assert.false(A.startsWith("abc", "A"))
 
 
 ; omit
 ; set caseSensitive back to false
-A.caseSensitive := false
+StringCaseSense, Off
 
 ; make sure comment detection works
 assert.true(A.startsWith("; String", ";"))
 assert.true(A.startsWith("; String", "; "))
+
 
 assert.label("toLower()")
 assert.test(A.toLower("--Foo-Bar--"), "--foo-bar--")

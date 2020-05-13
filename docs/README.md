@@ -269,7 +269,7 @@ A.findIndex([1, 2, 1, 2], 2)
 A.findIndex(["fred", "barney"], "pebbles")
 ; => -1
 
-A.caseSensitive := trueA.findIndex(["fred", "barney"], "Fred")
+StringCaseSense, OnA.findIndex(["fred", "barney"], "Fred")
 ; => -1
 
 A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"})
@@ -424,7 +424,7 @@ A.indexOf([1, 2, 1, 2], 2)
 A.indexOf(["fred", "barney"], "pebbles")
 ; => -1
 
-A.caseSensitive := trueA.indexOf(["fred", "barney"], "Fred")
+StringCaseSense OnA.indexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -545,7 +545,7 @@ A.lastIndexOf([1, 2, 1, 2], 2)
 ; Search from the `fromIndex`.A.lastIndexOf([1, 2, 1, 2], 1, 2)
 ; => 1
 
-A.caseSensitive := trueA.lastIndexOf(["fred", "barney"], "Fred")
+StringCaseSense, OnA.lastIndexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -1097,7 +1097,7 @@ A.includes({ "a": 1, "b": 2 }, 1)
 A.includes("InStr", "Str")
 ; => true
 
-A.caseSensitive := trueA.includes("InStr", "str")
+assert.label("sup")StringCaseSense, OnA.includes("InStr", "str")
 ; => false
 
 ; RegEx objectA.includes("hello!", "/\D/")
@@ -1410,7 +1410,7 @@ A.isEqual({ "a": 1 }, { "a": 1 })
 A.isEqual(1, 2)
 ; => false
 
-A.caseSensitive := trueA.isEqual({ "a": "a" }, { "a": "A" })
+StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 ; => false
 
 ```
@@ -2351,7 +2351,7 @@ A.startsWith("abc", "b")
 A.startsWith("abc", "b", 2)
 ; => true
 
-A.caseSensitive := trueA.startsWith("abc", "A")
+StringCaseSense, OnA.startsWith("abc", "A")
 ; => false
 
 ```

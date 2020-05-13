@@ -5,10 +5,10 @@ lastIndexOf(param_array,param_value,param_fromIndex:=0) {
     for Index, Value in param_array {
         Index -= 1
         vNegativeIndex := param_array.Count() - Index
-        if (vNegativeIndex > param_fromIndex) { ;skip search if 
+        if (vNegativeIndex > param_fromIndex) { ;skip search
             continue
         }
-        if (this.caseSensitive ? (param_array[vNegativeIndex] == param_value) : (param_array[vNegativeIndex] = param_value)) {
+        if (this.isEqual(param_array[vNegativeIndex], param_value)) {
             return vNegativeIndex 
         }
     }
@@ -22,9 +22,9 @@ assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 ; Search from the `fromIndex`.
 assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
-A.caseSensitive := true
+StringCaseSense, On
 assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
-A.caseSensitive := false
+StringCaseSense, Off
