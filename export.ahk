@@ -1466,11 +1466,13 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    if (param_fromIndex = "") {
 	        param_fromIndex := StrLen(param_string)
 	    }
+	    if (StrLen(param_needle) > 1) {
+	        param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
+	    }
 
 	    ; create
 	    l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
-	    ; check if substring matches
-	    if (l_endChar = param_needle) {
+	    if (this.isEqual(l_endChar, param_needle)) {
 	        return true
 	    }
 	    return false

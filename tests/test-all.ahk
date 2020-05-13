@@ -871,6 +871,8 @@ assert.true(A.endsWith("abc", "b", 2))
 
 ; make sure comment detection works
 assert.true(A.endsWith("String;", ";"))
+assert.true(A.endsWith("String;", "ing;"))
+assert.true(A.endsWith("String;", "String;"))
 
 
 assert.label("escape()")

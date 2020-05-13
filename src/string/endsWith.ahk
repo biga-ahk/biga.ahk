@@ -7,11 +7,13 @@ endsWith(param_string,param_needle,param_fromIndex:="") {
     if (param_fromIndex = "") {
         param_fromIndex := StrLen(param_string)
     }
+    if (StrLen(param_needle) > 1) {
+        param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
+    }
 
     ; create
     l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
-    ; check if substring matches
-    if (l_endChar = param_needle) {
+    if (this.isEqual(l_endChar, param_needle)) {
         return true
     }
     return false
@@ -28,3 +30,5 @@ assert.true(A.endsWith("abc", "b", 2))
 
 ; make sure comment detection works
 assert.true(A.endsWith("String;", ";"))
+assert.true(A.endsWith("String;", "ing;"))
+assert.true(A.endsWith("String;", "String;"))
