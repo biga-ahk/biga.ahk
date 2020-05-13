@@ -1255,6 +1255,39 @@ partitionfunction1(o) {    return o.active}; The A.matches iteratee shorthand
 
 
 
+## .reject
+The opposite of `A.filter`; this method returns the elements of collection that predicate does **not** return truthy for.
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[predicate:=A.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(Array): Returns the new filtered array.
+
+
+#### Example
+
+```autohotkey
+users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, Func("fn_reject1"))
+; => [{"user":"fred", "age":40, "active":true}]
+
+fn_reject1(o) {    return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
+; => [{"user":"barney", "age":36, "active":false}]
+
+; The A.matchesProperty shorthandA.reject(users, ["active", false])
+; => [{"user":"fred", "age":40, "active":true}]
+
+;the A.property shorthand A.reject(users, "active")
+; => [{"user":"barney", "age":36, "active":false}]
+
+```
+
+
+
+
 ## .sample
 Gets a single random element from collection.
 
