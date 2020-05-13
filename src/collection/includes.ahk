@@ -33,7 +33,6 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 assert.true(A.includes([1, 2, 3], 1))
 assert.true(A.includes({ "a": 1, "b": 2 }, 1))
 assert.true(A.includes("InStr", "Str"))
-assert.label("sup")
 StringCaseSense, On
 assert.false(A.includes("InStr", "str"))
 ; RegEx object
