@@ -546,13 +546,6 @@ assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":fal
 
 
 ; omit
-; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-; fn_filter2(param_interatee) {
-;     if (param_interatee >= 2) {
-;         return param_interatee
-;     }
-;     return false
-; }
 
 
 assert.label("sample()")

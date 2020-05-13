@@ -1,4 +1,4 @@
-meanBy(param_array,param_iteratee:="baseProperty") {
+meanBy(param_array,param_iteratee:="__identity") {
     if (!IsObject(param_array)) {
         this.internal_ThrowException()
     }

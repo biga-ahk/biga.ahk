@@ -707,7 +707,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return false
 	}
-	forEach(param_collection,param_iteratee:="baseProperty") {
+	forEach(param_collection,param_iteratee:="__identity") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
@@ -778,7 +778,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        }
 	    }
 	}
-	keyBy(param_collection,param_iteratee:="baseProperty") {
+	keyBy(param_collection,param_iteratee:="__identity") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
@@ -818,7 +818,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_obj
 	}
-	map(param_collection,param_iteratee:="baseProperty") {
+	map(param_collection,param_iteratee:="__identity") {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
 	    }
@@ -840,7 +840,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 
 	    ; create the array
 	    for Key, Value in param_collection {
-	        if (param_iteratee == "baseProperty") {
+	        if (param_iteratee == "__identity") {
 	            l_array.push(Value)
 	            continue
 	        }
@@ -1261,7 +1261,7 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return vSum / this.size(param_array)
 	}
-	meanBy(param_array,param_iteratee:="baseProperty") {
+	meanBy(param_array,param_iteratee:="__identity") {
 	    if (!IsObject(param_array)) {
 	        this.internal_ThrowException()
 	    }

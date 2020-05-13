@@ -1,4 +1,4 @@
-map(param_collection,param_iteratee:="baseProperty") {
+map(param_collection,param_iteratee:="__identity") {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
@@ -20,7 +20,7 @@ map(param_collection,param_iteratee:="baseProperty") {
 
     ; create the array
     for Key, Value in param_collection {
-        if (param_iteratee == "baseProperty") {
+        if (param_iteratee == "__identity") {
             l_array.push(Value)
             continue
         }

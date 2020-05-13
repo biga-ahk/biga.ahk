@@ -1,4 +1,4 @@
-keyBy(param_collection,param_iteratee:="baseProperty") {
+keyBy(param_collection,param_iteratee:="__identity") {
     if (!IsObject(param_collection)) {
         this.internal_ThrowException()
     }
