@@ -1295,12 +1295,10 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		shorthand := this.internal_differenciateShorthand(param_iteratee, param_array)
 		if (shorthand != false) {
-			msgbox, % shorthand
 			boundFunc := this.internal_createShorthandfn(param_iteratee, param_array)
 		}
 
 		; prepare data
-		l_paramAmmount := param_iteratee.MaxParams
 		if (l_paramAmmount == 3) {
 			arrayClone := this.cloneDeep(param_array)
 		}
@@ -1310,18 +1308,13 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		for Key, Value in param_array {
 			; shorthand
 			if (shorthand == ".property") {
-				vIteratee := this.property(Value)
-				msgbox, % vIteratee " or " this.print(Value)
+				fn := this.property(param_iteratee)
+				vIteratee := fn.call(Value)
 			}
-			if (!BoundFunc) {
-				vIteratee := Value
+			if (BoundFunc) {
+				vIteratee := BoundFunc.call(Value)
 			}
-			if (l_paramAmmount == 2) {
-				if (!BoundFunc.call(Value, Key)) {
-					vIteratee := param_iteratee.call(Value, Key)
-				}
-			}
-			if (l_paramAmmount == 1) {
+			if (param_iteratee.MaxParams == 1) {
 				if (!BoundFunc.call(Value)) {
 					vIteratee := param_iteratee.call(Value)
 				}
