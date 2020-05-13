@@ -1,7 +1,6 @@
 Truncates string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
 
 
-
 ## Arguments
 [string:=""] (string): The string to truncate.
 
@@ -13,6 +12,6 @@ Truncates string if it's longer than the given maximum string length. The last c
 
 [options.separator] (RegExp|string): The separator pattern to truncate to.
 
-## Returns
 
+## Returns
 (string): Returns the truncated string.

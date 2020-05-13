@@ -1,5 +1,6 @@
 Removes trailing whitespace or specified characters from string.
 
+
 ## Arguments
 [strins:=""] (string): The string to trim.
 
@@ -7,5 +8,4 @@ Removes trailing whitespace or specified characters from string.
 
 
 ## Returns
-
 (string): Returns the trimmed string.
