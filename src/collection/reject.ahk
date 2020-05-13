@@ -5,7 +5,7 @@ reject(param_collection,param_predicate) {
 
 	; data setup
 	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
-	if (short_hand != false) {
+	if (shorthand != false) {
 		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_array := []
@@ -21,7 +21,7 @@ reject(param_collection,param_predicate) {
 			continue
 		}
 		; shorthand
-		if (short_hand != false) {
+		if (shorthand != false) {
 			if (!boundFunc.call(Value)) {
 				l_array.push(Value)
 			}

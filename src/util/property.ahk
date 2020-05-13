@@ -1,40 +1,40 @@
 property(param_source) {
-    if (IsObject(param_srcValue)) {
-        this.internal_ThrowException()
-    }
-    
-    ; prepare data
-    if (this.includes(param_source, ".")) {
-        param_source := this.split(param_source, ".")
-    }
+	if (IsObject(param_srcValue)) {
+		this.internal_ThrowException()
+	}
+	
+	; prepare data
+	if (this.includes(param_source, ".")) {
+		param_source := this.split(param_source, ".")
+	}
 
-    ; create the fn
-    if (IsObject(param_source)) {
-        keyArray := []
-        for Key, Value in param_source {
-            keyArray.push(Value) 
-        }
-        BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
-        return BoundFunc
-    } else {
-        BoundFunc := ObjBindMethod(this, "internal_property", param_source)
-    return BoundFunc
-    }
+	; create the fn
+	if (IsObject(param_source)) {
+		keyArray := []
+		for Key, Value in param_source {
+			keyArray.push(Value) 
+		}
+		BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
+		return BoundFunc
+	} else {
+		BoundFunc := ObjBindMethod(this, "internal_property", param_source)
+	return BoundFunc
+	}
 }
 
 internal_property(param_property,param_itaree) {
-    if (IsObject(param_property)) {
-        for Key, Value in param_property {
-            if (param_property.Count() == 1) {
-                ; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
-                return  ObjRawGet(param_itaree, Value)
-            } else if (param_itaree.hasKey(Value)){
-                rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
-            }
-        }
-        return rvalue
-    }
-    return  param_itaree[param_property]
+	if (IsObject(param_property)) {
+		for Key, Value in param_property {
+			if (param_property.Count() == 1) {
+				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
+				return  ObjRawGet(param_itaree, Value)
+			} else if (param_itaree.hasKey(Value)){
+				rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
+			}
+		}
+		return rvalue
+	}
+	return  param_itaree[param_property]
 }
 
 

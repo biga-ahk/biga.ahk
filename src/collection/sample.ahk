@@ -1,17 +1,17 @@
 sample(param_collection) {
-    if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
-    }
-    
-    ; prepare data
-    l_array := []
-    for Key, Value in param_collection {
-        l_array.push(Value)
-    }
-    
-    ; create
-    vSampleArray := this.sampleSize(l_array)
-    return vSampleArray[1]
+	if (!IsObject(param_collection)) {
+		this.internal_ThrowException()
+	}
+	
+	; prepare data
+	l_array := []
+	for Key, Value in param_collection {
+		l_array.push(Value)
+	}
+	
+	; create
+	vSampleArray := this.sampleSize(l_array)
+	return vSampleArray[1]
 }
 
 

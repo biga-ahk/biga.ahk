@@ -1,42 +1,42 @@
 partition(param_collection,param_predicate) {
-    if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
-    }
-    
-    ; data setup
-    trueArray := []
-    falseArray := []
-    short_hand := this.internal_differenciateShorthand(param_predicate, param_collection)
-    if (short_hand != false) {
-        BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
-    }
-    for Key, Value in param_collection {
-        if (!this.isUndefined(param_predicate.call(Value))) {
-            BoundFunc := param_predicate.bind()
-        }
-        break
-    }
+	if (!IsObject(param_collection)) {
+		this.internal_ThrowException()
+	}
+	
+	; data setup
+	trueArray := []
+	falseArray := []
+	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	if (shorthand != false) {
+		BoundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+	}
+	for Key, Value in param_collection {
+		if (!this.isUndefined(param_predicate.call(Value))) {
+			BoundFunc := param_predicate.bind()
+		}
+		break
+	}
 
-    ; perform the action
-    for Key, Value in param_collection {
-        if (BoundFunc.call(Value) == true) {
-            trueArray.push(Value)
-        } else {
-            falseArray.push(Value)
-        }
-    }
-    return [trueArray, falseArray]
+	; perform the action
+	for Key, Value in param_collection {
+		if (BoundFunc.call(Value) == true) {
+			trueArray.push(Value)
+		} else {
+			falseArray.push(Value)
+		}
+	}
+	return [trueArray, falseArray]
 }
 
 
 ; tests
 users := [ { "user": "barney", "age": 36, "active": false }
-    , { "user": "fred", "age": 40, "active": true }
-    , { "user": "pebbles", "age": 1, "active": false } ]
+	, { "user": "fred", "age": 40, "active": true }
+	, { "user": "pebbles", "age": 1, "active": false } ]
 
 assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 partitionfunction1(o) {
-    return o.active
+	return o.active
 }
 
 ; The A.matches iteratee shorthand.

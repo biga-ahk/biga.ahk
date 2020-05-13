@@ -1,4 +1,4 @@
-replace(param_string := "",param_needle := "",param_replacement := "") {
+replace(param_string:="",param_needle:="",param_replacement:="") {
     l_string := param_string
     ; RegEx
     if (l_needle := this.internal_JSRegEx(param_needle)) {

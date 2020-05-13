@@ -1,12 +1,12 @@
 lowerCase(param_string:="") {
-    if (IsObject(param_string)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    l_string := this.startCase(param_string)
-    l_string := this.toLower(this.trim(l_string))
-    return l_string
+	; create the return
+	l_string := this.startCase(param_string)
+	l_string := this.toLower(this.trim(l_string))
+	return l_string
 }
 
 

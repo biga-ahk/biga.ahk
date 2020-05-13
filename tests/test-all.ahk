@@ -98,11 +98,11 @@ assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
 assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 
 users := [ { "user": "barney", "age": 36, "active": true }
-    , { "user": "fred", "age": 40, "active": false }
-    , { "user": "pebbles", "age": 1, "active": true } ]
+	, { "user": "fred", "age": 40, "active": false }
+	, { "user": "pebbles", "age": 1, "active": true } ]
 assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
 findIndexFunc(o) {
-    return o.user == "barney"
+	return o.user == "barney"
 }
 
 
@@ -111,16 +111,16 @@ StringCaseSense, Off
 assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
 users := [{"user": "barney", "active": true}
-    , {"user": "fred", "active": false}
-    , {"user": "pebbles", "active": false}]
+	, {"user": "fred", "active": false}
+	, {"user": "pebbles", "active": false}]
 
 assert.test(A.findIndex(users, ["active", false]), 2)
 
 
 assert.label("findLastIndex()")
 users := [{"user": "barney", "active": true}
-    , {"user": "fred", "active": false}
-    , {"user": "pebbles", "active": false}]
+		, {"user": "fred", "active": false}
+		, {"user": "pebbles", "active": false}]
 
 assert.test(A.findLastIndex(users, {"user": "barney", "active": true}), 1)
 assert.test(A.findLastIndex(users, ["active", true]), 1)
@@ -180,12 +180,12 @@ assert.test(A.indexOf([1, 2, 1, 2], 2, 3), 4)
 
 assert.test(A.indexOf(["fred", "barney"], "pebbles"), -1)
 
-StringCaseSense On
+StringCaseSense, On
 assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 
 
 ; omit
-StringCaseSense Off
+StringCaseSense, Off
 
 
 assert.label("initial()")
@@ -354,9 +354,9 @@ users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "a
 
 assert.true(A.every(users, func("isOver18")))
 isOver18(x) {
-    if (x.age > 18) {
-        return true
-    }
+	if (x.age > 18) {
+		return true
+	}
 }
 
 ; The A.matches iteratee shorthand
@@ -373,25 +373,25 @@ assert.false(A.every(users, "active"))
 assert.true(A.every([], func("fn_istrue")))
 assert.true(A.every([1, 2, 3], func("isPositive")))
 isPositive(value) {
-    if (value > 0) {
-        return true
-    }
-    return false
+	if (value > 0) {
+		return true
+	}
+	return false
 }
 
 assert.false(A.every([true, false, true, true], Func("fn_istrue")))
 fn_istrue(value) {
-    if (value != true) {
-        return false
-    } 
-    return true
+	if (value != true) {
+		return false
+	} 
+	return true
 }
 assert.true(A.every([true, true, true, true], Func("fn_istrue")))
 
 
 userVotes := [{"name":"fred", "votes": ["yes","yes"]}
-            , {"name":"bill", "votes": ["no","yes"]}
-            , {"name":"jake", "votes": ["no","yes"]}]
+			, {"name":"bill", "votes": ["no","yes"]}
+			, {"name":"jake", "votes": ["no","yes"]}]
 
 assert.false(A.every(userVotes, ["votes.1", "yes"]))
 assert.true(A.every(userVotes, ["votes.2", "yes"]))
@@ -402,9 +402,9 @@ users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, 
 
 assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
 fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
+	if (param_interatee.active) { 
+		return true 
+	}
 }
  
 ; The A.matches shorthand
@@ -420,23 +420,23 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 ; omit
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
 fn_filter2(param_interatee) {
-    if (param_interatee >= 2) {
-        return param_interatee
-    }
-    return false
+	if (param_interatee >= 2) {
+		return param_interatee
+	}
+	return false
 }
 
 
 assert.label("find()")
 users := [ { "user": "barney", "age": 36, "active": true }
-    , { "user": "fred", "age": 40, "active": false }
-    , { "user": "pebbles", "age": 1, "active": true } ]
+	, { "user": "fred", "age": 40, "active": false }
+	, { "user": "pebbles", "age": 1, "active": true } ]
 
 assert.test(A.find(users, Func("fn_find1")), { "user": "barney", "age": 36, "active": true })
 fn_find1(o) {
-    if (o.active) { 
-        return true 
-    }
+	if (o.active) { 
+		return true 
+	}
 } 
 
 ; The A.matches iteratee shorthand.
@@ -481,11 +481,11 @@ assert.false(A.includes("InStr", "Other"))
 
 assert.label("keyBy()")
 array := [ {"dir": "left", "code": 97}
-    , {"dir": "right", "code": 100}]
+	, {"dir": "right", "code": 100}]
 assert.test(A.keyBy(array, Func("keyByFunc1")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 keyByFunc1(value)
 {
-    return value.dir
+	return value.dir
 }
 
 ; omit
@@ -505,17 +505,17 @@ users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
-assert.true(A.map([" hey ", "hey", " hey   "], A.trim), ["hey", "hey", "hey"])
+assert.true(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
 
 
 assert.label("partition()")
 users := [ { "user": "barney", "age": 36, "active": false }
-    , { "user": "fred", "age": 40, "active": true }
-    , { "user": "pebbles", "age": 1, "active": false } ]
+	, { "user": "fred", "age": 40, "active": true }
+	, { "user": "pebbles", "age": 1, "active": false } ]
 
 assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 partitionfunction1(o) {
-    return o.active
+	return o.active
 }
 
 ; The A.matches iteratee shorthand.
@@ -533,7 +533,7 @@ users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40,
 
 assert.test(A.reject(users, Func("fn_reject1")), [{"user":"fred", "age":40, "active":true}])
 fn_reject1(o) {
-    return !o.active
+	return !o.active
 }
 
 ; The A.matches shorthand
@@ -589,8 +589,8 @@ assert.test(A.size("pebbles"), 7)
 
 ; omit
 users := [{"user": "barney", "active": true}
-    , {"user": "fred", "active": false}
-    , {"user": "pebbles", "active": false}]
+	, {"user": "fred", "active": false}
+	, {"user": "pebbles", "active": false}]
 assert.test(A.size(users), 3)
 
 
@@ -606,7 +606,7 @@ assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "na
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
 assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
 sortby1(o) {
-    return o.name
+	return o.name
 }
 
 
@@ -618,8 +618,8 @@ myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
 assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
 
 enemies := [ 
-    , {"name": "bear", "hp": 200, "armor": 20}
-    , {"name": "wolf", "hp": 100, "armor": 12}]
+	, {"name": "bear", "hp": 200, "armor": 20}
+	, {"name": "wolf", "hp": 100, "armor": 12}]
 sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
@@ -770,12 +770,15 @@ assert.test(A.mean([4, 2, 8, 6]), 5)
 
 
 assert.label("meanBy()")
-array := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-assert.test(A.meanBy(array, Func("meanByFunc1")), 5)
-meanByFunc1(value)
+objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
+assert.test(A.meanBy(objects, Func("meanByFunc1")), 5)
+meanByFunc1(o)
 {
-    return value.n
+	return o.n
 }
+
+; The `A.property` iteratee shorthand.
+assert.test(A.meanBy(objects, "n"), 5)
 
 ; omit
 
@@ -1116,8 +1119,8 @@ assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
 
 objects := [{ "name": "fred", "options": {"private": true} }
-    , { "name": "barney", "options": {"private": false} }
-    , { "name": "pebbles", "options": {"private": false} }]
+	, { "name": "barney", "options": {"private": false} }
+	, { "name": "pebbles", "options": {"private": false} }]
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 
@@ -1146,6 +1149,6 @@ ExitApp
 
 QPC(R := 0)
 {
-    static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-    return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
+	static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
+	return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
 }

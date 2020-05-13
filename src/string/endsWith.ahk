@@ -1,22 +1,22 @@
 endsWith(param_string,param_needle,param_fromIndex:="") {
-    if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+		this.internal_ThrowException()
+	}
 
-    ; prepare defaults
-    if (param_fromIndex = "") {
-        param_fromIndex := StrLen(param_string)
-    }
-    if (StrLen(param_needle) > 1) {
-        param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
-    }
+	; prepare defaults
+	if (param_fromIndex = "") {
+		param_fromIndex := StrLen(param_string)
+	}
+	if (StrLen(param_needle) > 1) {
+		param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
+	}
 
-    ; create
-    l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
-    if (this.isEqual(l_endChar, param_needle)) {
-        return true
-    }
-    return false
+	; create
+	l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
+	if (this.isEqual(l_endChar, param_needle)) {
+		return true
+	}
+	return false
 }
 
 

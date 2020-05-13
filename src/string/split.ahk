@@ -1,4 +1,4 @@
-split(param_string := "",param_separator := ",", param_limit := 0) {
+split(param_string:="",param_separator:=",",param_limit:=0) {
     if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
         this.internal_ThrowException()
     }

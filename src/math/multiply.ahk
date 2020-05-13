@@ -1,11 +1,11 @@
 multiply(param_multiplier,param_multiplicand) {
-    if (IsObject(param_multiplier) || IsObject(param_multiplicand)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_multiplier) || IsObject(param_multiplicand)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    vValue := param_multiplier * param_multiplicand
-    return vValue
+	; create the return
+	vValue := param_multiplier * param_multiplicand
+	return vValue
 }
 
 

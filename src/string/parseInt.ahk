@@ -1,13 +1,13 @@
 parseInt(param_string:="0") {
-    if (IsObject(param_string)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string)) {
+		this.internal_ThrowException()
+	}
 
-    l_int := this.trimStart(param_string, " 0_")
-    if (this.size(l_int) = 0) {
-        return 0
-    }
-    return l_int + 0
+	l_int := this.trimStart(param_string, " 0_")
+	if (this.size(l_int) = 0) {
+		return 0
+	}
+	return l_int + 0
 }
 
 

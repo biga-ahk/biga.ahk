@@ -1,24 +1,24 @@
 matchesProperty(param_path,param_srcValue) {
-    if (IsObject(param_srcValue)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_srcValue)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the property fn
-    fnProperty := this.property(param_path)
-    ; create the fn
-    boundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
-    return boundFunc
+	; create the property fn
+	fnProperty := this.property(param_path)
+	; create the fn
+	boundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
+	return boundFunc
 }
 
 internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
-    itareeValue := param_property.call(param_itaree)
-    ; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
-    if (!this.isUndefined(itareeValue)) {
-        if (itareeValue = param_matchvalue) {
-            return true
-        }
-    }    
-    return false
+	itareeValue := param_property.call(param_itaree)
+	; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
+	if (!this.isUndefined(itareeValue)) {
+		if (itareeValue = param_matchvalue) {
+			return true
+		}
+	}    
+	return false
 }
 
 
@@ -48,7 +48,7 @@ assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "options": {"private": false} }, { "options": {"private": false} }])
 
 objects := [{ "name": "fred", "options": {"private": true} }
-    , { "name": "barney", "options": {"private": false} }
-    , { "name": "pebbles", "options": {"private": false} }]
+	, { "name": "barney", "options": {"private": false} }
+	, { "name": "pebbles", "options": {"private": false} }]
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])

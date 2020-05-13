@@ -1,15 +1,15 @@
 min(param_array) {
-    if (!IsObject(param_array)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_array)) {
+		this.internal_ThrowException()
+	}
 
-    vMin := ""
-    for Key, Value in param_array {
-        if (vMin > Value || this.isUndefined(vMin)) {
-            vMin := Value
-        }
-    }
-    return vMin
+	vMin := ""
+	for Key, Value in param_array {
+		if (vMin > Value || this.isUndefined(vMin)) {
+			vMin := Value
+		}
+	}
+	return vMin
 }
 
 

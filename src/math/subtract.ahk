@@ -1,11 +1,11 @@
 subtract(param_minuend,param_subtrahend) {
-    if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    param_minuend -= param_subtrahend
-    return param_minuend
+	; create the return
+	param_minuend -= param_subtrahend
+	return param_minuend
 }
 
 

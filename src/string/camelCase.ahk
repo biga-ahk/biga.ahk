@@ -1,14 +1,14 @@
 camelCase(param_string:="") {
-    if (IsObject(param_string)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    l_string := this.startCase(param_string)
-    l_startChar := this.head(l_string)
-    l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
+	; create the return
+	l_string := this.startCase(param_string)
+	l_startChar := this.head(l_string)
+	l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
 
-    return l_outputString
+	return l_outputString
 }
 
 

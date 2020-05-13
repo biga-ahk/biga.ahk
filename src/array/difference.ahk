@@ -1,19 +1,19 @@
 ﻿difference(param_array,param_values*) {
-    if (!IsObject(param_array)) {
-        this.internal_ThrowException()
-    }
-    l_array := this.clone(param_array)
+	if (!IsObject(param_array)) {
+		this.internal_ThrowException()
+	}
+	l_array := this.clone(param_array)
 
-    ; loop all Variadic inputs
-    for i, obj in param_values {
-        loop, % obj.Count() {
-            foundIndex := this.indexOf(l_array, obj[A_Index])
-            if (foundIndex != -1) {
-                l_array.RemoveAt(foundIndex)
-            }
-        }
-    }
-    return l_array
+	; loop all Variadic inputs
+	for i, obj in param_values {
+		loop, % obj.Count() {
+			foundIndex := this.indexOf(l_array, obj[A_Index])
+			if (foundIndex != -1) {
+				l_array.RemoveAt(foundIndex)
+			}
+		}
+	}
+	return l_array
 }
 
 

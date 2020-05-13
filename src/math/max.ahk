@@ -1,15 +1,15 @@
 max(param_array) {
-    if (!IsObject(param_array)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_array)) {
+		this.internal_ThrowException()
+	}
 
-    vMax := ""
-    for Key, Value in param_array {
-        if (vMax < Value || this.isUndefined(vMax)) {
-            vMax := Value
-        }
-    }
-    return vMax
+	vMax := ""
+	for Key, Value in param_array {
+		if (vMax < Value || this.isUndefined(vMax)) {
+			vMax := Value
+		}
+	}
+	return vMax
 }
 
 

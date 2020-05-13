@@ -10,11 +10,11 @@ A := new biga()
 
 ; For the last example let's administer some online comments.
 comments := [{"text": "I think...", "likes": 1, "sentiment": -9, "author": "Bob", "subscriber": false}
-    , {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}
-    , {"text": "Listen....", "likes": 9, "sentiment": 80, "author": "Barney", "subscriber": true}]
+			, {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}
+			, {"text": "Listen....", "likes": 9, "sentiment": 80, "author": "Barney", "subscriber": true}]
 
 Newcomments := [{"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}
-    , {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}]
+			, {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}]
 
 ; You can combine two arrays with .concat. 
 A.concat(comments, Newcomments)
@@ -37,10 +37,10 @@ newFaces := A.difference(A.map(comments, "author"), ["Regular1", "Regular2", "Fr
 
 ; Let's choose a random subscriber comment to feature. Obviously we could filter by subscribers only and choose, but for the sake of example let's perform some logic
 while (!featureComment) {
-    comment := A.sample(comments)
-    if (A.isMatch(comment, {"subscriber": true})) {
-        featureComment := comment
-    }
+	comment := A.sample(comments)
+	if (A.isMatch(comment, {"subscriber": true})) {
+		featureComment := comment
+	}
 }
 
 ; Before injecting the comment into html, we can trim any leading and trailing whitespace

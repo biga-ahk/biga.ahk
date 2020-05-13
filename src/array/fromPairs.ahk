@@ -1,13 +1,13 @@
 fromPairs(param_pairs) {
-    if (!IsObject(param_pairs)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_pairs)) {
+		this.internal_ThrowException()
+	}
 
-    l_obj := {}
-    for Key, Value in param_pairs {
-        l_obj[Value[1]] := Value[2]
-    }
-    return l_obj
+	l_obj := {}
+	for Key, Value in param_pairs {
+		l_obj[Value[1]] := Value[2]
+	}
+	return l_obj
 }
 
 

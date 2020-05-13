@@ -1,13 +1,13 @@
 toPairs(param_object) {
-    if (!IsObject(param_object)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_object)) {
+		this.internal_ThrowException()
+	}
 
-    l_array := []
-    for Key, Value in param_object {
-        l_array.push([Key, Value])
-    }
-    return l_array
+	l_array := []
+	for Key, Value in param_object {
+		l_array.push([Key, Value])
+	}
+	return l_array
 }
 
 

@@ -1,12 +1,12 @@
 snakeCase(param_string:="") {
-    if (IsObject(param_string)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    l_string := this.startCase(param_string)
-    l_string := StrReplace(l_string, " ", "_")
-    return l_string
+	; create the return
+	l_string := this.startCase(param_string)
+	l_string := StrReplace(l_string, " ", "_")
+	return l_string
 }
 
 

@@ -1,45 +1,45 @@
 intersectionBy(param_params*) {
-    
-    ; prepare data
-    oParams := []
-    boundFunc := ""
-    for Key, Value in param_params {
-        if (IsObject(Value)) {
-            ; msgbox, % this.printObj(Value) " / " Value.call(1)
-            oParams.push(this.cloneDeep(Value))
-        }
-        ; check last item as possible function or shorthand
-        if (Key == param_params.Count()) {
-            if (!this.isUndefined(Value.call(1))) {
-                msgbox, % "this was callable and returned" Value.call(1)
-                boundFunc := Value.bind()
-            }
-            short_hand := this.internal_differenciateShorthand(Value, oParams)
-            msgbox, % "last item in array " short_hand
-        }
-    }
+	
+	; prepare data
+	oParams := []
+	boundFunc := ""
+	for Key, Value in param_params {
+		if (IsObject(Value)) {
+			; msgbox, % this.printObj(Value) " / " Value.call(1)
+			oParams.push(this.cloneDeep(Value))
+		}
+		; check last item as possible function or shorthand
+		if (Key == param_params.Count()) {
+			if (!this.isUndefined(Value.call(1))) {
+				msgbox, % "this was callable and returned" Value.call(1)
+				boundFunc := Value.bind()
+			}
+			shorthand := this.internal_differenciateShorthand(Value, oParams)
+			msgbox, % "last item in array " shorthand
+		}
+	}
 
-    tempArray   := A.cloneDeep(param_arrays[1])
-    l_array := []
-    
-    ; create the slice
-    for Key, Value in tempArray { ;for each value in first array
-        for Key2, Value2 in oParams { ;for each array sent to the method
-            if (A_Index == 1) {
-                continue
-            }
-            ; search entire array for value in first array
-            if (this.indexOf(Value2, Value) != -1) {
-                found := true
-            } else {
-                found := false
-            }
-        }
-        if (found) {
-            l_array.push(Value)
-        }
-    }
-    return l_array
+	tempArray   := A.cloneDeep(param_arrays[1])
+	l_array := []
+	
+	; create the slice
+	for Key, Value in tempArray { ;for each value in first array
+		for Key2, Value2 in oParams { ;for each array sent to the method
+			if (A_Index == 1) {
+				continue
+			}
+			; search entire array for value in first array
+			if (this.indexOf(Value2, Value) != -1) {
+				found := true
+			} else {
+				found := false
+			}
+		}
+		if (found) {
+			l_array.push(Value)
+		}
+	}
+	return l_array
 }
 
 

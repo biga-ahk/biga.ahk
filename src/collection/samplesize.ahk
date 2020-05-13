@@ -1,28 +1,28 @@
 sampleSize(param_collection,param_SampleSize:=1) {
-    if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_collection)) {
+		this.internal_ThrowException()
+	}
 
-    ; return immediately if array is smaller than requested sampleSize
-    if (param_SampleSize > param_collection.Count()) {
-        return param_collection
-    }
+	; return immediately if array is smaller than requested sampleSize
+	if (param_SampleSize > param_collection.Count()) {
+		return param_collection
+	}
 
-    ; prepare data
-    l_collection := this.clone(param_collection)
-    l_array := []
-    tempArray := []
-    loop, % param_SampleSize
-    {
-        Random, randomNum, 1, l_collection.Count()
-        while (this.indexOf(tempArray, randomNum) != -1) {
-            tempArray.push(randomNum)
-            Random, randomNum, 1, l_collection.Count()
-        }
-        l_array.push(l_collection[randomNum])
-        l_collection.RemoveAt(randomNum)
-    }
-    return l_array
+	; prepare data
+	l_collection := this.clone(param_collection)
+	l_array := []
+	tempArray := []
+	loop, % param_SampleSize
+	{
+		Random, randomNum, 1, l_collection.Count()
+		while (this.indexOf(tempArray, randomNum) != -1) {
+			tempArray.push(randomNum)
+			Random, randomNum, 1, l_collection.Count()
+		}
+		l_array.push(l_collection[randomNum])
+		l_collection.RemoveAt(randomNum)
+	}
+	return l_array
 }
 
 

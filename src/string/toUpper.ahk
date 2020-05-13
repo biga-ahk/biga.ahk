@@ -1,6 +1,6 @@
 toUpper(param_string) {
-    StringUpper, OutputVar, param_string
-    return  OutputVar
+	StringUpper, OutputVar, param_string
+	return  OutputVar
 }
 
 

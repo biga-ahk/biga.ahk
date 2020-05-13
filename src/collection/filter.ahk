@@ -5,7 +5,7 @@ filter(param_collection,param_predicate) {
 
 	; data setup
 	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
-	if (short_hand != false) {
+	if (shorthand != false) {
 		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_array := []
@@ -19,17 +19,17 @@ filter(param_collection,param_predicate) {
 			}
 			continue
 		}
-		; shorthand
-		if (short_hand != false) {
-			if (boundFunc.call(Value)) {
-				l_array.push(Value)
-			}
-			continue
-		}
 		; predefined !functor handling (slower as it .calls blindly)
 		vValue := param_predicate.call(Value)
 		if (vValue) {
 			l_array.push(Value)
+			continue
+		}
+		; shorthand
+		if (shorthand != false) {
+			if (boundFunc.call(Value)) {
+				l_array.push(Value)
+			}
 			continue
 		}
 	}

@@ -1,14 +1,14 @@
 union(param_arrays*) {
 
-    l_array := []
-    for Key, Array in param_arrays {
-        if (IsObject(Array)) {
-            l_array := this.concat(l_array, Array)
-        } else {
-            l_array.push(Array)
-        }
-    }
-    return this.uniq(l_array)
+	l_array := []
+	for Key, Array in param_arrays {
+		if (IsObject(Array)) {
+			l_array := this.concat(l_array, Array)
+		} else {
+			l_array.push(Array)
+		}
+	}
+	return this.uniq(l_array)
 }
 
 

@@ -1,21 +1,21 @@
 ﻿defaults(param_object,param_sources*) {
-    if (!IsObject(param_object)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_object)) {
+		this.internal_ThrowException()
+	}
 
-    ; data setup
-    l_obj := this.clone(param_object)
-    param_sources := this.reverse(param_sources)
-    
-    ; create
-    for Index, Object in param_sources {
-        for Key, Value in Object {
-            if (!l_obj.HasKey(Key)) { ; if the key is not already in use
-                l_obj[Key] := Value
-            }
-        }
-    }
-    return l_obj
+	; data setup
+	l_obj := this.clone(param_object)
+	param_sources := this.reverse(param_sources)
+	
+	; create
+	for Index, Object in param_sources {
+		for Key, Value in Object {
+			if (!l_obj.HasKey(Key)) { ; if the key is not already in use
+				l_obj[Key] := Value
+			}
+		}
+	}
+	return l_obj
 }
 
 

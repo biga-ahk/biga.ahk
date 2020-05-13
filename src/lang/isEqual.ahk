@@ -1,10 +1,10 @@
 isEqual(param_value,param_other) {
-    if (IsObject(param_value)) {
-        param_value := this.printObj(param_value)
-        param_other := this.printObj(param_other)
-    }
+	if (IsObject(param_value)) {
+		param_value := this.printObj(param_value)
+		param_other := this.printObj(param_other)
+	}
 
-    return !(param_value != param_other) ; != follows StringCaseSense
+	return !(param_value != param_other) ; != follows StringCaseSense
 }
 
 

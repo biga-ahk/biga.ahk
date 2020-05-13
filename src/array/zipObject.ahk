@@ -1,17 +1,17 @@
 zipObject(param_props,param_values) {
-    if (!IsObject(param_props)) {
-        param_props := []
-    }
-    if (!IsObject(param_values)) {
-        param_values := []
-    }
+	if (!IsObject(param_props)) {
+		param_props := []
+	}
+	if (!IsObject(param_values)) {
+		param_values := []
+	}
 
-    l_obj := {}
-    for Key, Value in param_props {
-        vValue := param_values[A_Index]
-        l_obj[Value] := vValue
-    }
-    return l_obj
+	l_obj := {}
+	for Key, Value in param_props {
+		vValue := param_values[A_Index]
+		l_obj[Value] := vValue
+	}
+	return l_obj
 }
 
 

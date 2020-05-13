@@ -17,12 +17,12 @@ uniqWords := A.uniq(allWords)
 ; short words aren't useful for post tags. Let's remove anything that isn't at least 8 characters long
 tagShortList := A.filter(uniqWords, Func("filterlengthFunc"))
 filterlengthFunc(o) {
-    global
-    ; We use A.size to measure the length of the string. But it can measure objects too
-    ; StrLen would also work fine here and remove the need for global scope in this function
-    if (A.size(o) >= 8) {
-        return true
-    }
+	global
+	; We use A.size to measure the length of the string. But it can measure objects too
+	; StrLen would also work fine here and remove the need for global scope in this function
+	if (A.size(o) >= 8) {
+		return true
+	}
 }
 
 ; the blog software wants all tags lowercase and in one long string separated by ","

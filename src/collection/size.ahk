@@ -1,13 +1,13 @@
 size(param_collection) {
-    
-    ; create the return
-    if (param_collection.Count() > 0) {
-        return param_collection.Count()
-    }
-    if (param_collection.MaxIndex() > 0) {
-        return  param_collection.MaxIndex()
-    }
-    return StrLen(param_collection)
+	
+	; create the return
+	if (param_collection.Count() > 0) {
+		return param_collection.Count()
+	}
+	if (param_collection.MaxIndex() > 0) {
+		return  param_collection.MaxIndex()
+	}
+	return StrLen(param_collection)
 }
 
 
@@ -19,6 +19,6 @@ assert.test(A.size("pebbles"), 7)
 
 ; omit
 users := [{"user": "barney", "active": true}
-    , {"user": "fred", "active": false}
-    , {"user": "pebbles", "active": false}]
+	, {"user": "fred", "active": false}
+	, {"user": "pebbles", "active": false}]
 assert.test(A.size(users), 3)

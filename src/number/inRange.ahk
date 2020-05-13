@@ -1,21 +1,21 @@
 inRange(param_number,param_lower,param_upper) {
-    if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
+		this.internal_ThrowException()
+	}
 
 
-    ; prepare data
-    if (param_lower > param_upper) {
-        x := param_lower
-        param_lower := param_upper
-        param_upper := x
-    }
-    
-    ; check the bounds
-    if (param_number > param_lower && param_number < param_upper) {
-        return true
-    }
-    return false
+	; prepare data
+	if (param_lower > param_upper) {
+		x := param_lower
+		param_lower := param_upper
+		param_upper := x
+	}
+	
+	; check the bounds
+	if (param_number > param_lower && param_number < param_upper) {
+		return true
+	}
+	return false
 }
 
 

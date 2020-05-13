@@ -1,11 +1,11 @@
 divide(param_dividend,param_divisor) {
-    if (IsObject(param_dividend) || IsObject(param_divisor)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_dividend) || IsObject(param_divisor)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    vValue := param_dividend / param_divisor
-    return vValue
+	; create the return
+	vValue := param_dividend / param_divisor
+	return vValue
 }
 
 

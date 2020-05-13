@@ -1,11 +1,11 @@
 toLower(param_string) {
-    if (IsObject(param_string)) {
-        this.internal_ThrowException()
-    }
+	if (IsObject(param_string)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the return
-    StringLower, OutputVar, param_string
-    return  OutputVar
+	; create the return
+	StringLower, OutputVar, param_string
+	return  OutputVar
 }
 
 

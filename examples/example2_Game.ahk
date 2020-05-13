@@ -10,8 +10,8 @@ A := new biga()
 
 ; In this example, let's take on the role of a gaming script that announces which enemy to attack
 enemies := [{"name": "bear", "hp": 200, "armor": 20, "status": "exposed_wound"}
-    , {"name": "wolf", "hp": 100, "armor": 12}
-    , {"name": "crab", "hp": 150, "armor": 99, "magicweakness": true}]
+		, {"name": "wolf", "hp": 100, "armor": 12}
+		, {"name": "crab", "hp": 150, "armor": 99, "magicweakness": true}]
 
 ; Let's sort the enemies by hp and announce the one with the lowest hp as a target
 sortedEnemies := A.sortBy(enemies, "hp")
@@ -29,9 +29,9 @@ sortedEnemies.InsertAt(insertIndex, newEnemy)
 ; let's filter the sorted array by those and call all of them out. In this case there is only 1
 exposedTargets := A.filter(sortedEnemies, Func("filterexposedFunc"))
 filterexposedFunc(o) {
-    global
-    ; We use A.startsWith inside this function to check the status
-    return A.startsWith(o.status, "exposed")
+	global
+	; We use A.startsWith inside this function to check the status
+	return A.startsWith(o.status, "exposed")
 }
 
 ; We can format our message with StartCase which is a ittle like ahk's TitleCase

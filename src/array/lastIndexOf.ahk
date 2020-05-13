@@ -1,18 +1,18 @@
 lastIndexOf(param_array,param_value,param_fromIndex:=0) {
-    if (param_fromIndex == 0) {
-        param_fromIndex := param_array.Count()
-    }
-    for Index, Value in param_array {
-        Index -= 1
-        vNegativeIndex := param_array.Count() - Index
-        if (vNegativeIndex > param_fromIndex) { ;skip search
-            continue
-        }
-        if (this.isEqual(param_array[vNegativeIndex], param_value)) {
-            return vNegativeIndex 
-        }
-    }
-    return -1
+	if (param_fromIndex == 0) {
+		param_fromIndex := param_array.Count()
+	}
+	for Index, Value in param_array {
+		Index -= 1
+		vNegativeIndex := param_array.Count() - Index
+		if (vNegativeIndex > param_fromIndex) { ;skip search
+			continue
+		}
+		if (this.isEqual(param_array[vNegativeIndex], param_value)) {
+			return vNegativeIndex 
+		}
+	}
+	return -1
 }
 
 

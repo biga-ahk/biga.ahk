@@ -1,16 +1,16 @@
 without(param_array,param_values*) {
-    if (!IsObject(param_array)) {
-        this.internal_ThrowException()
-    }
-    l_array := this.clone(param_array)
+	if (!IsObject(param_array)) {
+		this.internal_ThrowException()
+	}
+	l_array := this.clone(param_array)
 
-    ; loop all Variadic inputs
-    for i, val in param_values {
-        while (foundindex := this.indexOf(l_array, val) != -1) {
-            l_array.RemoveAt(foundindex)
-        }
-    }
-    return l_array
+	; loop all Variadic inputs
+	for i, val in param_values {
+		while (foundindex := this.indexOf(l_array, val) != -1) {
+			l_array.RemoveAt(foundindex)
+		}
+	}
+	return l_array
 }
 
 
