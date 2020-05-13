@@ -1,10 +1,40 @@
 reject(param_collection,param_predicate) {
-    if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_collection)) {
+		this.internal_ThrowException()
+	}
 
-    ; create the slice
-    return this.difference(param_collection, this.filter(param_collection, param_predicate))
+	; data setup
+	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	if (short_hand != false) {
+		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+	}
+	l_array := []
+
+	; create the slice
+	for Key, Value in param_collection {
+		; functor
+		; predefined !functor handling (slower as it .calls blindly)
+		if (IsFunc(param_predicate)) {
+			if (!param_predicate.call(Value)) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		; shorthand
+		if (short_hand != false) {
+			if (!boundFunc.call(Value)) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		; predefined !functor handling (slower as it .calls blindly)
+		vValue := param_predicate.call(Value)
+		if (!vValue) {
+			l_array.push(Value)
+			continue
+		}
+	}
+	return l_array
 }
 
 
@@ -13,7 +43,7 @@ users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40,
 
 assert.test(A.reject(users, Func("fn_reject1")), [{"user":"fred", "age":40, "active":true}])
 fn_reject1(o) {
-    return !o.active
+	return !o.active
 }
 
 ; The A.matches shorthand

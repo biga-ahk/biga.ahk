@@ -1,39 +1,39 @@
 filter(param_collection,param_predicate) {
-    if (!IsObject(param_collection)) {
-        this.internal_ThrowException()
-    }
+	if (!IsObject(param_collection)) {
+		this.internal_ThrowException()
+	}
 
-    ; data setup
-    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
-    if (short_hand != false) {
-        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
-    }
-    l_array := []
+	; data setup
+	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	if (short_hand != false) {
+		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+	}
+	l_array := []
 
-    ; create the slice
-    for Key, Value in param_collection {
-        ; functor
-        ; predefined !functor handling (slower as it .calls blindly)
-        if (IsFunc(param_predicate)) {
-            if (param_predicate.call(Value)) {
-                l_array.push(Value)
-            }
-            continue
-        }
-        vValue := param_predicate.call(Value)
-        if (vValue) {
-            l_array.push(Value)
-            continue
-        }
-        ; shorthand
-        if (short_hand != false) {
-            if (boundFunc.call(Value)) {
-                l_array.push(Value)
-            }
-            continue
-        }
-    }
-    return l_array
+	; create the slice
+	for Key, Value in param_collection {
+		; functor
+		if (IsFunc(param_predicate)) {
+			if (param_predicate.call(Value)) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		; shorthand
+		if (short_hand != false) {
+			if (boundFunc.call(Value)) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		; predefined !functor handling (slower as it .calls blindly)
+		vValue := param_predicate.call(Value)
+		if (vValue) {
+			l_array.push(Value)
+			continue
+		}
+	}
+	return l_array
 }
 
 
@@ -42,9 +42,9 @@ users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, 
 
 assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
 fn_filter1(param_interatee) {
-    if (param_interatee.active) { 
-        return true 
-    }
+	if (param_interatee.active) { 
+		return true 
+	}
 }
  
 ; The A.matches shorthand
@@ -60,8 +60,8 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 ; omit
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
 fn_filter2(param_interatee) {
-    if (param_interatee >= 2) {
-        return param_interatee
-    }
-    return false
+	if (param_interatee >= 2) {
+		return param_interatee
+	}
+	return false
 }

@@ -148,10 +148,11 @@ assert.test(A.flattenDeep([1, [2]]), [1, 2])
 assert.test(A.flattenDeep([1, [2, [3, [4]], 5]]), [1, 2, 3, 4, 5])
 
 ; omit
-assert.test(A.checkDepth([1]), 1)
-assert.test(A.checkDepth([1, [2]]), 2)
-assert.test(A.checkDepth([1, [[2]]]), 3)
-assert.test(A.checkDepth([1, [2, [3, [4]], 5]]), 4)
+assert.test(A.depthOf([1]), 1)
+assert.test(A.depthOf([1, [2]]), 2)
+assert.test(A.depthOf([1, [[2]]]), 3)
+assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
+
 
 assert.label("flattenDepth()")
 assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 1), [1, 2, [3, [4]], 5])
