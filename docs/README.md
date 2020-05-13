@@ -323,6 +323,7 @@ array (Array): The array to flatten.
 #### Returns
 (Array): Returns the new flattened array.
 
+
 #### Example
 
 ```autohotkey
@@ -331,6 +332,63 @@ A.flatten([1, [2, [3, [4]], 5]])
 
 A.flatten([[1, 2, 3], [4, 5, 6]])
 ; => [1, 2, 3, 4, 5, 6]
+
+```
+
+
+
+
+## .flattenDeep
+Recursively flattens array.
+
+
+#### Arguments
+array (Array): The array to flatten.
+
+
+#### Returns
+(Array): Returns the new flattened array.
+
+
+#### Example
+
+```autohotkey
+A.flattenDeep([1])
+; => [1]
+
+A.flattenDeep([1, [2]])
+; => [1, 2]
+
+A.flattenDeep([1, [2, [3, [4]], 5]])
+; => [1, 2, 3, 4, 5]
+
+```
+
+
+
+
+## .flattenDepth
+Recursively flatten array up to depth times.
+
+
+#### Arguments
+array (Array): The array to flatten.
+
+[depth:=1] (number): The maximum recursion depth.
+
+
+#### Returns
+(Array): Returns the new flattened array.
+
+
+#### Example
+
+```autohotkey
+A.flattenDepth([1, [2, [3, [4]], 5]], 1)
+; => [1, 2, [3, [4]], 5]
+
+A.flattenDepth([1, [2, [3, [4]], 5]], 2)
+; => [1, 2, 3, [4], 5]
 
 ```
 

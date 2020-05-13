@@ -1,4 +1,4 @@
-Flattens array a single level deep.
+Recursively flattens array.
 
 
 ## Arguments
