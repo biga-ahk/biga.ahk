@@ -224,28 +224,21 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 
 	    ; data setup
-	    ; l_obj := this.cloneDeep(param_array)
-	    l_depth := this.checkDepth(param_array)
+	    l_depth := this.depthOf(param_array)
 
 	    ; create the return
-	    ; while (this.checkDepth(l_obj) != 1) {
-	    ;     l_obj := this.flatten(l_obj)
-	    ; }
 	    return this.flattenDepth(param_array, l_depth)
+
 	}
 
-	checkDepth(param_obj) {
-	    ; maxDepth := 0
-	    currentDepth := 1
+	depthOf(param_obj,param_depth:=1) {
 	    for Key, Value in param_obj {
 	        if (IsObject(Value)) {
-	            currentDepth += this.checkDepth(Value)
-	            ; if (currentDepth > maxDepth) {
-	            ;     maxDepth := currentDepth
-	            ; }
+	            param_depth++
+	            param_depth := this.depthOf(Value, param_depth)
 	        }
 	    }
-	    return currentDepth
+	    return param_depth
 	}
 	flattenDepth(param_array,param_depth:=1) {
 	    if (!IsObject(param_array)) {
@@ -889,8 +882,37 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	        this.internal_ThrowException()
 	    }
 
+	    ; data setup
+	    shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	    if (short_hand != false) {
+	        boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+	    }
+	    l_array := []
+
 	    ; create the slice
-	    return this.difference(param_collection, this.filter(param_collection, param_predicate))
+	    for Key, Value in param_collection {
+	        ; functor
+	        ; predefined !functor handling (slower as it .calls blindly)
+	        if (IsFunc(param_predicate)) {
+	            if (!param_predicate.call(Value)) {
+	                l_array.push(Value)
+	            }
+	            continue
+	        }
+	        ; shorthand
+	        if (short_hand != false) {
+	            if (!boundFunc.call(Value)) {
+	                l_array.push(Value)
+	            }
+	            continue
+	        }
+	        vValue := param_predicate.call(Value)
+	        if (!vValue) {
+	            l_array.push(Value)
+	            continue
+	        }
+	    }
+	    return l_array
 	}
 	sample(param_collection) {
 	    if (!IsObject(param_collection)) {
