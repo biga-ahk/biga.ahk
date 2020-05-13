@@ -527,6 +527,34 @@ assert.test(A.partition(users, ["active", false]), [[{ "user": "barney", "age": 
 assert.test(A.partition(users, "active"), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 
 
+assert.label("reject()")
+users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
+
+assert.test(A.reject(users, Func("fn_reject1")), [{"user":"fred", "age":40, "active":true}])
+fn_reject1(o) {
+    return !o.active
+}
+
+; The A.matches shorthand
+assert.test(A.reject(users, {"age":40, "active":true}), [{"user":"barney", "age":36, "active":false}])
+
+; The A.matchesProperty shorthand
+assert.test(A.reject(users, ["active", false]), [{"user":"fred", "age":40, "active":true}])
+
+;the A.property shorthand 
+assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":false}])
+
+
+; omit
+; assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+; fn_filter2(param_interatee) {
+;     if (param_interatee >= 2) {
+;         return param_interatee
+;     }
+;     return false
+; }
+
+
 assert.label("sample()")
 
 

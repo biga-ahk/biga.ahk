@@ -884,6 +884,14 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return [trueArray, falseArray]
 	}
+	reject(param_collection,param_predicate) {
+	    if (!IsObject(param_collection)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; create the slice
+	    return this.difference(param_collection, this.filter(param_collection, param_predicate))
+	}
 	sample(param_collection) {
 	    if (!IsObject(param_collection)) {
 	        this.internal_ThrowException()
