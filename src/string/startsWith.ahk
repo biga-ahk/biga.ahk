@@ -27,3 +27,4 @@ StringCaseSense, Off
 ; make sure comment detection works
 assert.true(A.startsWith("; String", ";"))
 assert.true(A.startsWith("; String", "; "))
+assert.true(A.startsWith("; String", "; String"))

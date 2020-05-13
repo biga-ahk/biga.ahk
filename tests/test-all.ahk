@@ -142,6 +142,24 @@ assert.test(A.flatten([[1, 2, 3], [4, 5, 6]]), [1, 2, 3, 4, 5, 6])
 ; omit
 
 
+assert.label("flattenDeep()")
+assert.test(A.flattenDeep([1]), [1])
+assert.test(A.flattenDeep([1, [2]]), [1, 2])
+assert.test(A.flattenDeep([1, [2, [3, [4]], 5]]), [1, 2, 3, 4, 5])
+
+; omit
+assert.test(A.checkDepth([1]), 1)
+assert.test(A.checkDepth([1, [2]]), 2)
+assert.test(A.checkDepth([1, [[2]]]), 3)
+assert.test(A.checkDepth([1, [2, [3, [4]], 5]]), 4)
+
+assert.label("flattenDepth()")
+assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 1), [1, 2, [3, [4]], 5])
+assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 2), [1, 2, 3, [4], 5])
+
+; omit
+
+
 assert.label("fromPairs()")
 assert.test(A.fromPairs([["a", 1], ["b", 2]]), {"a": 1, "b": 2})
 
@@ -965,6 +983,7 @@ StringCaseSense, Off
 ; make sure comment detection works
 assert.true(A.startsWith("; String", ";"))
 assert.true(A.startsWith("; String", "; "))
+assert.true(A.startsWith("; String", "; String"))
 
 
 assert.label("toLower()")

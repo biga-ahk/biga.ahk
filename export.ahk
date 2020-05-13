@@ -218,6 +218,49 @@ class biga {    ; class attributes    static throwExceptions := true    stat
 	    }
 	    return l_obj
 	}
+	flattenDeep(param_array) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    ; l_obj := this.cloneDeep(param_array)
+	    l_depth := this.checkDepth(param_array)
+
+	    ; create the return
+	    ; while (this.checkDepth(l_obj) != 1) {
+	    ;     l_obj := this.flatten(l_obj)
+	    ; }
+	    return this.flattenDepth(param_array, l_depth)
+	}
+
+	checkDepth(param_obj) {
+	    ; maxDepth := 0
+	    currentDepth := 1
+	    for Key, Value in param_obj {
+	        if (IsObject(Value)) {
+	            currentDepth += this.checkDepth(Value)
+	            ; if (currentDepth > maxDepth) {
+	            ;     maxDepth := currentDepth
+	            ; }
+	        }
+	    }
+	    return currentDepth
+	}
+	flattenDepth(param_array,param_depth:=1) {
+	    if (!IsObject(param_array)) {
+	        this.internal_ThrowException()
+	    }
+
+	    ; data setup
+	    l_obj := this.cloneDeep(param_array)
+
+	    ; create the return
+	    loop, % param_depth {
+	        l_obj := this.flatten(l_obj)
+	    }
+	    return l_obj
+	}
 	fromPairs(param_pairs) {
 	    if (!IsObject(param_pairs)) {
 	        this.internal_ThrowException()
