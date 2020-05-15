@@ -1107,13 +1107,13 @@ collection (Array|Object): The collection to iterate over.
 #### Example 
 
 ```autohotkey
-A.forEach([1, 2], Func("forEachFunc1")
+A.forEach([1, 2], Func("forEachFunc1"))
 forEachFunc1(value) {
     msgbox, % value
 }
 ; msgboxes 1 then 2
 
-A.forEach({ "a": 1, "b": 2 }, Func("forEachFunc2")
+A.forEach({ "a": 1, "b": 2 }, Func("forEachFunc2"))
 forEachFunc2(value, key) {
     msgbox, % key
 }
