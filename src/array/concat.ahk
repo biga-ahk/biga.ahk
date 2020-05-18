@@ -2,6 +2,7 @@ concat(param_array,param_values*) {
 	if (!IsObject(param_array)) {
 		this.internal_ThrowException()
 	}
+	
 	; data preparation
 	l_array := this.clone(param_array)
 

@@ -1,4 +1,10 @@
-class biga {	; class attributes	static throwExceptions := true	static limit := -1	chunk(param_array,param_size:=1) {
+class biga {
+
+	; class attributes
+	static throwExceptions := true
+	static limit := -1
+
+	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this.internal_ThrowException()
 		}
@@ -37,6 +43,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		if (!IsObject(param_array)) {
 			this.internal_ThrowException()
 		}
+
 		; data preparation
 		l_array := this.clone(param_array)
 
@@ -593,6 +600,35 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		return l_obj
 	}
+	count(param_collection,param_predicate,param_fromIndex:=1) {
+
+		; data setup
+		if (param_collection is alnum) {
+			param_collection := StrSplit(param_collection)
+		}
+		shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+		if (shorthand != false) {
+			boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+		}
+
+		; create the slice
+		l_count := 0
+		for Key, Value in param_collection {
+			if (Key < param_fromIndex) {
+				continue
+			}
+			if (shorthand != false) {
+				if (boundFunc.call(Value, Key, param_collection) == true) {
+					l_count++
+					continue
+				}
+			}
+			if (this.isEqual(Value, param_predicate)) {
+				l_count++
+			}
+		}
+		return l_count
+	}
 	every(param_collection,param_predicate) {
 		if (!IsObject(param_collection)) {
 			this.internal_ThrowException()
@@ -613,7 +649,6 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 
 		; perform the action
 		for Key, Value in param_collection {
-			; msgbox, % "value is " this.printObj(Value)
 			if (shorthand != false) {
 				if (boundFunc.call(Value, Key, param_collection) == true) {
 					continue
@@ -1912,4 +1947,8 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		return  param_itaree[param_property]
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}
