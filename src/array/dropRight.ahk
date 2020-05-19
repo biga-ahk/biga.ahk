@@ -4,6 +4,7 @@ dropRight(param_array,param_n:=1) {
 		this.internal_ThrowException()
 	}
 
+	; prepare data
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
@@ -11,7 +12,7 @@ dropRight(param_array,param_n:=1) {
 		l_array := StrSplit(param_array)
 	}
 
-	; create the slice
+	; create
 	loop, % param_n
 	{
 		l_array.RemoveAt(l_array.Count())

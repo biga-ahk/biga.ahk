@@ -107,6 +107,7 @@ class biga {
 			this.internal_ThrowException()
 		}
 
+		; prepare data
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
@@ -114,7 +115,7 @@ class biga {
 			l_array := StrSplit(param_array)
 		}
 
-		; create the slice
+		; create
 		loop, % param_n
 		{
 			l_array.RemoveAt(l_array.Count())
@@ -1154,8 +1155,7 @@ class biga {
 	internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		if (IsObject(param_shorthand)) {
 			for Key, in param_shorthand {
-				if Key is number
-				{
+				if (this.isNumber(Key)) {
 					continue
 				} else {
 					return ".matches"
@@ -1190,6 +1190,22 @@ class biga {
 		if (this.throwExceptions == true) {
 			throw Exception("Type Error", -2)
 		}
+	}
+
+	isAlnum(param) {
+		if param is alnum
+		{
+			return true
+		}
+		return false
+	}
+
+	isNumber(param) {
+		if param is number
+		{
+			return true
+		}
+		return false
 	}
 	clone(param_value) {
 		if (IsObject(param_value)) {
