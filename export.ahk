@@ -603,9 +603,6 @@ class biga {
 	count(param_collection,param_predicate,param_fromIndex:=1) {
 
 		; data setup
-		if (param_collection is alnum) {
-			param_collection := StrSplit(param_collection)
-		}
 		shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
@@ -613,6 +610,14 @@ class biga {
 
 		; create the slice
 		l_count := 0
+		if (param_collection is alnum) {
+			; cut fromindex length off from start of string if specified fromIndex > 1 
+			if (param_fromIndex > 1) {
+				param_collection := this.join(this.slice(param_collection, param_fromIndex, this.size(param_collection)), "")
+			}
+			param_collection := this.split(param_collection, param_predicate)
+			return param_collection.Count() - 1
+		}
 		for Key, Value in param_collection {
 			if (Key < param_fromIndex) {
 				continue
@@ -647,7 +652,7 @@ class biga {
 			break
 		}
 
-		; perform the action
+		; create
 		for Key, Value in param_collection {
 			if (shorthand != false) {
 				if (boundFunc.call(Value, Key, param_collection) == true) {

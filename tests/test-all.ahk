@@ -74,6 +74,30 @@ assert.test(A.dropRight(100), ["1", "0"])
 assert.test(A.dropRight([]), [])
 
 
+assert.label("dropRight()")
+users := [ {"user": "barney", "active": true }
+		, { "user": "fred", "active": false }
+		, { "user": "pebbles", "active": false } ]
+assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile1")), [{"user": "barney", "active": true }])
+fn_dropRightWhile1(0)
+{
+	return !o.active
+}
+
+; The `A.matches` iteratee shorthand.
+assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ])
+
+; The `A.matchesProperty` iteratee shorthand.
+assert.test(A.dropRightWhile(users, ["active", false]), [  {"user": "barney", "active": true } ])
+
+; The `A.property` iteratee shorthand.
+assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ])
+
+
+; omit
+assert.test(A.dropRightWhile([]), [])
+
+
 assert.label("fill()")
 array := [1, 2, 3]
 assert.test(A.fill(array, "a"), ["a", "a", "a"])
@@ -349,6 +373,31 @@ assert.test(A.zipObject(["a", "b"], [1, 2]), {"a": 1, "b": 2})
 assert.test(A.zipObject(["a", "b", "c"], [1, 2]), {"a": 1, "b": 2, "c": ""})
 
 
+assert.label("count()")
+assert.test(A.count([1, 2, 3], 2), 1)
+assert.test(A.count("pebbles", "b"), 2)
+assert.test(A.count(["fred", "barney", "pebbles"], "barney"), 1)
+
+users := [ {"user": "fred", "age": 40, "active": true}
+		, {"user": "barney", "age": 36, "active": false}
+		, {"user": "pebbles", "age": 1, "active": false} ]
+
+; The `A.matches` iteratee shorthand.
+assert.test(A.count(users, {"age": 1, "active": false}), 1)
+
+; The `A.matchesProperty` iteratee shorthand.
+assert.test(A.count(users, ["active", false]), 2)
+
+; The `A.property` iteratee shorthand.
+assert.test(A.count(users, "active"), 1)
+
+
+; omit
+assert.test(A.count("pebbles", "bb"), 1)
+assert.test(A.count("....", ".."), 2)
+assert.test(A.count(1221221221, 22), 3)
+
+
 assert.label("every()")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
@@ -359,13 +408,13 @@ isOver18(x) {
 	}
 }
 
-; The A.matches iteratee shorthand
+; The `A.matches` iteratee shorthand.
 assert.false(A.every(users, { "user": "barney", "age": 36, "active": false }))
 
-; The A.matchesProperty iteratee shorthand.
+; The `A.matchesProperty` iteratee shorthand.
 assert.true(A.every(users, ["active", false]))
 
-; The A.property iteratee shorthand.
+; The `A.property` iteratee shorthand.
 assert.false(A.every(users, "active"))
 
 

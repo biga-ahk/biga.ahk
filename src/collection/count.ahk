@@ -1,9 +1,6 @@
 count(param_collection,param_predicate,param_fromIndex:=1) {
 
 	; data setup
-	if (param_collection is alnum) {
-		param_collection := StrSplit(param_collection)
-	}
 	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
@@ -11,6 +8,14 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 
 	; create the slice
 	l_count := 0
+	if (param_collection is alnum) {
+		; cut fromindex length off from start of string if specified fromIndex > 1 
+		if (param_fromIndex > 1) {
+			param_collection := this.join(this.slice(param_collection, param_fromIndex, this.size(param_collection)), "")
+		}
+		param_collection := this.split(param_collection, param_predicate)
+		return param_collection.Count() - 1
+	}
 	for Key, Value in param_collection {
 		if (Key < param_fromIndex) {
 			continue
@@ -46,3 +51,9 @@ assert.test(A.count(users, ["active", false]), 2)
 
 ; The `A.property` iteratee shorthand.
 assert.test(A.count(users, "active"), 1)
+
+
+; omit
+assert.test(A.count("pebbles", "bb"), 1)
+assert.test(A.count("....", ".."), 2)
+assert.test(A.count(1221221221, 22), 3)
