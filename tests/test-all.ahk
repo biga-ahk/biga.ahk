@@ -74,30 +74,6 @@ assert.test(A.dropRight(100), ["1", "0"])
 assert.test(A.dropRight([]), [])
 
 
-assert.label("dropRight()")
-users := [ {"user": "barney", "active": true }
-		, { "user": "fred", "active": false }
-		, { "user": "pebbles", "active": false } ]
-assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile1")), [{"user": "barney", "active": true }])
-fn_dropRightWhile1(0)
-{
-	return !o.active
-}
-
-; The `A.matches` iteratee shorthand.
-assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ])
-
-; The `A.matchesProperty` iteratee shorthand.
-assert.test(A.dropRightWhile(users, ["active", false]), [  {"user": "barney", "active": true } ])
-
-; The `A.property` iteratee shorthand.
-assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ])
-
-
-; omit
-assert.test(A.dropRightWhile([]), [])
-
-
 assert.label("fill()")
 array := [1, 2, 3]
 assert.test(A.fill(array, "a"), ["a", "a", "a"])
@@ -395,6 +371,7 @@ assert.test(A.count(users, "active"), 1)
 ; omit
 assert.test(A.count("pebbles", "bb"), 1)
 assert.test(A.count("....", ".."), 2)
+assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)
 
 
@@ -683,7 +660,9 @@ assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":
 
 assert.label("internal()")
 assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
-
+assert.test(A.isAlnum(1),true)
+assert.test(A.isAlnum("hello"),true)
+; assert.test(A.isAlnum([]),false)
 ; omit
 
 
@@ -930,6 +909,15 @@ assert.test(A.merge(object, other), {"options":[{"option1":"true", "option2":"fa
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
 assert.test(A.merge(object, other), { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] })
+
+
+assert.label("omit()")
+object := {"a": 1, "b": "2", "c": 3}
+assert.test(A.omit(object, ["a", "c"]), {"b": "2"})
+
+
+; omit
+assert.test(A.omit(object, "a"), {"b": "2", "c": 3})
 
 
 assert.label("pick()")

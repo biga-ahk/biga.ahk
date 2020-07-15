@@ -203,40 +203,6 @@ A.dropRight(100)
 
 
 
-## .dropRight
-Creates a slice of array with n elements dropped from the end.
-
-
-#### Arguments
-array (Array): The array to query.
-
-[n:=1] (number): The number of elements to drop.
-
-
-#### Returns
-(Array): Returns the slice of array.
-
-
-#### Example
-
-```autohotkey
-users := [ {"user": "barney", "active": true }		, { "user": "fred", "active": false }		, { "user": "pebbles", "active": false } ]A.dropRightWhile(users, Func("fn_dropRightWhile1"))
-; => [{"user": "barney", "active": true }]
-
-fn_dropRightWhile1(0){	return !o.active}; The `A.matches` iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
-; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ]
-
-; The `A.matchesProperty` iteratee shorthand.A.dropRightWhile(users, ["active", false])
-; => [  {"user": "barney", "active": true } ]
-
-; The `A.property` iteratee shorthand.A.dropRightWhile(users, "active")
-; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ]
-
-```
-
-
-
-
 ## .fill
 Fills elements of array with value from start up to, but not including, end.
 
@@ -2131,6 +2097,30 @@ object := {"options":[{"option1":"true"}]}other := {"options":[{"option2":"fals
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
+
+```
+
+
+
+
+## .omit
+The opposite of `A.pick`; this method creates an object composed of the own and inherited enumerable property paths of object that are not omitted.
+
+
+#### Arguments
+object (Object): The source object.
+
+[paths] (...(string|string[])): The property paths to omit.
+
+#### Returns
+(Object): Returns the new object.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": "2", "c": 3}A.omit(object, ["a", "c"])
+; => {"b": "2"}
 
 ```
 

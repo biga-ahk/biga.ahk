@@ -36,20 +36,6 @@ truncate(param_string,param_options:="") {
 	}
 	if (param_options.separator) {
 		return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
-		; reversestring := this.join(this.reverse(StrSplit(l_string)), "")
-		; param_options.reverseseparator := this.join(this.reverse(StrSplit(param_options.separator)), "")
-		; l_match := RegExMatch(reversestring, "P)" param_options.reverseseparator, RE_Match)
-		; ; msgbox, % "REGEX: " RE_MatchPos1 " / " RE_MatchLen1 "/" l_match "`n-" param_options.separator "-`n`n" param_string "`n" l_string
-		; if (l_match) {
-		;     param_options.regexmatchposition := l_match
-		; }
-		; if (RE_MatchPos1) {
-		;     param_options.regexmatchposition := RE_MatchPos1
-		; }
-		; if (param_options.regexmatchposition) {
-		;     l_string := SubStr(reversestring, param_options.regexmatchposition + StrLen(param_options.separator))
-		;     return  this.join(this.reverse(StrSplit(l_string)), "") . param_options.omission
-		; }
 	}
 	return l_string
 }

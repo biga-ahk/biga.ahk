@@ -56,4 +56,5 @@ assert.test(A.count(users, "active"), 1)
 ; omit
 assert.test(A.count("pebbles", "bb"), 1)
 assert.test(A.count("....", ".."), 2)
+assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)

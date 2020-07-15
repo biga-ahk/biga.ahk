@@ -27,7 +27,7 @@ newline := "`r`n" ;do not change this as docsify needs `r
 
 ; Arrays that control doc and test output. For ommiting or only testing certain areas
 ignoreMethodDocsArr := ["internal", "intersectionBy"]
-ommitMethodsArr := ["intersectionBy"]
+ommitMethodsArr := [""]
 onlyTestArr := [""]
 
 The_Array := [] ; Holds main data
@@ -60,9 +60,13 @@ loop, Files, %A_ScriptDir%\src\*.ahk, R
 	}
 
 	; ommit if noted
+	if (InStr(bbb.raw, "###incomplete###")) {
+		continue
+	}
 	if (foundIndex := A.indexOf(ommitMethodsArr, bbb.name) != -1) {
 		continue
 	}
+	
 	; markdown file
 	markdown_File := A_LoopFileDir "\" bbb.name ".md"
 	if (!FileExist(markdown_File)) {

@@ -49,15 +49,16 @@ internal_MD5(param_string, case := 0) {
 	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "Ptr", &MD5_CTX)
 	, DllCall("advapi32\MD5Update", "Ptr", &MD5_CTX, "AStr", param_string, "UInt", StrLen(param_string))
 	, DllCall("advapi32\MD5Final", "Ptr", &MD5_CTX)
-	loop % MD5_DIGEST_LENGTH
+	loop % MD5_DIGEST_LENGTH {
 		o .= Format("{:02" (case ? "X" : "x") "}", NumGet(MD5_CTX, 87 + A_Index, "UChar"))
+	}
 	return o, DllCall("FreeLibrary", "Ptr", hModule)
 }
 
 
 internal_JSRegEx(param_string) {
 	if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
-		return  SubStr(param_string, 2 , StrLen(param_string) - 2)
+		return SubStr(param_string, 2, StrLen(param_string) - 2)
 	}
 	return false
 }
@@ -66,8 +67,7 @@ internal_JSRegEx(param_string) {
 internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	if (IsObject(param_shorthand)) {
 		for Key, in param_shorthand {
-			if Key is number
-			{
+			if (this.isNumber(Key)) {
 				continue
 			} else {
 				return ".matches"
@@ -107,7 +107,35 @@ internal_ThrowException() {
 }
 
 
+isAlnum(param) {
+	if param is alnum
+	{
+		return true
+	}
+	return false
+}
+
+
+isNumber(param) {
+	if param is number
+	{
+		return true
+	}
+	return false
+}
+
+
+isFalsey(param) {
+	if (param == "" || param == 0) {
+		return true
+	}
+	return false
+}
+
+
 ; tests
 assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
-
+assert.test(A.isAlnum(1),true)
+assert.test(A.isAlnum("hello"),true)
+; assert.test(A.isAlnum([]),false)
 ; omit
