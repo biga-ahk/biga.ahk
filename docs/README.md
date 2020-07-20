@@ -203,6 +203,40 @@ A.dropRight(100)
 
 
 
+## .dropWhile
+Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
+
+
+#### Arguments
+array (Array): The array to query.
+
+[predicate=.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(Array): Returns the slice of array.
+
+
+#### Example
+
+```autohotkey
+users := [ {"user": "barney", "active": false }		, { "user": "fred", "active": false }		, { "user": "pebbles", "active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
+; => [{ "user": "pebbles", "active": true }]
+
+fn_dropWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
+; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ]
+
+; The `A.matchesProperty` iteratee shorthand.A.dropWhile(users, ["active", false])
+; => [ {"user": "pebbles", "active": true } ]
+
+; The `A.property` iteratee shorthand.A.dropWhile(users, "active")
+; => [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
+
+```
+
+
+
+
 ## .fill
 Fills elements of array with value from start up to, but not including, end.
 
@@ -1137,7 +1171,7 @@ _.each -->
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratee=_.identity] (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
