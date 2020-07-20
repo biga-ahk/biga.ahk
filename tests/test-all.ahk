@@ -74,6 +74,30 @@ assert.test(A.dropRight(100), ["1", "0"])
 assert.test(A.dropRight([]), [])
 
 
+assert.label("dropWhile()")
+users := [ {"user": "barney", "active": false }
+		, { "user": "fred", "active": false }
+		, { "user": "pebbles", "active": true } ]
+assert.test(A.dropWhile(users, Func("fn_dropWhile")), [{ "user": "pebbles", "active": true }])
+fn_dropWhile(o)
+{
+	return !o.active
+}
+
+; The `A.matches` iteratee shorthand.
+assert.test(A.dropWhile(users, {"user": "barney", "active": false}), [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ])
+
+; The `A.matchesProperty` iteratee shorthand.
+assert.test(A.dropWhile(users, ["active", false]), [ {"user": "pebbles", "active": true } ])
+
+; The `A.property` iteratee shorthand.
+assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ])
+
+
+; omit
+assert.test(A.dropWhile([]), [])
+
+
 assert.label("fill()")
 array := [1, 2, 3]
 assert.test(A.fill(array, "a"), ["a", "a", "a"])
