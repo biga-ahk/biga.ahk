@@ -769,46 +769,46 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		return false
 	}
 	forEach(param_collection,param_iteratee:="__identity") {
-	    if (!IsObject(param_collection)) {
-	        this.internal_ThrowException()
-	    }
-	    ; check what kind of param_iteratee being worked with
-	    if (!IsFunc(param_iteratee)) {
-	        BoundFunc := param_iteratee.Bind(this)
-	    }
+		if (!IsObject(param_collection)) {
+			this.internal_ThrowException()
+		}
+		; check what kind of param_iteratee being worked with
+		if (!IsFunc(param_iteratee)) {
+			BoundFunc := param_iteratee.Bind(this)
+		}
 
-	    ; prepare data
-	    l_paramAmmount := param_iteratee.MaxParams
-	    if (l_paramAmmount == 3) {
-	        collectionClone := this.cloneDeep(param_collection)
-	    }
+		; prepare data
+		l_paramAmmount := param_iteratee.MaxParams
+		if (l_paramAmmount == 3) {
+			collectionClone := this.cloneDeep(param_collection)
+		}
 
-	    ; run against every value in the collection
-	    for Key, Value in param_collection {
-	        if (!BoundFunc) { ; is property/string
-	            ;nothing currently
-	        }
-	        if (l_paramAmmount == 3) {
-	            if (!BoundFunc.call(Value, Key, collectionClone)) {
-	                vIteratee := param_iteratee.call(Value, Key, collectionClone)
-	            }
-	        }
-	        if (l_paramAmmount == 2) {
-	            if (!BoundFunc.call(Value, Key)) {
-	                vIteratee := param_iteratee.call(Value, Key)
-	            }
-	        }
-	        if (l_paramAmmount == 1) {
-	            if (!BoundFunc.call(Value)) {
-	                vIteratee := param_iteratee.call(Value)
-	            }
-	        }
-	        ; exit iteration early by explicitly returning false
-	        if (vIteratee == false) {
-	            return param_collection
-	        }
-	    }
-	    return param_collection
+		; run against every value in the collection
+		for Key, Value in param_collection {
+			if (!BoundFunc) { ; is property/string
+				;nothing currently
+			}
+			if (l_paramAmmount == 3) {
+				if (!BoundFunc.call(Value, Key, collectionClone)) {
+					vIteratee := param_iteratee.call(Value, Key, collectionClone)
+				}
+			}
+			if (l_paramAmmount == 2) {
+				if (!BoundFunc.call(Value, Key)) {
+					vIteratee := param_iteratee.call(Value, Key)
+				}
+			}
+			if (l_paramAmmount == 1) {
+				if (!BoundFunc.call(Value)) {
+					vIteratee := param_iteratee.call(Value)
+				}
+			}
+			; exit iteration early by explicitly returning false
+			if (vIteratee == false) {
+				return param_collection
+			}
+		}
+		return param_collection
 	}
 	includes(param_collection,param_value,param_fromIndex:=1) {
 		if (IsObject(param_collection)) {
@@ -1588,7 +1588,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; create
 		if (IsObject(param_paths)) {
 			for Key, Value in param_paths {
-	            l_obj.Delete(Value)
+				l_obj.Delete(Value)
 			}
 		} else {
 			l_obj.Delete(param_paths)
@@ -1714,13 +1714,13 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		return StrReplace(Format("{:0" param_number "}", 0), "0", param_string)
 	}
 	replace(param_string:="",param_needle:="",param_replacement:="") {
-	    l_string := param_string
-	    ; RegEx
-	    if (l_needle := this.internal_JSRegEx(param_needle)) {
-	        return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
-	    }
-	    output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
-	    return output
+		l_string := param_string
+		; RegEx
+		if (l_needle := this.internal_JSRegEx(param_needle)) {
+			return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
+		}
+		output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
+		return output
 	}
 	snakeCase(param_string:="") {
 		if (IsObject(param_string)) {
@@ -1733,29 +1733,29 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		return l_string
 	}
 	split(param_string:="",param_separator:=",",param_limit:=0) {
-	    if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
-	        this.internal_ThrowException()
-	    }
+		if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
+			this.internal_ThrowException()
+		}
 
-	    ; prepare inputs if regex detected
-	    if (this.internal_JSRegEx(param_separator)) {
-	        param_string := this.replace(param_string, param_separator, ",")
-	        param_separator := ","
-	    }
+		; prepare inputs if regex detected
+		if (this.internal_JSRegEx(param_separator)) {
+			param_string := this.replace(param_string, param_separator, ",")
+			param_separator := ","
+		}
 
-	    ; create the return
-	    oSplitArray := StrSplit(param_string, param_separator)
-	    if (!param_limit) {
-	        return oSplitArray
-	    } else {
-	        oReducedArray := []
-	        loop, % param_limit {
-	            if (A_Index <= oSplitArray.Count()) {
-	                oReducedArray.push(oSplitArray[A_Index])
-	            }
-	        }
-	    }
-	    return oReducedArray
+		; create the return
+		oSplitArray := StrSplit(param_string, param_separator)
+		if (!param_limit) {
+			return oSplitArray
+		} else {
+			oReducedArray := []
+			loop, % param_limit {
+				if (A_Index <= oSplitArray.Count()) {
+					oReducedArray.push(oSplitArray[A_Index])
+				}
+			}
+		}
+		return oReducedArray
 	}
 	startCase(param_string:="") {
 		if (IsObject(param_string)) {

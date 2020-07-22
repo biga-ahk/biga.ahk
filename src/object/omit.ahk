@@ -9,7 +9,7 @@ omit(param_object,param_paths) {
 	; create
 	if (IsObject(param_paths)) {
 		for Key, Value in param_paths {
-            l_obj.Delete(Value)
+			l_obj.Delete(Value)
 		}
 	} else {
 		l_obj.Delete(param_paths)
