@@ -7,7 +7,7 @@ Checks if predicate returns truthy for all elements of collection. Iteration is 
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[predicate=_.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns

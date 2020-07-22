@@ -132,19 +132,24 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			boundFunc := param_predicate.Bind()
 		}
 
-		; create
-		l_array := this.cloneDeep(param_array)
+		; validate
 		; return empty array if empty
-		if (l_array.Count() == 0) {
+		if (param_array.Count() == 0) {
 			return []
 		}
-		while (true) {
-			msgbox, % "Key: " 1 " was " boundFunc.call(l_array[1], 1, param_array)
-			if (boundFunc.call(l_array[1], 1, param_array)) {
-				l_array.RemoveAt(1)
+
+		; create
+		l_array := this.cloneDeep(param_array)
+		l_droppableElements := 0
+		for Key, Value in l_array {
+			if (boundFunc.call(Value, Key, l_array)) {
+				l_droppableElements++
 			} else {
 				break
 			}
+		}
+		if (l_droppableElements >= 1) {
+			l_array.RemoveAt(1, l_droppableElements)
 		}
 		return l_array
 	}
@@ -369,14 +374,14 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this.internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_array := this.clone(param_array)
-		loop, % l_array.Count() {
-			if (A_Index == 1) {
-				l_string := "" l_array[A_Index]
+		for l_key, l_value in l_array {
+			if (l_key == 1) {
+				l_string := "" l_value
 				continue
 			}
-			l_string := l_string param_sepatator l_array[A_Index]
+			l_string := l_string param_sepatator l_value
 		}
 		return l_string
 	}

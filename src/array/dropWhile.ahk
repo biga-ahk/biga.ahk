@@ -10,19 +10,24 @@ dropWhile(param_array,param_predicate:="__identity") {
 		boundFunc := param_predicate.Bind()
 	}
 
-	; create
-	l_array := this.cloneDeep(param_array)
+	; validate
 	; return empty array if empty
-	if (l_array.Count() == 0) {
+	if (param_array.Count() == 0) {
 		return []
 	}
-	while (true) {
-		msgbox, % "Key: " 1 " was " boundFunc.call(l_array[1], 1, param_array)
-		if (boundFunc.call(l_array[1], 1, param_array)) {
-			l_array.RemoveAt(1)
+
+	; create
+	l_array := this.cloneDeep(param_array)
+	l_droppableElements := 0
+	for Key, Value in l_array {
+		if (boundFunc.call(Value, Key, l_array)) {
+			l_droppableElements++
 		} else {
 			break
 		}
+	}
+	if (l_droppableElements >= 1) {
+		l_array.RemoveAt(1, l_droppableElements)
 	}
 	return l_array
 }

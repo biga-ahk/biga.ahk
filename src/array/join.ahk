@@ -3,14 +3,14 @@ join(param_array,param_sepatator:=",") {
 		this.internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	l_array := this.clone(param_array)
-	loop, % l_array.Count() {
-		if (A_Index == 1) {
-			l_string := "" l_array[A_Index]
+	for l_key, l_value in l_array {
+		if (l_key == 1) {
+			l_string := "" l_value
 			continue
 		}
-		l_string := l_string param_sepatator l_array[A_Index]
+		l_string := l_string param_sepatator l_value
 	}
 	return l_string
 }
