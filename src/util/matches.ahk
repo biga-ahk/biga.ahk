@@ -1,6 +1,6 @@
 matches(param_source) {
 	if (!IsObject(param_source)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	BoundFunc := ObjBindMethod(this, "internal_matches", param_source)

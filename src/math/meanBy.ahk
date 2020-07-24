@@ -1,15 +1,15 @@
 meanBy(param_array,param_iteratee:="__identity") {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; data setup
 	if (!IsFunc(param_iteratee)) {
 		BoundFunc := param_iteratee.Bind(this)
 	}
-	shorthand := this.internal_differenciateShorthand(param_iteratee, param_array)
+	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 	if (shorthand != false) {
-		boundFunc := this.internal_createShorthandfn(param_iteratee, param_array)
+		boundFunc := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
 
 	; prepare data

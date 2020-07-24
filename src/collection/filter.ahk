@@ -1,12 +1,12 @@
 filter(param_collection,param_predicate) {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; data setup
-	shorthand := this.internal_differenciateShorthand(param_predicate, param_collection)
+	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this.internal_createShorthandfn(param_predicate, param_collection)
+		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_array := []
 

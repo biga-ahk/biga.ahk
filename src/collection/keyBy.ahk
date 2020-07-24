@@ -1,6 +1,6 @@
 keyBy(param_collection,param_iteratee:="__identity") {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	; check what kind of param_iteratee being worked with
 	if (!IsFunc(param_iteratee)) {

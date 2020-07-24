@@ -1,6 +1,6 @@
 flattenDeep(param_array) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; data setup

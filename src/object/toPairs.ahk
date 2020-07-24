@@ -1,6 +1,6 @@
 toPairs(param_object) {
 	if (!IsObject(param_object)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	l_array := []

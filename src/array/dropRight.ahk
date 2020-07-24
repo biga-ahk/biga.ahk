@@ -1,7 +1,7 @@
 dropRight(param_array,param_n:=1) {
 	if param_n is not number 
 	{
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare data

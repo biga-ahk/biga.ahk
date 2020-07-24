@@ -1,6 +1,6 @@
 parseInt(param_string:="0") {
 	if (IsObject(param_string)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	l_int := this.trimStart(param_string, " 0_")

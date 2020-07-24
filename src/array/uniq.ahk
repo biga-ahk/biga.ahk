@@ -1,6 +1,6 @@
 uniq(param_collection) {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare data
@@ -9,7 +9,7 @@ uniq(param_collection) {
 	
 	; create the slice
 	for Key, Value in param_collection {
-		printedelement := this.internal_MD5(this.printObj(param_collection[Key]))
+		printedelement := this._internal_MD5(this._printObj(param_collection[Key]))
 		if (this.indexOf(tempArray, printedelement) == -1) {
 			tempArray.push(printedelement)
 			l_array[Key] := Value

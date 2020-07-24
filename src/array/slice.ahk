@@ -1,11 +1,11 @@
 slice(param_array,param_start:=1,param_end:=0) {
 	if param_start is not number
 	{
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	if param_end is not number
 	{
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; defaults

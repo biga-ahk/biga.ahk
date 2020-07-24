@@ -6,7 +6,7 @@ intersectionBy(param_params*) {
 	boundFunc := ""
 	for Key, Value in param_params {
 		if (IsObject(Value)) {
-			; msgbox, % this.printObj(Value) " / " Value.call(1)
+			; msgbox, % this._printObj(Value) " / " Value.call(1)
 			oParams.push(this.cloneDeep(Value))
 		}
 		; check last item as possible function or shorthand
@@ -15,7 +15,7 @@ intersectionBy(param_params*) {
 				msgbox, % "this was callable and returned" Value.call(1)
 				boundFunc := Value.bind()
 			}
-			shorthand := this.internal_differenciateShorthand(Value, oParams)
+			shorthand := this._internal_differenciateShorthand(Value, oParams)
 			msgbox, % "last item in array " shorthand
 		}
 	}

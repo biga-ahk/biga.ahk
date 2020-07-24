@@ -1,6 +1,6 @@
 repeat(param_string,param_number:=1) {
 	if (IsObject(param_string)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	
 	if (param_number == 0) {

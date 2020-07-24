@@ -1,6 +1,6 @@
 endsWith(param_string,param_needle,param_fromIndex:="") {
 	if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare defaults

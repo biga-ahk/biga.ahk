@@ -1,6 +1,6 @@
 divide(param_dividend,param_divisor) {
 	if (IsObject(param_dividend) || IsObject(param_divisor)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; create the return

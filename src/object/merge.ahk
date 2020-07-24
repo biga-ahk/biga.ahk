@@ -1,6 +1,6 @@
 merge(param_collections*) {
 	if (!IsObject(param_collections)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	result := param_collections[1]

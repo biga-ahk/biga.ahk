@@ -1,6 +1,6 @@
 random(param_lower:=0,param_upper:=1,param_floating:=false) {
 	if (IsObject(param_lower) || IsObject(param_upper) || IsObject(param_floating)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare data

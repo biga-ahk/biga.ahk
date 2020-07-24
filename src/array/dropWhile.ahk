@@ -1,10 +1,10 @@
 dropWhile(param_array,param_predicate:="__identity") {
 
 	; data setup
-	shorthand := this.internal_differenciateShorthand(param_predicate, param_array)
+	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 	; msgbox, % shorthand
 	if (shorthand != false) {
-		boundFunc := this.internal_createShorthandfn(param_predicate, param_array)
+		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 	}
 	if (IsFunc(param_predicate)) {
 		boundFunc := param_predicate.Bind()

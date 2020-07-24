@@ -119,7 +119,7 @@ loop, % The_Array.Count() {
 	vMethodNames_Array.push(element.name)
 }
 ; clipboard := A.join(vMethodNames_Array, "|")
-; msgbox, % A.printObj(A.difference(methods_arr, vMethodNames_Array))
+; msgbox, % A._printObj(A.difference(methods_arr, vMethodNames_Array))
 
 
 ; ===============

@@ -1,6 +1,6 @@
 sum(param_array) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	vSum := 0

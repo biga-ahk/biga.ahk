@@ -1,11 +1,11 @@
 words(param_string,param_pattern:="/[^\W]+/") {
 	if (IsObject(param_string) || IsObject(param_pattern)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	l_string := param_string
 	l_array := []
-	if (l_needle := this.internal_JSRegEx(param_pattern)) {
+	if (l_needle := this._internal_JSRegEx(param_pattern)) {
 		param_pattern := l_needle
 	}
 	l_needle := "O)" param_pattern

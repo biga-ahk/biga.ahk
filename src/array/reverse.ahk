@@ -1,6 +1,6 @@
 reverse(param_collection) {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	l_array := []
 	while (param_collection.Count() != 0) {

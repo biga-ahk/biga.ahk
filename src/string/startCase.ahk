@@ -1,6 +1,6 @@
 startCase(param_string:="") {
 	if (IsObject(param_string)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	l_string := this.replace(param_string, "/(\W)/", " ")

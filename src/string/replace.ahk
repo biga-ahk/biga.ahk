@@ -1,7 +1,7 @@
 replace(param_string:="",param_needle:="",param_replacement:="") {
 	l_string := param_string
 	; RegEx
-	if (l_needle := this.internal_JSRegEx(param_needle)) {
+	if (l_needle := this._internal_JSRegEx(param_needle)) {
 		return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
 	}
 	output := StrReplace(l_string, param_needle, param_replacement, , this.limit)

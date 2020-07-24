@@ -1,6 +1,6 @@
 clamp(param_number,param_lower,param_upper) {
 	if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; check the lower bound

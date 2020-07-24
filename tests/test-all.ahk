@@ -231,8 +231,9 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 
 ; omit
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
-; assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
+assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
 assert.test(A.intersection(["hello", "hello"], []))
+assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
 
 
 assert.label("join()")
@@ -683,7 +684,7 @@ assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":
 
 
 assert.label("internal()")
-assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
+assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.test(A.isAlnum(1),true)
 assert.test(A.isAlnum("hello"),true)
 ; assert.test(A.isAlnum([]),false)

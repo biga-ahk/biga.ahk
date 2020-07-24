@@ -1,6 +1,6 @@
 join(param_array,param_sepatator:=",") {
 	if (!IsObject(param_array) || IsObject(param_sepatator)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; create

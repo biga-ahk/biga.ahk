@@ -1,6 +1,6 @@
 chunk(param_array,param_size:=1) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	l_array := []
 	param_array := this.clone(param_array)

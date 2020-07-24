@@ -1,6 +1,6 @@
 fill(param_array,param_value:="",param_start:=1,param_end:=-1) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare data

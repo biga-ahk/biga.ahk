@@ -1,6 +1,6 @@
 ﻿difference(param_array,param_values*) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	l_array := this.clone(param_array)
 

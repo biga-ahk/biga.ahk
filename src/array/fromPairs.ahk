@@ -1,6 +1,6 @@
 fromPairs(param_pairs) {
 	if (!IsObject(param_pairs)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	l_obj := {}

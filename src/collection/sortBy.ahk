@@ -1,6 +1,6 @@
 sortBy(param_collection,param_iteratees:="") {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	l_array := this.cloneDeep(param_collection)
 

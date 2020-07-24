@@ -1,6 +1,6 @@
 floor(param_number,param_precision:=0) {
 	if (IsObject(param_number) || IsObject(param_precision)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	if (param_precision == 0) { ; regular floor

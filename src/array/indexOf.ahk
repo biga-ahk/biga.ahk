@@ -1,6 +1,6 @@
 indexOf(param_array,param_value,fromIndex:=1) {
 	 if (!IsObject(param_array)) {
-		  this.internal_ThrowException()
+		  this._internal_ThrowException()
 	 }
 	 
 	 for Index, Value in param_array {

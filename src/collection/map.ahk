@@ -1,12 +1,12 @@
 map(param_collection,param_iteratee:="__identity") {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	
 	l_array := []
 
 	; data setup
-	shorthand := this.internal_differenciateShorthand(param_iteratee, param_collection)
+	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
 		param_iteratee := this.property(param_iteratee)
 	}

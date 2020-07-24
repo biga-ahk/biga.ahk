@@ -1,6 +1,6 @@
 ﻿defaults(param_object,param_sources*) {
 	if (!IsObject(param_object)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; data setup

@@ -1,6 +1,6 @@
 shuffle(param_collection) {
 	if (!IsObject(param_collection)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare data

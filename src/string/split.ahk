@@ -1,10 +1,10 @@
 split(param_string:="",param_separator:=",",param_limit:=0) {
 	if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare inputs if regex detected
-	if (this.internal_JSRegEx(param_separator)) {
+	if (this._internal_JSRegEx(param_separator)) {
 		param_string := this.replace(param_string, param_separator, ",")
 		param_separator := ","
 	}

@@ -1,6 +1,6 @@
 subtract(param_minuend,param_subtrahend) {
 	if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; create the return

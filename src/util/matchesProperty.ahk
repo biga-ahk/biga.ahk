@@ -1,6 +1,6 @@
 matchesProperty(param_path,param_srcValue) {
 	if (IsObject(param_srcValue)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; create the property fn
@@ -12,7 +12,7 @@ matchesProperty(param_path,param_srcValue) {
 
 internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 	itareeValue := param_property.call(param_itaree)
-	; msgbox, % "comparing " this.printObj(param_matchvalue) " to " this.printObj(itareeValue) " from(" this.printObj(param_itaree) ")"
+	; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareeValue) " from(" this._printObj(param_itaree) ")"
 	if (!this.isUndefined(itareeValue)) {
 		if (itareeValue = param_matchvalue) {
 			return true

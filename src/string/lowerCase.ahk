@@ -1,6 +1,6 @@
 lowerCase(param_string:="") {
 	if (IsObject(param_string)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; create the return

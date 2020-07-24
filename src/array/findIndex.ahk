@@ -1,19 +1,19 @@
 findIndex(param_array,param_value,fromIndex:=1) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	
 	; data setup
-	shorthand := this.internal_differenciateShorthand(param_value, param_array)
+	shorthand := this._internal_differenciateShorthand(param_value, param_array)
 	if (shorthand != false) {
-		BoundFunc := this.internal_createShorthandfn(param_value, param_array)
+		BoundFunc := this._internal_createShorthandfn(param_value, param_array)
 	}
 	if (IsFunc(param_value)) {
 		BoundFunc := param_value
 	}
 	if (IsObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
 		vSearchingobjects := true
-		param_value := this.printObj(param_value)
+		param_value := this._printObj(param_value)
 	}
 
 	; create the return
@@ -28,7 +28,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 			}
 		}
 		if (vSearchingobjects) {
-			Value := this.printObj(param_array[Index])
+			Value := this._printObj(param_array[Index])
 		}
 		if (IsFunc(BoundFunc)) {
 			if (BoundFunc.call(param_array[Index]) == true) {

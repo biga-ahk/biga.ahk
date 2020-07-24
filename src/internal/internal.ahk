@@ -2,12 +2,12 @@
 ; Internal functions
 ; \--/--\--/--\--/--\--/--\--/
 
-printObj(param_obj) {
+_printObj(param_obj) {
 	if (!IsObject(param_obj)) {
 		return """" param_obj """"
 	}
-	if this.internal_IsCircle(param_obj) {
-		this.internal_ThrowException()
+	if this._internal_IsCircle(param_obj) {
+		this._internal_ThrowException()
 	}
 
 	for Key, Value in param_obj {
@@ -18,7 +18,7 @@ printObj(param_obj) {
 			Output .= Key . ":"
 		}
 		if (IsObject(Value)) {
-			Output .= "[" . this.printObj(Value) . "]"
+			Output .= "[" . this._printObj(Value) . "]"
 		} else if Value is not number
 		{
 			Output .= """" . Value . """"
@@ -35,15 +35,15 @@ print(param_obj) {
 	if (!IsObject(param_obj)) {
 		return """" param_obj """"
 	}
-	if this.internal_IsCircle(param_obj) {
-		this.internal_ThrowException()
+	if this._internal_IsCircle(param_obj) {
+		this._internal_ThrowException()
 	}
 
-	return this.printObj(param_obj)
+	return this._printObj(param_obj)
 }
 
 
-internal_MD5(param_string, case := 0) {
+_internal_MD5(param_string, case := 0) {
 	static MD5_DIGEST_LENGTH := 16
 	hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
 	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "Ptr", &MD5_CTX)
@@ -56,7 +56,7 @@ internal_MD5(param_string, case := 0) {
 }
 
 
-internal_JSRegEx(param_string) {
+_internal_JSRegEx(param_string) {
 	if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
 		return SubStr(param_string, 2, StrLen(param_string) - 2)
 	}
@@ -64,7 +64,7 @@ internal_JSRegEx(param_string) {
 }
 
 
-internal_differenciateShorthand(param_shorthand,param_objects:="") {
+_internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	if (IsObject(param_shorthand)) {
 		for Key, in param_shorthand {
 			if (this.isNumber(Key)) {
@@ -86,8 +86,8 @@ internal_differenciateShorthand(param_shorthand,param_objects:="") {
 }
 
 
-internal_createShorthandfn(param_shorthand,param_objects) {
-	shorthand := this.internal_differenciateShorthand(param_shorthand, param_objects)
+_internal_createShorthandfn(param_shorthand,param_objects) {
+	shorthand := this._internal_differenciateShorthand(param_shorthand, param_objects)
 	if (shorthand == ".matches") {
 		return this.matches(param_shorthand)
 	}
@@ -100,7 +100,7 @@ internal_createShorthandfn(param_shorthand,param_objects) {
 }
 
 
-internal_ThrowException() {
+_internal_ThrowException() {
 	if (this.throwExceptions == true) {
 		throw Exception("Type Error", -2)
 	}
@@ -134,7 +134,7 @@ isFalsey(param) {
 
 
 ; tests
-assert.test(A.internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
+assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.test(A.isAlnum(1),true)
 assert.test(A.isAlnum("hello"),true)
 ; assert.test(A.isAlnum([]),false)

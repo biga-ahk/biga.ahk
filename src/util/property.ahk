@@ -1,6 +1,6 @@
 property(param_source) {
 	if (IsObject(param_srcValue)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	
 	; prepare data

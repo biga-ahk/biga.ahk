@@ -1,6 +1,6 @@
 intersection(param_arrays*) {
 	if (!IsObject(param_arrays[1])) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare

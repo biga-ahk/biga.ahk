@@ -1,6 +1,6 @@
 zip(param_arrays*) {
 	if (!IsObject(param_arrays)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	l_array := []
 	

@@ -1,6 +1,6 @@
 omit(param_object,param_paths) {
 	if (!IsObject(param_object)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; data setup

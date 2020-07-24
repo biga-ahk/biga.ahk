@@ -1,6 +1,6 @@
 truncate(param_string,param_options:="") {
 	if (IsObject(param_string)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 
 	; prepare default options object
@@ -31,8 +31,8 @@ truncate(param_string,param_options:="") {
 	}
 
 	; separator
-	if (this.internal_JSRegEx(param_options.separator)) {
-		param_options.separator := this.internal_JSRegEx(param_options.separator)
+	if (this._internal_JSRegEx(param_options.separator)) {
+		param_options.separator := this._internal_JSRegEx(param_options.separator)
 	}
 	if (param_options.separator) {
 		return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission

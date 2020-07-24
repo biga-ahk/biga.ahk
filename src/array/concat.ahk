@@ -1,6 +1,6 @@
 concat(param_array,param_values*) {
 	if (!IsObject(param_array)) {
-		this.internal_ThrowException()
+		this._internal_ThrowException()
 	}
 	
 	; data preparation
