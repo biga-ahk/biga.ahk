@@ -1,10 +1,4 @@
-class biga {
-
-	; class attributes
-	static throwExceptions := true
-	static limit := -1
-
-	chunk(param_array,param_size:=1) {
+class biga {	; class attributes	static throwExceptions := true	static limit := -1	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -351,12 +345,15 @@ class biga {
 		return l_array
 	}
 	intersection(param_arrays*) {
-		if (!IsObject(param_arrays[1])) {
-			this._internal_ThrowException()
+		for Key, Value in param_arrays {
+			if (!IsObject(Value)) {
+				this._internal_ThrowException()
+			}
 		}
 
 		; prepare
 		tempArray := A.cloneDeep(param_arrays[1])
+		param_arrays.RemoveAt(1) ;no need to check 1st array against itself, this does not mutate the input args
 		l_array := []
 
 		; create
@@ -2027,8 +2024,4 @@ class biga {
 		}
 		return  param_itaree[param_property]
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}

@@ -1,10 +1,13 @@
 intersection(param_arrays*) {
-	if (!IsObject(param_arrays[1])) {
-		this._internal_ThrowException()
+	for Key, Value in param_arrays {
+		if (!IsObject(Value)) {
+			this._internal_ThrowException()
+		}
 	}
 
 	; prepare
 	tempArray := A.cloneDeep(param_arrays[1])
+	param_arrays.RemoveAt(1) ;no need to check 1st array against itself, this does not mutate the input args
 	l_array := []
 
 	; create
@@ -33,5 +36,7 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 ; omit
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
 assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
-assert.test(A.intersection(["hello", "hello"], []))
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+intersectionVar := [1,2,3]
+assert.test(A.intersection(intersectionVar, [1]), [1])
+assert.test(intersectionVar, [1,2,3])

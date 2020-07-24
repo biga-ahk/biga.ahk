@@ -232,8 +232,10 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 ; omit
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
 assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
-assert.test(A.intersection(["hello", "hello"], []))
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+intersectionVar := [1,2,3]
+assert.test(A.intersection(intersectionVar, [1]), [1])
+assert.test(intersectionVar, [1,2,3])
 
 
 assert.label("join()")
