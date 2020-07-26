@@ -9,7 +9,7 @@ split(param_string:="",param_separator:=",",param_limit:=0) {
 		param_separator := ","
 	}
 
-	; create the return
+	; create
 	oSplitArray := StrSplit(param_string, param_separator)
 	if (!param_limit) {
 		return oSplitArray

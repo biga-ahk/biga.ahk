@@ -10,7 +10,7 @@ filter(param_collection,param_predicate) {
 	}
 	l_array := []
 
-	; create the slice
+	; create
 	for Key, Value in param_collection {
 		; functor
 		if (IsFunc(param_predicate)) {

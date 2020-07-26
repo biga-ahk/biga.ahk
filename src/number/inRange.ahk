@@ -4,7 +4,7 @@ inRange(param_number,param_lower,param_upper) {
 	}
 
 
-	; prepare data
+	; prepare
 	if (param_lower > param_upper) {
 		x := param_lower
 		param_lower := param_upper

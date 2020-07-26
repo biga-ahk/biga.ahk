@@ -3,7 +3,7 @@ unescape(param_string:="") {
 		this._internal_ThrowException()
 	}
 
-	; prepare data
+	; prepare
 	HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
 	for Key, Value in HTMLmap {

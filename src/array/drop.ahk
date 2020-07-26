@@ -11,7 +11,7 @@ drop(param_array,param_n:=1) {
 		l_array := StrSplit(param_array)
 	}
 
-	; create the slice
+	; create
 	loop, % param_n
 	{
 		l_array.RemoveAt(1)

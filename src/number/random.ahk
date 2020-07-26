@@ -3,7 +3,7 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 		this._internal_ThrowException()
 	}
 
-	; prepare data
+	; prepare
 	if (param_lower > param_upper) {
 		x := param_lower
 		param_lower := param_upper
@@ -14,7 +14,7 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 		param_upper += 0.0
 	}
 	
-	; create the return
+	; create
 	Random, vRandom, param_lower, param_upper
 	return vRandom
 }

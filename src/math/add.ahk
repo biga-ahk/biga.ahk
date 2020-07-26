@@ -3,7 +3,7 @@ add(param_augend,param_addend) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	param_augend += param_addend
 	return param_augend
 }

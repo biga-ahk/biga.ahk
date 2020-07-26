@@ -3,7 +3,7 @@ snakeCase(param_string:="") {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	l_string := this.startCase(param_string)
 	l_string := StrReplace(l_string, " ", "_")
 	return l_string

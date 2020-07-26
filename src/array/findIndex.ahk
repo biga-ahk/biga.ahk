@@ -16,7 +16,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 		param_value := this._printObj(param_value)
 	}
 
-	; create the return
+	; create
 	for Index, Value in param_array {
 		if (Index < fromIndex) {
 			continue

@@ -3,7 +3,7 @@ sample(param_collection) {
 		this._internal_ThrowException()
 	}
 	
-	; prepare data
+	; prepare
 	l_array := []
 	for Key, Value in param_collection {
 		l_array.push(Value)

@@ -3,7 +3,7 @@ round(param_number,param_precision:=0) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	return round(param_number, param_precision)
 }
 

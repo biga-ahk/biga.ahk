@@ -12,7 +12,7 @@ take(param_array,param_n:=1) {
 	}
 	l_array := []
 
-	; create the slice
+	; create
 	loop, % param_n
 	{
 		;continue if requested index is higher than param_array can account for

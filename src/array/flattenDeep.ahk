@@ -6,7 +6,7 @@ flattenDeep(param_array) {
 	; data setup
 	l_depth := this.depthOf(param_array)
 
-	; create the return
+	; create
 	return this.flattenDepth(param_array, l_depth)
 	; l_obj := this.cloneDeep(param_array)
 	; while (this.depthOf(l_obj) != 1) {

@@ -3,7 +3,7 @@ multiply(param_multiplier,param_multiplicand) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	vValue := param_multiplier * param_multiplicand
 	return vValue
 }

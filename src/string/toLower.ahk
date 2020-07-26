@@ -3,7 +3,7 @@ toLower(param_string) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	StringLower, OutputVar, param_string
 	return  OutputVar
 }

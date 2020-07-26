@@ -6,7 +6,7 @@ concat(param_array,param_values*) {
 	; data preparation
 	l_array := this.clone(param_array)
 
-	; create the return
+	; create
 	for index, object in param_values {
 		; push on any plain values
 		if (!IsObject(object)) {

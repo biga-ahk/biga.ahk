@@ -8,7 +8,7 @@ sampleSize(param_collection,param_SampleSize:=1) {
 		return param_collection
 	}
 
-	; prepare data
+	; prepare
 	l_collection := this.clone(param_collection)
 	l_array := []
 	tempArray := []

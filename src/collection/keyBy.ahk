@@ -7,7 +7,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 		BoundFunc := param_iteratee.Bind(this)
 	}
 
-	; prepare data
+	; prepare
 	l_paramAmmount := param_iteratee.MaxParams
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)

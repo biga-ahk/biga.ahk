@@ -74,10 +74,35 @@ assert.test(A.dropRight(100), ["1", "0"])
 assert.test(A.dropRight([]), [])
 
 
+assert.label("dropRightWhile()")
+users := [ {"user": "barney", 	"active": true }
+		, { "user": "fred", 	"active": false }
+		, { "user": "pebbles", 	"active": false } ]
+assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
+fn_dropRightWhile(o)
+{
+	return !o.active
+}
+
+; The `A.matches` iteratee shorthand.
+assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ])
+
+; The `A.matchesProperty` iteratee shorthand.
+assert.test(A.dropRightWhile(users, ["active", false]), [  {"user": "barney", "active": true } ])
+
+; The `A.property` iteratee shorthand.
+assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ])
+
+; omit
+assert.test(A.dropRightWhile([]), [])
+; check that input has not been mutated
+assert.test(users[3], { "user": "pebbles", 	"active": false })
+
+
 assert.label("dropWhile()")
-users := [ {"user": "barney", "active": false }
-		, { "user": "fred", "active": false }
-		, { "user": "pebbles", "active": true } ]
+users := [ {"user": "barney", 	"active": false }
+		, { "user": "fred", 	"active": false }
+		, { "user": "pebbles", 	"active": true } ]
 assert.test(A.dropWhile(users, Func("fn_dropWhile")), [{ "user": "pebbles", "active": true }])
 fn_dropWhile(o)
 {
@@ -274,6 +299,12 @@ assert.label("reverse()")
 assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
 assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
 assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
+
+; omit
+; ensure no mutation
+reverseVar := [1,2,3]
+assert.test(A.reverse(reverseVar), [3, 2, 1])
+assert.test(reverseVar[3], 3)
 
 
 assert.label("slice()")

@@ -1,8 +1,15 @@
 dropWhile(param_array,param_predicate:="__identity") {
+	if (!IsObject(param_array)) {
+		this._internal_ThrowException()
+	}
+	; validate
+	; return empty array if empty
+	if (param_array.Count() == 0) {
+		return []
+	}
 
-	; data setup
+	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
-	; msgbox, % shorthand
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 	}
@@ -10,17 +17,11 @@ dropWhile(param_array,param_predicate:="__identity") {
 		boundFunc := param_predicate.Bind()
 	}
 
-	; validate
-	; return empty array if empty
-	if (param_array.Count() == 0) {
-		return []
-	}
-
 	; create
 	l_array := this.cloneDeep(param_array)
 	l_droppableElements := 0
 	for Key, Value in l_array {
-		if (boundFunc.call(Value, Key, l_array)) {
+		if (!this.isFalsey(boundFunc.call(Value, Key, l_array))) {
 			l_droppableElements++
 		} else {
 			break
@@ -34,9 +35,9 @@ dropWhile(param_array,param_predicate:="__identity") {
 
 
 ; tests
-users := [ {"user": "barney", "active": false }
-		, { "user": "fred", "active": false }
-		, { "user": "pebbles", "active": true } ]
+users := [ {"user": "barney", 	"active": false }
+		, { "user": "fred", 	"active": false }
+		, { "user": "pebbles", 	"active": true } ]
 assert.test(A.dropWhile(users, Func("fn_dropWhile")), [{ "user": "pebbles", "active": true }])
 fn_dropWhile(o)
 {

@@ -6,7 +6,7 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
-	; create the slice
+	; create
 	l_count := 0
 	if (param_collection is alnum) {
 		; cut fromindex length off from start of string if specified fromIndex > 1 

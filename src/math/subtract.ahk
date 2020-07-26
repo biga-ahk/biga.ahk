@@ -3,7 +3,7 @@ subtract(param_minuend,param_subtrahend) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	param_minuend -= param_subtrahend
 	return param_minuend
 }

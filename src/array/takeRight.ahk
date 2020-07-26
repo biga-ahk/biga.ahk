@@ -12,7 +12,7 @@ takeRight(param_array,param_n:=1) {
 	}
 	l_array := []
 
-	; create the slice
+	; create
 	loop, % param_n
 	{
 		if (param_array.Count() == 0) {

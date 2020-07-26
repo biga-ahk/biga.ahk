@@ -12,7 +12,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 		boundFunc := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
 
-	; prepare data
+	; prepare
 	if (l_paramAmmount == 3) {
 		arrayClone := this.cloneDeep(param_array)
 	}

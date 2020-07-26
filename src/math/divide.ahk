@@ -3,7 +3,7 @@ divide(param_dividend,param_divisor) {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	vValue := param_dividend / param_divisor
 	return vValue
 }

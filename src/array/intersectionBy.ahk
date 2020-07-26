@@ -1,7 +1,7 @@
 ; ###incomplete###
 intersectionBy(param_params*) {
 	
-	; prepare data
+	; prepare
 	oParams := []
 	boundFunc := ""
 	for Key, Value in param_params {
@@ -16,27 +16,25 @@ intersectionBy(param_params*) {
 				boundFunc := Value.bind()
 			}
 			shorthand := this._internal_differenciateShorthand(Value, oParams)
-			msgbox, % "last item in array " shorthand
 		}
 	}
 
 	tempArray   := A.cloneDeep(param_arrays[1])
+	param_arrays.RemoveAt(1)
 	l_array := []
 	
-	; create the slice
+	; create
 	for Key, Value in tempArray { ;for each value in first array
 		for Key2, Value2 in oParams { ;for each array sent to the method
-			if (A_Index == 1) {
-				continue
-			}
 			; search entire array for value in first array
 			if (this.indexOf(Value2, Value) != -1) {
 				found := true
 			} else {
+				break
 				found := false
 			}
 		}
-		if (found) {
+		if (found && this.indexOf(l_array, Value) == -1) {
 			l_array.push(Value)
 		}
 	}

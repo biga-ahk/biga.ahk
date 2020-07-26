@@ -10,7 +10,7 @@ reject(param_collection,param_predicate) {
 	}
 	l_array := []
 
-	; create the slice
+	; create
 	for Key, Value in param_collection {
 		; functor
 		; predefined !functor handling (slower as it .calls blindly)

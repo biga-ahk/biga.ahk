@@ -18,7 +18,7 @@ slice(param_array,param_start:=1,param_end:=0) {
 
 	l_array := []
 
-	; create the slice
+	; create
 	for Key, Value in param_array {
 		if (A_Index >= param_start && A_Index <= param_end) {
 			l_array.push(Value)

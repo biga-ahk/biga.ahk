@@ -14,7 +14,7 @@ nth(param_array,param_n:=1) {
 		param_n := 1
 	}
 
-	; create the slice
+	; create
 	if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size
 		return ""
 	}

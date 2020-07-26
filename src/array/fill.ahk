@@ -3,13 +3,13 @@ fill(param_array,param_value:="",param_start:=1,param_end:=-1) {
 		this._internal_ThrowException()
 	}
 
-	; prepare data
+	; prepare
 	l_array := this.clone(param_array)
 	if (param_end == -1) {
 		param_end := this.size(param_array)
 	}
 
-	; create the array
+	; create
 	for Key, Value in l_array {
 		if (Key >= param_start && Key <= param_end) {
 			l_array[Key] := param_value

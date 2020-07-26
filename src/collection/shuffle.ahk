@@ -3,7 +3,7 @@ shuffle(param_collection) {
 		this._internal_ThrowException()
 	}
 
-	; prepare data
+	; prepare
 	l_array := this.clone(param_collection)
 	l_shuffledArray := []
 

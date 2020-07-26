@@ -6,7 +6,7 @@ startCase(param_string:="") {
 	l_string := this.replace(param_string, "/(\W)/", " ")
 	l_string := this.replace(l_string, "/([\_])/", " ")
 
-	; create the return
+	; create
 	; add space before each capitalized character
 	RegExMatch(l_string, "O)([A-Z])", RE_Match)
 	if (RE_Match.Count()) {

@@ -3,7 +3,7 @@ findLastIndex(param_array,param_value,fromIndex:=1) {
 		this._internal_ThrowException()
 	}
 	
-	; create the return
+	; create
 	l_array := this.reverse(this.cloneDeep(param_array))
 	l_count := this.size(l_array)
 	l_foundIndex := this.findIndex(l_array, param_value, fromIndex)

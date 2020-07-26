@@ -18,7 +18,7 @@ map(param_collection,param_iteratee:="__identity") {
 	}
 	l_array := []
 
-	; create the array
+	; create
 	for Key, Value in param_collection {
 		if (param_iteratee == "__identity") {
 			l_array.push(Value)

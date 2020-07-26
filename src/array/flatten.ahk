@@ -6,7 +6,7 @@ flatten(param_array) {
 	; data setup
 	l_obj := []
 	
-	; create the return
+	; create
 	for Index, Object in param_array {
 		if (IsObject(Object)) {
 			for Index2, Object2 in Object {

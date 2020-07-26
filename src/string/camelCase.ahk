@@ -3,7 +3,7 @@ camelCase(param_string:="") {
 		this._internal_ThrowException()
 	}
 
-	; create the return
+	; create
 	l_string := this.startCase(param_string)
 	l_startChar := this.head(l_string)
 	l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")

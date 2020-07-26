@@ -4,7 +4,7 @@ initial(param_array,param_n:=1) {
 		this._internal_ThrowException()
 	}
 
-	; prepare data
+	; prepare
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
@@ -12,7 +12,7 @@ initial(param_array,param_n:=1) {
 		l_array := StrSplit(param_array)
 	}
 
-	; create the slice
+	; create
 	loop, % param_n
 	{
 		l_array.RemoveAt(l_array.Count())

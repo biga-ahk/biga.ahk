@@ -6,7 +6,7 @@ pick(param_object,param_paths) {
 	; data setup
 	l_obj := {}
 	
-	; create the return
+	; create
 	if (IsObject(param_paths)) {
 		for Key, Value in param_paths {
 			vValue := this.internal_property(Value, param_object)
