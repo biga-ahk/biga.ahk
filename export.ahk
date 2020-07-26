@@ -1,4 +1,4 @@
-class biga {	; class attributes	static throwExceptions := true	static limit := -1	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -41,7 +41,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; data preparation
 		l_array := this.clone(param_array)
 
-		; create the return
+		; create
 		for index, object in param_values {
 			; push on any plain values
 			if (!IsObject(object)) {
@@ -84,7 +84,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			l_array := StrSplit(param_array)
 		}
 
-		; create the slice
+		; create
 		loop, % param_n
 		{
 			l_array.RemoveAt(1)
@@ -101,7 +101,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
@@ -120,11 +120,31 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		return l_array
 	}
-	dropWhile(param_array,param_predicate:="__identity") {
+	dropRightWhile(param_array,param_predicate:="__identity") {
+		if (!IsObject(param_array)) {
+			this._internal_ThrowException()
+		}
+		; validate
+		; return empty array if empty
+		if (param_array.Count() == 0) {
+			return []
+		}
 
-		; data setup
+		l_array := this.reverse(this.cloneDeep(param_array))
+		return this.reverse(this.dropWhile(l_array, param_predicate))
+	}
+	dropWhile(param_array,param_predicate:="__identity") {
+		if (!IsObject(param_array)) {
+			this._internal_ThrowException()
+		}
+		; validate
+		; return empty array if empty
+		if (param_array.Count() == 0) {
+			return []
+		}
+
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
-		; msgbox, % shorthand
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 		}
@@ -132,17 +152,11 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			boundFunc := param_predicate.Bind()
 		}
 
-		; validate
-		; return empty array if empty
-		if (param_array.Count() == 0) {
-			return []
-		}
-
 		; create
 		l_array := this.cloneDeep(param_array)
 		l_droppableElements := 0
 		for Key, Value in l_array {
-			if (boundFunc.call(Value, Key, l_array)) {
+			if (!this.isFalsey(boundFunc.call(Value, Key, l_array))) {
 				l_droppableElements++
 			} else {
 				break
@@ -158,13 +172,13 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		l_array := this.clone(param_array)
 		if (param_end == -1) {
 			param_end := this.size(param_array)
 		}
 
-		; create the array
+		; create
 		for Key, Value in l_array {
 			if (Key >= param_start && Key <= param_end) {
 				l_array[Key] := param_value
@@ -190,7 +204,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			param_value := this._printObj(param_value)
 		}
 
-		; create the return
+		; create
 		for Index, Value in param_array {
 			if (Index < fromIndex) {
 				continue
@@ -220,7 +234,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_array := this.reverse(this.cloneDeep(param_array))
 		l_count := this.size(l_array)
 		l_foundIndex := this.findIndex(l_array, param_value, fromIndex)
@@ -241,7 +255,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; data setup
 		l_obj := []
 
-		; create the return
+		; create
 		for Index, Object in param_array {
 			if (IsObject(Object)) {
 				for Index2, Object2 in Object {
@@ -261,7 +275,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; data setup
 		l_depth := this.depthOf(param_array)
 
-		; create the return
+		; create
 		return this.flattenDepth(param_array, l_depth)
 
 	}
@@ -283,7 +297,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; data setup
 		l_obj := this.cloneDeep(param_array)
 
-		; create the return
+		; create
 		loop, % param_depth {
 			l_obj := this.flatten(l_obj)
 		}
@@ -325,7 +339,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
@@ -333,7 +347,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			l_array := StrSplit(param_array)
 		}
 
-		; create the slice
+		; create
 		loop, % param_n
 		{
 			l_array.RemoveAt(l_array.Count())
@@ -421,7 +435,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			param_n := 1
 		}
 
-		; create the slice
+		; create
 		if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size
 			return ""
 		}
@@ -441,9 +455,14 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		if (!IsObject(param_collection)) {
 			this._internal_ThrowException()
 		}
+
+		; prepare
+		l_collection := this.cloneDeep(param_collection)
 		l_array := []
-		while (param_collection.Count() != 0) {
-			l_array.push(param_collection.pop())
+
+		; create
+		while (l_collection.Count() != 0) {
+			l_array.push(l_collection.pop())
 		}
 		return l_array
 	}
@@ -467,7 +486,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 
 		l_array := []
 
-		; create the slice
+		; create
 		for Key, Value in param_array {
 			if (A_Index >= param_start && A_Index <= param_end) {
 				l_array.push(Value)
@@ -504,7 +523,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		l_array := []
 
-		; create the slice
+		; create
 		loop, % param_n
 		{
 			;continue if requested index is higher than param_array can account for
@@ -533,7 +552,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		l_array := []
 
-		; create the slice
+		; create
 		loop, % param_n
 		{
 			if (param_array.Count() == 0) {
@@ -565,11 +584,11 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		tempArray := []
 		l_array := []
 
-		; create the slice
+		; create
 		for Key, Value in param_collection {
 			printedelement := this._internal_MD5(this._printObj(param_collection[Key]))
 			if (this.indexOf(tempArray, printedelement) == -1) {
@@ -640,7 +659,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
-		; create the slice
+		; create
 		l_count := 0
 		if (param_collection is alnum) {
 			; cut fromindex length off from start of string if specified fromIndex > 1 
@@ -710,7 +729,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		l_array := []
 
-		; create the slice
+		; create
 		for Key, Value in param_collection {
 			; functor
 			if (IsFunc(param_predicate)) {
@@ -781,7 +800,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			BoundFunc := param_iteratee.Bind(this)
 		}
 
-		; prepare data
+		; prepare
 		l_paramAmmount := param_iteratee.MaxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
@@ -852,7 +871,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			BoundFunc := param_iteratee.Bind(this)
 		}
 
-		; prepare data
+		; prepare
 		l_paramAmmount := param_iteratee.MaxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
@@ -903,7 +922,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		l_array := []
 
-		; create the array
+		; create
 		for Key, Value in param_collection {
 			if (param_iteratee == "__identity") {
 				l_array.push(Value)
@@ -961,7 +980,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 		l_array := []
 
-		; create the slice
+		; create
 		for Key, Value in param_collection {
 			; functor
 			; predefined !functor handling (slower as it .calls blindly)
@@ -992,7 +1011,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		l_array := []
 		for Key, Value in param_collection {
 			l_array.push(Value)
@@ -1012,7 +1031,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			return param_collection
 		}
 
-		; prepare data
+		; prepare
 		l_collection := this.clone(param_collection)
 		l_array := []
 		tempArray := []
@@ -1033,7 +1052,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		l_array := this.clone(param_collection)
 		l_shuffledArray := []
 
@@ -1048,7 +1067,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 	}
 	size(param_collection) {
 
-		; create the return
+		; create
 		if (param_collection.Count() > 0) {
 			return param_collection.Count()
 		}
@@ -1254,6 +1273,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		}
 	}
 	cloneDeep(param_array) {
+
 		Objs := {}
 		Obj := param_array.Clone()
 		Objs[&param_array] := Obj ; Save this new array
@@ -1294,7 +1314,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		param_augend += param_addend
 		return param_augend
 	}
@@ -1327,7 +1347,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		vValue := param_dividend / param_divisor
 		return vValue
 	}
@@ -1393,7 +1413,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			boundFunc := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
 
-		; prepare data
+		; prepare
 		if (l_paramAmmount == 3) {
 			arrayClone := this.cloneDeep(param_array)
 		}
@@ -1436,7 +1456,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		vValue := param_multiplier * param_multiplicand
 		return vValue
 	}
@@ -1445,7 +1465,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		return round(param_number, param_precision)
 	}
 	subtract(param_minuend,param_subtrahend) {
@@ -1453,7 +1473,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		param_minuend -= param_subtrahend
 		return param_minuend
 	}
@@ -1488,7 +1508,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		if (param_lower > param_upper) {
 			x := param_lower
 			param_lower := param_upper
@@ -1506,7 +1526,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		if (param_lower > param_upper) {
 			x := param_lower
 			param_lower := param_upper
@@ -1517,7 +1537,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			param_upper += 0.0
 		}
 
-		; create the return
+		; create
 		Random, vRandom, param_lower, param_upper
 		return vRandom
 	}
@@ -1607,7 +1627,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		; data setup
 		l_obj := {}
 
-		; create the return
+		; create
 		if (IsObject(param_paths)) {
 			for Key, Value in param_paths {
 				vValue := this.internal_property(Value, param_object)
@@ -1635,7 +1655,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_string := this.startCase(param_string)
 		l_startChar := this.head(l_string)
 		l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
@@ -1667,7 +1687,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
 		for Key, Value in HTMLmap {
@@ -1681,7 +1701,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_string := this.startCase(param_string)
 		l_string := StrReplace(l_string, " ", "-")
 		return l_string
@@ -1691,7 +1711,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_string := this.startCase(param_string)
 		l_string := this.toLower(this.trim(l_string))
 		return l_string
@@ -1731,7 +1751,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_string := this.startCase(param_string)
 		l_string := StrReplace(l_string, " ", "_")
 		return l_string
@@ -1747,7 +1767,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			param_separator := ","
 		}
 
-		; create the return
+		; create
 		oSplitArray := StrSplit(param_string, param_separator)
 		if (!param_limit) {
 			return oSplitArray
@@ -1769,7 +1789,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 		l_string := this.replace(param_string, "/(\W)/", " ")
 		l_string := this.replace(l_string, "/([\_])/", " ")
 
-		; create the return
+		; create
 		; add space before each capitalized character
 		RegExMatch(l_string, "O)([A-Z])", RE_Match)
 		if (RE_Match.Count()) {
@@ -1806,7 +1826,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		StringLower, OutputVar, param_string
 		return  OutputVar
 	}
@@ -1910,7 +1930,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
 		for Key, Value in HTMLmap {
@@ -1924,7 +1944,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; create the return
+		; create
 		l_string := this.startCase(param_string)
 		l_string := this.toupper(this.trim(l_string))
 		return l_string
@@ -1991,7 +2011,7 @@ class biga {	; class attributes	static throwExceptions := true	static limit 
 			this._internal_ThrowException()
 		}
 
-		; prepare data
+		; prepare
 		if (this.includes(param_source, ".")) {
 			param_source := this.split(param_source, ".")
 		}

@@ -203,6 +203,29 @@ A.dropRight(100)
 
 
 
+## .dropRightWhile
+
+
+#### Example
+
+```autohotkey
+users := [ {"user": "barney", 	"active": true }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": false } ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
+; => [{"user": "barney", "active": true }]
+
+fn_dropRightWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
+; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ]
+
+; The `A.matchesProperty` iteratee shorthand.A.dropRightWhile(users, ["active", false])
+; => [  {"user": "barney", "active": true } ]
+
+; The `A.property` iteratee shorthand.A.dropRightWhile(users, "active")
+; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ]
+
+```
+
+
+
+
 ## .dropWhile
 Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
@@ -220,7 +243,7 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", "active": false }		, { "user": "fred", "active": false }		, { "user": "pebbles", "active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
+users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
 ; => [{ "user": "pebbles", "active": true }]
 
 fn_dropWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
