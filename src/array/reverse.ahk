@@ -2,9 +2,14 @@ reverse(param_collection) {
 	if (!IsObject(param_collection)) {
 		this._internal_ThrowException()
 	}
+
+	; prepare
+	l_collection := this.cloneDeep(param_collection)
 	l_array := []
-	while (param_collection.Count() != 0) {
-		l_array.push(param_collection.pop())
+
+	; create
+	while (l_collection.Count() != 0) {
+		l_array.push(l_collection.pop())
 	}
 	return l_array
 }
@@ -14,3 +19,9 @@ reverse(param_collection) {
 assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
 assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
 assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
+
+; omit
+; ensure no mutation
+reverseVar := [1,2,3]
+assert.test(A.reverse(reverseVar), [3, 2, 1])
+assert.test(reverseVar[3], 3)
