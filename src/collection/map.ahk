@@ -39,7 +39,7 @@ map(param_collection,param_iteratee:="__identity") {
 
 ; tests
 square(n) {
-  return  n * n
+	return  n * n
 }
 
 assert.test(A.map([4, 8], Func("square")), [16, 64])
