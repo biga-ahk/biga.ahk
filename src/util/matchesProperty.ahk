@@ -6,11 +6,11 @@ matchesProperty(param_path,param_srcValue) {
 	; create the property fn
 	fnProperty := this.property(param_path)
 	; create the fn
-	boundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
+	boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcValue)
 	return boundFunc
 }
 
-internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
+_internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 	itareeValue := param_property.call(param_itaree)
 	; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareeValue) " from(" this._printObj(param_itaree) ")"
 	if (!this.isUndefined(itareeValue)) {
