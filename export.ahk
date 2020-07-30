@@ -1,4 +1,12 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -1967,6 +1975,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
+	constant(param_value) {
+
+		BoundFunc := ObjBindMethod(this, "_internal_constant", param_value)
+		return BoundFunc
+	}
+
+	_internal_constant(param_value) {
+		return param_value
+	}
 	matches(param_source) {
 		if (!IsObject(param_source)) {
 			this._internal_ThrowException()
@@ -1992,11 +2009,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create the property fn
 		fnProperty := this.property(param_path)
 		; create the fn
-		boundFunc := ObjBindMethod(this, "internal_matchesProperty", fnProperty, param_srcValue)
+		boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcValue)
 		return boundFunc
 	}
 
-	internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
+	_internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 		itareeValue := param_property.call(param_itaree)
 		; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareeValue) " from(" this._printObj(param_itaree) ")"
 		if (!this.isUndefined(itareeValue)) {
@@ -2044,4 +2061,22 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return  param_itaree[param_property]
 	}
-}class A extends biga {}
+	times(param_n,param_iteratee:="__identity") {
+		if (!this.isAlnum(n) && !this.isUndefinded(param_iteratee.Call(1))) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_array := []
+
+		; create
+		loop, % param_n {
+			l_array.push(param_iteratee.Call(A_Index))
+		}
+		return l_array
+	}
+}
+
+class A extends biga {
+
+}
