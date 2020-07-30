@@ -6,7 +6,7 @@ array (Array): The array to slice.
 
 [start:=1] (number): The start position.
 
-[end=array.Count()] (number): The end position.
+[end:=array.Count()] (number): The end position.
 
 
 ## Returns

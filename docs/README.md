@@ -210,7 +210,7 @@ Creates a slice of array excluding elements dropped from the end. Elements are d
 #### Arguments
 array (Array): The array to query.
 
-[predicate=.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -755,7 +755,7 @@ array (Array): The array to slice.
 
 [start:=1] (number): The start position.
 
-[end=array.Count()] (number): The end position.
+[end:=array.Count()] (number): The end position.
 
 
 #### Returns
@@ -1242,7 +1242,7 @@ collection (Array|Object|string): The collection to inspect.
 
 value (*): The value to search for.
 
-[fromIndex=1] (number): The index to search from.
+[fromIndex:=1] (number): The index to search from.
 
 
 #### Returns
@@ -1279,7 +1279,7 @@ Creates an object composed of keys generated from the results of running each el
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratee=A.identity] (Function): The iteratee to transform keys.
+[iteratee:=A.identity] (Function): The iteratee to transform keys.
 
 
 #### Returns
@@ -1425,7 +1425,7 @@ Gets `n` random elements at unique keys from collection up to the size of collec
 #### Arguments
 collection (Array|Object): The collection to sample.
 
-[n=1] (number): The number of elements to sample.
+[n:=1] (number): The number of elements to sample.
 
 
 #### Returns
@@ -1856,7 +1856,7 @@ This method is like `A.mean` except that it accepts iteratee which is invoked fo
 #### Arguments
 array (Array): The array to iterate over.
 
-[iteratee=A.identity] (Function): The iteratee invoked per element.
+[iteratee:=A.identity] (Function): The iteratee invoked per element.
 
 
 #### Returns

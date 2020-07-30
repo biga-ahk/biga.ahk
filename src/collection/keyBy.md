@@ -4,7 +4,7 @@ Creates an object composed of keys generated from the results of running each el
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratee=A.identity] (Function): The iteratee to transform keys.
+[iteratee:=A.identity] (Function): The iteratee to transform keys.
 
 
 ## Returns

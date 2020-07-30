@@ -6,7 +6,7 @@ collection (Array|Object|string): The collection to inspect.
 
 value (*): The value to search for.
 
-[fromIndex=1] (number): The index to search from.
+[fromIndex:=1] (number): The index to search from.
 
 
 ## Returns

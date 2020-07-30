@@ -4,7 +4,7 @@ Creates a slice of array excluding elements dropped from the end. Elements are d
 ## Arguments
 array (Array): The array to query.
 
-[predicate=.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns
