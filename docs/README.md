@@ -1313,7 +1313,7 @@ iteratee:=A.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-square(n) {  return  n * n}A.map([4, 8], Func("square"))
+square(n) {	return  n * n}A.map([4, 8], Func("square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, Func("square"))
@@ -2872,6 +2872,26 @@ A.words("fred, barney, & pebbles")
 
 
 # **&ldquo;Util&rdquo; Methods**
+## .constant
+Creates a function that returns value.
+
+
+#### Arguments
+value (*): The value to return from the new function.
+
+
+#### Returns
+(Function): Returns the new constant function.
+
+
+#### Example
+
+```autohotkey
+object := A.times(2, A.constant({"a": 1})); => [{"a": 1}, {"a": 1}]```
+
+
+
+
 ## .matches
 Creates a function that performs a shallow comparison between a given object and source, returning true if the given object has equivalent property values, else false.
 
@@ -2952,6 +2972,31 @@ objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b
 
 objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
+
+```
+
+
+
+
+## .times
+Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument; (index).
+
+
+#### Arguments
+n (number): The number of times to invoke iteratee.
+
+[iteratee:=.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(Array): Returns the array of results.
+
+
+#### Example
+
+```autohotkey
+A.times(4, A.constant(0))
+; => [0, 0, 0, 0]
 
 ```
 
