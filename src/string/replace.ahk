@@ -1,6 +1,12 @@
 replace(param_string:="",param_needle:="",param_replacement:="") {
+	if (IsObject(param_string)) {
+		this._internal_ThrowException()
+	}
+
+	; prepare
 	l_string := param_string
-	; RegEx
+	
+	; create
 	if (l_needle := this._internal_JSRegEx(param_needle)) {
 		return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
 	}
