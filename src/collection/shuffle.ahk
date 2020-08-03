@@ -27,3 +27,9 @@ assert.test(shuffleTestVar.Count(), 4)
 
 shuffleTestVar := A.shuffle(["barney", "fred", "pebbles"])
 assert.test(shuffleTestVar.Count(), 3)
+
+shuffleTestVar := A.shuffle([{"x": 1}, {"x": 1}, {"x": 1}])
+assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar[1], {"x": 1})
+assert.test(shuffleTestVar[2], {"x": 1})
+assert.test(shuffleTestVar[3], {"x": 1})
