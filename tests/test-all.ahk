@@ -436,8 +436,8 @@ assert.test(A.count(1221221221, 22), 3)
 assert.label("every()")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
-assert.true(A.every(users, func("isOver18")))
-isOver18(x) {
+assert.true(A.every(users, func("fn_isOver18")))
+fn_isOver18(x) {
 	if (x.age > 18) {
 		return true
 	}
@@ -484,8 +484,8 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 assert.label("filter()")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
-assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-fn_filter1(param_interatee) {
+assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
+fn_filterFunc(param_interatee) {
 	if (param_interatee.active) { 
 		return true 
 	}
@@ -516,8 +516,8 @@ users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
 
-assert.test(A.find(users, Func("fn_find1")), { "user": "barney", "age": 36, "active": true })
-fn_find1(o) {
+assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
+fn_findFunc(o) {
 	if (o.active) { 
 		return true 
 	}
@@ -541,8 +541,8 @@ assert.label("forEach()")
 
 
 ; omit
-assert.test(A.forEach([1, 2], Func("forEachFunc1")), [1, 2])
-forEachFunc1(value) {
+assert.test(A.forEach([1, 2], Func("fn_forEachFunc")), [1, 2])
+fn_forEachFunc(value) {
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`
@@ -566,8 +566,9 @@ assert.false(A.includes("InStr", "Other"))
 assert.label("keyBy()")
 array := [ {"dir": "left", "code": 97}
 	, {"dir": "right", "code": 100}]
-assert.test(A.keyBy(array, Func("keyByFunc1")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
-keyByFunc1(value)
+assert.test(A.keyBy(array, Func("fn_keyByFunc")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
+
+fn_keyByFunc(value)
 {
 	return value.dir
 }
@@ -576,12 +577,12 @@ keyByFunc1(value)
 
 
 assert.label("map()")
-square(n) {
-  return  n * n
+fn_square(n) {
+	return  n * n
 }
 
-assert.test(A.map([4, 8], Func("square")), [16, 64])
-assert.test(A.map({ "a": 4, "b": 8 }, Func("square")), [16, 64])
+assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 ; The `A.property` shorthand
@@ -597,8 +598,8 @@ users := [ { "user": "barney", "age": 36, "active": false }
 	, { "user": "fred", "age": 40, "active": true }
 	, { "user": "pebbles", "age": 1, "active": false } ]
 
-assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
-partitionfunction1(o) {
+assert.test(A.partition(users, func("fn_partitionFunc")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
+fn_partitionFunc(o) {
 	return o.active
 }
 
@@ -615,8 +616,8 @@ assert.test(A.partition(users, "active"), [[{ "user": "fred", "age": 40, "active
 assert.label("reject()")
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
 
-assert.test(A.reject(users, Func("fn_reject1")), [{"user":"fred", "age":40, "active":true}])
-fn_reject1(o) {
+assert.test(A.reject(users, Func("fn_rejectFunc")), [{"user":"fred", "age":40, "active":true}])
+fn_rejectFunc(o) {
 	return !o.active
 }
 
@@ -664,6 +665,12 @@ assert.test(shuffleTestVar.Count(), 4)
 shuffleTestVar := A.shuffle(["barney", "fred", "pebbles"])
 assert.test(shuffleTestVar.Count(), 3)
 
+shuffleTestVar := A.shuffle([{"x": 1}, {"x": 1}, {"x": 1}])
+assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar[1], {"x": 1})
+assert.test(shuffleTestVar[2], {"x": 1})
+assert.test(shuffleTestVar[3], {"x": 1})
+
 
 assert.label("size()")
 assert.test(A.size([1, 2, 3]), 3)
@@ -688,8 +695,8 @@ users := [
 
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
-assert.test(A.sortBy(users, Func("sortby1")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
-sortby1(o) {
+assert.test(A.sortBy(users, Func("fn_sortByFunc")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
+fn_sortByFunc(o) {
 	return o.name
 }
 
@@ -732,10 +739,10 @@ assert.test(shallowclone, [{ "a": 1 }, { "b": 2 }])
 
 
 ; omit
-var := 1
+var := 33
 clone := A.clone(var)
 clone++
-assert.notequal(var, clone)
+assert.notEqual(var, clone)
 
 
 assert.label("cloneDeep()")
@@ -1180,6 +1187,16 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
 
 
+assert.label("constant()")
+object := A.times(2, A.constant({"a": 1}))
+; => [{"a": 1}, {"a": 1}]
+
+; omit
+assert.test(object, [{"a": 1}, {"a": 1}])
+functor := A.constant({ "a": 1 })
+assert.test(functor.call({ "a": 1 }))
+
+
 assert.label("matches()")
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
 assert.test(A.filter(objects, A.matches({ "a": 4, "c": 6 })), [{ "a": 4, "b": 5, "c": 6 }])
@@ -1235,6 +1252,13 @@ assert.test(fn.call({ "a": {"b": 2} }), "2")
 
 fn := A.property("a")
 assert.test(fn.call({ "a": 1, "b": 2 }), 1)
+
+
+assert.label("times()")
+assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
+
+
+; omit
 
 ;; Display test results in GUI
 speed := QPC(0)

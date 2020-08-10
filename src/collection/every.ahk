@@ -35,8 +35,8 @@ every(param_collection,param_predicate) {
 ; tests
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
-assert.true(A.every(users, func("isOver18")))
-isOver18(x) {
+assert.true(A.every(users, func("fn_isOver18")))
+fn_isOver18(x) {
 	if (x.age > 18) {
 		return true
 	}

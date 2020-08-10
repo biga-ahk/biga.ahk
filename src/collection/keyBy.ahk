@@ -44,8 +44,9 @@ keyBy(param_collection,param_iteratee:="__identity") {
 ; tests
 array := [ {"dir": "left", "code": 97}
 	, {"dir": "right", "code": 100}]
-assert.test(A.keyBy(array, Func("keyByFunc1")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
-keyByFunc1(value)
+assert.test(A.keyBy(array, Func("fn_keyByFunc")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
+
+fn_keyByFunc(value)
 {
 	return value.dir
 }

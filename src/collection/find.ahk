@@ -42,8 +42,8 @@ users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
 
-assert.test(A.find(users, Func("fn_find1")), { "user": "barney", "age": 36, "active": true })
-fn_find1(o) {
+assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
+fn_findFunc(o) {
 	if (o.active) { 
 		return true 
 	}

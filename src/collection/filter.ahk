@@ -40,8 +40,8 @@ filter(param_collection,param_predicate) {
 ; tests
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
-assert.test(A.filter(users, Func("fn_filter1")), [{"user":"barney", "age":36, "active":true}])
-fn_filter1(param_interatee) {
+assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
+fn_filterFunc(param_interatee) {
 	if (param_interatee.active) { 
 		return true 
 	}

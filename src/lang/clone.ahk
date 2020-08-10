@@ -1,4 +1,5 @@
 clone(param_value) {
+
 	if (IsObject(param_value)) {
 		return param_value.Clone()
 	} else {
@@ -15,7 +16,7 @@ assert.test(shallowclone, [{ "a": 1 }, { "b": 2 }])
 
 
 ; omit
-var := 1
+var := 33
 clone := A.clone(var)
 clone++
-assert.notequal(var, clone)
+assert.notEqual(var, clone)

@@ -41,8 +41,8 @@ reject(param_collection,param_predicate) {
 ; tests
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
 
-assert.test(A.reject(users, Func("fn_reject1")), [{"user":"fred", "age":40, "active":true}])
-fn_reject1(o) {
+assert.test(A.reject(users, Func("fn_rejectFunc")), [{"user":"fred", "age":40, "active":true}])
+fn_rejectFunc(o) {
 	return !o.active
 }
 

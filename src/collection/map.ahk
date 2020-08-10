@@ -38,12 +38,12 @@ map(param_collection,param_iteratee:="__identity") {
 
 
 ; tests
-square(n) {
+fn_square(n) {
 	return  n * n
 }
 
-assert.test(A.map([4, 8], Func("square")), [16, 64])
-assert.test(A.map({ "a": 4, "b": 8 }, Func("square")), [16, 64])
+assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 ; The `A.property` shorthand

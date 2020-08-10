@@ -46,8 +46,8 @@ forEach(param_collection,param_iteratee:="__identity") {
 
 
 ; omit
-assert.test(A.forEach([1, 2], Func("forEachFunc1")), [1, 2])
-forEachFunc1(value) {
+assert.test(A.forEach([1, 2], Func("fn_forEachFunc")), [1, 2])
+fn_forEachFunc(value) {
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`

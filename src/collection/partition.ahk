@@ -34,8 +34,8 @@ users := [ { "user": "barney", "age": 36, "active": false }
 	, { "user": "fred", "age": 40, "active": true }
 	, { "user": "pebbles", "age": 1, "active": false } ]
 
-assert.test(A.partition(users, func("partitionfunction1")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
-partitionfunction1(o) {
+assert.test(A.partition(users, func("fn_partitionFunc")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
+fn_partitionFunc(o) {
 	return o.active
 }
 
