@@ -1,18 +1,14 @@
 {
-    "name": "biga.ahk-dev",
-    "version": "0.1.1",
-    "description": "A modern immutable utility library for AutoHotkey",
-    "main": "export.ahk",
-    "scripts": {
-        "newinstall": "yarn install --modules-folder ./lib"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "biga.ahk": "^0.22.0",
-        "json.ahk": "github:chunjee/json.ahk",
-        "unit-testing.ahk": "github:chunjee/unit-testing.ahk",
-        "util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
-    },
-    "author": "Shawn Brooker",
-    "license": "MIT"
+	"name": "biga.ahk-dev",
+	"version": "0.1.1",
+	"description": "A modern immutable utility library for AutoHotkey",
+	"main": "export.ahk",
+	"dependencies": {},
+	"devDependencies": {
+		"biga.ahk": "^0.22.0",
+		"unit-testing.ahk": "github:chunjee/unit-testing.ahk",
+		"util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
+	},
+	"author": "Shawn Brooker",
+	"license": "MIT"
 }
