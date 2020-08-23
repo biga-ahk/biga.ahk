@@ -1,12 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -14,12 +6,12 @@ class biga {
 		param_array := this.clone(param_array)
 
 		; keep working till the parameter array is empty
-		while (this.size(param_array) > 0) {
+		while (param_array.Count() > 0) {
 			l_InnerArr := []
 			; fill the Inner Array to the max size of the size parameter
 			loop, % param_size {
 				; exit loop if there is nothing left in parameter array to work with
-				if (this.size(param_array) == 0) {
+				if (param_array.Count() == 0) {
 					break
 				}
 				l_InnerArr.push(param_array.RemoveAt(1))
@@ -1274,6 +1266,7 @@ class biga {
 		return false
 	}
 	clone(param_value) {
+
 		if (IsObject(param_value)) {
 			return param_value.Clone()
 		} else {
@@ -1746,8 +1739,14 @@ class biga {
 		return StrReplace(Format("{:0" param_number "}", 0), "0", param_string)
 	}
 	replace(param_string:="",param_needle:="",param_replacement:="") {
+		if (IsObject(param_string)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
 		l_string := param_string
-		; RegEx
+
+		; create
 		if (l_needle := this._internal_JSRegEx(param_needle)) {
 			return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
 		}
@@ -2075,8 +2074,4 @@ class biga {
 		}
 		return l_array
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}
