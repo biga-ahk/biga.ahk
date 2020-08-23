@@ -42,9 +42,9 @@ internal_Merge(param_collection1, param_collection2) {
 
 
 ; tests
-object := {"options":[{"option1":"true"}]}
-other := {"options":[{"option2":"false"}]}
-assert.test(A.merge(object, other), {"options":[{"option1":"true", "option2":"false"}]})
+object := {"options": [{"option1": true}]}
+other := {"options": [{"option2": false}]}
+assert.test(A.merge(object, other), {"options": [{"option1": true, "option2": false}]})
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
