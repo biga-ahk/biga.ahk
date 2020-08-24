@@ -1,5 +1,5 @@
 times(param_n,param_iteratee:="__identity") {
-	if (!this.isAlnum(n) && !this.isUndefinded(param_iteratee.Call(1))) {
+	if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.Call(1))) {
 		this._internal_ThrowException()
 	}
 	
