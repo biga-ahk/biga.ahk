@@ -1,5 +1,5 @@
 repeat(param_string,param_number:=1) {
-	if (IsObject(param_string)) {
+	if (IsObject(param_string) || (!this.isNumber(param_number))) {
 		this._internal_ThrowException()
 	}
 	
