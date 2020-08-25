@@ -108,6 +108,9 @@ _internal_ThrowException() {
 
 
 isAlnum(param) {
+	if (IsObject(param)) {
+		return false
+	}
 	if param is alnum
 	{
 		return true
@@ -117,6 +120,9 @@ isAlnum(param) {
 
 
 isNumber(param) {
+	if (IsObject(param)) {
+		return false
+	}
 	if param is number
 	{
 		return true
@@ -135,7 +141,18 @@ isFalsey(param) {
 
 ; tests
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
-assert.test(A.isAlnum(1),true)
-assert.test(A.isAlnum("hello"),true)
-; assert.test(A.isAlnum([]),false)
+assert.true(A.isAlnum(1))
+assert.true(A.isAlnum("hello"))
+assert.false(A.isAlnum([]))
+assert.false(A.isAlnum({}))
+
+assert.true(A.isNumber(1))
+assert.true(A.isNumber("1"))
+assert.false(A.isNumber([]))
+assert.false(A.isNumber({}))
+
+assert.true(A.isFalsey(0))
+assert.true(A.isFalsey(""))
+assert.false(A.isFalsey([]))
+assert.false(A.isFalsey({}))
 ; omit
