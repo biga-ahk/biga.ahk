@@ -1,6 +1,6 @@
 # Quick Start
 
-See [Getting Started](/getting-started) for installation, inclusion, and initializiation.
+See [Getting Started](https://biga-ahk.github.io/biga.ahk/#/getting-started) for installation, inclusion, and initializiation.
 
 ### Attributes
 
