@@ -1,10 +1,8 @@
 slice(param_array,param_start:=1,param_end:=0) {
-	if param_start is not number
-	{
+	if (!this.isNumber(param_start)) {
 		this._internal_ThrowException()
 	}
-	if param_end is not number
-	{
+	if (!this.isNumber(param_end)) {
 		this._internal_ThrowException()
 	}
 

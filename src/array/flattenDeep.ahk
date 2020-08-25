@@ -8,10 +8,6 @@ flattenDeep(param_array) {
 
 	; create
 	return this.flattenDepth(param_array, l_depth)
-	; l_obj := this.cloneDeep(param_array)
-	; while (this.depthOf(l_obj) != 1) {
-	;     l_obj := this.flatten(l_obj)
-	; }
 }
 
 

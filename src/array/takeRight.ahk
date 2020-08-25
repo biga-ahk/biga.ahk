@@ -1,6 +1,5 @@
 takeRight(param_array,param_n:=1) {
-	if param_n is not number 
-	{
+	if (!this.isNumber(param_n)) {
 		this._internal_ThrowException()
 	}
 
