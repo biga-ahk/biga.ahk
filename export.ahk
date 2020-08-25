@@ -72,8 +72,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	drop(param_array,param_n:=1) {
-		if param_n is not number
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -96,8 +95,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	dropRight(param_array,param_n:=1) {
-		if param_n is not number 
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -277,7 +275,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		return this.flattenDepth(param_array, l_depth)
-
 	}
 
 	depthOf(param_obj,param_depth:=1) {
@@ -334,8 +331,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		 return -1
 	}
 	initial(param_array,param_n:=1) {
-		if param_n is not number
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -420,8 +416,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return -1
 	}
 	nth(param_array,param_n:=1) {
-		if param_n is not number
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -467,12 +462,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	slice(param_array,param_start:=1,param_end:=0) {
-		if param_start is not number
-		{
+		if (!this.isNumber(param_start)) {
 			this._internal_ThrowException()
 		}
-		if param_end is not number
-		{
+		if (!this.isNumber(param_end)) {
 			this._internal_ThrowException()
 		}
 
@@ -510,8 +503,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return this.drop(param_array)
 	}
 	take(param_array,param_n:=1) {
-		if param_n is not number 
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -539,8 +531,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	takeRight(param_array,param_n:=1) {
-		if param_n is not number 
-		{
+		if (!this.isNumber(param_n)) {
 			this._internal_ThrowException()
 		}
 
@@ -1244,6 +1235,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	isAlnum(param) {
+		if (IsObject(param)) {
+			return false
+		}
 		if param is alnum
 		{
 			return true
@@ -1252,6 +1246,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	isNumber(param) {
+		if (IsObject(param)) {
+			return false
+		}
 		if param is number
 		{
 			return true
@@ -1729,7 +1726,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_int + 0
 	}
 	repeat(param_string,param_number:=1) {
-		if (IsObject(param_string)) {
+		if (IsObject(param_string) || (!this.isNumber(param_number))) {
 			this._internal_ThrowException()
 		}
 
@@ -2061,7 +2058,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return  param_itaree[param_property]
 	}
 	times(param_n,param_iteratee:="__identity") {
-		if (!this.isAlnum(n) && !this.isUndefinded(param_iteratee.Call(1))) {
+		if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.Call(1))) {
 			this._internal_ThrowException()
 		}
 
