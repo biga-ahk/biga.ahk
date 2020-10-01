@@ -3,7 +3,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 		this._internal_ThrowException()
 	}
 
-	; data setup
+	; prepare
 	if (!IsFunc(param_iteratee)) {
 		BoundFunc := param_iteratee.Bind(this)
 	}

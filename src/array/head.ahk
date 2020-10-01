@@ -1,5 +1,6 @@
 head(param_array) {
 
+	; create
 	return this.take(param_array)[1]
 }
 

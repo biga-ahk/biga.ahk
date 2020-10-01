@@ -3,7 +3,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 		this._internal_ThrowException()
 	}
 	
-	; data setup
+	; prepare
 	shorthand := this._internal_differenciateShorthand(param_value, param_array)
 	if (shorthand != false) {
 		BoundFunc := this._internal_createShorthandfn(param_value, param_array)

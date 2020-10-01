@@ -189,7 +189,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_value, param_array)
 		if (shorthand != false) {
 			BoundFunc := this._internal_createShorthandfn(param_value, param_array)
@@ -250,7 +250,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_obj := []
 
 		; create
@@ -270,7 +270,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_depth := this.depthOf(param_array)
 
 		; create
@@ -291,7 +291,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_obj := this.cloneDeep(param_array)
 
 		; create
@@ -305,7 +305,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		l_obj := {}
+
+		; create
 		for Key, Value in param_pairs {
 			l_obj[Value[1]] := Value[2]
 		}
@@ -313,22 +316,24 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	head(param_array) {
 
+		; create
 		return this.take(param_array)[1]
 	}
 	indexOf(param_array,param_value,fromIndex:=1) {
-		 if (!IsObject(param_array)) {
-			  this._internal_ThrowException()
-		 }
+		if (!IsObject(param_array)) {
+			this._internal_ThrowException()
+		}
 
-		 for Index, Value in param_array {
-			  if (Index < fromIndex) {
-					continue
-			  }
-			  if (this.isEqual(Value, param_value)) {
-					return Index
-			  }
-		 }
-		 return -1
+		;  create
+		for Index, Value in param_array {
+			if (Index < fromIndex) {
+				continue
+			}
+			if (this.isEqual(Value, param_value)) {
+				return Index
+			}
+		}
+		return -1
 	}
 	initial(param_array,param_n:=1) {
 		if (!this.isNumber(param_n)) {
@@ -388,8 +393,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; create
+		; prepare
 		l_array := this.clone(param_array)
+
+		; create
 		for l_key, l_value in l_array {
 			if (l_key == 1) {
 				l_string := "" l_value
@@ -403,6 +410,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (param_fromIndex == 0) {
 			param_fromIndex := param_array.Count()
 		}
+
+		; create
 		for Index, Value in param_array {
 			Index -= 1
 			vNegativeIndex := param_array.Count() - Index
@@ -420,6 +429,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
@@ -488,9 +498,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	sortedIndex(param_array,param_value) {
+
+		; prepare
 		if (param_value < param_array[1]) {
 			return 1
 		}
+
+		; create
 		loop, % param_array.Count() {
 			if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
 				return A_Index + 1
@@ -500,6 +514,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	tail(param_array) {
 
+		; create
 		return this.drop(param_array)
 	}
 	take(param_array,param_n:=1) {
@@ -507,6 +522,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		if (IsObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
@@ -535,6 +551,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		if (IsObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
@@ -560,7 +577,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	union(param_arrays*) {
 
+		; prepare
 		l_array := []
+
+		; create
 		for Key, Array in param_arrays {
 			if (IsObject(Array)) {
 				l_array := this.concat(l_array, Array)
@@ -593,9 +613,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
+
+		; prepare
 		l_array := this.clone(param_array)
 
-		; loop all Variadic inputs
+		; create
 		for i, val in param_values {
 			while (foundindex := this.indexOf(l_array, val) != -1) {
 				l_array.RemoveAt(foundindex)
@@ -644,7 +666,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	count(param_collection,param_predicate,param_fromIndex:=1) {
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
@@ -681,7 +703,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_array := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
@@ -713,7 +735,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
@@ -750,7 +772,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
@@ -900,7 +922,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		l_array := []
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 		if (shorthand == ".property") {
 			param_iteratee := this.property(param_iteratee)
@@ -935,7 +957,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		trueArray := []
 		falseArray := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
@@ -964,7 +986,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
@@ -1402,7 +1424,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		if (!IsFunc(param_iteratee)) {
 			BoundFunc := param_iteratee.Bind(this)
 		}
@@ -1544,7 +1566,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_obj := this.clone(param_object)
 		param_sources := this.reverse(param_sources)
 
@@ -1604,7 +1626,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_obj := this.cloneDeep(param_object)
 
 		; create
@@ -1622,7 +1644,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; data setup
+		; prepare
 		l_obj := {}
 
 		; create

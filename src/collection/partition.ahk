@@ -3,7 +3,7 @@ partition(param_collection,param_predicate) {
 		this._internal_ThrowException()
 	}
 	
-	; data setup
+	; prepare
 	trueArray := []
 	falseArray := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)

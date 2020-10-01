@@ -3,7 +3,7 @@ flatten(param_array) {
 		this._internal_ThrowException()
 	}
 
-	; data setup
+	; prepare
 	l_obj := []
 	
 	; create

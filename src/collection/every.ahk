@@ -3,7 +3,7 @@ every(param_collection,param_predicate) {
 		this._internal_ThrowException()
 	}
 	
-	; data setup
+	; prepare
 	l_array := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {

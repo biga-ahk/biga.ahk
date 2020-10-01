@@ -1,17 +1,18 @@
 indexOf(param_array,param_value,fromIndex:=1) {
-	 if (!IsObject(param_array)) {
-		  this._internal_ThrowException()
-	 }
+	if (!IsObject(param_array)) {
+		this._internal_ThrowException()
+	}
 	 
-	 for Index, Value in param_array {
-		  if (Index < fromIndex) {
-				continue
-		  }
-		  if (this.isEqual(Value, param_value)) {
-				return Index
-		  }
-	 }
-	 return -1
+	;  create
+	for Index, Value in param_array {
+		if (Index < fromIndex) {
+			continue
+		}
+		if (this.isEqual(Value, param_value)) {
+			return Index
+		}
+	}
+	return -1
 }
 
 

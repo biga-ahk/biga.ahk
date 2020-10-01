@@ -3,6 +3,7 @@ takeRight(param_array,param_n:=1) {
 		this._internal_ThrowException()
 	}
 
+	; prepare
 	if (IsObject(param_array)) {
 		param_array := this.clone(param_array)
 	}

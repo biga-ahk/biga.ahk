@@ -3,8 +3,10 @@ join(param_array,param_sepatator:=",") {
 		this._internal_ThrowException()
 	}
 
-	; create
+	; prepare
 	l_array := this.clone(param_array)
+
+	; create
 	for l_key, l_value in l_array {
 		if (l_key == 1) {
 			l_string := "" l_value

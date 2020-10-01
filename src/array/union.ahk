@@ -1,6 +1,9 @@
 union(param_arrays*) {
 
+	; prepare
 	l_array := []
+	
+	; create
 	for Key, Array in param_arrays {
 		if (IsObject(Array)) {
 			l_array := this.concat(l_array, Array)

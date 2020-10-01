@@ -1,9 +1,6 @@
 #Include %A_ScriptDir%\..\export.ahk
 #Include %A_ScriptDir%\..\node_modules
 #Include unit-testing.ahk\export.ahk
-; #Include util-array.ahk\export.ahk
-; #Include util-misc.ahk\export.ahk
-#Include json.ahk\export.ahk
 #NoTrayIcon
 #SingleInstance, force
 SetBatchLines, -1
@@ -17,6 +14,12 @@ QPC(1)
 assert.label("chunk()")
 assert.test(A.chunk(["a", "b", "c", "d"], 2), [["a", "b"], ["c", "d"]])
 assert.test(A.chunk(["a", "b", "c", "d"], 3), [["a", "b", "c"], ["d"]])
+
+; omit
+var := [1,2,3]
+A.chunk(var, 2)
+assert.label("chunk - assert no parameter mutation")
+assert.test(var, [1,2,3])
 
 
 assert.label("compact()")
@@ -725,11 +728,21 @@ assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":
 
 assert.label("internal()")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
-assert.test(A.isAlnum(1),true)
-assert.test(A.isAlnum("hello"),true)
-; assert.test(A.isAlnum([]),false)
-; omit
+assert.true(A.isAlnum(1))
+assert.true(A.isAlnum("hello"))
+assert.false(A.isAlnum([]))
+assert.false(A.isAlnum({}))
 
+assert.true(A.isNumber(1))
+assert.true(A.isNumber("1"))
+assert.false(A.isNumber([]))
+assert.false(A.isNumber({}))
+
+assert.true(A.isFalsey(0))
+assert.true(A.isFalsey(""))
+assert.false(A.isFalsey([]))
+assert.false(A.isFalsey({}))
+; omit
 
 assert.label("clone()")
 object := [{ "a": 1 }, { "b": 2 }]
@@ -967,9 +980,9 @@ assert.test(object, {"a": 1})
 
 
 assert.label("merge()")
-object := {"options":[{"option1":"true"}]}
-other := {"options":[{"option2":"false"}]}
-assert.test(A.merge(object, other), {"options":[{"option1":"true", "option2":"false"}]})
+object := {"options": [{"option1": true}]}
+other := {"options": [{"option2": false}]}
+assert.test(A.merge(object, other), {"options": [{"option1": true, "option2": false}]})
 
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }

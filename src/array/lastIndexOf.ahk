@@ -2,6 +2,8 @@ lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 	if (param_fromIndex == 0) {
 		param_fromIndex := param_array.Count()
 	}
+
+	; create
 	for Index, Value in param_array {
 		Index -= 1
 		vNegativeIndex := param_array.Count() - Index

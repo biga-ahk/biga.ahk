@@ -3,6 +3,7 @@ nth(param_array,param_n:=1) {
 		this._internal_ThrowException()
 	}
 
+	; prepare
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}

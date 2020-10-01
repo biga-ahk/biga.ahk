@@ -3,7 +3,7 @@
 		this._internal_ThrowException()
 	}
 
-	; data setup
+	; prepare
 	l_obj := this.clone(param_object)
 	param_sources := this.reverse(param_sources)
 	

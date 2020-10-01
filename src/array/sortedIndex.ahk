@@ -1,7 +1,11 @@
 sortedIndex(param_array,param_value) {
+
+	; prepare
 	if (param_value < param_array[1]) {
 		return 1
 	}
+
+	; create
 	loop, % param_array.Count() {
 		if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
 			return A_Index + 1

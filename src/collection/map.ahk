@@ -5,7 +5,7 @@ map(param_collection,param_iteratee:="__identity") {
 	
 	l_array := []
 
-	; data setup
+	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
 		param_iteratee := this.property(param_iteratee)

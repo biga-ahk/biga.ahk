@@ -1,6 +1,6 @@
 count(param_collection,param_predicate,param_fromIndex:=1) {
 
-	; data setup
+	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)

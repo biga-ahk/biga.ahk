@@ -3,7 +3,7 @@ omit(param_object,param_paths) {
 		this._internal_ThrowException()
 	}
 
-	; data setup
+	; prepare
 	l_obj := this.cloneDeep(param_object)
 	
 	; create

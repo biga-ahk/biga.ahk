@@ -3,7 +3,7 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 		this._internal_ThrowException()
 	}
 	
-	; data setup
+	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
