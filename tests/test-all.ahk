@@ -652,10 +652,10 @@ assert.true(IsObject(output))
 
 assert.label("samplesize()")
 output := A.sampleSize([1, 2, 3], 2)
-assert.test(output.length(), 2)
+assert.test(output.Count(), 2)
 
 output := A.sampleSize([1, 2, 3], 4)
-assert.test(output.length(), 3)
+assert.test(output.Count(), 3)
 
 
 assert.label("shuffle()")
@@ -673,6 +673,13 @@ assert.test(shuffleTestVar.Count(), 3)
 assert.test(shuffleTestVar[1], {"x": 1})
 assert.test(shuffleTestVar[2], {"x": 1})
 assert.test(shuffleTestVar[3], {"x": 1})
+
+assert.label("shuffle - check that sparse arrays work")
+shuffleTestVar := A.shuffle({2: 1, 4: 1, 6: 1})
+assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar[1], 1)
+assert.test(shuffleTestVar[2], 1)
+assert.test(shuffleTestVar[3], 1)
 
 
 assert.label("size()")
@@ -979,6 +986,16 @@ assert.test(A.defaults(object, {"b": 2, "c": 3}), {"a": 1, "b": 2, "c": 3})
 assert.test(object, {"a": 1})
 
 
+assert.label("keys()")
+object := {"a": 1, "b": 2, "c": 3}
+assert.test(A.keys(object), ["a", "b", "c"])
+
+assert.test(A.keys("hi"), [1, 2])
+
+
+; omit
+
+
 assert.label("merge()")
 object := {"options": [{"option1": true}]}
 other := {"options": [{"option2": false}]}
@@ -1006,7 +1023,7 @@ assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
 ; omit
 assert.test(A.pick(object, "a"), {"a": 1})
 assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
-; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
+assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
 
 
 assert.label("toPairs()")

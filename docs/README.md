@@ -2144,6 +2144,32 @@ A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 
 
 
+## .keys
+Creates an array of the own enumerable properties of object.
+
+
+#### Arguments
+object (Object): The object to query.
+
+
+#### Returns
+(Array): Returns the array of property names.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": 2, "c": 3}A.keys(object)
+; => ["a", "b", "c"]
+
+A.keys("hi")
+; => [1, 2]
+
+```
+
+
+
+
 ## .merge
 This method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 

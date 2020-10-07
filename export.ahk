@@ -487,6 +487,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_end := param_array.Count()
 		}
 
+		; prepare
 		l_array := []
 
 		; create
@@ -1031,8 +1032,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		vSampleArray := this.sampleSize(l_array)
-		return vSampleArray[1]
+		randomIndex := this.random(1, l_array.Count())
+		return l_array[randomIndex]
 	}
 	sampleSize(param_collection,param_SampleSize:=1) {
 		if (!IsObject(param_collection)) {
@@ -1067,14 +1068,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		l_array := this.clone(param_collection)
+		l_keys := this.keys(l_array)
 		l_shuffledArray := []
 
 		; create
 		loop, % l_array.Count() {
-			random := this.sample(l_array)
-			index := this.indexOf(l_array, random)
-			l_array.RemoveAt(index)
-			l_shuffledArray.push(random)
+			randomIndex := this.random(1, l_keys.Count())
+			randomKey := l_keys[randomIndex]
+			l_shuffledArray.push(l_array[randomKey])
+			l_keys.RemoveAt(randomIndex)
 		}
 		return l_shuffledArray
 	}
@@ -1580,6 +1582,20 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_obj
 	}
+	keys(param_object) {
+
+		; prepare
+		if (!IsObject(param_object)) {
+			param_object := StrSplit(param_object)
+		}
+		l_returnKeys := []
+
+		; create
+		for key, _ in param_object {
+			l_returnKeys.push(key)
+		}
+		return l_returnKeys
+	}
 	merge(param_collections*) {
 		if (!IsObject(param_collections)) {
 			this._internal_ThrowException()
@@ -1657,7 +1673,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			vValue := this.internal_property(param_paths, param_object)
 			l_obj[param_paths] := vValue
 		}
-		return  l_obj
+		return l_obj
 	}
 	toPairs(param_object) {
 		if (!IsObject(param_object)) {

@@ -14,6 +14,7 @@ slice(param_array,param_start:=1,param_end:=0) {
 		param_end := param_array.Count()
 	}
 
+	; prepare
 	l_array := []
 
 	; create
