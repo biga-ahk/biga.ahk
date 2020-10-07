@@ -28,7 +28,7 @@ sampleSize(param_collection,param_SampleSize:=1) {
 
 ; tests
 output := A.sampleSize([1, 2, 3], 2)
-assert.test(output.length(), 2)
+assert.test(output.Count(), 2)
 
 output := A.sampleSize([1, 2, 3], 4)
-assert.test(output.length(), 3)
+assert.test(output.Count(), 3)
