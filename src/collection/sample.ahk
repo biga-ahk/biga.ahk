@@ -10,8 +10,8 @@ sample(param_collection) {
 	}
 	
 	; create
-	vSampleArray := this.sampleSize(l_array)
-	return vSampleArray[1]
+	randomIndex := this.random(1, l_array.Count())
+	return l_array[randomIndex]
 }
 
 
