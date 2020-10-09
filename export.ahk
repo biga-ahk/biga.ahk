@@ -921,8 +921,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		l_array := []
-
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 		if (shorthand == ".property") {
@@ -1049,6 +1047,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_collection := this.clone(param_collection)
 		l_array := []
 		tempArray := []
+
+		; create
 		loop, % param_SampleSize
 		{
 			Random, randomNum, 1, l_collection.Count()
@@ -1068,17 +1068,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		l_array := this.clone(param_collection)
-		l_keys := this.keys(l_array)
-		l_shuffledArray := []
 
 		; create
-		loop, % l_array.Count() {
-			randomIndex := this.random(1, l_keys.Count())
-			randomKey := l_keys[randomIndex]
-			l_shuffledArray.push(l_array[randomKey])
-			l_keys.RemoveAt(randomIndex)
+		i := l_array.Count()
+		loop, % i - 1 {
+			Random, j, 1, % i
+			x := l_array[i]
+			l_array[i] := l_array[j]
+			l_array[j] := x
+			i--
 		}
-		return l_shuffledArray
+	    return l_array
 	}
 	size(param_collection) {
 

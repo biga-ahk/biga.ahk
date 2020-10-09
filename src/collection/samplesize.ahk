@@ -12,6 +12,8 @@ sampleSize(param_collection,param_SampleSize:=1) {
 	l_collection := this.clone(param_collection)
 	l_array := []
 	tempArray := []
+
+	; create
 	loop, % param_SampleSize
 	{
 		Random, randomNum, 1, l_collection.Count()
