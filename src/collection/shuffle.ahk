@@ -7,7 +7,7 @@ shuffle(param_collection) {
 	l_array := this.clone(param_collection)
 
 	; create
-	l_index := l_array.Count()
+	l_index := l_array.Length()
 	loop, % l_index - 1 {
 		Random, randomIndex, 1, % l_index
 		l_tempVar := l_array[l_index]
@@ -45,3 +45,8 @@ assert.test(shuffleTestVar.Count(), 3)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
 assert.test(shuffleTestVar[3], 1)
+shuffleTestVar := A.shuffle({2: 1, 600: 1})
+shuffleTestVar := A.map(A.compact(shuffleTestVar))
+assert.test(shuffleTestVar.Count(), 2)
+assert.test(shuffleTestVar[1], 1)
+assert.test(shuffleTestVar[2], 1)
