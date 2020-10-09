@@ -5,17 +5,17 @@ shuffle(param_collection) {
 
 	; prepare
 	l_array := this.clone(param_collection)
-	l_keys := this.keys(l_array)
-	l_shuffledArray := []
 
 	; create
-	loop, % l_array.Count() {
-		randomIndex := this.random(1, l_keys.Count())
-		randomKey := l_keys[randomIndex]
-		l_shuffledArray.push(l_array[randomKey])
-		l_keys.RemoveAt(randomIndex)
+	i := l_array.Count()
+	loop, % i - 1 {
+		Random, j, 1, % i
+		x := l_array[i]
+		l_array[i] := l_array[j]
+		l_array[j] := x
+		i--
 	}
-	return l_shuffledArray
+    return l_array
 }
 
 
@@ -35,8 +35,12 @@ assert.test(shuffleTestVar[1], {"x": 1})
 assert.test(shuffleTestVar[2], {"x": 1})
 assert.test(shuffleTestVar[3], {"x": 1})
 
-assert.label("shuffle - check that sparse arrays work")
+assert.label("shuffle - empty array")
+assert.test(A.shuffle([]), [])
+
+assert.label("shuffle - sparse arrays")
 shuffleTestVar := A.shuffle({2: 1, 4: 1, 6: 1})
+shuffleTestVar := A.map(A.compact(shuffleTestVar))
 assert.test(shuffleTestVar.Count(), 3)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
