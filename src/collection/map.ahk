@@ -3,8 +3,6 @@ map(param_collection,param_iteratee:="__identity") {
 		this._internal_ThrowException()
 	}
 	
-	l_array := []
-
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
