@@ -7,13 +7,13 @@ shuffle(param_collection) {
 	l_array := this.clone(param_collection)
 
 	; create
-	i := l_array.Count()
-	loop, % i - 1 {
-		Random, j, 1, % i
-		x := l_array[i]
-		l_array[i] := l_array[j]
-		l_array[j] := x
-		i--
+	l_index := l_array.Count()
+	loop, % l_index - 1 {
+		Random, randomIndex, 1, % l_index
+		l_tempVar := l_array[l_index]
+		l_array[l_index] := l_array[randomIndex]
+		l_array[randomIndex] := l_tempVar
+		l_index--
 	}
     return l_array
 }
