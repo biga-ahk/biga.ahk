@@ -731,7 +731,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return true
 	}
-	filter(param_collection,param_predicate) {
+	filter(param_collection,param_predicate:="__identity") {
 		if (!IsObject(param_collection)) {
 			this._internal_ThrowException()
 		}
@@ -741,10 +741,35 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
+		l_paramAmmount := param_predicate.MaxParams
+		if (l_paramAmmount == 3) {
+			collectionClone := this.cloneDeep(param_collection)
+		}
 		l_array := []
 
 		; create
 		for Key, Value in param_collection {
+			if (l_paramAmmount == 3) {
+				vIteratee := param_predicate.call(Value, Key, collectionClone)
+				if (vIteratee) {
+					l_array.push(Value)
+				}
+				continue
+			}
+			if (l_paramAmmount == 2) {
+				vIteratee := param_predicate.call(Value, Key)
+				if (vIteratee) {
+					l_array.push(Value)
+				}
+				continue
+			}
+			if (l_paramAmmount == 1) {
+				vIteratee := param_predicate.call(Value)
+				if (vIteratee) {
+					l_array.push(Value)
+				}
+				continue
+			}
 			; functor
 			if (IsFunc(param_predicate)) {
 				if (param_predicate.call(Value)) {
@@ -752,7 +777,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				}
 				continue
 			}
-			; predefined !functor handling (slower as it .calls blindly)
+			; calling own method
 			vValue := param_predicate.call(Value)
 			if (vValue) {
 				l_array.push(Value)
@@ -970,7 +995,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			break
 		}
 
-		; perform the action
+		; create
 		for Key, Value in param_collection {
 			if (BoundFunc.call(Value) == true) {
 				trueArray.push(Value)
@@ -1070,13 +1095,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := this.clone(param_collection)
 
 		; create
-		i := l_array.Count()
-		loop, % i - 1 {
-			Random, j, 1, % i
-			x := l_array[i]
-			l_array[i] := l_array[j]
-			l_array[j] := x
-			i--
+		l_index := l_array.Length()
+		loop, % l_index - 1 {
+			Random, randomIndex, 1, % l_index
+			l_tempVar := l_array[l_index]
+			l_array[l_index] := l_array[randomIndex]
+			l_array[randomIndex] := l_tempVar
+			l_index--
 		}
 	    return l_array
 	}
