@@ -1,4 +1,4 @@
-filter(param_collection,param_predicate) {
+filter(param_collection,param_predicate:="__identity") {
 	if (!IsObject(param_collection)) {
 		this._internal_ThrowException()
 	}
@@ -8,10 +8,35 @@ filter(param_collection,param_predicate) {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
+	l_paramAmmount := param_predicate.MaxParams
+	if (l_paramAmmount == 3) {
+		collectionClone := this.cloneDeep(param_collection)
+	}
 	l_array := []
 
 	; create
 	for Key, Value in param_collection {
+		if (l_paramAmmount == 3) {
+			vIteratee := param_predicate.call(Value, Key, collectionClone)
+			if (vIteratee) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		if (l_paramAmmount == 2) {
+			vIteratee := param_predicate.call(Value, Key)
+			if (vIteratee) {
+				l_array.push(Value)
+			}
+			continue
+		}
+		if (l_paramAmmount == 1) {
+			vIteratee := param_predicate.call(Value)
+			if (vIteratee) {
+				l_array.push(Value)
+			}
+			continue
+		}
 		; functor
 		if (IsFunc(param_predicate)) {
 			if (param_predicate.call(Value)) {
@@ -19,7 +44,7 @@ filter(param_collection,param_predicate) {
 			}
 			continue
 		}
-		; predefined !functor handling (slower as it .calls blindly)
+		; calling own method
 		vValue := param_predicate.call(Value)
 		if (vValue) {
 			l_array.push(Value)
@@ -61,7 +86,20 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
 fn_filter2(param_interatee) {
 	if (param_interatee >= 2) {
-		return param_interatee
+		return true
 	}
-	return false
+}
+
+assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
+fn_filter3(param_interatee, param_key) {
+	if (mod(param_key, 2) = 0) {
+		return true
+	}
+}
+
+assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
+fn_filter4(param_interatee, param_key, param_collection) {
+	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_interatee / 2) != -1) {
+		return true
+	}
 }
