@@ -872,6 +872,45 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return param_collection
 	}
+	groupBy(param_collection,param_iteratee:="__identity") {
+		if (!IsObject(param_collection)) {
+			this._internal_ThrowException()
+		}
+		; prepare
+		; check what kind of param_iteratee being worked with
+		if (!param_iteratee.call(this.head(param_collection))) { ;calling own method
+			boundFunc := param_iteratee.bind(this)
+			thisThing := "boundfunc"
+		}
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		if (shorthand == ".property") {
+			boundFunc := this._internal_createShorthandfn(param_iteratee, param_collection)
+		}
+
+		; create
+		l_array := []
+		for Key, Value in param_collection {
+			if (thisThing == "boundfunc") {
+				; calling own method
+				vIteratee := boundFunc.call(Value)
+			} else {
+				; functor
+				vIteratee := param_iteratee.call(Value)
+			}
+			if (shorthand == ".property") {
+				; property shorthand
+				vIteratee := Value[param_iteratee]
+			}
+
+			; create array at key if not encountered yet
+			if (!l_array.hasKey(vIteratee)) {
+				l_array[vIteratee] := []
+			}
+			; add value to this key
+			l_array[vIteratee].push(Value)
+		}
+		return l_array
+	}
 	includes(param_collection,param_value,param_fromIndex:=1) {
 		if (IsObject(param_collection)) {
 			for Key, Value in param_collection {
@@ -1600,7 +1639,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		for Index, Object in param_sources {
 			for Key, Value in Object {
-				if (!l_obj.HasKey(Key)) { ; if the key is not already in use
+				if (!l_obj.hasKey(Key)) { ; if the key is not already in use
 					l_obj[Key] := Value
 				}
 			}
@@ -1656,7 +1695,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			combined[Key] := this.internal_Merge(Value, param_collection2[Key])
 		}
 		for Key, Value in param_collection2 {
-			if(!combined.HasKey(Key)) {
+			if(!combined.hasKey(Key)) {
 				combined[Key] := Value
 			}
 		}

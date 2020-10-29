@@ -1145,7 +1145,7 @@ function (Function): The function invoked per iteration.
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filterFunc(param_interatee) {	if (param_interatee.active) { 		return true 	}} ; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
+fn_filterFunc(param_iteratee) {	if (param_iteratee.active) { 		return true 	}} ; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ; The A.matchesProperty shorthandA.filter(users, ["active", false])
@@ -1229,6 +1229,41 @@ fn_forEachFunc2(value, key) {
 ; msgboxes "a" then "b"
 ```
 
+
+
+
+
+## .groupBy
+Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
+
+
+<!-- Aliases
+_.each -->
+
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[iteratee:=.identity] (Function): The iteratee to transform keys.
+
+
+#### Returns
+(Object): Returns the composed aggregate object.
+
+
+#### Example
+
+```autohotkey
+A.groupBy([6.1, 4.2, 6.2], A.floor)
+; => {4: [4.2], 6: [6.1, 6.2]}
+
+A.groupBy([6.1, 4.2, 6.3], func("Ceil"))
+; => {5: [4.2], 7: [6.1, 6.3]}
+
+; The `A.property` iteratee shorthand.users := [ { "user": "barney", "lastActive": "Monday" }		, { "user": "fred", "lastActive": "Tuesday" }		, { "user": "pebbles", "lastActive": "Tuesday" } ]A.groupBy(users, "lastActive")
+; => {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]}
+
+```
 
 
 

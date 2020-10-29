@@ -29,7 +29,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 		}
 		
 		; create array at key if not encountered yet
-		if (!l_array.HasKey(vIteratee)) {
+		if (!l_array.hasKey(vIteratee)) {
 			l_array[vIteratee] := []
 		}
 		; add value to this key

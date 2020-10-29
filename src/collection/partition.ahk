@@ -17,7 +17,7 @@ partition(param_collection,param_predicate) {
 		break
 	}
 
-	; perform the action
+	; create
 	for Key, Value in param_collection {
 		if (BoundFunc.call(Value) == true) {
 			trueArray.push(Value)

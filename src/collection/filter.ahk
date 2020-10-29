@@ -66,8 +66,8 @@ filter(param_collection,param_predicate:="__identity") {
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
-fn_filterFunc(param_interatee) {
-	if (param_interatee.active) { 
+fn_filterFunc(param_iteratee) {
+	if (param_iteratee.active) { 
 		return true 
 	}
 }
@@ -84,22 +84,24 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 
 ; omit
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-fn_filter2(param_interatee) {
-	if (param_interatee >= 2) {
+fn_filter2(param_iteratee) {
+	if (param_iteratee >= 2) {
 		return true
 	}
 }
 
+assert.label("filter - using value and key")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
-fn_filter3(param_interatee, param_key) {
+fn_filter3(param_iteratee, param_key) {
 	if (mod(param_key, 2) = 0) {
 		return true
 	}
 }
 
+assert.label("filter - using value, key, and collection")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
-fn_filter4(param_interatee, param_key, param_collection) {
-	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_interatee / 2) != -1) {
+fn_filter4(param_iteratee, param_key, param_collection) {
+	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
 		return true
 	}
 }

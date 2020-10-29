@@ -6,7 +6,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"biga.ahk": "^0.34.0",
-		"unit-testing.ahk": "github:chunjee/unit-testing.ahk",
+		"unit-testing.ahk": "^0.4.3",
 		"util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
 	},
 	"author": "Shawn Brooker",

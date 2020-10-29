@@ -488,8 +488,8 @@ assert.label("filter()")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
-fn_filterFunc(param_interatee) {
-	if (param_interatee.active) { 
+fn_filterFunc(param_iteratee) {
+	if (param_iteratee.active) { 
 		return true 
 	}
 }
@@ -506,11 +506,26 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 
 ; omit
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
-fn_filter2(param_interatee) {
-	if (param_interatee >= 2) {
-		return param_interatee
+fn_filter2(param_iteratee) {
+	if (param_iteratee >= 2) {
+		return true
 	}
-	return false
+}
+
+assert.label("filter - using value and key")
+assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
+fn_filter3(param_iteratee, param_key) {
+	if (mod(param_key, 2) = 0) {
+		return true
+	}
+}
+
+assert.label("filter - using value, key, and collection")
+assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
+fn_filter4(param_iteratee, param_key, param_collection) {
+	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
+		return true
+	}
 }
 
 
@@ -549,6 +564,23 @@ fn_forEachFunc(value) {
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`
+
+
+assert.label("groupBy()")
+assert.test(A.groupBy([6.1, 4.2, 6.2], A.floor), {4: [4.2], 6: [6.1, 6.2]})
+
+assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
+
+; The `A.property` iteratee shorthand.
+users := [ { "user": "barney", "lastActive": "Monday" }
+		, { "user": "fred", "lastActive": "Tuesday" }
+		, { "user": "pebbles", "lastActive": "Tuesday" } ]
+assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
+
+
+; omit
+
+assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
 
 
 assert.label("includes()")
@@ -684,6 +716,11 @@ assert.test(shuffleTestVar.Count(), 3)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
 assert.test(shuffleTestVar[3], 1)
+shuffleTestVar := A.shuffle({2: 1, 600: 1})
+shuffleTestVar := A.map(A.compact(shuffleTestVar))
+assert.test(shuffleTestVar.Count(), 2)
+assert.test(shuffleTestVar[1], 1)
+assert.test(shuffleTestVar[2], 1)
 
 
 assert.label("size()")
