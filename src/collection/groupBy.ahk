@@ -44,11 +44,13 @@ assert.test(A.groupBy([6.1, 4.2, 6.2], A.floor), {4: [4.2], 6: [6.1, 6.2]})
 
 assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
+; The `A.property` iteratee shorthand.
+users := [ { "user": "barney", "lastActive": "Monday" }
+		, { "user": "fred", "lastActive": "Tuesday" }
+		, { "user": "pebbles", "lastActive": "Tuesday" } ]
+assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
+
+
 ; omit
 
 assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
-
-users := [ { "user": "barney", "lastActive": "Tuesday" }
-		, { "user": "fred", "lastActive": "Monday" }
-		, { "user": "pebbles", "lastActive": "Tuesday" } ]
-assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "fred", "lastActive": "Monday" }], "Tuesday": [{ "user": "barney", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
