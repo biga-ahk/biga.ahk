@@ -1,4 +1,6 @@
 includes(param_collection,param_value,param_fromIndex:=1) {
+
+	; create
 	if (IsObject(param_collection)) {
 		for Key, Value in param_collection {
 			if (param_fromIndex > A_Index) {

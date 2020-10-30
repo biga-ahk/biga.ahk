@@ -2,14 +2,14 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 	if (!IsObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
-	; perform
+	; create
 	for Key, Value in param_collection {
 		if (param_fromindex > A_Index) {
 			continue
@@ -44,10 +44,10 @@ users := [ { "user": "barney", "age": 36, "active": true }
 
 assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
 fn_findFunc(o) {
-	if (o.active) { 
-		return true 
+	if (o.active) {
+		return true
 	}
-} 
+}
 
 ; The A.matches iteratee shorthand.
 assert.test(A.find(users, { "age": 1, "active": true }), { "user": "pebbles", "age": 1, "active": true })

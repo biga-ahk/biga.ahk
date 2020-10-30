@@ -2,7 +2,7 @@ every(param_collection,param_predicate) {
 	if (!IsObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	l_array := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
@@ -63,7 +63,7 @@ assert.false(A.every([true, false, true, true], Func("fn_istrue")))
 fn_istrue(value) {
 	if (value != true) {
 		return false
-	} 
+	}
 	return true
 }
 assert.true(A.every([true, true, true, true], Func("fn_istrue")))
@@ -75,3 +75,7 @@ userVotes := [{"name":"fred", "votes": ["yes","yes"]}
 
 assert.false(A.every(userVotes, ["votes.1", "yes"]))
 assert.true(A.every(userVotes, ["votes.2", "yes"]))
+
+
+assert.label("every - detect all undefined array")
+; assert.true(A.every(["","",""], A.isUndefined))
