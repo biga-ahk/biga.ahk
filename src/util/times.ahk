@@ -1,5 +1,5 @@
 times(param_n,param_iteratee:="__identity") {
-	if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.Call(1))) {
+	if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.call(1))) {
 		this._internal_ThrowException()
 	}
 	
@@ -8,7 +8,7 @@ times(param_n,param_iteratee:="__identity") {
 
 	; create
 	loop, % param_n {
-		l_array.push(param_iteratee.Call(A_Index))
+		l_array.push(param_iteratee.call(A_Index))
 	}
 	return l_array
 }

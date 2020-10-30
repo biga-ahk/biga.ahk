@@ -8,7 +8,7 @@ filter(param_collection,param_predicate:="__identity") {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
-	l_paramAmmount := param_predicate.MaxParams
+	l_paramAmmount := param_predicate.maxParams
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
 	}

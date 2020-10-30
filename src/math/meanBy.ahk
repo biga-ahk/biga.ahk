@@ -28,7 +28,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 		if (BoundFunc) {
 			vIteratee := BoundFunc.call(Value)
 		}
-		if (param_iteratee.MaxParams == 1) {
+		if (param_iteratee.maxParams == 1) {
 			if (!BoundFunc.call(Value)) {
 				vIteratee := param_iteratee.call(Value)
 			}

@@ -8,7 +8,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	l_paramAmmount := param_iteratee.MaxParams
+	l_paramAmmount := param_iteratee.maxParams
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
 	}
