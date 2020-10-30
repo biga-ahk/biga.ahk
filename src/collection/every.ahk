@@ -9,11 +9,8 @@ every(param_collection,param_predicate) {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
-	for Key, Value in param_collection {
-		if (!this.isUndefined(param_predicate.call(Value))) {
-			boundFunc := param_predicate.bind()
-		}
-		break
+	if (param_predicate.maxParams > 0) {
+		boundFunc := param_predicate.bind()
 	}
 
 	; create
