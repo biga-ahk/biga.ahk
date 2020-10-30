@@ -15,7 +15,7 @@ shuffle(param_collection) {
 		l_array[randomIndex] := l_tempVar
 		l_index--
 	}
-    return l_array
+	return l_array
 }
 
 

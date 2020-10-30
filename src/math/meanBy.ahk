@@ -33,7 +33,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 				vIteratee := param_iteratee.call(Value)
 			}
 		}
-		l_TotalVal += vIteratee 
+		l_TotalVal += vIteratee
 	}
 	return l_TotalVal / param_array.Count()
 }

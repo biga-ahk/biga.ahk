@@ -11,7 +11,7 @@ _printObj(param_obj) {
 	}
 
 	for Key, Value in param_obj {
-		if Key is not Number 
+		if Key is not Number
 		{
 			Output .= """" . Key . """:"
 		} else {
@@ -22,8 +22,7 @@ _printObj(param_obj) {
 		} else if Value is not number
 		{
 			Output .= """" . Value . """"
-		}
-		else {
+		} else {
 			Output .= Value
 		}
 		Output .= ", "
@@ -75,7 +74,7 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		}
 		return ".matchesProperty"
 	}
-	if (this.size(param_shorthand) > 0) {   
+	if (this.size(param_shorthand) > 0) {
 		if (IsObject(param_objects)) {
 			if (param_objects[1][param_shorthand] != "") {
 				return ".property"

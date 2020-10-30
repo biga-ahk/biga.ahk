@@ -48,12 +48,12 @@ internal_sort(param_collection,param_iteratees:="") {
 		}
 		lastValue := l_array[l_array.Count()]
 	}
-	
+
 	if lastValue is number
 	{
 		sortType := "N"
 	}
-	StringTrimRight, out, out, 1 ; remove trailing | 
+	StringTrimRight, out, out, 1 ; remove trailing |
 	Sort, out, % "D| " sortType
 	arrStorage := []
 	loop, parse, out, |
@@ -86,7 +86,7 @@ assert.test(A.sortBy(myArray),[2, 2, 3, 4, 4, 9, 12])
 myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
 assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
 
-enemies := [ 
+enemies := [
 	, {"name": "bear", "hp": 200, "armor": 20}
 	, {"name": "wolf", "hp": 100, "armor": 12}]
 sortedEnemies := A.sortBy(enemies, "hp")

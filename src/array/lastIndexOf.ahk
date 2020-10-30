@@ -11,7 +11,7 @@ lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 			continue
 		}
 		if (this.isEqual(param_array[vNegativeIndex], param_value)) {
-			return vNegativeIndex 
+			return vNegativeIndex
 		}
 	}
 	return -1

@@ -759,7 +759,7 @@ assert.test(A.sortBy(myArray),[2, 2, 3, 4, 4, 9, 12])
 myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
 assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
 
-enemies := [ 
+enemies := [
 	, {"name": "bear", "hp": 200, "armor": 20}
 	, {"name": "wolf", "hp": 100, "armor": 12}]
 sortedEnemies := A.sortBy(enemies, "hp")
