@@ -470,7 +470,7 @@ assert.false(A.every([true, false, true, true], Func("fn_istrue")))
 fn_istrue(value) {
 	if (value != true) {
 		return false
-	} 
+	}
 	return true
 }
 assert.true(A.every([true, true, true, true], Func("fn_istrue")))
@@ -482,6 +482,10 @@ userVotes := [{"name":"fred", "votes": ["yes","yes"]}
 
 assert.false(A.every(userVotes, ["votes.1", "yes"]))
 assert.true(A.every(userVotes, ["votes.2", "yes"]))
+
+
+assert.label("every - detect all undefined array")
+; assert.true(A.every(["","",""], A.isUndefined))
 
 
 assert.label("filter()")
@@ -536,10 +540,10 @@ users := [ { "user": "barney", "age": 36, "active": true }
 
 assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
 fn_findFunc(o) {
-	if (o.active) { 
-		return true 
+	if (o.active) {
+		return true
 	}
-} 
+}
 
 ; The A.matches iteratee shorthand.
 assert.test(A.find(users, { "age": 1, "active": true }), { "user": "pebbles", "age": 1, "active": true })
@@ -774,6 +778,8 @@ assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
 
 
+assert.label("negate()")
+
 assert.label("internal()")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.true(A.isAlnum(1))
@@ -824,7 +830,7 @@ assert.test(object, [{ "a": 2 }, { "b": 2 }])
 assert.label("isEqual()")
 assert.true(A.isEqual(1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }))
-assert.false(A.isEqual(1, 2))
+assert.false(A.isEqual(1, 1, 2))
 StringCaseSense, On
 assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 
@@ -832,6 +838,11 @@ assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 ; omit
 StringCaseSense, Off
 assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))
+
+assert.label(".isEqual - variadric parameters")
+assert.true(A.isEqual(1, 1, 1))
+assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
+assert.false(A.isEqual(1, 1, { "a": 1 }))
 
 
 assert.label("ismatch()")

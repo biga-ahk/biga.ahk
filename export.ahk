@@ -419,7 +419,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				continue
 			}
 			if (this.isEqual(param_array[vNegativeIndex], param_value)) {
-				return vNegativeIndex 
+				return vNegativeIndex
 			}
 		}
 		return -1
@@ -676,7 +676,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		l_count := 0
 		if (param_collection is alnum) {
-			; cut fromindex length off from start of string if specified fromIndex > 1 
+			; cut fromindex length off from start of string if specified fromIndex > 1
 			if (param_fromIndex > 1) {
 				param_collection := this.join(this.slice(param_collection, param_fromIndex, this.size(param_collection)), "")
 			}
@@ -710,11 +710,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
-		for Key, Value in param_collection {
-			if (!this.isUndefined(param_predicate.call(Value))) {
-				boundFunc := param_predicate.bind()
-			}
-			break
+		if (param_predicate.maxParams > 0) {
+			boundFunc := param_predicate.bind()
 		}
 
 		; create
@@ -741,7 +738,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
-		l_paramAmmount := param_predicate.MaxParams
+		l_paramAmmount := param_predicate.maxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
 		}
@@ -804,7 +801,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
-		; perform
+		; create
 		for Key, Value in param_collection {
 			if (param_fromindex > A_Index) {
 				continue
@@ -840,7 +837,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		l_paramAmmount := param_iteratee.MaxParams
+		l_paramAmmount := param_iteratee.maxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
 		}
@@ -912,6 +909,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	includes(param_collection,param_value,param_fromIndex:=1) {
+
+		; create
 		if (IsObject(param_collection)) {
 			for Key, Value in param_collection {
 				if (param_fromIndex > A_Index) {
@@ -950,7 +949,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		l_paramAmmount := param_iteratee.MaxParams
+		l_paramAmmount := param_iteratee.maxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
 		}
@@ -1142,7 +1141,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			l_array[randomIndex] := l_tempVar
 			l_index--
 		}
-	    return l_array
+		return l_array
 	}
 	size(param_collection) {
 
@@ -1210,7 +1209,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		{
 			sortType := "N"
 		}
-		StringTrimRight, out, out, 1 ; remove trailing | 
+		StringTrimRight, out, out, 1 ; remove trailing |
 		Sort, out, % "D| " sortType
 		arrStorage := []
 		loop, parse, out, |
@@ -1232,7 +1231,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		for Key, Value in param_obj {
-			if Key is not Number 
+			if Key is not Number
 			{
 				Output .= """" . Key . """:"
 			} else {
@@ -1243,8 +1242,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			} else if Value is not number
 			{
 				Output .= """" . Value . """"
-			}
-			else {
+			} else {
 				Output .= Value
 			}
 			Output .= ", "
@@ -1293,7 +1291,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 			return ".matchesProperty"
 		}
-		if (this.size(param_shorthand) > 0) {   
+		if (this.size(param_shorthand) > 0) {
 			if (IsObject(param_objects)) {
 				if (param_objects[1][param_shorthand] != "") {
 					return ".property"
@@ -1371,13 +1369,26 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return Obj
 	}
-	isEqual(param_value,param_other) {
+	isEqual(param_value,param_other*) {
+
+		; prepare
 		if (IsObject(param_value)) {
+			l_array := []
 			param_value := this._printObj(param_value)
-			param_other := this._printObj(param_other)
+			loop, % param_other.Count() {
+				l_array.push(this._printObj(param_other[A_Index]))
+			}
+		} else {
+			l_array := this.cloneDeep(param_other)
 		}
 
-		return !(param_value != param_other) ; != follows StringCaseSense
+		; create
+		loop, % l_array.Count() {
+			if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
+				return false
+			}
+		}
+		return true
 	}
 	isMatch(param_object,param_source) {
 		for Key, Value in param_source {
@@ -1515,12 +1526,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (BoundFunc) {
 				vIteratee := BoundFunc.call(Value)
 			}
-			if (param_iteratee.MaxParams == 1) {
+			if (param_iteratee.maxParams == 1) {
 				if (!BoundFunc.call(Value)) {
 					vIteratee := param_iteratee.call(Value)
 				}
 			}
-			l_TotalVal += vIteratee 
+			l_TotalVal += vIteratee
 		}
 		return l_TotalVal / param_array.Count()
 	}
@@ -2160,7 +2171,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return  param_itaree[param_property]
 	}
 	times(param_n,param_iteratee:="__identity") {
-		if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.Call(1))) {
+		if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.call(1))) {
 			this._internal_ThrowException()
 		}
 
@@ -2169,7 +2180,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		loop, % param_n {
-			l_array.push(param_iteratee.Call(A_Index))
+			l_array.push(param_iteratee.call(A_Index))
 		}
 		return l_array
 	}
