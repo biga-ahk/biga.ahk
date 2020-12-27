@@ -694,6 +694,14 @@ output := A.sampleSize([1, 2, 3], 4)
 assert.test(output.Count(), 3)
 
 
+; omit
+output := A.sampleSize({1:1, 8:2, "key":"value"}, 2)
+assert.test(output.Count(), 2)
+
+output := A.sampleSize({1:1, 8:2, "key":"value"}, 3)
+assert.true(A.includes(output, "value"))
+
+
 assert.label("shuffle()")
 
 

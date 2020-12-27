@@ -1110,6 +1110,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_collection := this.clone(param_collection)
 		l_array := []
 		tempArray := []
+		if (l_collection.count() != l_collection.length()) {
+			l_collection := this.map(l_collection)
+		}
 
 		; create
 		loop, % param_SampleSize
