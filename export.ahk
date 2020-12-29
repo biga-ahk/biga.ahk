@@ -1087,9 +1087,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		l_array := []
-		for Key, Value in param_collection {
-			l_array.push(Value)
+		if (param_collection.count() != param_collection.length()) {
+			l_array := this.map(param_collection)
+		} else {
+			l_array := param_collection.clone()
 		}
 
 		; create
@@ -1109,21 +1110,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		l_collection := this.clone(param_collection)
 		l_array := []
-		tempArray := []
-		if (l_collection.count() != l_collection.length()) {
-			l_collection := this.map(l_collection)
-		}
+		l_order := A.shuffle(this.keys(param_collection))
 
 		; create
 		loop, % param_SampleSize
 		{
-			Random, randomNum, 1, l_collection.Count()
-			while (this.indexOf(tempArray, randomNum) != -1) {
-				tempArray.push(randomNum)
-				Random, randomNum, 1, l_collection.Count()
-			}
-			l_array.push(l_collection[randomNum])
-			l_collection.RemoveAt(randomNum)
+			orderValue := l_order.pop()
+			l_array.push(l_collection[orderValue])
 		}
 		return l_array
 	}
