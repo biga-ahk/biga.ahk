@@ -784,7 +784,7 @@ A.reverse([[1, 2, 3], "b", "c"])
 
 
 ## .slice
-Creates a slice of array from start up to, but not including, end.
+Creates a slice of array from start up to end.
 
 
 #### Arguments
