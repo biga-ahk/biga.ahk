@@ -2,13 +2,14 @@ sample(param_collection) {
 	if (!IsObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
-	l_array := []
-	for Key, Value in param_collection {
-		l_array.push(Value)
+	if (param_collection.count() != param_collection.length()) {
+		l_array := this.map(param_collection)
+	} else {
+		l_array := param_collection.clone()
 	}
-	
+
 	; create
 	randomIndex := this.random(1, l_array.Count())
 	return l_array[randomIndex]
@@ -26,3 +27,6 @@ assert.false(IsObject(output))
 output := A.sample([{"obj": 1} , {"obj": 2}, {"obj": 3}])
 assert.test(A.size(output), 1)
 assert.true(IsObject(output))
+
+output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
+assert.true(A.includes(output, "value"))

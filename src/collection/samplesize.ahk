@@ -11,21 +11,13 @@ sampleSize(param_collection,param_SampleSize:=1) {
 	; prepare
 	l_collection := this.clone(param_collection)
 	l_array := []
-	tempArray := []
-	if (l_collection.count() != l_collection.length()) {
-		l_collection := this.map(l_collection)
-	}
+	l_order := A.shuffle(this.keys(param_collection))
 
 	; create
 	loop, % param_SampleSize
 	{
-		Random, randomNum, 1, l_collection.Count()
-		while (this.indexOf(tempArray, randomNum) != -1) {
-			tempArray.push(randomNum)
-			Random, randomNum, 1, l_collection.Count()
-		}
-		l_array.push(l_collection[randomNum])
-		l_collection.RemoveAt(randomNum)
+		orderValue := l_order.pop()
+		l_array.push(l_collection[orderValue])
 	}
 	return l_array
 }
@@ -44,4 +36,6 @@ output := A.sampleSize({1:1, 8:2, "key":"value"}, 2)
 assert.test(output.Count(), 2)
 
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 3)
+assert.true(A.includes(output, 1))
+assert.true(A.includes(output, 2))
 assert.true(A.includes(output, "value"))
