@@ -2,14 +2,22 @@ indexOf(param_array,param_value,fromIndex:=1) {
 	if (!IsObject(param_array)) {
 		this._internal_ThrowException()
 	}
-	 
+
+	; prepare
+	if (IsObject(param_value)) {
+		param_value := this._internal_MD5(param_value)
+		param_array := this.map(param_array, this._internal_MD5)
+	}
+
 	;  create
-	for Index, Value in param_array {
-		if (Index < fromIndex) {
+	for index, value in param_array {
+		if (index < fromIndex) {
 			continue
 		}
-		if (this.isEqual(Value, param_value)) {
-			return Index
+		if (value != param_value) {
+			continue
+		} else {
+			return index
 		}
 	}
 	return -1

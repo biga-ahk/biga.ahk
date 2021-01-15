@@ -12,6 +12,14 @@ isEqual(param_value,param_other*) {
 	}
 
 	; create
+	if (this.isNumber(param_value)) {
+		loop, % l_array.Count() {
+			if (this._internal_MD5(param_value) != this._internal_MD5(l_array[A_Index])) {
+				return false
+			}
+		}
+		return true
+	}
 	loop, % l_array.Count() {
 		if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
 			return false
@@ -37,3 +45,7 @@ assert.label(".isEqual - variadric parameters")
 assert.true(A.isEqual(1, 1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
+
+assert.label(".isEqual - leading zero numbers")
+assert.false(A.isEqual(00011, 11))
+assert.true(A.isEqual(11, 11))
