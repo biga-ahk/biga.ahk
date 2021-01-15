@@ -129,6 +129,17 @@ isNumber(param) {
 	return false
 }
 
+isFloat(param) {
+	if (IsObject(param)) {
+		return false
+	}
+    if param is float
+    {
+		return true
+    }
+	return false
+}
+
 
 isFalsey(param) {
 	if (param == "" || param == 0) {
