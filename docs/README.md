@@ -1203,7 +1203,6 @@ fn_filterFunc(param_iteratee) {
 		return true
 	}
 }
-
 ; The A.matches shorthand
 A.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
@@ -1212,7 +1211,7 @@ A.filter(users, {"age": 36,"active":true})
 A.filter(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":false}]
 
-;the A.property shorthand
+; The A.property shorthand
 A.filter(users, "active")
 ; => [{"user":"barney", "age":36, "active":true}]
 
@@ -1529,7 +1528,7 @@ A.reject(users, {"age":40, "active":true})
 A.reject(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":true}]
 
-;the A.property shorthand
+; The A.property shorthand
 A.reject(users, "active")
 ; => [{"user":"barney", "age":36, "active":false}]
 

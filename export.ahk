@@ -1,4 +1,12 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -324,13 +332,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
+		if (IsObject(param_value)) {
+			param_value := this._internal_MD5(param_value)
+			param_array := this.map(param_array, this._internal_MD5)
+		}
+
 		;  create
-		for Index, Value in param_array {
-			if (Index < fromIndex) {
+		for index, value in param_array {
+			if (index < fromIndex) {
 				continue
 			}
-			if (this.isEqual(Value, param_value)) {
-				return Index
+			if (value != param_value) {
+				continue
+			} else {
+				return index
 			}
 		}
 		return -1
@@ -1338,6 +1354,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 
+	isFloat(param) {
+		if (IsObject(param)) {
+			return false
+		}
+	    if param is float
+	    {
+			return true
+	    }
+		return false
+	}
+
 	isFalsey(param) {
 		if (param == "" || param == 0) {
 			return true
@@ -1379,6 +1406,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
+		if (this.isNumber(param_value)) {
+			loop, % l_array.Count() {
+				if (this.isFloat(param_value) || this.isFloat(l_array[A_Index])) {
+					value := this.parseInt(param_value)
+					comparison := this.parseInt(l_array[A_Index])
+				} else {
+					value := this._internal_MD5(param_value)
+					comparison := this._internal_MD5(l_array[A_Index])
+				}
+				if (value != comparison) {
+					return false
+				}
+			}
+			return true
+		}
 		loop, % l_array.Count() {
 			if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
 				return false
@@ -1675,7 +1717,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		result := param_collections[1]
 		for index, obj in param_collections {
 			if(A_Index = 1) {
-				continue 
+				continue
 			}
 			result := this.internal_Merge(result, obj)
 		}
@@ -1684,14 +1726,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 	internal_Merge(param_collection1, param_collection2) {
 		if(!IsObject(param_collection1) && !IsObject(param_collection2)) {
-			; if only one OR the other exist, display them together. 
+			; if only one OR the other exist, display them together.
 			if(param_collection1 = "" || param_collection2 = "") {
 				return param_collection2 param_collection1
 			}
 			; return only one if they are the same
 			if (param_collection1 = param_collection2)
 				return param_collection1
-			; otherwise, return them together as an object. 
+			; otherwise, return them together as an object.
 			return [param_collection1, param_collection2]
 		}
 
@@ -2125,7 +2167,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (itareeValue = param_matchvalue) {
 				return true
 			}
-		}    
+		}
 		return false
 	}
 	property(param_source) {
@@ -2142,7 +2184,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (IsObject(param_source)) {
 			keyArray := []
 			for Key, Value in param_source {
-				keyArray.push(Value) 
+				keyArray.push(Value)
 			}
 			BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
 			return BoundFunc
@@ -2180,4 +2222,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}

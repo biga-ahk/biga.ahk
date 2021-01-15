@@ -52,7 +52,7 @@ assert.test(A.reject(users, {"age":40, "active":true}), [{"user":"barney", "age"
 ; The A.matchesProperty shorthand
 assert.test(A.reject(users, ["active", false]), [{"user":"fred", "age":40, "active":true}])
 
-;the A.property shorthand 
+; The A.property shorthand
 assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":false}])
 
 

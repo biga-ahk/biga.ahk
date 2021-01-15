@@ -67,18 +67,18 @@ users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, 
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
 fn_filterFunc(param_iteratee) {
-	if (param_iteratee.active) { 
-		return true 
+	if (param_iteratee.active) {
+		return true
 	}
 }
- 
+
 ; The A.matches shorthand
 assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
 
 ; The A.matchesProperty shorthand
 assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])
 
-;the A.property shorthand 
+; The A.property shorthand
 assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
 
 

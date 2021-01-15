@@ -2,7 +2,7 @@ property(param_source) {
 	if (IsObject(param_srcValue)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	if (this.includes(param_source, ".")) {
 		param_source := this.split(param_source, ".")
@@ -12,7 +12,7 @@ property(param_source) {
 	if (IsObject(param_source)) {
 		keyArray := []
 		for Key, Value in param_source {
-			keyArray.push(Value) 
+			keyArray.push(Value)
 		}
 		BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
 		return BoundFunc

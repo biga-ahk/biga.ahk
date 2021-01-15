@@ -493,18 +493,18 @@ users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, 
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
 fn_filterFunc(param_iteratee) {
-	if (param_iteratee.active) { 
-		return true 
+	if (param_iteratee.active) {
+		return true
 	}
 }
- 
+
 ; The A.matches shorthand
 assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
 
 ; The A.matchesProperty shorthand
 assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])
 
-;the A.property shorthand 
+; The A.property shorthand
 assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":true}])
 
 
@@ -666,7 +666,7 @@ assert.test(A.reject(users, {"age":40, "active":true}), [{"user":"barney", "age"
 ; The A.matchesProperty shorthand
 assert.test(A.reject(users, ["active", false]), [{"user":"fred", "age":40, "active":true}])
 
-;the A.property shorthand 
+; The A.property shorthand
 assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":false}])
 
 
@@ -685,6 +685,9 @@ output := A.sample([{"obj": 1} , {"obj": 2}, {"obj": 3}])
 assert.test(A.size(output), 1)
 assert.true(IsObject(output))
 
+output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
+assert.true(A.includes(output, "value"))
+
 
 assert.label("samplesize()")
 output := A.sampleSize([1, 2, 3], 2)
@@ -699,6 +702,8 @@ output := A.sampleSize({1:1, 8:2, "key":"value"}, 2)
 assert.test(output.Count(), 2)
 
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 3)
+assert.true(A.includes(output, 1))
+assert.true(A.includes(output, 2))
 assert.true(A.includes(output, "value"))
 
 
@@ -786,8 +791,6 @@ assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
 
 
-assert.label("negate()")
-
 assert.label("internal()")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.true(A.isAlnum(1))
@@ -851,6 +854,14 @@ assert.label(".isEqual - variadric parameters")
 assert.true(A.isEqual(1, 1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
+
+assert.label(".isEqual - leading zero numbers")
+assert.false(A.isEqual(00011, 11))
+assert.true(A.isEqual(11, 11))
+
+assert.label(".isEqual - decimal places")
+assert.true(A.isEqual(1.0, 1.000))
+assert.true(A.isEqual(11, 11.000))
 
 
 assert.label("ismatch()")
@@ -1157,6 +1168,9 @@ assert.test(A.repeat("abc", 0), "")
 assert.label("replace()")
 assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
 assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
+
+; omit
+assert.test(A.replace("Hi Barney"), "Hi Barney")
 
 
 assert.label("snakeCase()")
