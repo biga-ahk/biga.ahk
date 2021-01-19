@@ -1227,6 +1227,12 @@ assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
 assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
 
 
+; omit
+assert.label(".replace - blank parameters")
+assert.test(A.replace("Hi Barney"), "Hi Barney")
+assert.test(A.replace(), "")
+
+
 assert.label("snakeCase()")
 assert.test(A.snakeCase("Foo Bar"), "foo_bar")
 assert.test(A.snakeCase("fooBar"), "foo_bar")
