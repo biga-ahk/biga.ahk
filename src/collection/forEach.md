@@ -1,8 +1,8 @@
 Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
 
 
-<!-- Aliases
-_.each -->
+## Aliases
+`.each`
 
 
 ## Arguments
@@ -15,7 +15,7 @@ collection (Array|Object): The collection to iterate over.
 (*): Returns collection.
 
 
-## Examples 
+## Examples
 
 ```autohotkey
 A.forEach([1, 2], Func("fn_forEachFunc1"))

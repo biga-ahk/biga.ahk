@@ -1,8 +1,8 @@
 Creates an array of own enumerable string keyed-value pairs for object which can be consumed by A.fromPairs.
 
 
-<!-- ## Aliases
-A.entries -->
+## Aliases
+`.entries`
 
 
 ## Arguments

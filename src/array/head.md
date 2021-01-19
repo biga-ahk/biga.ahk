@@ -1,7 +1,7 @@
 Gets the first element of array.
 
-<!-- Aliases
-_.first -->
+## Aliases
+`.first`
 
 ## Arguments
 array (Array): The array to query.
