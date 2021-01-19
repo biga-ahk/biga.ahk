@@ -133,10 +133,10 @@ isFloat(param) {
 	if (IsObject(param)) {
 		return false
 	}
-    if param is float
-    {
+	if param is float
+	{
 		return true
-    }
+	}
 	return false
 }
 
