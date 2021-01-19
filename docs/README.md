@@ -6,7 +6,7 @@ See [Getting Started](https://biga-ahk.github.io/biga.ahk/#/getting-started) for
 
 By default the following attributes are as follows:
 
-`A.throwExceptions := true`
+`A.throwExceptions := true` 
 Wherever typeif errors can be detected, biga.ahk will throw an exception pointing out the location the error occurred. Set this to `false` if you would like your script to continue without being stopped by exceptions.
 
 `A.limit := -1`
@@ -82,8 +82,7 @@ array (Array): The array to concatenate.
 #### Example
 
 ```autohotkey
-array := [1]
-A.concat(array, 2, [3], [[4]])
+array := [1]A.concat(array, 2, [3], [[4]])
 ; => [1, 2, 3, [4]]
 
 A.concat(array)
@@ -222,26 +221,16 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": true }
-		, { "user": "fred", 	"active": false }
-		, { "user": "pebbles", 	"active": false } ]
-A.dropRightWhile(users, Func("fn_dropRightWhile"))
+users := [ {"user": "barney", 	"active": true }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": false } ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
 ; => [{"user": "barney", "active": true }]
 
-fn_dropRightWhile(o)
-{
-	return !o.active
-}
-; The `A.matches` iteratee shorthand.
-A.dropRightWhile(users, {"user": "pebbles", "active": false})
+fn_dropRightWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
 ; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ]
 
-; The `A.matchesProperty` iteratee shorthand.
-A.dropRightWhile(users, ["active", false])
+; The `A.matchesProperty` iteratee shorthand.A.dropRightWhile(users, ["active", false])
 ; => [  {"user": "barney", "active": true } ]
 
-; The `A.property` iteratee shorthand.
-A.dropRightWhile(users, "active")
+; The `A.property` iteratee shorthand.A.dropRightWhile(users, "active")
 ; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ]
 
 ```
@@ -266,26 +255,16 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": false }
-		, { "user": "fred", 	"active": false }
-		, { "user": "pebbles", 	"active": true } ]
-A.dropWhile(users, Func("fn_dropWhile"))
+users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
 ; => [{ "user": "pebbles", "active": true }]
 
-fn_dropWhile(o)
-{
-	return !o.active
-}
-; The `A.matches` iteratee shorthand.
-A.dropWhile(users, {"user": "barney", "active": false})
+fn_dropWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
 ; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ]
 
-; The `A.matchesProperty` iteratee shorthand.
-A.dropWhile(users, ["active", false])
+; The `A.matchesProperty` iteratee shorthand.A.dropWhile(users, ["active", false])
 ; => [ {"user": "pebbles", "active": true } ]
 
-; The `A.property` iteratee shorthand.
-A.dropWhile(users, "active")
+; The `A.property` iteratee shorthand.A.dropWhile(users, "active")
 ; => [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
 
 ```
@@ -317,8 +296,7 @@ value (*): The value to fill array with.
 #### Example
 
 ```autohotkey
-array := [1, 2, 3]
-A.fill(array, "a")
+array := [1, 2, 3]A.fill(array, "a")
 ; => ["a", "a", "a"]
 
 A.fill([4, 6, 8, 10], "*", 2, 3)
@@ -351,30 +329,22 @@ array (Array): The array to inspect.
 A.findIndex([1, 2, 1, 2], 2)
 ; => 2
 
-; Search from the `fromIndex`.
-A.findIndex([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.findIndex([1, 2, 1, 2], 2, 3)
 ; => 4
 
 A.findIndex(["fred", "barney"], "pebbles")
 ; => -1
 
-StringCaseSense, On
-A.findIndex(["fred", "barney"], "Fred")
+StringCaseSense, OnA.findIndex(["fred", "barney"], "Fred")
 ; => -1
 
 A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"})
 ; => 2
 
-users := [ { "user": "barney", "age": 36, "active": true }
-	, { "user": "fred", "age": 40, "active": false }
-	, { "user": "pebbles", "age": 1, "active": true } ]
-A.findIndex(users, Func("findIndexFunc"))
+users := [ { "user": "barney", "age": 36, "active": true }	, { "user": "fred", "age": 40, "active": false }	, { "user": "pebbles", "age": 1, "active": true } ]A.findIndex(users, Func("findIndexFunc"))
 ; => 1
 
-findIndexFunc(o) {
-	return o.user == "barney"
-}
-```
+findIndexFunc(o) {	return o.user == "barney"}```
 
 
 
@@ -397,10 +367,7 @@ array (Array): The array to inspect.
 #### Example
 
 ```autohotkey
-users := [{"user": "barney", "active": true}
-		, {"user": "fred", "active": false}
-		, {"user": "pebbles", "active": false}]
-A.findLastIndex(users, {"user": "barney", "active": true})
+users := [{"user": "barney", "active": true}		, {"user": "fred", "active": false}		, {"user": "pebbles", "active": false}]A.findLastIndex(users, {"user": "barney", "active": true})
 ; => 1
 
 A.findLastIndex(users, ["active", true])
@@ -575,15 +542,13 @@ value (*): The value to search for.
 A.indexOf([1, 2, 1, 2], 2)
 ; => 2
 
-; Search from the `fromIndex`.
-A.indexOf([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.indexOf([1, 2, 1, 2], 2, 3)
 ; => 4
 
 A.indexOf(["fred", "barney"], "pebbles")
 ; => -1
 
-StringCaseSense, On
-A.indexOf(["fred", "barney"], "Fred")
+StringCaseSense, OnA.indexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -607,15 +572,6 @@ array (Array): The array to query.
 ```autohotkey
 A.initial([1, 2, 3])
 ; => [1, 2]
-
-A.initial([1, 2, 3], 2)
-; => [1]
-
-A.initial([1, 2, 3], 5)
-; => []
-
-A.initial([1, 2, 3], 0)
-; => [1, 2, 3]
 
 A.initial("fred")
 ; => ["f", "r", "e"]
@@ -701,12 +657,10 @@ value (*): The value to search for.
 A.lastIndexOf([1, 2, 1, 2], 2)
 ; => 4
 
-; Search from the `fromIndex`.
-A.lastIndexOf([1, 2, 1, 2], 1, 2)
+; Search from the `fromIndex`.A.lastIndexOf([1, 2, 1, 2], 1, 2)
 ; => 1
 
-StringCaseSense, On
-A.lastIndexOf(["fred", "barney"], "Fred")
+StringCaseSense, OnA.lastIndexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -1035,7 +989,7 @@ A.without([2, 1, 2, 3], 1, 2)
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
 > [!Warning]
-> This method has not reached pairity with Lodash.
+> This method has not reached pairity with Lodash. 
 > Output will not match Lodash output in the event the length of all supplied arrays are not the same.
 
 #### Arguments
@@ -1111,19 +1065,13 @@ A.count("pebbles", "b")
 A.count(["fred", "barney", "pebbles"], "barney")
 ; => 1
 
-users := [ {"user": "fred", "age": 40, "active": true}
-		, {"user": "barney", "age": 36, "active": false}
-		, {"user": "pebbles", "age": 1, "active": false} ]
-; The `A.matches` iteratee shorthand.
-A.count(users, {"age": 1, "active": false})
+users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "age": 36, "active": false}		, {"user": "pebbles", "age": 1, "active": false} ]; The `A.matches` iteratee shorthand.A.count(users, {"age": 1, "active": false})
 ; => 1
 
-; The `A.matchesProperty` iteratee shorthand.
-A.count(users, ["active", false])
+; The `A.matchesProperty` iteratee shorthand.A.count(users, ["active", false])
 ; => 2
 
-; The `A.property` iteratee shorthand.
-A.count(users, "active")
+; The `A.property` iteratee shorthand.A.count(users, "active")
 ; => 1
 
 ```
@@ -1151,25 +1099,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
-A.every(users, func("fn_isOver18")
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18")
 ; => true
 
-fn_isOver18(x) {
-	if (x.age > 18) {
-		return true
-	}
-}
-; The `A.matches` iteratee shorthand.
-A.every(users, { "user": "barney", "age": 36, "active": false })
+fn_isOver18(x) {	if (x.age > 18) {		return true	}}; The `A.matches` iteratee shorthand.A.every(users, { "user": "barney", "age": 36, "active": false })
 ; => false
 
-; The `A.matchesProperty` iteratee shorthand.
-A.every(users, ["active", false])
+; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
 ; => true
 
-; The `A.property` iteratee shorthand.
-A.every(users, "active")
+; The `A.property` iteratee shorthand.A.every(users, "active")
 ; => false
 
 ```
@@ -1194,25 +1133,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
-A.filter(users, Func("fn_filterFunc"))
+users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filterFunc(param_iteratee) {
-	if (param_iteratee.active) {
-		return true
-	}
-}
-; The A.matches shorthand
-A.filter(users, {"age": 36,"active":true})
+fn_filterFunc(param_iteratee) {	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
-; The A.matchesProperty shorthand
-A.filter(users, ["active", false])
+; The A.matchesProperty shorthandA.filter(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":false}]
 
-; The A.property shorthand
-A.filter(users, "active")
+; The A.property shorthandA.filter(users, "active")
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ```
@@ -1239,27 +1169,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }
-	, { "user": "fred", "age": 40, "active": false }
-	, { "user": "pebbles", "age": 1, "active": true } ]
-A.find(users, Func("fn_findFunc"))
+users := [ { "user": "barney", "age": 36, "active": true }	, { "user": "fred", "age": 40, "active": false }	, { "user": "pebbles", "age": 1, "active": true } ]A.find(users, Func("fn_findFunc"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_findFunc(o) {
-	if (o.active) {
-		return true
-	}
-}
-; The A.matches iteratee shorthand.
-A.find(users, { "age": 1, "active": true })
+fn_findFunc(o) {	if (o.active) {		return true	}}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
 
-; The A.matchesProperty iteratee shorthand.
-A.find(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.find(users, ["active", false])
 ; => { "user": "fred", "age": 40, "active": false }
 
-; The A.property iteratee shorthand.
-A.find(users, "active")
+; The A.property iteratee shorthand.A.find(users, "active")
 ; => { "user": "barney", "age": 36, "active": true }
 
 ```
@@ -1285,7 +1204,7 @@ collection (Array|Object): The collection to iterate over.
 (*): Returns collection.
 
 
-#### Example
+#### Example 
 
 ```autohotkey
 A.forEach([1, 2], Func("fn_forEachFunc1"))
@@ -1332,11 +1251,7 @@ A.groupBy([6.1, 4.2, 6.2], A.floor)
 A.groupBy([6.1, 4.2, 6.3], func("Ceil"))
 ; => {5: [4.2], 7: [6.1, 6.3]}
 
-; The `A.property` iteratee shorthand.
-users := [ { "user": "barney", "lastActive": "Monday" }
-		, { "user": "fred", "lastActive": "Tuesday" }
-		, { "user": "pebbles", "lastActive": "Tuesday" } ]
-A.groupBy(users, "lastActive")
+; The `A.property` iteratee shorthand.users := [ { "user": "barney", "lastActive": "Monday" }		, { "user": "fred", "lastActive": "Tuesday" }		, { "user": "pebbles", "lastActive": "Tuesday" } ]A.groupBy(users, "lastActive")
 ; => {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]}
 
 ```
@@ -1372,12 +1287,10 @@ A.includes({ "a": 1, "b": 2 }, 1)
 A.includes("InStr", "Str")
 ; => true
 
-StringCaseSense, On
-A.includes("InStr", "str")
+StringCaseSense, OnA.includes("InStr", "str")
 ; => false
 
-; RegEx object
-A.includes("hello!", "/\D/")
+; RegEx objectA.includes("hello!", "/\D/")
 ; => true
 
 ```
@@ -1402,16 +1315,10 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-array := [ {"dir": "left", "code": 97}
-	, {"dir": "right", "code": 100}]
-A.keyBy(array, Func("fn_keyByFunc"))
+array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, Func("fn_keyByFunc"))
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
-fn_keyByFunc(value)
-{
-	return value.dir
-}
-```
+fn_keyByFunc(value){	return value.dir}```
 
 
 
@@ -1432,10 +1339,7 @@ iteratee:=A.identity (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-fn_square(n) {
-	return  n * n
-}
-A.map([4, 8], Func("fn_square"))
+fn_square(n) {	return  n * n}A.map([4, 8], Func("fn_square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, Func("fn_square"))
@@ -1444,9 +1348,7 @@ A.map({ "a": 4, "b": 8 }, Func("fn_square"))
 A.map({ "a": 4, "b": 8 })
 ; => [4, 8]
 
-; The `A.property` shorthand
-users := [{ "user": "barney" }, { "user": "fred" }]
-A.map(users, "user")
+; The `A.property` shorthandusers := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
 ; => ["barney", "fred"]
 
 ```
@@ -1471,25 +1373,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": false }
-	, { "user": "fred", "age": 40, "active": true }
-	, { "user": "pebbles", "age": 1, "active": false } ]
-A.partition(users, func("fn_partitionFunc"))
+users := [ { "user": "barney", "age": 36, "active": false }	, { "user": "fred", "age": 40, "active": true }	, { "user": "pebbles", "age": 1, "active": false } ]A.partition(users, func("fn_partitionFunc"))
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
-fn_partitionFunc(o) {
-	return o.active
-}
-; The A.matches iteratee shorthand.
-A.partition(users, {"age": 1, "active": false})
+fn_partitionFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
 ; => [[{ "user": "pebbles", "age": 1, "active": false }], [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": true }]]
 
-; The A.propertyMatches iteratee shorthand.
-A.partition(users, ["active", false])
+; The A.propertyMatches iteratee shorthand.A.partition(users, ["active", false])
 ; => [[{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }] ,[{ "user": "fred", "age": 40, "active": true }]]
 
-; The A.property iteratee shorthand.
-A.partition(users, "active")
+; The A.property iteratee shorthand.A.partition(users, "active")
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
 ```
@@ -1513,23 +1406,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
-A.reject(users, Func("fn_rejectFunc"))
+users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, Func("fn_rejectFunc"))
 ; => [{"user":"fred", "age":40, "active":true}]
 
-fn_rejectFunc(o) {
-	return !o.active
-}
-; The A.matches shorthand
-A.reject(users, {"age":40, "active":true})
+fn_rejectFunc(o) {	return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
 ; => [{"user":"barney", "age":36, "active":false}]
 
-; The A.matchesProperty shorthand
-A.reject(users, ["active", false])
+; The A.matchesProperty shorthandA.reject(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":true}]
 
-; The A.property shorthand
-A.reject(users, "active")
+; The A.property shorthandA.reject(users, "active")
 ; => [{"user":"barney", "age":36, "active":false}]
 
 ```
@@ -1658,12 +1544,7 @@ collection (Array|Object): The collection to iterate over.
 A.sortBy(["b", "f", "e", "c", "d", "a"])
 ; => ["a", "b", "c", "d", "e", "f"]
 
-users := [
-  , { "name": "fred",   "age": 40 }
-  , { "name": "barney", "age": 34 }
-  , { "name": "bernard", "age": 36 }
-  , { "name": "zoey", "age": 40 }]
-A.sortBy(users, "age")
+users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, ["age", "name"])
@@ -1672,10 +1553,7 @@ A.sortBy(users, ["age", "name"])
 A.sortBy(users, Func("fn_sortByFunc"))
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
-fn_sortByFunc(o) {
-	return o.name
-}
-```
+fn_sortByFunc(o) {	return o.name}```
 
 
 
@@ -1723,14 +1601,7 @@ value (*): The value to recursively clone.
 #### Example
 
 ```autohotkey
-object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]
-deepclone := A.cloneDeep(object)
-object[1].a := 2
-; object
-; => [{ "a": 2 }, { "b": 2 }]
-; deepclone
-; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]
-```
+object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]```
 
 
 
@@ -1763,8 +1634,7 @@ A.isEqual({ "a": 1 }, { "a": 1 })
 A.isEqual(1, 1, 2)
 ; => false
 
-StringCaseSense, On
-A.isEqual({ "a": "a" }, { "a": "A" })
+StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 ; => false
 
 ```
@@ -1790,8 +1660,7 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }
-A.isMatch(object, {"b": 2})
+object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object, {"b": 2})
 ; => true
 
 A.isMatch(object, {"b": 2, "c": 3})
@@ -2023,16 +1892,10 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-A.meanBy(objects, Func("meanByFunc1"))
+objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(objects, Func("meanByFunc1"))
 ; => 5
 
-meanByFunc1(o)
-{
-	return o.n
-}
-; The `A.property` iteratee shorthand.
-A.meanBy(objects, "n")
+meanByFunc1(o){	return o.n}; The `A.property` iteratee shorthand.A.meanBy(objects, "n")
 ; => 5
 
 ```
@@ -2323,8 +2186,7 @@ object (Object): The object to query.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2, "c": 3}
-A.keys(object)
+object := {"a": 1, "b": 2, "c": 3}A.keys(object)
 ; => ["a", "b", "c"]
 
 A.keys("hi")
@@ -2352,14 +2214,10 @@ object (Object): The destination object.
 #### Example
 
 ```autohotkey
-object := {"options": [{"option1": true}]}
-other := {"options": [{"option2": false}]}
-A.merge(object, other)
+object := {"options": [{"option1": true}]}other := {"options": [{"option2": false}]}A.merge(object, other)
 ; => {"options": [{"option1": true, "option2": false}]}
 
-object := { "a": [{ "b": 2 }, { "d": 4 }] }
-other := { "a": [{ "c": 3 }, { "e": 5 }] }
-A.merge(object, other)
+object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
@@ -2383,8 +2241,7 @@ object (Object): The source object.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": "2", "c": 3}
-A.omit(object, ["a", "c"])
+object := {"a": 1, "b": "2", "c": 3}A.omit(object, ["a", "c"])
 ; => {"b": "2"}
 
 ```
@@ -2408,8 +2265,7 @@ object (Object): The source object.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": "2", "c": 3}
-A.pick(object, ["a", "c"])
+object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
 ; => {"a": 1, "c": 3}
 
 ```
@@ -2528,8 +2384,7 @@ When working with HTML you should always quote attribute values to reduce XSS ve
 #### Example
 
 ```autohotkey
-string := "fred, barney, & pebbles"
-A.escape(string)
+string := "fred, barney, & pebbles"A.escape(string)
 ; => "fred, barney, &amp; pebbles"
 
 ```
@@ -2589,6 +2444,102 @@ A.lowerCase("fooBar")
 
 A.lowerCase("__FOO_BAR__")
 ; => "foo bar"
+
+```
+
+
+
+
+## .pad
+Pads string on the left and right sides if it's shorter than length. Padding characters are truncated if they can't be evenly divided by length.
+
+#### Arguments
+[string:=""] (string): The string to pad.
+
+[length:=0] (number): The padding length.
+
+[chars:=" "] (string): The string used as padding.
+
+
+#### Returns
+(string): Returns the padded string.
+
+
+#### Example
+
+```autohotkey
+A.pad("abc", 8)
+; => "  abc   "
+
+A.pad("abc", 8, "_-")
+; => "_-abc_-_"
+
+A.pad("abc", 3)
+; => "abc"
+
+```
+
+
+
+
+## .padEnd
+Pads string on the right side if it's shorter than length. Padding characters are truncated if they exceed length.
+
+#### Arguments
+[string:=""] (string): The string to pad.
+
+[length:=0] (number): The padding length.
+
+[chars:=" "] (string): The string used as padding.
+
+
+#### Returns
+(string): Returns the padded string.
+
+
+#### Example
+
+```autohotkey
+A.padEnd("abc", 6)
+; => "abc   "
+
+A.padEnd("abc", 6, "_-")
+; => "abc_-_"
+
+A.padEnd("abc", 3)
+; => "abc"
+
+```
+
+
+
+
+## .padStart
+Pads string on the left side if it's shorter than length. Padding characters are truncated if they exceed length.
+
+#### Arguments
+[string:=""] (string): The string to pad.
+
+[length:=0] (number): The padding length.
+
+[chars:=" "] (string): The string used as padding.
+
+
+#### Returns
+(string): Returns the padded string.
+
+
+#### Example
+
+```autohotkey
+A.padStart("abc", 6)
+; => "   abc"
+
+A.padStart("abc", 6, "_-")
+; => "_-_abc"
+
+A.padStart("abc", 3)
+; => "abc"
 
 ```
 
@@ -2797,8 +2748,7 @@ A.startsWith("abc", "b")
 A.startsWith("abc", "b", 2)
 ; => true
 
-StringCaseSense, On
-A.startsWith("abc", "A")
+StringCaseSense, OnA.startsWith("abc", "A")
 ; => false
 
 ```
@@ -2972,9 +2922,8 @@ Truncates string if it's longer than the given maximum string length. The last c
 #### Example
 
 ```autohotkey
-string := "hi-diddly-ho there, neighborino"
-A.truncate(string)
-; => "hi-diddly-ho there, neighbo..."
+string := "hi-diddly-ho there, neighborino"A.truncate(string)
+; => "hi-diddly-ho there, neighbor..."
 
 A.truncate(string, {"length": 24, "separator": " "})
 ; => "hi-diddly-ho there,..."
@@ -3004,8 +2953,7 @@ The inverse of [A.escape](#escape) this method converts the HTML entities &amp;,
 #### Example
 
 ```autohotkey
-string := "fred, barney, &amp; pebbles"
-A.unescape(string)
+string := "fred, barney, &amp; pebbles"A.unescape(string)
 ; => "fred, barney, & pebbles"
 
 ```
@@ -3063,8 +3011,7 @@ string:="" (string): The string to inspect.
 A.words("fred, barney, & pebbles")
 ; => ["fred", "barney", "pebbles"]
 
-
-A.words("fred, barney, & pebbles", "/[^, ]+/")
+ A.words("fred, barney, & pebbles", "/[^, ]+/")
 ; => ["fred", "barney", "&", "pebbles"]
 
 ```
@@ -3089,9 +3036,7 @@ value (*): The value to return from the new function.
 #### Example
 
 ```autohotkey
-object := A.times(2, A.constant({"a": 1}))
-; => [{"a": 1}, {"a": 1}]
-```
+object := A.times(2, A.constant({"a": 1})); => [{"a": 1}, {"a": 1}]```
 
 
 
@@ -3111,12 +3056,10 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
-A.filter(objects, A.matches({ "a": 4, "c": 6 }))
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.filter(objects, A.matches({ "a": 4, "c": 6 }))
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
-functor := A.matches({ "a": 4 })
-A.filter(objects, functor)
+functor := A.matches({ "a": 4 })A.filter(objects, functor)
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
 functor.call({ "a": 1 })
@@ -3144,15 +3087,13 @@ srcValue (*): The value to match.
 #### Example
 
 ```autohotkey
-objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
-A.find(objects, A.matchesProperty("a", 4))
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.find(objects, A.matchesProperty("a", 4))
 ; => { "a": 4, "b": 5, "c": 6 }
 
 A.filter(objects, A.matchesProperty("a", 4))
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
-objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-A.find(objects, A.matchesProperty(["a", "b"], 1))
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesProperty(["a", "b"], 1))
 ; => { "a": {"b": 1} }
 
 ```
@@ -3175,12 +3116,10 @@ path (Array|string): The path of the property to get.
 #### Example
 
 ```autohotkey
-objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-A.map(objects, A.property("a.b"))
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b"))
 ; => ["2", "1"]
 
-objects := [{"name": "fred"}, {"name": "barney"}]
-A.map(objects, A.property("name"))
+objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
 
 ```
@@ -3209,3 +3148,7 @@ A.times(4, A.constant(0))
 ; => [0, 0, 0, 0]
 
 ```
+
+
+
+
