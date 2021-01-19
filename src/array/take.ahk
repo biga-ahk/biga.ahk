@@ -13,8 +13,7 @@ take(param_array,param_n:=1) {
 	l_array := []
 
 	; create
-	loop, % param_n
-	{
+	loop, % param_n	{
 		;continue if requested index is higher than param_array can account for
 		if (param_array.Count() < A_Index) {
 			continue
