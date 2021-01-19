@@ -1,4 +1,12 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -2132,7 +2140,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (itareeValue = param_matchvalue) {
 				return true
 			}
-		}    
+		}
 		return false
 	}
 	property(param_source) {
@@ -2187,4 +2195,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}
