@@ -242,9 +242,6 @@ StringCaseSense, Off
 
 assert.label("initial()")
 assert.test(A.initial([1, 2, 3]), [1, 2])
-assert.test(A.initial([1, 2, 3], 2), [1])
-assert.test(A.initial([1, 2, 3], 5), [])
-assert.test(A.initial([1, 2, 3], 0), [1, 2, 3])
 assert.test(A.initial("fred"), ["f", "r", "e"])
 assert.test(A.initial(100), ["1", "0"])
 
@@ -856,12 +853,18 @@ assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
 
 assert.label(".isEqual - leading zero numbers")
-assert.false(A.isEqual(00011, 11))
+assert.true(A.isEqual(00011, 11))
+assert.true(A.isEqual(011, 11))
 assert.true(A.isEqual(11, 11))
 
 assert.label(".isEqual - decimal places")
 assert.true(A.isEqual(1.0, 1.000))
 assert.true(A.isEqual(11, 11.000))
+assert.false(A.isEqual(11, 11.0000000001))
+
+assert.label(".isEqual - string comparison")
+assert.true(A.isEqual(11, "11"))
+assert.true(A.isEqual("11", "11"))
 
 
 assert.label("ismatch()")
@@ -1150,6 +1153,35 @@ assert.test(A.lowerCase("__FOO_BAR__"), "foo bar")
 assert.test(A.lowerCase("  Foo-Bar--"), "foo bar")
 
 
+assert.label("pad()")
+assert.test(A.pad("abc", 8), "  abc   ")
+assert.test(A.pad("abc", 8, "_-"), "_-abc_-_")
+assert.test(A.pad("abc", 3), "abc")
+
+
+; omit
+assert.test(A.pad("abc", 4), "abc ")
+assert.test(A.pad("abc", 9), "   abc   ")
+
+
+assert.label("padEnd()")
+assert.test(A.padEnd("abc", 6), "abc   ")
+assert.test(A.padEnd("abc", 6, "_-"), "abc_-_")
+assert.test(A.padEnd("abc", 3), "abc")
+
+
+; omit
+
+
+assert.label("padStart()")
+assert.test(A.padStart("abc", 6), "   abc")
+assert.test(A.padStart("abc", 6, "_-"), "_-_abc")
+assert.test(A.padStart("abc", 3), "abc")
+
+
+; omit
+
+
 assert.label("parseInt()")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
@@ -1157,6 +1189,10 @@ assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
 
 ; omit
 assert.test(A.parseInt("0"), 0)
+
+assert.label(".parseInt - decimal places")
+assert.test(A.parseInt("1.0"), 1.0)
+assert.test(A.parseInt("1.0001"), 1.0001)
 
 
 assert.label("repeat()")
@@ -1255,11 +1291,15 @@ assert.test(A.trimStart("-_-abc-_-", "_-"), "abc-_-")
 
 assert.label("truncate()")
 string := "hi-diddly-ho there, neighborino"
-assert.test(A.truncate(string), "hi-diddly-ho there, neighbo...")
+assert.test(A.truncate(string), "hi-diddly-ho there, neighbor...")
 
 assert.test(A.truncate(string, {"length": 24, "separator": " "}), "hi-diddly-ho there,...")
 
 assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}), "hi-diddly-ho there...")
+
+; omit
+string := "the quick red fox jumped into something"
+assert.test(A.truncate(string, {"length": A.size(string) - 1, "omission":""}), "the quick red fox jumped into somethin")
 
 
 assert.label("unescape()")
