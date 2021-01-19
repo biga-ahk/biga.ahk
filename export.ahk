@@ -1,12 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -1348,10 +1340,10 @@ class biga {
 		if (IsObject(param)) {
 			return false
 		}
-	    if param is float
-	    {
+		if param is float
+		{
 			return true
-	    }
+		}
 		return false
 	}
 
@@ -1437,20 +1429,19 @@ class biga {
 			return ceil(param_number)
 		}
 
-		offset := 0.5 / (10**param_precision)
+		l_offset := 0.5 / (10**param_precision)
 		if (param_number < 0 && param_precision >= 1) {
-			offset //= 10 ; adjust offset for negative numbers and positive param_precision
+			l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
 		}
 		if (param_precision >= 1) {
-			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
-			sum := format("{:." this.max([n_dec_char, param_precision]) + 1 "f}", param_number + offset)
+			l_decChar := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			l_sum := format("{:." this.max([l_decChar, param_precision]) + 1 "f}", param_number + l_offset)
 		} else {
-			sum := param_number + offset
+			l_sum := param_number + l_offset
 		}
-		sum := trim(sum, "0") ; trim zeroes
-		value := (SubStr(sum, 0) = "5") && param_number != sum ? SubStr(sum, 1, -1) : sum ; if last char is 5 then remove it unless it is part of the original string
-		result := Round(value, param_precision)
-		return result
+		l_sum := trim(l_sum, "0") ; trim zeroes
+		l_value := (SubStr(l_sum, 0) = "5") && param_number != l_sum ? SubStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+		return Round(l_value, param_precision)
 	}
 	divide(param_dividend,param_divisor) {
 		if (IsObject(param_dividend) || IsObject(param_divisor)) {
@@ -1470,20 +1461,19 @@ class biga {
 			return floor(param_number)
 		}
 
-		offset := -0.5 / (10**param_precision)
+		l_offset := -0.5 / (10**param_precision)
 		if (param_number < 0 && param_precision >= 1) {
-			offset //= 10 ; adjust offset for negative numbers and positive param_precision
+			l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
 		}
 		if (param_precision >= 1) {
-			n_dec_char := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
-			sum := format("{:." this.max([n_dec_char, param_precision]) + 1 "f}", param_number + offset)
+			l_decChar := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			l_sum := format("{:." max(l_decChar, param_precision) + 1 "f}", param_number + l_offset)
 		} else {
-			sum := param_number + offset
+			l_sum := param_number + l_offset
 		}
-		sum := trim(sum, "0") ; trim zeroes
-		value := (SubStr(sum, 0) = "5") && param_number != sum ? SubStr(sum, 1, -1) : sum ; if last char is 5 then remove it unless it is part of the original string
-		result := Round(value, param_precision)
-		return result
+		l_sum := trim(l_sum, "0") ; trim zeroes
+		l_value := (SubStr(l_sum, 0) = "5") && param_number != l_sum ? SubStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+		return Round(l_value, param_precision)
 	}
 	max(param_array) {
 		if (!IsObject(param_array)) {
@@ -1840,6 +1830,67 @@ class biga {
 		l_string := this.toLower(this.trim(l_string))
 		return l_string
 	}
+	pad(param_string:="",param_length:=0,param_chars:=" ") {
+		if (IsObject(param_string) || !this.isNumber(param_length) || IsObject(param_chars)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		if (param_length <= strLen(param_string)) {
+			return param_string
+		}
+		param_length := param_length - strLen(param_string)
+		l_start := this.floor(param_length / 2)
+		l_end := this.ceil(param_length / 2)
+
+		; create
+		l_start := this.padStart("", l_start, param_chars)
+		l_end := this.padEnd("", l_end, param_chars)
+		return l_start param_string l_end
+	}
+	padEnd(param_string:="",param_length:=0,param_chars:=" ") {
+		if (IsObject(param_string) || !this.isNumber(param_length) || IsObject(param_chars)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		if (param_length <= strLen(param_string)) {
+			return param_string
+		}
+
+		; create
+		l_pad := this.slice(param_chars)
+		l_string := param_string
+		while (strLen(l_string) < param_length) {
+			l_pos++
+			if (l_pos > l_pad.Count()) {
+				l_pos := 1
+			}
+			l_string .= l_pad[l_pos]
+		}
+		return l_string
+	}
+	padStart(param_string:="",param_length:=0,param_chars:=" ") {
+		if (IsObject(param_string) || !this.isNumber(param_length) || IsObject(param_chars)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		if (param_length <= strLen(param_string)) {
+			return param_string
+		}
+
+		; create
+		l_pad := this.slice(param_chars)
+		while (strLen(param_string) + strLen(l_padding) < param_length) {
+			l_pos++
+			if (l_pos > l_pad.Count()) {
+				l_pos := 1
+			}
+			l_padding .= l_pad[l_pos]
+		}
+		return l_padding . param_string
+	}
 	parseInt(param_string:="0") {
 		if (IsObject(param_string)) {
 			this._internal_ThrowException()
@@ -2140,7 +2191,7 @@ class biga {
 			if (itareeValue = param_matchvalue) {
 				return true
 			}
-		}
+		}    
 		return false
 	}
 	property(param_source) {
@@ -2195,8 +2246,4 @@ class biga {
 		}
 		return l_array
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}
