@@ -51,3 +51,7 @@ fn_forEachFunc(value) {
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`
+
+
+; aliases
+assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])

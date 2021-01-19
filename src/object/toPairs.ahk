@@ -13,3 +13,10 @@ toPairs(param_object) {
 
 ; tests
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
+
+
+; omit
+
+
+; aliases
+assert.test(A.entries({"a": 1, "b": 2}), [["a", 1], ["b", 2]])

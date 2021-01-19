@@ -20,7 +20,7 @@ words(param_string,param_pattern:="/[^\W]+/") {
 
 ; tests
 assert.test(A.words("fred, barney, & pebbles"), ["fred", "barney", "pebbles"])
- 
+
 assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "&", "pebbles"])
 
 

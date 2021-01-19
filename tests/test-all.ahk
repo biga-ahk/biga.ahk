@@ -224,6 +224,16 @@ assert.test(A.head("fred"), "f")
 assert.test(A.head(100), "1")
 
 
+; omit
+
+
+; aliases
+assert.test(A.first([1, 2, 3]), 1)
+assert.test(A.first([]), "")
+assert.test(A.first("fred"), "f")
+assert.test(A.first(100), "1")
+
+
 assert.label("indexOf()")
 assert.test(A.indexOf([1, 2, 1, 2], 2), 2)
 
@@ -565,6 +575,10 @@ fn_forEachFunc(value) {
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`
+
+
+; aliases
+assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
 
 
 assert.label("groupBy()")
@@ -1104,6 +1118,13 @@ assert.label("toPairs()")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
 
+; omit
+
+
+; aliases
+assert.test(A.entries({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
+
+
 assert.label("camelCase()")
 assert.test(A.camelCase("--foo-bar--"), "fooBar")
 assert.test(A.camelCase("fooBar"), "fooBar")
@@ -1204,9 +1225,6 @@ assert.test(A.repeat("abc", 0), "")
 assert.label("replace()")
 assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
 assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
-
-; omit
-assert.test(A.replace("Hi Barney"), "Hi Barney")
 
 
 assert.label("snakeCase()")
@@ -1323,7 +1341,7 @@ assert.test(A.upperCase("  Foo-Bar--"), "FOO BAR")
 
 assert.label("words()")
 assert.test(A.words("fred, barney, & pebbles"), ["fred", "barney", "pebbles"])
- 
+
 assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "&", "pebbles"])
 
 
@@ -1413,5 +1431,5 @@ ExitApp
 QPC(R := 0)
 {
 	static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-	return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
+	return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
 }
