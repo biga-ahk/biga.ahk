@@ -11,8 +11,7 @@ drop(param_array,param_n:=1) {
 	}
 
 	; create
-	loop, % param_n
-	{
+	loop, % param_n	{
 		l_array.RemoveAt(1)
 	}
 	; return empty array if empty
