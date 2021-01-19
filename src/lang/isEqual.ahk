@@ -12,21 +12,6 @@ isEqual(param_value,param_other*) {
 	}
 
 	; create
-	if (this.isNumber(param_value)) {
-		loop, % l_array.Count() {
-			if (this.isFloat(param_value) || this.isFloat(l_array[A_Index])) {
-				value := this.parseInt(param_value)
-				comparison := this.parseInt(l_array[A_Index])
-			} else {
-				value := this._internal_MD5(param_value)
-				comparison := this._internal_MD5(l_array[A_Index])
-			}
-			if (value != comparison) {
-				return false
-			}
-		}
-		return true
-	}
 	loop, % l_array.Count() {
 		if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
 			return false
@@ -54,9 +39,15 @@ assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
 
 assert.label(".isEqual - leading zero numbers")
-assert.false(A.isEqual(00011, 11))
+assert.true(A.isEqual(00011, 11))
+assert.true(A.isEqual(011, 11))
 assert.true(A.isEqual(11, 11))
 
 assert.label(".isEqual - decimal places")
 assert.true(A.isEqual(1.0, 1.000))
 assert.true(A.isEqual(11, 11.000))
+assert.false(A.isEqual(11, 11.0000000001))
+
+assert.label(".isEqual - string comparison")
+assert.true(A.isEqual(11, "11"))
+assert.true(A.isEqual("11", "11"))
