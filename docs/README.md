@@ -14,7 +14,7 @@ Determines the number of times strings will be replaced when using [.replace](#r
 
 <br><br>
 
-# **&ldquo;Array&rdquo; Methods**
+# **Array methods**
 ## .chunk
 Creates an array of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
 
@@ -42,7 +42,6 @@ A.chunk(["a", "b", "c", "d"], 3)
 
 
 
-
 ## .compact
 Creates an array with all falsey values removed. The values false, 0, and "" are falsey.
 
@@ -62,7 +61,6 @@ A.compact([0, 1, false, 2, "", 3])
 ; => [1, 2, 3]
 
 ```
-
 
 
 
@@ -92,7 +90,6 @@ A.concat(array)
 
 
 
-
 ## .difference
 Creates an array of array values not included in the other given arrays. The order and references of result values are determined by the first array.
 
@@ -119,7 +116,6 @@ A.difference([2, 1], 3)
 ; => [2, 1]
 
 ```
-
 
 
 
@@ -162,7 +158,6 @@ A.drop(100)
 
 
 
-
 ## .dropRight
 Creates a slice of array with n elements dropped from the end.
 
@@ -202,7 +197,6 @@ A.dropRight(100)
 
 
 
-
 ## .dropRightWhile
 Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
@@ -234,7 +228,6 @@ fn_dropRightWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.
 ; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ]
 
 ```
-
 
 
 
@@ -271,7 +264,6 @@ fn_dropWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dr
 
 
 
-
 ## .fill
 Fills elements of array with value from start up to, but not including, end.
 
@@ -303,7 +295,6 @@ A.fill([4, 6, 8, 10], "*", 2, 3)
 ; => [4, "*", "*", 10]
 
 ```
-
 
 
 
@@ -348,7 +339,6 @@ findIndexFunc(o) {	return o.user == "barney"}```
 
 
 
-
 ## .findLastIndex
 This method is like A.(findIndex)[/findIndex] except that it iterates over elements of collection from right to left.
 
@@ -380,7 +370,6 @@ A.findLastIndex(users, "active")
 
 
 
-
 ## .flatten
 Flattens array a single level deep.
 
@@ -403,7 +392,6 @@ A.flatten([[1, 2, 3], [4, 5, 6]])
 ; => [1, 2, 3, 4, 5, 6]
 
 ```
-
 
 
 
@@ -435,7 +423,6 @@ A.flattenDeep([1, [2, [3, [4]], 5]])
 
 
 
-
 ## .flattenDepth
 Recursively flatten array up to depth times.
 
@@ -463,7 +450,6 @@ A.flattenDepth([1, [2, [3, [4]], 5]], 2)
 
 
 
-
 ## .fromPairs
 The inverse of A.toPairs; this method returns an object composed from key-value pairs.
 
@@ -485,12 +471,11 @@ A.fromPairs([["a", 1], ["b", 2]])
 
 
 
-
 ## .head
 Gets the first element of array.
 
-<!-- Aliases
-_.first -->
+#### Aliases
+`.first`
 
 #### Arguments
 array (Array): The array to query.
@@ -516,7 +501,6 @@ A.head(100)
 ; => "1"
 
 ```
-
 
 
 
@@ -555,7 +539,6 @@ StringCaseSense, OnA.indexOf(["fred", "barney"], "Fred")
 
 
 
-
 ## .initial
 Gets all but the last element of array.
 
@@ -583,7 +566,6 @@ A.initial(100)
 
 
 
-
 ## .intersection
 Creates an array of unique values that are included in all given arrays. The order and references of result values are determined by the first array.
 
@@ -603,7 +585,6 @@ A.intersection([2, 1], [2, 3])
 ; => [2]
 
 ```
-
 
 
 
@@ -631,7 +612,6 @@ A.join(["a", "b", "c"])
 ; => "a,b,c"
 
 ```
-
 
 
 
@@ -664,7 +644,6 @@ StringCaseSense, OnA.lastIndexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
-
 
 
 
@@ -707,7 +686,6 @@ A.nth([1, 2, 3], 0)
 
 
 
-
 ## .reverse
 Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
 
@@ -733,7 +711,6 @@ A.reverse([[1, 2, 3], "b", "c"])
 ; => ["c", "b", [1, 2, 3]]
 
 ```
-
 
 
 
@@ -775,7 +752,6 @@ A.slice(100)
 
 
 
-
 ## .sortedIndex
 Uses a search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
 
@@ -806,7 +782,6 @@ A.sortedIndex([30, 50], 99)
 
 
 
-
 ## .tail
 Gets all but the first element of array.
 
@@ -832,7 +807,6 @@ A.tail(100)
 ; => ["0", "0"]
 
 ```
-
 
 
 
@@ -875,7 +849,6 @@ A.take(100)
 
 
 
-
 ## .takeRight
 Creates a slice of array with n elements taken from the end.
 
@@ -915,7 +888,6 @@ A.takeRight(100)
 
 
 
-
 ## .union
 Creates an array of unique values, in order, from all given arrays.
 
@@ -938,7 +910,6 @@ A.union([2], [1, 2])
 
 
 
-
 ## .uniq
 Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
@@ -957,7 +928,6 @@ A.uniq([2, 1, 2])
 ; => [2, 1]
 
 ```
-
 
 
 
@@ -984,7 +954,6 @@ A.without([2, 1, 2, 3], 1, 2)
 
 
 
-
 ## .zip
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
@@ -1007,7 +976,6 @@ A.zip(["a", "b"], [1, 2], [true, true])
 ; => [["a", 1, true], ["b", 2, true]]
 
 ```
-
 
 
 
@@ -1037,8 +1005,7 @@ A.zipObject(["a", "b"], [1, 2])
 
 
 
-
-# **&ldquo;Collection&rdquo; Methods**
+# **Collection methods**
 ## .count
 Gets the number of occurrences of value if found in collection, else `0`
 
@@ -1078,7 +1045,6 @@ users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "a
 
 
 
-
 ## .every
 Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
 
@@ -1115,7 +1081,6 @@ fn_isOver18(x) {	if (x.age > 18) {		return true	}}; The `A.matches` iterate
 
 
 
-
 ## .filter
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
@@ -1146,7 +1111,6 @@ fn_filterFunc(param_iteratee) {	if (param_iteratee.active) {		return true	}}
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ```
-
 
 
 
@@ -1185,13 +1149,12 @@ fn_findFunc(o) {	if (o.active) {		return true	}}; The A.matches iteratee sh
 
 
 
-
 ## .forEach
 Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
 
 
-<!-- Aliases
-_.each -->
+#### Aliases
+`.each`
 
 
 #### Arguments
@@ -1204,7 +1167,7 @@ collection (Array|Object): The collection to iterate over.
 (*): Returns collection.
 
 
-#### Example 
+#### Example
 
 ```autohotkey
 A.forEach([1, 2], Func("fn_forEachFunc1"))
@@ -1219,7 +1182,6 @@ fn_forEachFunc2(value, key) {
 }
 ; msgboxes "a" then "b"
 ```
-
 
 
 
@@ -1255,7 +1217,6 @@ A.groupBy([6.1, 4.2, 6.3], func("Ceil"))
 ; => {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]}
 
 ```
-
 
 
 
@@ -1297,7 +1258,6 @@ StringCaseSense, OnA.includes("InStr", "str")
 
 
 
-
 ## .keyBy
 Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked with one argument: (value).
 
@@ -1319,7 +1279,6 @@ array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
 fn_keyByFunc(value){	return value.dir}```
-
 
 
 
@@ -1352,7 +1311,6 @@ A.map({ "a": 4, "b": 8 })
 ; => ["barney", "fred"]
 
 ```
-
 
 
 
@@ -1389,7 +1347,6 @@ fn_partitionFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.p
 
 
 
-
 ## .reject
 The opposite of `A.filter`; this method returns the elements of collection that predicate does **not** return truthy for.
 
@@ -1422,7 +1379,6 @@ fn_rejectFunc(o) {	return !o.active}; The A.matches shorthandA.reject(users,
 
 
 
-
 ## .sample
 Gets a single random element from collection.
 
@@ -1439,7 +1395,6 @@ collection (Array|Object): The collection to sample.
 A.sample([1, 2, 3, 4])
 ; => 2
 ```
-
 
 
 
@@ -1470,7 +1425,6 @@ output := A.sampleSize([1, 2, 3], 4)
 
 
 
-
 ## .shuffle
 Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
 
@@ -1490,7 +1444,6 @@ A.shuffle([1, 2, 3, 4])
 A.shuffle(["barney", "fred", "pebbles"])
 ; => ["pebbles", "barney", "fred"]
 ```
-
 
 
 
@@ -1520,7 +1473,6 @@ A.size("pebbles")
 ; => 7
 
 ```
-
 
 
 
@@ -1558,8 +1510,7 @@ fn_sortByFunc(o) {	return o.name}```
 
 
 
-
-# **&ldquo;Lang&rdquo; Methods**
+# **Lang methods**
 ## .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
@@ -1585,7 +1536,6 @@ shallowclone
 
 
 
-
 ## .cloneDeep
 This method is like A.clone except that it recursively clones value.
 
@@ -1602,7 +1552,6 @@ value (*): The value to recursively clone.
 
 ```autohotkey
 object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]```
-
 
 
 
@@ -1641,7 +1590,6 @@ StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 
 
 
-
 ## .ismatch
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
@@ -1673,7 +1621,6 @@ A.isMatch(object, {"b": 2, "z": 99})
 ; => false
 
 ```
-
 
 
 
@@ -1715,8 +1662,7 @@ A.isUndefined(false)
 
 
 
-
-# **&ldquo;Math&rdquo; Methods**
+# **Math methods**
 ## .add
 Adds two numbers.
 
@@ -1738,7 +1684,6 @@ A.add(6, 4)
 ; => 10
 
 ```
-
 
 
 
@@ -1772,7 +1717,6 @@ A.ceil(6040, -2)
 
 
 
-
 ## .divide
 Divide two numbers.
 
@@ -1794,7 +1738,6 @@ A.divide(6, 4)
 ; => 1.5
 
 ```
-
 
 
 
@@ -1827,7 +1770,6 @@ A.floor(4060, -2)
 
 
 
-
 ## .max
 Computes the maximum value of array. If array is empty or falsey, `""` is returned.
 
@@ -1853,7 +1795,6 @@ A.max([])
 
 
 
-
 ## .mean
 Computes the mean of the values in array.
 
@@ -1873,7 +1814,6 @@ A.mean([4, 2, 8, 6])
 ; => 5
 
 ```
-
 
 
 
@@ -1902,7 +1842,6 @@ meanByFunc1(o){	return o.n}; The `A.property` iteratee shorthand.A.meanBy(o
 
 
 
-
 ## .min
 Computes the minimum value of array. If array is empty or falsey, `""` is returned.
 
@@ -1928,7 +1867,6 @@ A.min([])
 
 
 
-
 ## .multiply
 Multiply two numbers.
 
@@ -1950,7 +1888,6 @@ A.multiply(6, 4)
 ; => 24
 
 ```
-
 
 
 
@@ -1984,7 +1921,6 @@ A.round(4060, -2)
 
 
 
-
 ## .subtract
 Subtract two numbers.
 
@@ -2006,7 +1942,6 @@ A.subtract(6, 4)
 ; => 2
 
 ```
-
 
 
 
@@ -2033,8 +1968,7 @@ A.sum([4, 2, 8, 6])
 
 
 
-
-# **&ldquo;Number&rdquo; Methods**
+# **Number methods**
 ## .clamp
 Clamps number within the inclusive lower and upper bounds.
 
@@ -2061,7 +1995,6 @@ A.clamp(10, -5, 5)
 ; => 5
 
 ```
-
 
 
 
@@ -2109,7 +2042,6 @@ A.inRange(-3, -2, -6)
 
 
 
-
 ## .random
 Produces a random number between the inclusive lower and upper bounds. If floating is true, or either lower or upper are floats, a floating-point number is returned instead of an integer. Uses AutoHotkey's pseudo-random [Random](https://www.autohotkey.com/docs/commands/Random.htm) command.
 
@@ -2141,8 +2073,7 @@ A.random(1.2, 5.2)
 
 
 
-
-# **&ldquo;Object&rdquo; Methods**
+# **Object methods**
 ## .defaults
 Assigns own and inherited enumerable string keyed properties of source objects to the destination object for all destination properties. Source objects are applied from left to right. Once a property is set, additional values of the same property are ignored.
 
@@ -2170,7 +2101,6 @@ A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 
 
 
-
 ## .keys
 Creates an array of the own enumerable properties of object.
 
@@ -2193,7 +2123,6 @@ A.keys("hi")
 ; => [1, 2]
 
 ```
-
 
 
 
@@ -2224,7 +2153,6 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 
 
 
 
-
 ## .omit
 The opposite of `A.pick`; this method creates an object composed of the own and inherited enumerable property paths of object that are not omitted.
 
@@ -2245,7 +2173,6 @@ object := {"a": 1, "b": "2", "c": 3}A.omit(object, ["a", "c"])
 ; => {"b": "2"}
 
 ```
-
 
 
 
@@ -2272,13 +2199,12 @@ object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
 
 
 
-
 ## .toPairs
 Creates an array of own enumerable string keyed-value pairs for object which can be consumed by A.fromPairs.
 
 
-<!-- ## Aliases
-A.entries -->
+#### Aliases
+`.entries`
 
 
 #### Arguments
@@ -2300,8 +2226,7 @@ A.toPairs({"a": 1, "b": 2})
 
 
 
-
-# **&ldquo;String&rdquo; Methods**
+# **String methods**
 ## .camelCase
 Converts string to camel case.
 
@@ -2325,7 +2250,6 @@ A.camelCase("__FOO_BAR__")
 ; => "fooBar"
 
 ```
-
 
 
 
@@ -2361,7 +2285,6 @@ A.endsWith("abc", "b", 2)
 
 
 
-
 ## .escape
 Converts the characters "&", "<", ">", '"', and "'" in string to their corresponding HTML entities.
 
@@ -2388,7 +2311,6 @@ string := "fred, barney, & pebbles"A.escape(string)
 ; => "fred, barney, &amp; pebbles"
 
 ```
-
 
 
 
@@ -2420,7 +2342,6 @@ A.kebabCase("--FOO_BAR--")
 
 
 
-
 ## .lowerCase
 Converts string, as a whole, to lower case.
 
@@ -2446,7 +2367,6 @@ A.lowerCase("__FOO_BAR__")
 ; => "foo bar"
 
 ```
-
 
 
 
@@ -2481,7 +2401,6 @@ A.pad("abc", 3)
 
 
 
-
 ## .padEnd
 Pads string on the right side if it's shorter than length. Padding characters are truncated if they exceed length.
 
@@ -2510,7 +2429,6 @@ A.padEnd("abc", 3)
 ; => "abc"
 
 ```
-
 
 
 
@@ -2545,7 +2463,6 @@ A.padStart("abc", 3)
 
 
 
-
 ## .parseInt
 Converts string to an integer.
 
@@ -2574,7 +2491,6 @@ A.map(["6", "08", "10"], A.parseInt)
 ; => [6, 8, 10]
 
 ```
-
 
 
 
@@ -2608,7 +2524,6 @@ A.repeat("abc", 0)
 
 
 
-
 ## .replace
 #### Arguments
 string (string): The string to modify.
@@ -2632,7 +2547,6 @@ A.replace("1234", "/(\d+)/", "numbers")
 ; => "numbers"
 
 ```
-
 
 
 
@@ -2660,7 +2574,6 @@ A.snakeCase("--FOO-BAR--")
 ; => "foo_bar"
 
 ```
-
 
 
 
@@ -2692,7 +2605,6 @@ A.split("a--b-c", "/[\-]+/")
 
 
 
-
 ## .startCase
 Converts string to start case.
 
@@ -2716,7 +2628,6 @@ A.startCase("__FOO_BAR__")
 ; => "Foo Bar"
 
 ```
-
 
 
 
@@ -2755,7 +2666,6 @@ StringCaseSense, OnA.startsWith("abc", "A")
 
 
 
-
 ## .toLower
 Converts string, as a whole, to lower case.
 
@@ -2783,7 +2693,6 @@ A.toLower("__FOO_BAR__")
 
 
 
-
 ## .toUpper
 Converts string, as a whole, to upper case
 
@@ -2808,7 +2717,6 @@ A.toUpper("__foo_bar__")
 ; => "__FOO_BAR__"
 
 ```
-
 
 
 
@@ -2842,7 +2750,6 @@ A.map([" foo  ", "  bar  "], A.trim)
 
 
 
-
 ## .trimEnd
 Removes trailing whitespace or specified characters from string.
 
@@ -2870,7 +2777,6 @@ A.trimEnd("-_-abc-_-", "_-")
 
 
 
-
 ## .trimStart
 Removes leading whitespace or specified characters from string.
 
@@ -2895,7 +2801,6 @@ A.trimStart("-_-abc-_-", "_-")
 ; => "abc-_-"
 
 ```
-
 
 
 
@@ -2935,7 +2840,6 @@ A.truncate(string, {"length": 24, "separator": "/, /"})
 
 
 
-
 ## .unescape
 The inverse of [A.escape](#escape) this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, and &#39; in string to their corresponding characters.
 
@@ -2957,7 +2861,6 @@ string := "fred, barney, &amp; pebbles"A.unescape(string)
 ; => "fred, barney, & pebbles"
 
 ```
-
 
 
 
@@ -2989,7 +2892,6 @@ A.upperCase("__FOO_BAR__")
 
 
 
-
 ## .words
 Splits string into an array of its words.
 
@@ -3011,7 +2913,7 @@ string:="" (string): The string to inspect.
 A.words("fred, barney, & pebbles")
 ; => ["fred", "barney", "pebbles"]
 
- A.words("fred, barney, & pebbles", "/[^, ]+/")
+A.words("fred, barney, & pebbles", "/[^, ]+/")
 ; => ["fred", "barney", "&", "pebbles"]
 
 ```
@@ -3019,8 +2921,7 @@ A.words("fred, barney, & pebbles")
 
 
 
-
-# **&ldquo;Util&rdquo; Methods**
+# **Util methods**
 ## .constant
 Creates a function that returns value.
 
@@ -3037,7 +2938,6 @@ value (*): The value to return from the new function.
 
 ```autohotkey
 object := A.times(2, A.constant({"a": 1})); => [{"a": 1}, {"a": 1}]```
-
 
 
 
@@ -3066,7 +2966,6 @@ functor.call({ "a": 1 })
 ; => false
 
 ```
-
 
 
 
@@ -3100,7 +2999,6 @@ objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesPrope
 
 
 
-
 ## .property
 Creates a function that returns the value at path of a given object.
 
@@ -3126,7 +3024,6 @@ objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("nam
 
 
 
-
 ## .times
 Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument; (index).
 
@@ -3148,7 +3045,6 @@ A.times(4, A.constant(0))
 ; => [0, 0, 0, 0]
 
 ```
-
 
 
 
