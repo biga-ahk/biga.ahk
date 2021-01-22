@@ -227,8 +227,13 @@ fn_BuildExample(param_tests) {
 	return_array := []
 
 	for Key, Value in param_tests {
+		; stop parsing if omit section reached
 		if (A.includes(Value,"; omit")) {
 			break
+		}
+		; skip this line if part of assert.label
+		if (A.includes(Value,"assert.label")) {
+			continue
 		}
 
 		hey := Fn_QuickRegEx(Value,testtest,0)
