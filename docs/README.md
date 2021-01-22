@@ -615,6 +615,37 @@ A.join(["a", "b", "c"])
 
 
 
+## .last
+Gets the last element of array.
+
+
+#### Arguments
+array (Array): The array to query.
+
+
+#### Returns
+(*): Returns the first element of array.
+
+
+#### Example
+
+```autohotkey
+A.last([1, 2, 3])
+; => 3
+
+A.last([])
+; => ""
+
+A.last("fred")
+; => "d"
+
+A.last(100)
+; => "0"
+
+```
+
+
+
 ## .lastIndexOf
 This method is like .indexOf except that it iterates over elements of array from right to left.
 
