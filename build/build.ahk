@@ -2,19 +2,23 @@
 #NoTrayIcon
 #SingleInstance force
 
-#Include %A_ScriptDir%\node_modules
+#Include %A_ScriptDir%\..\node_modules
 #Include biga.ahk\export.ahk
 #Include util-misc.ahk\export.ahk
 
 ; User updatable settings:
 settings := {}
 settings.objectName := "A"
+aliasMap := {"head": ["first"], "forEach": ["each"], "toPairs": ["entries"]}
+
+
 
 ; FilePaths
-Readme_File := A_ScriptDir "\docs\README.md"
-lib_File := A_ScriptDir "\export.ahk"
-test_File := A_ScriptDir "\tests\test-all.ahk"
-methods_File := A_ScriptDir "\methodslist.txt"
+SetWorkingDir, "\..\" A_ScriptDir
+Readme_File := A_WorkingDir "\docs\README.md"
+lib_File := A_WorkingDir "\export.ahk"
+test_File := A_WorkingDir "\tests\test-all.ahk"
+methods_File := A_WorkingDir "\methodslist.txt"
 
 
 FileRead, methods_arr, % methods_File
@@ -41,13 +45,10 @@ testtrue := "true\((.+?)(\(.+?\))\)"
 testfalse := "false\((.+\.\w+)(.+\))\)"
 testnotequal := "notequal\(\w+(\.\w*.*\)),\s*(.*)\)"
 
-; alias map
-aliasMap := {"head": ["first"], "forEach": ["each"], "toPairs": ["entries"]}
-
 ; method names
 vMethodNames_Array := []
 
-loop, Files, %A_ScriptDir%\src\*.ahk, R
+loop, Files, %A_WorkingDir%\src\*.ahk, R
 {
 	FileRead, The_MemoryFile, % A_LoopFileFullPath
 
@@ -103,8 +104,8 @@ if (IsObject(msgarray)) {
 ; ===============
 
 FileDelete, % test_File
-test_head := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_head.ahk")
-test_tail := fn_ReadFile(A_ScriptDir "\src\_head.tail\test_tail.ahk")
+test_head := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_head.ahk")
+test_tail := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_tail.ahk")
 
 FileAppend, %test_head%, % test_File
 loop, % The_Array.Count() {
@@ -132,7 +133,7 @@ loop, % The_Array.Count() {
 ; DOCS
 ; ===============
 FileDelete, % Readme_File
-DOCS_Array := [fn_ReadFile(A_ScriptDir "\src\_head.tail\doc_head.md")]
+DOCS_Array := [fn_ReadFile(A_WorkingDir "\src\_head.tail\doc_head.md")]
 
 loop, % The_Array.Count() {
 	element := The_Array[A_Index]
@@ -191,8 +192,8 @@ fn_AddIndent(value) {
 }
 
 FileDelete, % lib_File
-lib_head := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_head.ahk"), "`n")
-lib_tail := A.split(fn_ReadFile(A_ScriptDir "\src\_head.tail\lib_tail.ahk"), "`n")
+lib_head := A.split(fn_ReadFile(A_WorkingDir "\src\_head.tail\lib_head.ahk"), "`n")
+lib_tail := A.split(fn_ReadFile(A_WorkingDir "\src\_head.tail\lib_tail.ahk"), "`n")
 lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 ; blank out commented sections from lib_txt
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
@@ -200,6 +201,11 @@ while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 	lib_txt := A.replace(lib_txt, RE_Match.Value(), "")
 }
 FileAppend, %lib_txt%, % lib_File
+
+; === GLOBAL TESTS ===
+if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {
+	throw "Max() appears - script should NOT contain max() as it requires later ahk version"
+}
 
 ; exitmsg := A.join(msgarray, "`n")
 sleep, 100
