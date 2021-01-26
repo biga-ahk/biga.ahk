@@ -9,7 +9,9 @@ round(param_number,param_precision:=0) {
 
 
 ; tests
+assert.label(".round - without precision")
 assert.test(A.round(4.006), 4)
+assert.label(".round - with precision")
 assert.test(A.round(4.006, 2), 4.01)
 assert.test(A.round(4060, -2), 4100)
 

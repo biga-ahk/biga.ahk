@@ -14,6 +14,14 @@ assert.test(A.subtract(6, 4), 2)
 
 
 ; omit
+assert.label(".subtract - negtive number")
 assert.test(A.subtract(10, -1), 11)
 assert.test(A.subtract(-10, -10), 0)
+
+assert.label(".subtract - decimal")
 assert.test(A.subtract(10, 0.01), 9.99)
+
+assert.label(".subtract - mutation")
+g_value := 10
+assert.test(A.subtract(g_value, 10), 0)
+assert.test(g_value, 10)

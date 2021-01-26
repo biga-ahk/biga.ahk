@@ -278,6 +278,16 @@ assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
 assert.test(A.join(["a", "b", "c"]), "a,b,c")
 
 
+assert.label("last()")
+assert.test(A.last([1, 2, 3]), 3)
+assert.test(A.last([]), "")
+assert.test(A.last("fred"), "d")
+assert.test(A.last(100), "0")
+
+
+; omit
+
+
 assert.label("lastIndexOf()")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
@@ -332,6 +342,21 @@ assert.label("sortedIndex()")
 assert.test(A.sortedIndex([30, 50], 40),2)
 assert.test(A.sortedIndex([30, 50], 20),1)
 assert.test(A.sortedIndex([30, 50], 99),3)
+
+
+assert.label("sortedUniq()")
+assert.test(A.sortedUniq([1, 1, 2]), [1, 2])
+
+
+; omit
+StringCaseSense, On
+assert.test(A.sortedUniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+StringCaseSense, off
+
+arr := [1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7, 8, 8, 9, 10]
+arr2 := A.sortedUniq(arr)
+assert.test(arr.Count(), 15)
+assert.test(arr2.Count(), 10)
 
 
 assert.label("tail()")
@@ -907,6 +932,10 @@ assert.test(A.add(10, -1), 9)
 assert.test(A.add(-10, -10), -20)
 assert.test(A.add(10, 0.01), 10.01)
 
+assert.label("mutation")
+value := 10
+A.add(value, 10)
+assert.test(value, 10)
 
 assert.label("ceil()")
 assert.test(A.ceil(4.006), 5)
@@ -968,6 +997,14 @@ assert.test(A.mean([4, 2, 8, 6]), 5)
 
 
 ; omit
+assert.label(".mean - same value")
+assert.test(A.mean([10, 10, 10]), 10)
+
+assert.label(".mean - with string value")
+assert.test(A.mean([10, "10", 10]), 10)
+
+assert.label(".mean - decimals")
+assert.test(A.mean([10.1, 42.2]), 26.150000000000002)
 
 
 assert.label("meanBy()")
@@ -997,12 +1034,15 @@ assert.test(A.multiply(6, 4), 24)
 
 
 ; omit
+assert.label(".multiply - negative numbers")
 assert.test(A.multiply(10, -1), -10)
 assert.test(A.multiply(-10, -10), 100)
 
 
 assert.label("round()")
+assert.label(".round - without precision")
 assert.test(A.round(4.006), 4)
+assert.label(".round - with precision")
 assert.test(A.round(4.006, 2), 4.01)
 assert.test(A.round(4060, -2), 4100)
 
@@ -1015,9 +1055,17 @@ assert.test(A.subtract(6, 4), 2)
 
 
 ; omit
+assert.label(".subtract - negtive number")
 assert.test(A.subtract(10, -1), 11)
 assert.test(A.subtract(-10, -10), 0)
+
+assert.label(".subtract - decimal")
 assert.test(A.subtract(10, 0.01), 9.99)
+
+assert.label(".subtract - mutation")
+g_value := 10
+assert.test(A.subtract(g_value, 10), 0)
+assert.test(g_value, 10)
 
 
 assert.label("sum()")
@@ -1037,6 +1085,11 @@ assert.test(A.clamp(10, -5, 5), 5)
 var := -10
 assert.test(A.clamp(var, -5, 5), -5)
 assert.test(var, -10)
+
+assert.label("mutation")
+value := 10
+A.clamp(value, -5, 5)
+assert.test(value, 10)
 
 
 assert.label("inRange()")
