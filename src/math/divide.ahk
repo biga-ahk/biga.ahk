@@ -4,8 +4,7 @@ divide(param_dividend,param_divisor) {
 	}
 
 	; create
-	vValue := param_dividend / param_divisor
-	return vValue
+	return param_dividend / param_divisor
 }
 
 
