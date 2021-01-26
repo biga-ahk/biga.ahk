@@ -1,4 +1,12 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -406,6 +414,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_string
 	}
+	last(param_array) {
+
+		; create
+		return this.takeRight(param_array)[1]
+	}
 	lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 		if (param_fromIndex == 0) {
 			param_fromIndex := param_array.Count()
@@ -512,6 +525,24 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		return param_array.Count() + 1
+	}
+	sortedUniq(param_collection) {
+		if (!IsObject(param_collection)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_array := []
+
+		; create
+		for Key, Value in param_collection {
+			printedelement := this._printObj(param_collection[Key])
+			if (l_temp != printedelement) {
+				l_temp := printedelement
+				l_array.push(Value)
+			}
+		}
+		return l_array
 	}
 	tail(param_array) {
 
@@ -1417,8 +1448,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		param_augend += param_addend
-		return param_augend
+		return param_augend + param_addend
 	}
 	ceil(param_number,param_precision:=0) {
 		if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1449,8 +1479,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		vValue := param_dividend / param_divisor
-		return vValue
+		return param_dividend / param_divisor
 	}
 	floor(param_number,param_precision:=0) {
 		if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1480,24 +1509,24 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		vMax := ""
+		l_max := ""
 		for Key, Value in param_array {
-			if (vMax < Value || this.isUndefined(vMax)) {
-				vMax := Value
+			if (l_max < Value || this.isUndefined(l_max)) {
+				l_max := Value
 			}
 		}
-		return vMax
+		return l_max
 	}
 	mean(param_array) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
 
-		vSum := 0
+		l_sum := 0
 		for Key, Value in param_array {
-			vSum += Value
+			l_sum += Value
 		}
-		return vSum / this.size(param_array)
+		return l_sum / this.size(param_array)
 	}
 	meanBy(param_array,param_iteratee:="__identity") {
 		if (!IsObject(param_array)) {
@@ -1506,7 +1535,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (!IsFunc(param_iteratee)) {
-			BoundFunc := param_iteratee.Bind(this)
+			boundFunc := param_iteratee.Bind(this)
 		}
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 		if (shorthand != false) {
@@ -1517,39 +1546,39 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (l_paramAmmount == 3) {
 			arrayClone := this.cloneDeep(param_array)
 		}
-		l_TotalVal := 0
+		l_total := 0
 
 		; run against every value in the array
 		for Key, Value in param_array {
 			; shorthand
 			if (shorthand == ".property") {
 				fn := this.property(param_iteratee)
-				vIteratee := fn.call(Value)
+				l_iteratee := fn.call(Value)
 			}
-			if (BoundFunc) {
-				vIteratee := BoundFunc.call(Value)
+			if (boundFunc) {
+				l_iteratee := boundFunc.call(Value)
 			}
 			if (param_iteratee.maxParams == 1) {
-				if (!BoundFunc.call(Value)) {
-					vIteratee := param_iteratee.call(Value)
+				if (!boundFunc.call(Value)) {
+					l_iteratee := param_iteratee.call(Value)
 				}
 			}
-			l_TotalVal += vIteratee
+			l_total += l_iteratee
 		}
-		return l_TotalVal / param_array.Count()
+		return l_total / param_array.Count()
 	}
 	min(param_array) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
 
-		vMin := ""
+		l_min := ""
 		for Key, Value in param_array {
-			if (vMin > Value || this.isUndefined(vMin)) {
-				vMin := Value
+			if (l_min > Value || this.isUndefined(l_min)) {
+				l_min := Value
 			}
 		}
-		return vMin
+		return l_min
 	}
 	multiply(param_multiplier,param_multiplicand) {
 		if (IsObject(param_multiplier) || IsObject(param_multiplicand)) {
@@ -1557,8 +1586,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		vValue := param_multiplier * param_multiplicand
-		return vValue
+		return param_multiplier * param_multiplicand
 	}
 	round(param_number,param_precision:=0) {
 		if (IsObject(param_number) || IsObject(param_precision)) {
@@ -1610,9 +1638,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (param_lower > param_upper) {
-			x := param_lower
+			l_temp := param_lower
 			param_lower := param_upper
-			param_upper := x
+			param_upper := l_temp
 		}
 
 		; check the bounds
@@ -1628,9 +1656,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (param_lower > param_upper) {
-			x := param_lower
+			l_temp := param_lower
 			param_lower := param_upper
-			param_upper := x
+			param_upper := l_temp
 		}
 		if (param_floating) {
 			param_lower += 0.0
@@ -1726,10 +1754,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		if (IsObject(param_paths)) {
 			for Key, Value in param_paths {
-				l_obj.Delete(Value)
+				l_obj.delete(Value)
 			}
 		} else {
-			l_obj.Delete(param_paths)
+			l_obj.delete(param_paths)
 		}
 		return  l_obj
 	}
@@ -2191,7 +2219,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (itareeValue = param_matchvalue) {
 				return true
 			}
-		}    
+		}
 		return false
 	}
 	property(param_source) {
@@ -2304,4 +2332,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}class A extends biga {}
+}
+
+class A extends biga {
+
+}
