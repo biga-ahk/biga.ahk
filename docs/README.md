@@ -813,6 +813,28 @@ A.sortedIndex([30, 50], 99)
 
 
 
+## .sortedUniq
+This method is like `.uniq` except that it's optimized for sorted arrays.
+
+
+#### Arguments
+array (Array): The sorted array to inspect.
+
+
+#### Returns
+(array): Returns the new duplicate free array.
+
+
+#### Example
+
+```autohotkey
+A.sortedUniq([1, 1, 2])
+; => [1, 2]
+
+```
+
+
+
 ## .tail
 Gets all but the first element of array.
 
