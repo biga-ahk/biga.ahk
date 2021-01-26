@@ -3,13 +3,13 @@ min(param_array) {
 		this._internal_ThrowException()
 	}
 
-	vMin := ""
+	l_min := ""
 	for Key, Value in param_array {
-		if (vMin > Value || this.isUndefined(vMin)) {
-			vMin := Value
+		if (l_min > Value || this.isUndefined(l_min)) {
+			l_min := Value
 		}
 	}
-	return vMin
+	return l_min
 }
 
 

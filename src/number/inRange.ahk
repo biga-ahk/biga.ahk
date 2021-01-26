@@ -6,11 +6,11 @@ inRange(param_number,param_lower,param_upper) {
 
 	; prepare
 	if (param_lower > param_upper) {
-		x := param_lower
+		l_temp := param_lower
 		param_lower := param_upper
-		param_upper := x
+		param_upper := l_temp
 	}
-	
+
 	; check the bounds
 	if (param_number > param_lower && param_number < param_upper) {
 		return true

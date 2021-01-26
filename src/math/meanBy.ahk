@@ -5,7 +5,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 
 	; prepare
 	if (!IsFunc(param_iteratee)) {
-		BoundFunc := param_iteratee.Bind(this)
+		boundFunc := param_iteratee.Bind(this)
 	}
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 	if (shorthand != false) {
@@ -16,26 +16,26 @@ meanBy(param_array,param_iteratee:="__identity") {
 	if (l_paramAmmount == 3) {
 		arrayClone := this.cloneDeep(param_array)
 	}
-	l_TotalVal := 0
+	l_total := 0
 
 	; run against every value in the array
 	for Key, Value in param_array {
 		; shorthand
 		if (shorthand == ".property") {
 			fn := this.property(param_iteratee)
-			vIteratee := fn.call(Value)
+			l_iteratee := fn.call(Value)
 		}
-		if (BoundFunc) {
-			vIteratee := BoundFunc.call(Value)
+		if (boundFunc) {
+			l_iteratee := boundFunc.call(Value)
 		}
 		if (param_iteratee.maxParams == 1) {
-			if (!BoundFunc.call(Value)) {
-				vIteratee := param_iteratee.call(Value)
+			if (!boundFunc.call(Value)) {
+				l_iteratee := param_iteratee.call(Value)
 			}
 		}
-		l_TotalVal += vIteratee
+		l_total += l_iteratee
 	}
-	return l_TotalVal / param_array.Count()
+	return l_total / param_array.Count()
 }
 
 

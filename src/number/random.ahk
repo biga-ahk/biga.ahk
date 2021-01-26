@@ -5,15 +5,15 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 
 	; prepare
 	if (param_lower > param_upper) {
-		x := param_lower
+		l_temp := param_lower
 		param_lower := param_upper
-		param_upper := x
+		param_upper := l_temp
 	}
 	if (param_floating) {
 		param_lower += 0.0
 		param_upper += 0.0
 	}
-	
+
 	; create
 	Random, vRandom, param_lower, param_upper
 	return vRandom

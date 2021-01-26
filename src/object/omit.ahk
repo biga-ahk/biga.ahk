@@ -5,14 +5,14 @@ omit(param_object,param_paths) {
 
 	; prepare
 	l_obj := this.cloneDeep(param_object)
-	
+
 	; create
 	if (IsObject(param_paths)) {
 		for Key, Value in param_paths {
-			l_obj.Delete(Value)
+			l_obj.delete(Value)
 		}
 	} else {
-		l_obj.Delete(param_paths)
+		l_obj.delete(param_paths)
 	}
 	return  l_obj
 }

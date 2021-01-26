@@ -3,13 +3,13 @@ max(param_array) {
 		this._internal_ThrowException()
 	}
 
-	vMax := ""
+	l_max := ""
 	for Key, Value in param_array {
-		if (vMax < Value || this.isUndefined(vMax)) {
-			vMax := Value
+		if (l_max < Value || this.isUndefined(l_max)) {
+			l_max := Value
 		}
 	}
-	return vMax
+	return l_max
 }
 
 
