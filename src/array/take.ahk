@@ -7,7 +7,7 @@ take(param_array,param_n:=1) {
 	if (IsObject(param_array)) {
 		param_array := this.clone(param_array)
 	}
-	if (param_array is alnum) {
+	if (this.isAlnum(param_array)) {
 		param_array := StrSplit(param_array)
 	}
 	l_array := []

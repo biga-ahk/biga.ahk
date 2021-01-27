@@ -8,7 +8,7 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 
 	; create
 	l_count := 0
-	if (param_collection is alnum) {
+	if (this.isAlnum(param_collection)) {
 		; cut fromindex length off from start of string if specified fromIndex > 1
 		if (param_fromIndex > 1) {
 			param_collection := this.join(this.slice(param_collection, param_fromIndex, this.size(param_collection)), "")
