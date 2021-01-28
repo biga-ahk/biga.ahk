@@ -7,8 +7,8 @@ slice(param_array,param_start:=1,param_end:=0) {
 	}
 
 	; defaults
-	if (this.isAlnum(param_array)) {
-		param_array := this.split(param_array, "")
+	if (this.isString(param_array)) {
+		param_array := strSplit(param_array)
 	}
 	if (param_end == 0) {
 		param_end := param_array.Count()

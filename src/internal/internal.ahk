@@ -117,6 +117,20 @@ isAlnum(param) {
 	return false
 }
 
+isString(param) {
+	if (IsObject(param)) {
+		return false
+	}
+	if param is alnum
+	{
+		return true
+	}
+	if (strLen(param) > 0) {
+		return true
+	}
+	return false
+}
+
 
 isNumber(param) {
 	if (IsObject(param)) {
@@ -142,6 +156,9 @@ isFloat(param) {
 
 
 isFalsey(param) {
+	if (IsObject(param)) {
+		return false
+	}
 	if (param == "" || param == 0) {
 		return true
 	}

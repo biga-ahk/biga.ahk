@@ -3,10 +3,11 @@ drop(param_array,param_n:=1) {
 		this._internal_ThrowException()
 	}
 
+	; prepare
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
-	if (this.isAlnum(param_array)) {
+	if (this.isString(param_array)) {
 		l_array := StrSplit(param_array)
 	}
 

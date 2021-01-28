@@ -4,7 +4,7 @@ initial(param_array) {
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
-	if (this.isAlnum(param_array)) {
+	if (this.isString(param_array)) {
 		l_array := StrSplit(param_array)
 	}
 

@@ -7,7 +7,7 @@ nth(param_array,param_n:=1) {
 	if (IsObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
-	if (this.isAlnum(param_array)) {
+	if (this.isString(param_array)) {
 		l_array := StrSplit(param_array)
 	}
 	if (param_n == 0) {
