@@ -1,12 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!IsObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -84,10 +76,11 @@ class biga {
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (param_array is alnum) {
+		if (this.isString(param_array)) {
 			l_array := StrSplit(param_array)
 		}
 
@@ -110,7 +103,7 @@ class biga {
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (param_array is alnum) {
+		if (this.isString(param_array)) {
 			l_array := StrSplit(param_array)
 		}
 
@@ -355,7 +348,7 @@ class biga {
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (this.isAlnum(param_array)) {
+		if (this.isString(param_array)) {
 			l_array := StrSplit(param_array)
 		}
 
@@ -446,7 +439,7 @@ class biga {
 		if (IsObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (param_array is alnum) {
+		if (this.isString(param_array)) {
 			l_array := StrSplit(param_array)
 		}
 		if (param_n == 0) {
@@ -493,8 +486,8 @@ class biga {
 		}
 
 		; defaults
-		if (param_array is alnum) {
-			param_array := this.split(param_array, "")
+		if (this.isString(param_array)) {
+			param_array := strSplit(param_array)
 		}
 		if (param_end == 0) {
 			param_end := param_array.Count()
@@ -558,7 +551,7 @@ class biga {
 		if (IsObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (param_array is alnum) {
+		if (this.isString(param_array)) {
 			param_array := StrSplit(param_array)
 		}
 		l_array := []
@@ -586,7 +579,7 @@ class biga {
 		if (IsObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (param_array is alnum) {
+		if (this.isString(param_array)) {
 			param_array := StrSplit(param_array)
 		}
 		l_array := []
@@ -704,10 +697,10 @@ class biga {
 
 		; create
 		l_count := 0
-		if (param_collection is alnum) {
+		if (this.isString(param_collection)) {
 			; cut fromindex length off from start of string if specified fromIndex > 1
 			if (param_fromIndex > 1) {
-				param_collection := this.join(this.slice(param_collection, param_fromIndex, this.size(param_collection)), "")
+				param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 			}
 			param_collection := this.split(param_collection, param_predicate)
 			return param_collection.Count() - 1
@@ -1356,6 +1349,20 @@ class biga {
 		return false
 	}
 
+	isString(param) {
+		if (IsObject(param)) {
+			return false
+		}
+		if param is alnum
+		{
+			return true
+		}
+		if (strLen(param) > 0) {
+			return true
+		}
+		return false
+	}
+
 	isNumber(param) {
 		if (IsObject(param)) {
 			return false
@@ -1379,6 +1386,9 @@ class biga {
 	}
 
 	isFalsey(param) {
+		if (IsObject(param)) {
+			return false
+		}
 		if (param == "" || param == 0) {
 			return true
 		}
@@ -1797,12 +1807,13 @@ class biga {
 			this._internal_ThrowException()
 		}
 
+		; prepare
+		l_arr := this.compact(this.split(param_string, "/[_ -]+/"))
+		l_head := this.toLower(this.head(l_arr))
 		; create
-		l_string := this.startCase(param_string)
-		l_startChar := this.head(l_string)
-		l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
+		l_tail := this.join(this.map(this.tail(l_arr), this.startCase), "")
 
-		return l_outputString
+		return l_head l_tail
 	}
 	endsWith(param_string,param_needle,param_fromIndex:="") {
 		if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
@@ -1995,8 +2006,7 @@ class biga {
 			this._internal_ThrowException()
 		}
 
-		l_string := this.replace(param_string, "/(\W)/", " ")
-		l_string := this.replace(l_string, "/([\_])/", " ")
+		l_string := this.replace(param_string, "/[_ -]/", " ")
 
 		; create
 		; add space before each capitalized character
@@ -2009,13 +2019,13 @@ class biga {
 		; Split the string into array and Titlecase each element in the array
 		l_array := StrSplit(l_string, " ")
 		loop, % l_array.Count() {
-			x_string := l_array[A_Index]
-			StringUpper, x_string, x_string, T
-			l_array[A_Index] := x_string
+			l_string := l_array[A_Index]
+			StringUpper, l_string, l_string, T
+			l_array[A_Index] := l_string
 		}
 		; join the string back together from Titlecased array elements
 		l_string := this.join(l_array, " ")
-		l_string := this.trim(l_string)
+		l_string := trim(l_string)
 		return l_string
 	}
 	startsWith(param_string,param_needle,param_fromIndex:= 1) {
@@ -2219,7 +2229,7 @@ class biga {
 			if (itareeValue = param_matchvalue) {
 				return true
 			}
-		}
+		}    
 		return false
 	}
 	property(param_source) {
@@ -2332,8 +2342,4 @@ class biga {
 		}
 		return l_array
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}
