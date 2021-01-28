@@ -1868,7 +1868,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return param_string
 	}
 	kebabCase(param_string:="") {
-		if (IsObject(param_string)) {
+		if (!this.isString(param_string)) {
 			this._internal_ThrowException()
 		}
 
