@@ -3,8 +3,7 @@ startCase(param_string:="") {
 		this._internal_ThrowException()
 	}
 
-	l_string := this.replace(param_string, "/(\W)/", " ")
-	l_string := this.replace(l_string, "/([\_])/", " ")
+	l_string := this.replace(param_string, "/[_ -]/", " ")
 
 	; create
 	; add space before each capitalized character
@@ -17,13 +16,13 @@ startCase(param_string:="") {
 	; Split the string into array and Titlecase each element in the array
 	l_array := StrSplit(l_string, " ")
 	loop, % l_array.Count() {
-		x_string := l_array[A_Index]
-		StringUpper, x_string, x_string, T
-		l_array[A_Index] := x_string
+		l_string := l_array[A_Index]
+		StringUpper, l_string, l_string, T
+		l_array[A_Index] := l_string
 	}
 	; join the string back together from Titlecased array elements
 	l_string := this.join(l_array, " ")
-	l_string := this.trim(l_string)
+	l_string := trim(l_string)
 	return l_string
 }
 
