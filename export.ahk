@@ -627,7 +627,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			printedelement := this._internal_MD5(this._printObj(param_collection[Key]))
 			if (this.indexOf(tempArray, printedelement) == -1) {
 				tempArray.push(printedelement)
-				l_array[Key] := Value
+				l_array.push(Value)
 			}
 		}
 		return l_array
