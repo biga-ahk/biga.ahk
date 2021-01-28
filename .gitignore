@@ -20,6 +20,7 @@ lib-cov
 *.out
 *.pid
 npm-debug.log
+package-lock.json
 
 
 .ts.flag
