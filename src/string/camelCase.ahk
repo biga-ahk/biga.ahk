@@ -3,12 +3,13 @@ camelCase(param_string:="") {
 		this._internal_ThrowException()
 	}
 
+	; prepare
+	l_arr := this.compact(this.split(param_string, "/[_ -]+/"))
+	l_head := this.toLower(this.head(l_arr))
 	; create
-	l_string := this.startCase(param_string)
-	l_startChar := this.head(l_string)
-	l_outputString := this.toLower(l_startChar) this.join(this.tail(StrReplace(l_string, " ", "")), "")
+	l_tail := this.join(this.map(this.tail(l_arr), this.startCase), "")
 
-	return l_outputString
+	return l_head l_tail
 }
 
 
@@ -16,3 +17,7 @@ camelCase(param_string:="") {
 assert.test(A.camelCase("--foo-bar--"), "fooBar")
 assert.test(A.camelCase("fooBar"), "fooBar")
 assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
+
+
+; omit
+assert.test(A.camelCase("_this_is_FOO_BAR__"), "thisIsFooBar")
