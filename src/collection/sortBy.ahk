@@ -1,26 +1,29 @@
 sortBy(param_collection,param_iteratees:="") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
+
+	; prepare
 	l_array := this.cloneDeep(param_collection)
 
+	; create
 	; if called with a function
 	if (IsFunc(param_iteratees)) {
 		tempArray := []
 		for Key, Value in param_collection {
-			bigaIndex := param_iteratees.call(param_collection[Key])
-			param_collection[Key].bigaIndex := bigaIndex
+			l_index := param_iteratees.call(param_collection[Key])
+			param_collection[Key]._temp_bigaSortIndex := l_index
 			tempArray.push(param_collection[Key])
 		}
-		l_array := this.sortBy(tempArray, "bigaIndex")
+		l_array := this.sortBy(tempArray, "_temp_bigaSortIndex")
 		for Key, Value in l_array {
-			l_array[Key].Remove("bigaIndex")
+			l_array[Key].delete("_temp_bigaSortIndex")
 		}
 		return l_array
 	}
 
 	; if called with shorthands
-	if (IsObject(param_iteratees)) {
+	if (isObject(param_iteratees)) {
 		; sort the collection however many times is requested by the shorthand identity
 		for Key, Value in param_iteratees {
 			l_array := this.internal_sort(l_array, Value)

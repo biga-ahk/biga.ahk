@@ -1,5 +1,5 @@
 matches(param_source) {
-	if (!IsObject(param_source)) {
+	if (!isObject(param_source)) {
 		this._internal_ThrowException()
 	}
 
@@ -23,3 +23,6 @@ assert.test(A.filter(objects, A.matches({ "a": 4, "c": 6 })), [{ "a": 4, "b": 5,
 functor := A.matches({ "a": 4 })
 assert.test(A.filter(objects, functor), [{ "a": 4, "b": 5, "c": 6 }])
 assert.false(functor.call({ "a": 1 }))
+
+
+; omit

@@ -1,5 +1,5 @@
 fromPairs(param_pairs) {
-	if (!IsObject(param_pairs)) {
+	if (!isObject(param_pairs)) {
 		this._internal_ThrowException()
 	}
 

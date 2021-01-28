@@ -1,22 +1,25 @@
 chunk(param_array,param_size:=1) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
+
+	; prepare
 	l_array := []
 	param_array := this.clone(param_array)
 
+	; create
 	; keep working till the parameter array is empty
 	while (param_array.Count() > 0) {
-		l_InnerArr := []
-		; fill the Inner Array to the max size of the size parameter
+		l_innerArr := []
+		; fill the inner array to the max size of the size parameter
 		loop, % param_size {
 			; exit loop if there is nothing left in parameter array to work with
 			if (param_array.Count() == 0) {
 				break
 			}
-			l_InnerArr.push(param_array.RemoveAt(1))
+			l_innerArr.push(param_array.RemoveAt(1))
 		}
-	l_array.push(l_InnerArr)
+	l_array.push(l_innerArr)
 	}
 	return l_array
 }

@@ -1,18 +1,18 @@
 forEach(param_collection,param_iteratee:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
-	}
-	; check what kind of param_iteratee being worked with
-	if (!IsFunc(param_iteratee)) {
-		BoundFunc := param_iteratee.Bind(this)
 	}
 
 	; prepare
+	if (!IsFunc(param_iteratee)) {
+		BoundFunc := param_iteratee.Bind(this)
+	}
 	l_paramAmmount := param_iteratee.maxParams
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
 	}
 
+	; create
 	; run against every value in the collection
 	for Key, Value in param_collection {
 		if (!BoundFunc) { ; is property/string

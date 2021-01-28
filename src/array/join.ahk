@@ -1,5 +1,5 @@
 join(param_array,param_sepatator:=",") {
-	if (!IsObject(param_array) || IsObject(param_sepatator)) {
+	if (!isObject(param_array) || isObject(param_sepatator)) {
 		this._internal_ThrowException()
 	}
 

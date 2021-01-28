@@ -3,7 +3,7 @@
 ; \--/--\--/--\--/--\--/--\--/
 
 _printObj(param_obj) {
-	if (!IsObject(param_obj)) {
+	if (!isObject(param_obj)) {
 		return """" param_obj """"
 	}
 	if this._internal_IsCircle(param_obj) {
@@ -17,7 +17,7 @@ _printObj(param_obj) {
 		} else {
 			Output .= Key . ":"
 		}
-		if (IsObject(Value)) {
+		if (isObject(Value)) {
 			Output .= "[" . this._printObj(Value) . "]"
 		} else if Value is not number
 		{
@@ -31,7 +31,7 @@ _printObj(param_obj) {
 	return OutPut
 }
 print(param_obj) {
-	if (!IsObject(param_obj)) {
+	if (!isObject(param_obj)) {
 		return """" param_obj """"
 	}
 	if this._internal_IsCircle(param_obj) {
@@ -43,6 +43,9 @@ print(param_obj) {
 
 
 _internal_MD5(param_string, case := 0) {
+	if (isObject(param_string)) {
+		param_string := this.print(param_string)
+	}
 	static MD5_DIGEST_LENGTH := 16
 	hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
 	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "Ptr", &MD5_CTX)
@@ -51,7 +54,8 @@ _internal_MD5(param_string, case := 0) {
 	loop % MD5_DIGEST_LENGTH {
 		o .= Format("{:02" (case ? "X" : "x") "}", NumGet(MD5_CTX, 87 + A_Index, "UChar"))
 	}
-	return o, DllCall("FreeLibrary", "Ptr", hModule)
+	DllCall("FreeLibrary", "Ptr", hModule)
+	return o
 }
 
 
@@ -64,7 +68,7 @@ _internal_JSRegEx(param_string) {
 
 
 _internal_differenciateShorthand(param_shorthand,param_objects:="") {
-	if (IsObject(param_shorthand)) {
+	if (isObject(param_shorthand)) {
 		for Key, in param_shorthand {
 			if (this.isNumber(Key)) {
 				continue
@@ -75,7 +79,7 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		return ".matchesProperty"
 	}
 	if (this.size(param_shorthand) > 0) {
-		if (IsObject(param_objects)) {
+		if (isObject(param_objects)) {
 			if (param_objects[1][param_shorthand] != "") {
 				return ".property"
 			}
@@ -107,7 +111,7 @@ _internal_ThrowException() {
 
 
 isAlnum(param) {
-	if (IsObject(param)) {
+	if (isObject(param)) {
 		return false
 	}
 	if param is alnum
@@ -118,7 +122,7 @@ isAlnum(param) {
 }
 
 isString(param) {
-	if (IsObject(param)) {
+	if (isObject(param)) {
 		return false
 	}
 	if param is alnum
@@ -133,7 +137,7 @@ isString(param) {
 
 
 isNumber(param) {
-	if (IsObject(param)) {
+	if (isObject(param)) {
 		return false
 	}
 	if param is number
@@ -144,7 +148,7 @@ isNumber(param) {
 }
 
 isFloat(param) {
-	if (IsObject(param)) {
+	if (isObject(param)) {
 		return false
 	}
 	if param is float
@@ -156,7 +160,7 @@ isFloat(param) {
 
 
 isFalsey(param) {
-	if (IsObject(param)) {
+	if (isObject(param)) {
 		return false
 	}
 	if (param == "" || param == 0) {
@@ -167,7 +171,13 @@ isFalsey(param) {
 
 
 ; tests
+assert.label("_internal_JSRegEx")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
+
+assert.label("md5")
+assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
+
+assert.label("type checking")
 assert.true(A.isAlnum(1))
 assert.true(A.isAlnum("hello"))
 assert.false(A.isAlnum([]))
@@ -182,4 +192,5 @@ assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
 assert.false(A.isFalsey([]))
 assert.false(A.isFalsey({}))
+
 ; omit

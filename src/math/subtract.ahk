@@ -1,5 +1,5 @@
 subtract(param_minuend,param_subtrahend) {
-	if (IsObject(param_minuend) || IsObject(param_subtrahend)) {
+	if (!this.isNumber(param_minuend) || !this.isNumber(param_subtrahend)) {
 		this._internal_ThrowException()
 	}
 

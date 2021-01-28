@@ -1,5 +1,5 @@
 padEnd(param_string:="",param_length:=0,param_chars:=" ") {
-	if (IsObject(param_string) || !this.isNumber(param_length) || IsObject(param_chars)) {
+	if (!this.isString(param_string) || !this.isNumber(param_length) || !this.isString(param_chars)) {
 		this._internal_ThrowException()
 	}
 

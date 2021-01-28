@@ -1,5 +1,5 @@
 filter(param_collection,param_predicate:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 

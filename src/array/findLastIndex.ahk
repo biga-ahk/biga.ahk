@@ -1,8 +1,8 @@
 findLastIndex(param_array,param_value,fromIndex:=1) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; create
 	l_array := this.reverse(this.cloneDeep(param_array))
 	l_count := this.size(l_array)

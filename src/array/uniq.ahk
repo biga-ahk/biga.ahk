@@ -1,5 +1,5 @@
 uniq(param_collection) {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 
@@ -9,9 +9,9 @@ uniq(param_collection) {
 
 	; create
 	for Key, Value in param_collection {
-		printedelement := this._internal_MD5(this._printObj(param_collection[Key]))
-		if (this.indexOf(tempArray, printedelement) == -1) {
-			tempArray.push(printedelement)
+		l_printedElement := this._internal_MD5(param_collection[Key])
+		if (this.indexOf(tempArray, l_printedElement) == -1) {
+			tempArray.push(l_printedElement)
 			l_array.push(Value)
 		}
 	}

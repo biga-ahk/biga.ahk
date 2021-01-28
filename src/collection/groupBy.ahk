@@ -1,7 +1,8 @@
 groupBy(param_collection,param_iteratee:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
+
 	; prepare
 	; check what kind of param_iteratee being worked with
 	if (!param_iteratee.call(this.head(param_collection))) { ;calling own method
@@ -27,7 +28,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 			; property shorthand
 			vIteratee := Value[param_iteratee]
 		}
-		
+
 		; create array at key if not encountered yet
 		if (!l_array.hasKey(vIteratee)) {
 			l_array[vIteratee] := []

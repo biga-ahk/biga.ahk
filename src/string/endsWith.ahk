@@ -1,10 +1,10 @@
-endsWith(param_string,param_needle,param_fromIndex:="") {
-	if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+endsWith(param_string,param_needle,param_fromIndex:=0) {
+	if (!this.isString(param_string) || !this.isString(param_needle) || !this.isNumber(param_fromIndex)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare defaults
-	if (param_fromIndex = "") {
+	if (param_fromIndex == 0) {
 		param_fromIndex := StrLen(param_string)
 	}
 	if (StrLen(param_needle) > 1) {

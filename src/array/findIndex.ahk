@@ -1,8 +1,8 @@
 findIndex(param_array,param_value,fromIndex:=1) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_value, param_array)
 	if (shorthand != false) {
@@ -11,7 +11,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 	if (IsFunc(param_value)) {
 		BoundFunc := param_value
 	}
-	if (IsObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
+	if (isObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
 		vSearchingobjects := true
 		param_value := this._printObj(param_value)
 	}

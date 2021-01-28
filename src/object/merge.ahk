@@ -1,5 +1,5 @@
 merge(param_collections*) {
-	if (!IsObject(param_collections)) {
+	if (!isObject(param_collections)) {
 		this._internal_ThrowException()
 	}
 
@@ -14,7 +14,7 @@ merge(param_collections*) {
 }
 
 internal_Merge(param_collection1, param_collection2) {
-	if(!IsObject(param_collection1) && !IsObject(param_collection2)) {
+	if(!isObject(param_collection1) && !isObject(param_collection2)) {
 		; if only one OR the other exist, display them together.
 		if(param_collection1 = "" || param_collection2 = "") {
 			return param_collection2 param_collection1

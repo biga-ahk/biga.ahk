@@ -1,5 +1,5 @@
 multiply(param_multiplier,param_multiplicand) {
-	if (IsObject(param_multiplier) || IsObject(param_multiplicand)) {
+	if (!this.isNumber(param_multiplier) || !this.isNumber(param_multiplicand)) {
 		this._internal_ThrowException()
 	}
 

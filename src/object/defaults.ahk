@@ -1,12 +1,12 @@
 ﻿defaults(param_object,param_sources*) {
-	if (!IsObject(param_object)) {
+	if (!isObject(param_object)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
 	l_obj := this.clone(param_object)
 	param_sources := this.reverse(param_sources)
-	
+
 	; create
 	for Index, Object in param_sources {
 		for Key, Value in Object {

@@ -1,5 +1,5 @@
 ceil(param_number,param_precision:=0) {
-	if (IsObject(param_number) || IsObject(param_precision)) {
+	if (!this.isNumber(param_number) || !this.isNumber(param_precision)) {
 		this._internal_ThrowException()
 	}
 

@@ -1,15 +1,15 @@
 concat(param_array,param_values*) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
-	
-	; data preparation
+
+	; prepare
 	l_array := this.clone(param_array)
 
 	; create
 	for index, object in param_values {
 		; push on any plain values
-		if (!IsObject(object)) {
+		if (!isObject(object)) {
 			l_array.push(object)
 		} else { ;push object values 1 level deep
 			for index2, object2 in object {

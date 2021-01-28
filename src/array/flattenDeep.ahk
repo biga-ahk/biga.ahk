@@ -1,5 +1,5 @@
 flattenDeep(param_array) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 
@@ -13,7 +13,7 @@ flattenDeep(param_array) {
 
 depthOf(param_obj,param_depth:=1) {
 	for Key, Value in param_obj {
-		if (IsObject(Value)) {
+		if (isObject(Value)) {
 			param_depth++
 			param_depth := this.depthOf(Value, param_depth)
 		}

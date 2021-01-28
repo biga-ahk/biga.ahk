@@ -1,8 +1,8 @@
 map(param_collection,param_iteratee:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {

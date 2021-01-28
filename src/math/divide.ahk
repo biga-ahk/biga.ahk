@@ -1,5 +1,5 @@
 divide(param_dividend,param_divisor) {
-	if (IsObject(param_dividend) || IsObject(param_divisor)) {
+	if (!this.isNumber(param_dividend) || !this.isNumber(param_divisor)) {
 		this._internal_ThrowException()
 	}
 

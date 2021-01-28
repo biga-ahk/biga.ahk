@@ -1,6 +1,6 @@
 clone(param_value) {
 
-	if (IsObject(param_value)) {
+	if (isObject(param_value)) {
 		return param_value.Clone()
 	} else {
 		return param_value

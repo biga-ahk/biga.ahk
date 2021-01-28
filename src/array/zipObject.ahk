@@ -1,8 +1,8 @@
 zipObject(param_props,param_values) {
-	if (!IsObject(param_props)) {
+	if (!isObject(param_props)) {
 		param_props := []
 	}
-	if (!IsObject(param_values)) {
+	if (!isObject(param_values)) {
 		param_values := []
 	}
 

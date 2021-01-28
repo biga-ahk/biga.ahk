@@ -1,5 +1,5 @@
 find(param_collection,param_predicate,param_fromindex:=1) {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 

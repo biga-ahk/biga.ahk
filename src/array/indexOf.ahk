@@ -1,10 +1,10 @@
 indexOf(param_array,param_value,fromIndex:=1) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
-	if (IsObject(param_value)) {
+	if (isObject(param_value)) {
 		param_value := this._internal_MD5(param_value)
 		param_array := this.map(param_array, this._internal_MD5)
 	}

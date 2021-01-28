@@ -1,11 +1,11 @@
 ; ###incomplete###
 intersectionBy(param_params*) {
-	
+
 	; prepare
 	oParams := []
 	boundFunc := ""
 	for Key, Value in param_params {
-		if (IsObject(Value)) {
+		if (isObject(Value)) {
 			; msgbox, % this._printObj(Value) " / " Value.call(1)
 			oParams.push(this.cloneDeep(Value))
 		}
@@ -22,7 +22,7 @@ intersectionBy(param_params*) {
 	tempArray   := A.cloneDeep(param_arrays[1])
 	param_arrays.RemoveAt(1)
 	l_array := []
-	
+
 	; create
 	for Key, Value in tempArray { ;for each value in first array
 		for Key2, Value2 in oParams { ;for each array sent to the method

@@ -1,8 +1,9 @@
 startsWith(param_string,param_needle,param_fromIndex:= 1) {
-	if (IsObject(param_string) || IsObject(param_needle) || IsObject(param_fromIndex)) {
+	if (!this.isString(param_string) || !this.isString(param_needle) || !this.isNumber(param_fromIndex)) {
 		this._internal_ThrowException()
 	}
-	
+
+	; create
 	l_startString := SubStr(param_string, param_fromIndex, StrLen(param_needle))
 	; check if substring matches
 	if (this.isEqual(l_startString, param_needle)) {

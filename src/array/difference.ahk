@@ -1,9 +1,12 @@
 ﻿difference(param_array,param_values*) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
+
+	; prepare
 	l_array := this.clone(param_array)
 
+	; create
 	; loop all Variadic inputs
 	for i, obj in param_values {
 		loop, % obj.Count() {

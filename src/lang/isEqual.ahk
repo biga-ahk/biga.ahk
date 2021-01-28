@@ -1,7 +1,7 @@
 isEqual(param_value,param_other*) {
 
 	; prepare
-	if (IsObject(param_value)) {
+	if (isObject(param_value)) {
 		l_array := []
 		param_value := this._printObj(param_value)
 		loop, % param_other.Count() {

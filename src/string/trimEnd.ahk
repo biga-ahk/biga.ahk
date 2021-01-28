@@ -1,4 +1,9 @@
 trimEnd(param_string,param_chars:="") {
+	if (!this.isString(param_string) || !this.isString(param_chars)) {
+		this._internal_ThrowException()
+	}
+
+	; create
 	if (param_chars = "") {
 		l_string := param_string
 		return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace

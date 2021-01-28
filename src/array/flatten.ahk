@@ -1,14 +1,14 @@
 flatten(param_array) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
 	l_obj := []
-	
+
 	; create
 	for Index, Object in param_array {
-		if (IsObject(Object)) {
+		if (isObject(Object)) {
 			for Index2, Object2 in Object {
 				l_obj.push(Object2)
 			}

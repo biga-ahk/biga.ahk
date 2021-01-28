@@ -1,5 +1,5 @@
 property(param_source) {
-	if (IsObject(param_srcValue)) {
+	if (!this.isString(param_srcValue)) {
 		this._internal_ThrowException()
 	}
 
@@ -9,7 +9,7 @@ property(param_source) {
 	}
 
 	; create the fn
-	if (IsObject(param_source)) {
+	if (isObject(param_source)) {
 		keyArray := []
 		for Key, Value in param_source {
 			keyArray.push(Value)
@@ -23,7 +23,7 @@ property(param_source) {
 }
 
 internal_property(param_property,param_itaree) {
-	if (IsObject(param_property)) {
+	if (isObject(param_property)) {
 		for Key, Value in param_property {
 			if (param_property.Count() == 1) {
 				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)

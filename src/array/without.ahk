@@ -1,8 +1,8 @@
 without(param_array,param_values*) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	l_array := this.clone(param_array)
 

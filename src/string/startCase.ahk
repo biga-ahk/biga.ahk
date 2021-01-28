@@ -1,11 +1,11 @@
 startCase(param_string:="") {
-	if (IsObject(param_string)) {
+	if (!this.isString(param_string)) {
 		this._internal_ThrowException()
 	}
 
+	; create
 	l_string := this.replace(param_string, "/[_ -]/", " ")
 
-	; create
 	; add space before each capitalized character
 	RegExMatch(l_string, "O)([A-Z])", RE_Match)
 	if (RE_Match.Count()) {

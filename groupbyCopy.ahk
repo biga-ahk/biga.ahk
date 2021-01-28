@@ -1,5 +1,5 @@
 groupBy(param_collection,param_iteratee:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 	; prepare
@@ -13,7 +13,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 	l_array := []
 	for Key, Value in param_collection {
 		vIteratee := 0
-		
+
 		; functor
 		if (IsFunc(param_iteratee || !vIteratee)) {
 			vIteratee := param_iteratee.call(Value)
@@ -22,7 +22,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 		if (shorthand = ".property") {
 			vIteratee := boundFunc.call(Value)
 		}
-		
+
 		; create array at key if not encountered yet
 		if (!l_array.hasKey(vIteratee)) {
 			l_array[vIteratee] := []

@@ -1,5 +1,5 @@
 toPairs(param_object) {
-	if (!IsObject(param_object)) {
+	if (!isObject(param_object)) {
 		this._internal_ThrowException()
 	}
 

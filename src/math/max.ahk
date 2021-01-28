@@ -1,5 +1,5 @@
 max(param_array) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 

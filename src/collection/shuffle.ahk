@@ -1,5 +1,5 @@
 shuffle(param_collection) {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 
@@ -7,7 +7,7 @@ shuffle(param_collection) {
 	l_array := this.clone(param_collection)
 
 	; create
-	l_index := l_array.Length()
+	l_index := l_array.count()
 	loop, % l_index - 1 {
 		Random, randomIndex, 1, % l_index
 		l_tempVar := l_array[l_index]

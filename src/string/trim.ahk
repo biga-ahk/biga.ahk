@@ -1,4 +1,9 @@
 trim(param_string,param_chars:="") {
+	if (!this.isString(param_string) || !this.isString(param_chars)) {
+		this._internal_ThrowException()
+	}
+
+	; create
 	if (param_chars = "") {
 		l_string := this.trimStart(param_string, param_chars)
 		return  this.trimEnd(l_string, param_chars)

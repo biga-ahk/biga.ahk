@@ -1,8 +1,8 @@
 partition(param_collection,param_predicate) {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	trueArray := []
 	falseArray := []

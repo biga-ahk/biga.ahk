@@ -1,11 +1,11 @@
 flattenDepth(param_array,param_depth:=1) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
 	l_obj := this.cloneDeep(param_array)
-	
+
 	; create
 	loop, % param_depth {
 		l_obj := this.flatten(l_obj)

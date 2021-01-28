@@ -1,5 +1,5 @@
 split(param_string:="",param_separator:=",",param_limit:=0) {
-	if (IsObject(param_string) || IsObject(param_string) || IsObject(param_limit)) {
+	if (!this.isString(param_string) || !this.isString(param_string) || !this.isNumber(param_limit)) {
 		this._internal_ThrowException()
 	}
 

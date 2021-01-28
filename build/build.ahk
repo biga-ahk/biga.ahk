@@ -95,7 +95,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 }
 ; The_Array := A.sortBy(The_Array,["name", "category"])
 ; Array_Gui(The_Array)
-if (IsObject(msgarray)) {
+if (isObject(msgarray)) {
 	; msgbox, % A.join(msgarray, newline)
 }
 

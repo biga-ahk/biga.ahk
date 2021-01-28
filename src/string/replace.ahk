@@ -1,5 +1,5 @@
 replace(param_string:="",param_needle:="",param_replacement:="") {
-	if (IsObject(param_string)) {
+	if (!this.isString(param_string) || !this.isString(param_needle) || !this.isString(param_replacement)) {
 		this._internal_ThrowException()
 	}
 

@@ -2,10 +2,10 @@ union(param_arrays*) {
 
 	; prepare
 	l_array := []
-	
+
 	; create
 	for Key, Array in param_arrays {
-		if (IsObject(Array)) {
+		if (isObject(Array)) {
 			l_array := this.concat(l_array, Array)
 		} else {
 			l_array.push(Array)

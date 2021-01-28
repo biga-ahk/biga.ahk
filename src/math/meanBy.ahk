@@ -1,5 +1,5 @@
 meanBy(param_array,param_iteratee:="__identity") {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 

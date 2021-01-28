@@ -462,7 +462,9 @@ assert.test(A.count(users, "active"), 1)
 
 
 ; omit
+assert.label("double characters")
 assert.test(A.count("pebbles", "bb"), 1)
+assert.label("double characters2")
 assert.test(A.count("....", ".."), 2)
 assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)
@@ -715,11 +717,11 @@ assert.label("sample()")
 ; omit
 output := A.sample([1, 2, 3])
 assert.test(A.size(output), 1)
-assert.false(IsObject(output))
+assert.false(isObject(output))
 
 output := A.sample([{"obj": 1} , {"obj": 2}, {"obj": 3}])
 assert.test(A.size(output), 1)
-assert.true(IsObject(output))
+assert.true(isObject(output))
 
 output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
 assert.true(A.includes(output, "value"))
@@ -828,7 +830,13 @@ assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":
 
 
 assert.label("internal()")
+assert.label("_internal_JSRegEx")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
+
+assert.label("md5")
+assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
+
+assert.label("type checking")
 assert.true(A.isAlnum(1))
 assert.true(A.isAlnum("hello"))
 assert.false(A.isAlnum([]))
@@ -843,7 +851,9 @@ assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
 assert.false(A.isFalsey([]))
 assert.false(A.isFalsey({}))
+
 ; omit
+
 
 assert.label("clone()")
 object := [{ "a": 1 }, { "b": 2 }]
@@ -1110,7 +1120,7 @@ assert.label("random()")
 
 ; omit
 output := A.random(0, 1)
-assert.false(IsObject(output))
+assert.false(isObject(output))
 
 ; test that floating point is returned
 output := A.random(0, 1, true)
@@ -1182,6 +1192,10 @@ assert.label("camelCase()")
 assert.test(A.camelCase("--foo-bar--"), "fooBar")
 assert.test(A.camelCase("fooBar"), "fooBar")
 assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
+
+
+; omit
+assert.test(A.camelCase("_this_is_FOO_BAR__"), "thisIsFooBar")
 
 
 assert.label("endsWith()")
@@ -1412,10 +1426,15 @@ assert.label("constant()")
 object := A.times(2, A.constant({"a": 1}))
 ; => [{"a": 1}, {"a": 1}]
 
+
 ; omit
 assert.test(object, [{"a": 1}, {"a": 1}])
 functor := A.constant({ "a": 1 })
 assert.test(functor.call({ "a": 1 }))
+
+assert.label("string")
+object := A.times(2, A.constant("string"))
+assert.test(object, ["string", "string"])
 
 
 assert.label("matches()")
@@ -1424,6 +1443,9 @@ assert.test(A.filter(objects, A.matches({ "a": 4, "c": 6 })), [{ "a": 4, "b": 5,
 functor := A.matches({ "a": 4 })
 assert.test(A.filter(objects, functor), [{ "a": 4, "b": 5, "c": 6 }])
 assert.false(functor.call({ "a": 1 }))
+
+
+; omit
 
 
 assert.label("matchesProperty()")

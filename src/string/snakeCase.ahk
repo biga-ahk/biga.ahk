@@ -1,5 +1,5 @@
 snakeCase(param_string:="") {
-	if (IsObject(param_string)) {
+	if (!this.isString(param_string)) {
 		this._internal_ThrowException()
 	}
 

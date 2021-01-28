@@ -1,9 +1,9 @@
 zip(param_arrays*) {
-	if (!IsObject(param_arrays)) {
+	if (!isObject(param_arrays)) {
 		this._internal_ThrowException()
 	}
 	l_array := []
-	
+
 	; loop all Variadic inputs
 	for Key, Value in param_arrays {
 		; for each value in the supplied set of array(s)
@@ -11,7 +11,7 @@ zip(param_arrays*) {
 			loop, % Value.Count() {
 				if (Key2 == A_Index) {
 					; create array if not encountered yet
-					if (IsObject(l_array[A_Index]) == false) {
+					if (isObject(l_array[A_Index]) == false) {
 						l_array[A_Index] := []
 					}
 					; push values onto the array for their position in the supplied arrays

@@ -1,6 +1,6 @@
 intersection(param_arrays*) {
 	for Key, Value in param_arrays {
-		if (!IsObject(Value)) {
+		if (!isObject(Value)) {
 			this._internal_ThrowException()
 		}
 	}

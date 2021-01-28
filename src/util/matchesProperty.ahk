@@ -1,5 +1,5 @@
 matchesProperty(param_path,param_srcValue) {
-	if (IsObject(param_srcValue)) {
+	if (isObject(param_srcValue)) {
 		this._internal_ThrowException()
 	}
 
@@ -17,7 +17,7 @@ _internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 		if (itareeValue = param_matchvalue) {
 			return true
 		}
-	}    
+	}
 	return false
 }
 

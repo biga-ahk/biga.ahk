@@ -1,13 +1,13 @@
 pick(param_object,param_paths) {
-	if (!IsObject(param_object)) {
+	if (!isObject(param_object)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
 	l_obj := {}
-	
+
 	; create
-	if (IsObject(param_paths)) {
+	if (isObject(param_paths)) {
 		for Key, Value in param_paths {
 			vValue := this.internal_property(Value, param_object)
 			l_obj[Value] := vValue

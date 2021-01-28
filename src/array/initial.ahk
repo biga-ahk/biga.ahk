@@ -1,7 +1,7 @@
 initial(param_array) {
 
 	; prepare
-	if (IsObject(param_array)) {
+	if (isObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
 	if (this.isString(param_array)) {

@@ -1,5 +1,5 @@
 add(param_augend,param_addend) {
-	if (IsObject(param_augend) || IsObject(param_addend)) {
+	if (!this.isNumber(param_augend) || !this.isNumber(param_addend)) {
 		this._internal_ThrowException()
 	}
 

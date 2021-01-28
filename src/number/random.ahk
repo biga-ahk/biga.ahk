@@ -1,5 +1,5 @@
 random(param_lower:=0,param_upper:=1,param_floating:=false) {
-	if (IsObject(param_lower) || IsObject(param_upper) || IsObject(param_floating)) {
+	if (!this.isNumber(param_lower) || !this.isNumber(param_upper) || !this.isNumber(param_floating)) {
 		this._internal_ThrowException()
 	}
 
@@ -25,7 +25,7 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 
 ; omit
 output := A.random(0, 1)
-assert.false(IsObject(output))
+assert.false(isObject(output))
 
 ; test that floating point is returned
 output := A.random(0, 1, true)

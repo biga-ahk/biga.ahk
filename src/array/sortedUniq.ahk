@@ -1,5 +1,5 @@
 sortedUniq(param_collection) {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 

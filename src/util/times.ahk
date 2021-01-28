@@ -1,8 +1,8 @@
 times(param_n,param_iteratee:="__identity") {
-	if (!this.isNumber(param_n) || this.isUndefined(param_iteratee.call(1))) {
+	if (!this.isNumber(param_n)) {
 		this._internal_ThrowException()
 	}
-	
+
 	; prepare
 	l_array := []
 

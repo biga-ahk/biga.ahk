@@ -1,5 +1,5 @@
 keyBy(param_collection,param_iteratee:="__identity") {
-	if (!IsObject(param_collection)) {
+	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 	; check what kind of param_iteratee being worked with

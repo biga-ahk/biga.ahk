@@ -1,5 +1,5 @@
 words(param_string,param_pattern:="/[^\W]+/") {
-	if (IsObject(param_string) || IsObject(param_pattern)) {
+	if (!this.isString(param_string) || !this.isString(param_pattern)) {
 		this._internal_ThrowException()
 	}
 

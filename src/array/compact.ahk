@@ -1,9 +1,10 @@
 compact(param_array) {
-	if (!IsObject(param_array)) {
+	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 	l_array := []
 
+	; create
 	for Key, Value in param_array {
 		if (Value != "" && Value != 0 && Value != false) {
 			l_array.push(Value)

@@ -1,5 +1,5 @@
 inRange(param_number,param_lower,param_upper) {
-	if (IsObject(param_number) || IsObject(param_lower) || IsObject(param_upper)) {
+	if (!this.isNumber(param_number) || !this.isNumber(param_lower) || !this.isNumber(param_upper)) {
 		this._internal_ThrowException()
 	}
 

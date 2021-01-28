@@ -13,7 +13,12 @@ _internal_constant(param_value) {
 object := A.times(2, A.constant({"a": 1}))
 ; => [{"a": 1}, {"a": 1}]
 
+
 ; omit
 assert.test(object, [{"a": 1}, {"a": 1}])
 functor := A.constant({ "a": 1 })
 assert.test(functor.call({ "a": 1 }))
+
+assert.label("string")
+object := A.times(2, A.constant("string"))
+assert.test(object, ["string", "string"])
