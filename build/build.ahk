@@ -112,8 +112,9 @@ loop, % The_Array.Count() {
 	element := The_Array[A_Index]
 	; perform the tests if in specific array or specific array is less than or 1
 	if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).Count() == 0) {
-		FileAppend, % newline "assert.label(""" element.name "()""" ")", % test_File
-		FileAppend, % element.tests "`n", % test_File
+		FileAppend, % newline "assert.category := """ element.name """", % test_File
+		FileAppend, % newline "assert.label(""default tests"")", % test_File
+		FileAppend, % element.tests "", % test_File
 	}
 }
 FileAppend, %test_tail%, % test_File
