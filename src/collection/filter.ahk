@@ -90,7 +90,7 @@ fn_filter2(param_iteratee) {
 	}
 }
 
-assert.label("filter - using value and key")
+assert.label("using value and key")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
 fn_filter3(param_iteratee, param_key) {
 	if (mod(param_key, 2) = 0) {
@@ -98,7 +98,7 @@ fn_filter3(param_iteratee, param_key) {
 	}
 }
 
-assert.label("filter - using value, key, and collection")
+assert.label("using value, key, and collection")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
 fn_filter4(param_iteratee, param_key, param_collection) {
 	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {

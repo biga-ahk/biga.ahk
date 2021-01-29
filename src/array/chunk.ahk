@@ -32,5 +32,5 @@ assert.test(A.chunk(["a", "b", "c", "d"], 3), [["a", "b", "c"], ["d"]])
 ; omit
 var := [1,2,3]
 A.chunk(var, 2)
-assert.label("chunk - assert no parameter mutation")
+assert.label("parameter mutation")
 assert.test(var, [1,2,3])

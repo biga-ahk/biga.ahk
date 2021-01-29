@@ -28,7 +28,10 @@ assert.true(A.endsWith("abc", "b", 2))
 
 ; omit
 
-; make sure comment detection works
+assert.label("ahk `; comment detection")
 assert.true(A.endsWith("String;", ";"))
 assert.true(A.endsWith("String;", "ing;"))
 assert.true(A.endsWith("String;", "String;"))
+
+assert.label("fromIndex")
+assert.true(A.endsWith("String;", "g", 6))

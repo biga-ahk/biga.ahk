@@ -16,11 +16,11 @@ assert.test(A.mean([4, 2, 8, 6]), 5)
 
 
 ; omit
-assert.label(".mean - same value")
+assert.label("same value")
 assert.test(A.mean([10, 10, 10]), 10)
 
-assert.label(".mean - with string value")
+assert.label("with string value")
 assert.test(A.mean([10, "10", 10]), 10)
 
-assert.label(".mean - decimals")
+assert.label("decimals")
 assert.test(A.mean([10.1, 42.2]), 26.150000000000002)

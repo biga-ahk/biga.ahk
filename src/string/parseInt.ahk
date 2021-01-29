@@ -19,6 +19,6 @@ assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
 ; omit
 assert.test(A.parseInt("0"), 0)
 
-assert.label(".parseInt - decimal places")
+assert.label("decimal places")
 assert.test(A.parseInt("1.0"), 1.0)
 assert.test(A.parseInt("1.0001"), 1.0001)

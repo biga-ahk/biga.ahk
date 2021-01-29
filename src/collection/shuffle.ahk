@@ -35,10 +35,10 @@ assert.test(shuffleTestVar[1], {"x": 1})
 assert.test(shuffleTestVar[2], {"x": 1})
 assert.test(shuffleTestVar[3], {"x": 1})
 
-assert.label("shuffle - empty array")
+assert.label("empty array")
 assert.test(A.shuffle([]), [])
 
-assert.label("shuffle - sparse arrays")
+assert.label("sparse arrays")
 shuffleTestVar := A.shuffle({2: 1, 4: 1, 6: 1})
 shuffleTestVar := A.map(A.compact(shuffleTestVar))
 assert.test(shuffleTestVar.Count(), 3)

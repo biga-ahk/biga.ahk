@@ -519,7 +519,7 @@ assert.false(A.every(userVotes, ["votes.1", "yes"]))
 assert.true(A.every(userVotes, ["votes.2", "yes"]))
 
 
-assert.label("every - detect all undefined array")
+assert.label("detect all undefined array")
 ; assert.true(A.every(["","",""], A.isUndefined))
 
 assert.category := "filter"
@@ -551,7 +551,7 @@ fn_filter2(param_iteratee) {
 	}
 }
 
-assert.label("filter - using value and key")
+assert.label("using value and key")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
 fn_filter3(param_iteratee, param_key) {
 	if (mod(param_key, 2) = 0) {
@@ -559,7 +559,7 @@ fn_filter3(param_iteratee, param_key) {
 	}
 }
 
-assert.label("filter - using value, key, and collection")
+assert.label("using value, key, and collection")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
 fn_filter4(param_iteratee, param_key, param_collection) {
 	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
@@ -762,10 +762,10 @@ assert.test(shuffleTestVar[1], {"x": 1})
 assert.test(shuffleTestVar[2], {"x": 1})
 assert.test(shuffleTestVar[3], {"x": 1})
 
-assert.label("shuffle - empty array")
+assert.label("empty array")
 assert.test(A.shuffle([]), [])
 
-assert.label("shuffle - sparse arrays")
+assert.label("sparse arrays")
 shuffleTestVar := A.shuffle({2: 1, 4: 1, 6: 1})
 shuffleTestVar := A.map(A.compact(shuffleTestVar))
 assert.test(shuffleTestVar.Count(), 3)
@@ -897,22 +897,22 @@ assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 StringCaseSense, Off
 assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))
 
-assert.label(".isEqual - variadric parameters")
+assert.label("variadric parameters")
 assert.true(A.isEqual(1, 1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
 
-assert.label(".isEqual - leading zero numbers")
+assert.label("leading zero numbers")
 assert.true(A.isEqual(00011, 11))
 assert.true(A.isEqual(011, 11))
 assert.true(A.isEqual(11, 11))
 
-assert.label(".isEqual - decimal places")
+assert.label("decimal places")
 assert.true(A.isEqual(1.0, 1.000))
 assert.true(A.isEqual(11, 11.000))
 assert.false(A.isEqual(11, 11.0000000001))
 
-assert.label(".isEqual - string comparison")
+assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
 
@@ -1008,13 +1008,13 @@ assert.test(A.mean([4, 2, 8, 6]), 5)
 
 
 ; omit
-assert.label(".mean - same value")
+assert.label("same value")
 assert.test(A.mean([10, 10, 10]), 10)
 
-assert.label(".mean - with string value")
+assert.label("with string value")
 assert.test(A.mean([10, "10", 10]), 10)
 
-assert.label(".mean - decimals")
+assert.label("decimals")
 assert.test(A.mean([10.1, 42.2]), 26.150000000000002)
 
 assert.category := "meanBy"
@@ -1045,15 +1045,15 @@ assert.test(A.multiply(6, 4), 24)
 
 
 ; omit
-assert.label(".multiply - negative numbers")
+assert.label("negative numbers")
 assert.test(A.multiply(10, -1), -10)
 assert.test(A.multiply(-10, -10), 100)
 
 assert.category := "round"
 assert.label("default tests")
-assert.label(".round - without precision")
+assert.label("without precision")
 assert.test(A.round(4.006), 4)
-assert.label(".round - with precision")
+assert.label("with precision")
 assert.test(A.round(4.006, 2), 4.01)
 assert.test(A.round(4060, -2), 4100)
 
@@ -1066,11 +1066,11 @@ assert.test(A.subtract(6, 4), 2)
 
 
 ; omit
-assert.label(".subtract - negtive number")
+assert.label("negtive number")
 assert.test(A.subtract(10, -1), 11)
 assert.test(A.subtract(-10, -10), 0)
 
-assert.label(".subtract - decimal")
+assert.label("decimal")
 assert.test(A.subtract(10, 0.01), 9.99)
 
 assert.label("parameter mutation")
@@ -1282,7 +1282,7 @@ assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
 ; omit
 assert.test(A.parseInt("0"), 0)
 
-assert.label(".parseInt - decimal places")
+assert.label("decimal places")
 assert.test(A.parseInt("1.0"), 1.0)
 assert.test(A.parseInt("1.0001"), 1.0001)
 
@@ -1299,7 +1299,7 @@ assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
 
 
 ; omit
-assert.label(".replace - blank parameters")
+assert.label("blank parameters")
 assert.test(A.replace("Hi Barney"), "Hi Barney")
 assert.test(A.replace(), "")
 

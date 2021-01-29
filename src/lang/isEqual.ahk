@@ -33,21 +33,21 @@ assert.false(A.isEqual({ "a": "a" }, { "a": "A" }))
 StringCaseSense, Off
 assert.false(A.isEqual({ "a": 1 }, { "a": 2 }))
 
-assert.label(".isEqual - variadric parameters")
+assert.label("variadric parameters")
 assert.true(A.isEqual(1, 1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }, { "a": 1 }))
 assert.false(A.isEqual(1, 1, { "a": 1 }))
 
-assert.label(".isEqual - leading zero numbers")
+assert.label("leading zero numbers")
 assert.true(A.isEqual(00011, 11))
 assert.true(A.isEqual(011, 11))
 assert.true(A.isEqual(11, 11))
 
-assert.label(".isEqual - decimal places")
+assert.label("decimal places")
 assert.true(A.isEqual(1.0, 1.000))
 assert.true(A.isEqual(11, 11.000))
 assert.false(A.isEqual(11, 11.0000000001))
 
-assert.label(".isEqual - string comparison")
+assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))

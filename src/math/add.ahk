@@ -17,7 +17,7 @@ assert.test(A.add(10, -1), 9)
 assert.test(A.add(-10, -10), -20)
 assert.test(A.add(10, 0.01), 10.01)
 
-assert.label("mutation")
+assert.label("parameter mutation")
 value := 10
 A.add(value, 10)
 assert.test(value, 10)

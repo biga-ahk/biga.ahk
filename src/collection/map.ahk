@@ -49,4 +49,4 @@ users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
-assert.true(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
+assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])

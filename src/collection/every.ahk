@@ -77,5 +77,5 @@ assert.false(A.every(userVotes, ["votes.1", "yes"]))
 assert.true(A.every(userVotes, ["votes.2", "yes"]))
 
 
-assert.label("every - detect all undefined array")
+assert.label("detect all undefined array")
 ; assert.true(A.every(["","",""], A.isUndefined))

@@ -21,6 +21,6 @@ assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
 
 
 ; omit
-assert.label(".replace - blank parameters")
+assert.label("blank parameters")
 assert.test(A.replace("Hi Barney"), "Hi Barney")
 assert.test(A.replace(), "")
