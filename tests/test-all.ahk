@@ -11,7 +11,7 @@ assert := new unittesting()
 ; Start speed function
 QPC(1)
 
-assert.category := "chunk"
+assert.group(".chunk")
 assert.label("default tests")
 assert.test(A.chunk(["a", "b", "c", "d"], 2), [["a", "b"], ["c", "d"]])
 assert.test(A.chunk(["a", "b", "c", "d"], 3), [["a", "b", "c"], ["d"]])
@@ -22,7 +22,7 @@ A.chunk(var, 2)
 assert.label("parameter mutation")
 assert.test(var, [1,2,3])
 
-assert.category := "compact"
+assert.group(".compact")
 assert.label("default tests")
 assert.test(A.compact([0, 1, false, 2, "", 3]), [1, 2, 3])
 
@@ -30,7 +30,7 @@ assert.test(A.compact([0, 1, false, 2, "", 3]), [1, 2, 3])
 ; omit
 assert.test(A.compact([1, 2, 3, 4, 5, 6, "", "", ""]), [1, 2, 3, 4, 5, 6])
 
-assert.category := "concat"
+assert.group(".concat")
 assert.label("default tests")
 array := [1]
 assert.test(A.concat(array, 2, [3], [[4]]), [1, 2, 3, [4]])
@@ -39,7 +39,7 @@ assert.test(A.concat(array), [1])
 ; omit
 assert.test(A.concat(array, 1), [1, 1])
 
-assert.category := "difference"
+assert.group(".difference")
 assert.label("default tests")
 assert.test(A.difference([2, 1], [2, 3]), [1])
 
@@ -52,7 +52,7 @@ assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
 assert.test(A.difference(["Barney", "Fred"], ["Barney"], ["Fred"]), [])
 
-assert.category := "drop"
+assert.group(".drop")
 assert.label("default tests")
 assert.test(A.drop([1, 2, 3]), [2, 3])
 assert.test(A.drop([1, 2, 3], 2), [3])
@@ -65,7 +65,7 @@ assert.test(A.drop(100), ["0", "0"])
 ; omit
 assert.test(A.drop([]), [])
 
-assert.category := "dropRight"
+assert.group(".dropRight")
 assert.label("default tests")
 assert.test(A.dropRight([1, 2, 3]), [1, 2])
 assert.test(A.dropRight([1, 2, 3], 2), [1])
@@ -77,7 +77,7 @@ assert.test(A.dropRight(100), ["1", "0"])
 ; omit
 assert.test(A.dropRight([]), [])
 
-assert.category := "dropRightWhile"
+assert.group(".dropRightWhile")
 assert.label("default tests")
 users := [ {"user": "barney", 	"active": true }
 		, { "user": "fred", 	"active": false }
@@ -102,7 +102,7 @@ assert.test(A.dropRightWhile([]), [])
 ; check that input has not been mutated
 assert.test(users[3], { "user": "pebbles", 	"active": false })
 
-assert.category := "dropWhile"
+assert.group(".dropWhile")
 assert.label("default tests")
 users := [ {"user": "barney", 	"active": false }
 		, { "user": "fred", 	"active": false }
@@ -126,7 +126,7 @@ assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }
 ; omit
 assert.test(A.dropWhile([]), [])
 
-assert.category := "fill"
+assert.group(".fill")
 assert.label("default tests")
 array := [1, 2, 3]
 assert.test(A.fill(array, "a"), ["a", "a", "a"])
@@ -137,7 +137,7 @@ assert.test(A.fill([4, 6, 8, 10], "*", 2, 3), [4, "*", "*", 10])
 assert.test(A.fill([]), [])
 assert.test(array, [1, 2, 3])
 ; ensure that mutation did not occur
-assert.category := "findIndex"
+assert.group(".findIndex")
 assert.label("default tests")
 assert.test(A.findIndex([1, 2, 1, 2], 2), 2)
 
@@ -169,7 +169,7 @@ users := [{"user": "barney", "active": true}
 
 assert.test(A.findIndex(users, ["active", false]), 2)
 
-assert.category := "findLastIndex"
+assert.group(".findLastIndex")
 assert.label("default tests")
 users := [{"user": "barney", "active": true}
 		, {"user": "fred", "active": false}
@@ -187,14 +187,14 @@ assert.test(A.findLastIndex(testusers, "jane"), 2)
 assert.test(A.findLastIndex(testusers, "bill"), 5)
 assert.test(A.findLastIndex(testusers, "pebbles"), 3)
 
-assert.category := "flatten"
+assert.group(".flatten")
 assert.label("default tests")
 assert.test(A.flatten([1, [2, [3, [4]], 5]]), [1, 2, [3, [4]], 5])
 assert.test(A.flatten([[1, 2, 3], [4, 5, 6]]), [1, 2, 3, 4, 5, 6])
 
 ; omit
 
-assert.category := "flattenDeep"
+assert.group(".flattenDeep")
 assert.label("default tests")
 assert.test(A.flattenDeep([1]), [1])
 assert.test(A.flattenDeep([1, [2]]), [1, 2])
@@ -206,18 +206,18 @@ assert.test(A.depthOf([1, [2]]), 2)
 assert.test(A.depthOf([1, [[2]]]), 3)
 assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
 
-assert.category := "flattenDepth"
+assert.group(".flattenDepth")
 assert.label("default tests")
 assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 1), [1, 2, [3, [4]], 5])
 assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 2), [1, 2, 3, [4], 5])
 
 ; omit
 
-assert.category := "fromPairs"
+assert.group(".fromPairs")
 assert.label("default tests")
 assert.test(A.fromPairs([["a", 1], ["b", 2]]), {"a": 1, "b": 2})
 
-assert.category := "head"
+assert.group(".head")
 assert.label("default tests")
 assert.test(A.head([1, 2, 3]), 1)
 assert.test(A.head([]), "")
@@ -234,7 +234,7 @@ assert.test(A.first([]), "")
 assert.test(A.first("fred"), "f")
 assert.test(A.first(100), "1")
 
-assert.category := "indexOf"
+assert.group(".indexOf")
 assert.label("default tests")
 assert.test(A.indexOf([1, 2, 1, 2], 2), 2)
 
@@ -250,7 +250,7 @@ assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 ; omit
 StringCaseSense, Off
 
-assert.category := "initial"
+assert.group(".initial")
 assert.label("default tests")
 assert.test(A.initial([1, 2, 3]), [1, 2])
 assert.test(A.initial("fred"), ["f", "r", "e"])
@@ -260,7 +260,7 @@ assert.test(A.initial(100), ["1", "0"])
 ; omit
 assert.test(A.initial([]), [])
 
-assert.category := "intersection"
+assert.group(".intersection")
 assert.label("default tests")
 assert.test(A.intersection([2, 1], [2, 3]), [2])
 
@@ -273,12 +273,12 @@ intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])
 assert.test(intersectionVar, [1,2,3])
 
-assert.category := "join"
+assert.group(".join")
 assert.label("default tests")
 assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
 assert.test(A.join(["a", "b", "c"]), "a,b,c")
 
-assert.category := "last"
+assert.group(".last")
 assert.label("default tests")
 assert.test(A.last([1, 2, 3]), 3)
 assert.test(A.last([]), "")
@@ -288,7 +288,7 @@ assert.test(A.last(100), "0")
 
 ; omit
 
-assert.category := "lastIndexOf"
+assert.group(".lastIndexOf")
 assert.label("default tests")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
@@ -302,7 +302,7 @@ assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 ; omit
 StringCaseSense, Off
 
-assert.category := "nth"
+assert.group(".nth")
 assert.label("default tests")
 assert.test(A.nth([1, 2, 3]), 1)
 assert.test(A.nth([1, 2, 3], -3), 1)
@@ -315,7 +315,7 @@ assert.test(A.nth([1, 2, 3], 0), 1)
 ; omit
 assert.test(A.nth([]), "")
 
-assert.category := "reverse"
+assert.group(".reverse")
 assert.label("default tests")
 assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
 assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
@@ -327,7 +327,7 @@ reverseVar := [1,2,3]
 assert.test(A.reverse(reverseVar), [3, 2, 1])
 assert.test(reverseVar[3], 3)
 
-assert.category := "slice"
+assert.group(".slice")
 assert.label("default tests")
 assert.test(A.slice([1, 2, 3], 1, 2), [1, 2])
 assert.test(A.slice([1, 2, 3], 1), [1, 2, 3])
@@ -338,13 +338,13 @@ assert.test(A.slice(100), ["1", "0", "0"])
 
 ; omit
 
-assert.category := "sortedIndex"
+assert.group(".sortedIndex")
 assert.label("default tests")
 assert.test(A.sortedIndex([30, 50], 40),2)
 assert.test(A.sortedIndex([30, 50], 20),1)
 assert.test(A.sortedIndex([30, 50], 99),3)
 
-assert.category := "sortedUniq"
+assert.group(".sortedUniq")
 assert.label("default tests")
 assert.test(A.sortedUniq([1, 1, 2]), [1, 2])
 
@@ -359,7 +359,7 @@ arr2 := A.sortedUniq(arr)
 assert.test(arr.Count(), 15)
 assert.test(arr2.Count(), 10)
 
-assert.category := "tail"
+assert.group(".tail")
 assert.label("default tests")
 assert.test(A.tail([1, 2, 3]), [2, 3])
 assert.test(A.tail("fred"), ["r", "e", "d"])
@@ -368,7 +368,7 @@ assert.test(A.tail(100), ["0", "0"])
 ; omit
 assert.test(A.tail([]), [])
 
-assert.category := "take"
+assert.group(".take")
 assert.label("default tests")
 assert.test(A.take([1, 2, 3]), [1])
 assert.test(A.take([1, 2, 3], 2), [1, 2])
@@ -379,7 +379,7 @@ assert.test(A.take(100), ["1"])
 ; omit
 assert.test(A.take([]), [])
 
-assert.category := "takeRight"
+assert.group(".takeRight")
 assert.label("default tests")
 assert.test(A.takeRight([1, 2, 3]), [3])
 assert.test(A.takeRight([1, 2, 3], 2), [2, 3])
@@ -393,7 +393,7 @@ assert.test(A.takeRight([]), [])
 assert.test(A.takeRight("fred", 3), ["r","e","d"])
 assert.test(A.takeRight("fred", 4), ["f","r","e","d"])
 
-assert.category := "union"
+assert.group(".union")
 assert.label("default tests")
 assert.test(A.union([2], [1, 2]), [2, 1])
 
@@ -402,7 +402,7 @@ assert.test(A.union([2], [1, 2]), [2, 1])
 assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
 assert.test(A.union("hello!"), ["hello!"])
 
-assert.category := "uniq"
+assert.group(".uniq")
 assert.label("default tests")
 assert.test(A.uniq([2, 1, 2]), [2, 1])
 
@@ -415,7 +415,7 @@ arr2 := A.uniq(arr)
 assert.test(arr.Count(), 15)
 assert.test(arr2.Count(), 14)
 
-assert.category := "without"
+assert.group(".without")
 assert.label("default tests")
 assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
 
@@ -424,7 +424,7 @@ assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
 assert.test(A.without([2, 1, 2, 3], 1), [2, 3])
 assert.test(A.without([2, 1, 2, 3], 1, 2, 3), [])
 
-assert.category := "zip"
+assert.group(".zip")
 assert.label("default tests")
 assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
 
@@ -434,7 +434,7 @@ obj1 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 obj2 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
 assert.test(A.zip(obj1, obj2),[["one", "one"], ["two", "two"], ["three", "three"], ["four", "four"], ["five", "five"], ["six", "six"], ["seven", "seven"], ["eight", "eight"], ["nine", "nine"], ["ten", "ten"]])
 
-assert.category := "zipObject"
+assert.group(".zipObject")
 assert.label("default tests")
 assert.test(A.zipObject(["a", "b"], [1, 2]), {"a": 1, "b": 2})
 
@@ -442,7 +442,7 @@ assert.test(A.zipObject(["a", "b"], [1, 2]), {"a": 1, "b": 2})
 ; omit
 assert.test(A.zipObject(["a", "b", "c"], [1, 2]), {"a": 1, "b": 2, "c": ""})
 
-assert.category := "count"
+assert.group(".count")
 assert.label("default tests")
 assert.test(A.count([1, 2, 3], 2), 1)
 assert.test(A.count("pebbles", "b"), 2)
@@ -470,7 +470,7 @@ assert.test(A.count("....", ".."), 2)
 assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)
 
-assert.category := "every"
+assert.group(".every")
 assert.label("default tests")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
@@ -522,7 +522,7 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 assert.label("detect all undefined array")
 ; assert.true(A.every(["","",""], A.isUndefined))
 
-assert.category := "filter"
+assert.group(".filter")
 assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
@@ -567,7 +567,7 @@ fn_filter4(param_iteratee, param_key, param_collection) {
 	}
 }
 
-assert.category := "find"
+assert.group(".find")
 assert.label("default tests")
 users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
@@ -593,7 +593,7 @@ assert.test(A.find(users, "active"), { "user": "barney", "age": 36, "active": tr
 ; omit
 assert.test(A.find(users, "active", 2), { "user": "pebbles", "age": 1, "active": true }) ;fromindex argument
 
-assert.category := "forEach"
+assert.group(".forEach")
 assert.label("default tests")
 
 
@@ -608,7 +608,7 @@ fn_forEachFunc(value) {
 ; aliases
 assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
 
-assert.category := "groupBy"
+assert.group(".groupBy")
 assert.label("default tests")
 assert.test(A.groupBy([6.1, 4.2, 6.2], A.floor), {4: [4.2], 6: [6.1, 6.2]})
 
@@ -625,7 +625,7 @@ assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "barney", "las
 
 assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
 
-assert.category := "includes"
+assert.group(".includes")
 assert.label("default tests")
 assert.true(A.includes([1, 2, 3], 1))
 assert.true(A.includes({ "a": 1, "b": 2 }, 1))
@@ -640,7 +640,7 @@ assert.true(A.includes("hello!", "/\D/"))
 StringCaseSense, Off
 assert.false(A.includes("InStr", "Other"))
 
-assert.category := "keyBy"
+assert.group(".keyBy")
 assert.label("default tests")
 array := [ {"dir": "left", "code": 97}
 	, {"dir": "right", "code": 100}]
@@ -653,7 +653,7 @@ fn_keyByFunc(value)
 
 ; omit
 
-assert.category := "map"
+assert.group(".map")
 assert.label("default tests")
 fn_square(n) {
 	return  n * n
@@ -670,7 +670,7 @@ assert.test(A.map(users, "user"), ["barney", "fred"])
 ; omit
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
 
-assert.category := "partition"
+assert.group(".partition")
 assert.label("default tests")
 users := [ { "user": "barney", "age": 36, "active": false }
 	, { "user": "fred", "age": 40, "active": true }
@@ -690,7 +690,7 @@ assert.test(A.partition(users, ["active", false]), [[{ "user": "barney", "age": 
 ; The A.property iteratee shorthand.
 assert.test(A.partition(users, "active"), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
 
-assert.category := "reject"
+assert.group(".reject")
 assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
 
@@ -711,7 +711,7 @@ assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":fal
 
 ; omit
 
-assert.category := "sample"
+assert.group(".sample")
 assert.label("default tests")
 
 
@@ -727,7 +727,7 @@ assert.true(isObject(output))
 output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
 assert.true(A.includes(output, "value"))
 
-assert.category := "samplesize"
+assert.group(".samplesize")
 assert.label("default tests")
 output := A.sampleSize([1, 2, 3], 2)
 assert.test(output.Count(), 2)
@@ -745,7 +745,7 @@ assert.true(A.includes(output, 1))
 assert.true(A.includes(output, 2))
 assert.true(A.includes(output, "value"))
 
-assert.category := "shuffle"
+assert.group(".shuffle")
 assert.label("default tests")
 
 
@@ -778,7 +778,7 @@ assert.test(shuffleTestVar.Count(), 2)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
 
-assert.category := "size"
+assert.group(".size")
 assert.label("default tests")
 assert.test(A.size([1, 2, 3]), 3)
 assert.test(A.size({ "a": 1, "b": 2 }), 2)
@@ -791,7 +791,7 @@ users := [{"user": "barney", "active": true}
 	, {"user": "pebbles", "active": false}]
 assert.test(A.size(users), 3)
 
-assert.category := "sortBy"
+assert.group(".sortBy")
 assert.label("default tests")
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
 users := [
@@ -829,7 +829,7 @@ users := [
 assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
 
-assert.category := "internal"
+assert.group(".internal")
 assert.label("default tests")
 assert.label("_internal_JSRegEx")
 assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
@@ -855,7 +855,7 @@ assert.false(A.isFalsey({}))
 
 ; omit
 
-assert.category := "clone"
+assert.group(".clone")
 assert.label("default tests")
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
@@ -869,7 +869,7 @@ clone := A.clone(var)
 clone++
 assert.notEqual(var, clone)
 
-assert.category := "cloneDeep"
+assert.group(".cloneDeep")
 assert.label("default tests")
 object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]
 deepclone := A.cloneDeep(object)
@@ -884,7 +884,7 @@ object[1].a := 2
 assert.test(deepclone, [{ "a": [[1, 2, 3]] }, { "b": 2 }])
 assert.test(object, [{ "a": 2 }, { "b": 2 }])
 
-assert.category := "isEqual"
+assert.group(".isEqual")
 assert.label("default tests")
 assert.true(A.isEqual(1, 1))
 assert.true(A.isEqual({ "a": 1 }, { "a": 1 }))
@@ -916,7 +916,7 @@ assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
 
-assert.category := "ismatch"
+assert.group(".ismatch")
 assert.label("default tests")
 object := { "a": 1, "b": 2, "c": 3 }
 assert.true(A.isMatch(object, {"b": 2}))
@@ -924,7 +924,7 @@ assert.true(A.isMatch(object, {"b": 2, "c": 3}))
 
 assert.false(A.isMatch(object, {"b": 1}))
 assert.false(A.isMatch(object, {"b": 2, "z": 99}))
-assert.category := "isUndefined"
+assert.group(".isUndefined")
 assert.label("default tests")
 assert.true(A.isUndefined(""))
 assert.true(A.isUndefined(non_existant_Var))
@@ -933,7 +933,7 @@ assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))
 assert.false(A.isUndefined(false))
 
-assert.category := "add"
+assert.group(".add")
 assert.label("default tests")
 assert.test(A.add(6, 4), 10)
 
@@ -947,7 +947,7 @@ assert.label("parameter mutation")
 value := 10
 A.add(value, 10)
 assert.test(value, 10)
-assert.category := "ceil"
+assert.group(".ceil")
 assert.label("default tests")
 assert.test(A.ceil(4.006), 5)
 assert.test(A.ceil(6.004, 2), 6.01)
@@ -966,7 +966,7 @@ assert.test(A.ceil(2.22, 2), 2.22)
 assert.test(A.ceil(-2.22000000000000020, 2), -2.22)
 assert.test(A.ceil(2.22000000000000020, 2), 2.23)
 
-assert.category := "divide"
+assert.group(".divide")
 assert.label("default tests")
 assert.test(A.divide(6, 4), 1.5)
 
@@ -975,7 +975,7 @@ assert.test(A.divide(6, 4), 1.5)
 assert.test(A.divide(10, -1), -10)
 assert.test(A.divide(-10, -10), 1)
 
-assert.category := "floor"
+assert.group(".floor")
 assert.label("default tests")
 assert.test(A.floor(4.006), 4)
 assert.test(A.floor(0.046, 2), 0.04)
@@ -994,7 +994,7 @@ assert.test(A.floor(2.22, 1), 2.2)
 
 assert.test(A.floor(-2.22000000000000020, 2), -2.22)
 assert.test(A.floor(2.22000000000000020, 2), 2.22)
-assert.category := "max"
+assert.group(".max")
 assert.label("default tests")
 assert.test(A.max([4, 2, 8, 6]), 8)
 assert.test(A.max([]), "")
@@ -1002,7 +1002,7 @@ assert.test(A.max([]), "")
 
 ; omit
 
-assert.category := "mean"
+assert.group(".mean")
 assert.label("default tests")
 assert.test(A.mean([4, 2, 8, 6]), 5)
 
@@ -1017,7 +1017,7 @@ assert.test(A.mean([10, "10", 10]), 10)
 assert.label("decimals")
 assert.test(A.mean([10.1, 42.2]), 26.150000000000002)
 
-assert.category := "meanBy"
+assert.group(".meanBy")
 assert.label("default tests")
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
 assert.test(A.meanBy(objects, Func("meanByFunc1")), 5)
@@ -1031,7 +1031,7 @@ assert.test(A.meanBy(objects, "n"), 5)
 
 ; omit
 
-assert.category := "min"
+assert.group(".min")
 assert.label("default tests")
 assert.test(A.min([4, 2, 8, 6]), 2)
 assert.test(A.min([]), "")
@@ -1039,7 +1039,7 @@ assert.test(A.min([]), "")
 
 ; omit
 
-assert.category := "multiply"
+assert.group(".multiply")
 assert.label("default tests")
 assert.test(A.multiply(6, 4), 24)
 
@@ -1049,7 +1049,7 @@ assert.label("negative numbers")
 assert.test(A.multiply(10, -1), -10)
 assert.test(A.multiply(-10, -10), 100)
 
-assert.category := "round"
+assert.group(".round")
 assert.label("default tests")
 assert.label("without precision")
 assert.test(A.round(4.006), 4)
@@ -1060,7 +1060,7 @@ assert.test(A.round(4060, -2), 4100)
 
 ; omit
 
-assert.category := "subtract"
+assert.group(".subtract")
 assert.label("default tests")
 assert.test(A.subtract(6, 4), 2)
 
@@ -1078,14 +1078,14 @@ g_value := 10
 assert.test(A.subtract(g_value, 10), 0)
 assert.test(g_value, 10)
 
-assert.category := "sum"
+assert.group(".sum")
 assert.label("default tests")
 assert.test(A.sum([4, 2, 8, 6]), 20)
 
 
 ; omit
 
-assert.category := "clamp"
+assert.group(".clamp")
 assert.label("default tests")
 assert.test(A.clamp(-10, -5, 5), -5)
 assert.test(A.clamp(10, -5, 5), 5)
@@ -1102,7 +1102,7 @@ value := 10
 A.clamp(value, -5, 5)
 assert.test(value, 10)
 
-assert.category := "inRange"
+assert.group(".inRange")
 assert.label("default tests")
 assert.test(A.inRange(3, 2, 4), true)
 assert.test(A.inRange(4, 0, 8), true)
@@ -1115,7 +1115,7 @@ assert.test(A.inRange(-3, -2, -6), true)
 
 ; omit
 
-assert.category := "random"
+assert.group(".random")
 assert.label("default tests")
 
 
@@ -1127,7 +1127,7 @@ assert.false(isObject(output))
 output := A.random(0, 1, true)
 assert.test(A.includes(output, "."), true)
 
-assert.category := "defaults"
+assert.group(".defaults")
 assert.label("default tests")
 assert.test(A.defaults({"a": 1}, {"b": 2}, {"a": 3}), {"a": 1, "b": 2})
 
@@ -1137,7 +1137,7 @@ object := {"a": 1}
 assert.test(A.defaults(object, {"b": 2, "c": 3}), {"a": 1, "b": 2, "c": 3})
 assert.test(object, {"a": 1})
 
-assert.category := "keys"
+assert.group(".keys")
 assert.label("default tests")
 object := {"a": 1, "b": 2, "c": 3}
 assert.test(A.keys(object), ["a", "b", "c"])
@@ -1147,7 +1147,7 @@ assert.test(A.keys("hi"), [1, 2])
 
 ; omit
 
-assert.category := "merge"
+assert.group(".merge")
 assert.label("default tests")
 object := {"options": [{"option1": true}]}
 other := {"options": [{"option2": false}]}
@@ -1157,7 +1157,7 @@ object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
 assert.test(A.merge(object, other), { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] })
 
-assert.category := "omit"
+assert.group(".omit")
 assert.label("default tests")
 object := {"a": 1, "b": "2", "c": 3}
 assert.test(A.omit(object, ["a", "c"]), {"b": "2"})
@@ -1166,7 +1166,7 @@ assert.test(A.omit(object, ["a", "c"]), {"b": "2"})
 ; omit
 assert.test(A.omit(object, "a"), {"b": "2", "c": 3})
 
-assert.category := "pick"
+assert.group(".pick")
 assert.label("default tests")
 object := {"a": 1, "b": "2", "c": 3}
 assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
@@ -1177,7 +1177,7 @@ assert.test(A.pick(object, "a"), {"a": 1})
 assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
 ; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
 
-assert.category := "toPairs"
+assert.group(".toPairs")
 assert.label("default tests")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
@@ -1188,7 +1188,7 @@ assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 ; aliases
 assert.test(A.entries({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
-assert.category := "camelCase"
+assert.group(".camelCase")
 assert.label("default tests")
 assert.test(A.camelCase("--foo-bar--"), "fooBar")
 assert.test(A.camelCase("fooBar"), "fooBar")
@@ -1198,7 +1198,7 @@ assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
 ; omit
 assert.test(A.camelCase("_this_is_FOO_BAR__"), "thisIsFooBar")
 
-assert.category := "endsWith"
+assert.group(".endsWith")
 assert.label("default tests")
 assert.true(A.endsWith("abc", "c"))
 assert.false(A.endsWith("abc", "b"))
@@ -1215,7 +1215,7 @@ assert.true(A.endsWith("String;", "String;"))
 assert.label("fromIndex")
 assert.true(A.endsWith("String;", "g", 6))
 
-assert.category := "escape"
+assert.group(".escape")
 assert.label("default tests")
 string := "fred, barney, & pebbles"
 assert.test(A.escape(string), "fred, barney, &amp; pebbles")
@@ -1224,7 +1224,7 @@ assert.test(A.escape(string), "fred, barney, &amp; pebbles")
 ; omit
 assert.test(A.escape("&&&"), "&amp;&amp;&amp;")
 
-assert.category := "kebabCase"
+assert.group(".kebabCase")
 assert.label("default tests")
 assert.test(A.kebabCase("Foo Bar"), "foo-bar")
 assert.test(A.kebabCase("fooBar"), "foo-bar")
@@ -1234,7 +1234,7 @@ assert.test(A.kebabCase("--FOO_BAR--"), "foo-bar")
 ; omit
 assert.test(A.kebabCase("  Foo-Bar--"), "FOO-BAR")
 
-assert.category := "lowerCase"
+assert.group(".lowerCase")
 assert.label("default tests")
 assert.test(A.lowerCase("--Foo-Bar--"), "foo bar")
 assert.test(A.lowerCase("fooBar"), "foo bar")
@@ -1244,7 +1244,7 @@ assert.test(A.lowerCase("__FOO_BAR__"), "foo bar")
 ; omit
 assert.test(A.lowerCase("  Foo-Bar--"), "foo bar")
 
-assert.category := "pad"
+assert.group(".pad")
 assert.label("default tests")
 assert.test(A.pad("abc", 8), "  abc   ")
 assert.test(A.pad("abc", 8, "_-"), "_-abc_-_")
@@ -1255,7 +1255,7 @@ assert.test(A.pad("abc", 3), "abc")
 assert.test(A.pad("abc", 4), "abc ")
 assert.test(A.pad("abc", 9), "   abc   ")
 
-assert.category := "padEnd"
+assert.group(".padEnd")
 assert.label("default tests")
 assert.test(A.padEnd("abc", 6), "abc   ")
 assert.test(A.padEnd("abc", 6, "_-"), "abc_-_")
@@ -1264,7 +1264,7 @@ assert.test(A.padEnd("abc", 3), "abc")
 
 ; omit
 
-assert.category := "padStart"
+assert.group(".padStart")
 assert.label("default tests")
 assert.test(A.padStart("abc", 6), "   abc")
 assert.test(A.padStart("abc", 6, "_-"), "_-_abc")
@@ -1273,7 +1273,7 @@ assert.test(A.padStart("abc", 3), "abc")
 
 ; omit
 
-assert.category := "parseInt"
+assert.group(".parseInt")
 assert.label("default tests")
 assert.test(A.parseInt("08"), 8)
 assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
@@ -1286,13 +1286,13 @@ assert.label("decimal places")
 assert.test(A.parseInt("1.0"), 1.0)
 assert.test(A.parseInt("1.0001"), 1.0001)
 
-assert.category := "repeat"
+assert.group(".repeat")
 assert.label("default tests")
 assert.test(A.repeat("*", 3), "***")
 assert.test(A.repeat("abc", 2), "abcabc")
 assert.test(A.repeat("abc", 0), "")
 
-assert.category := "replace"
+assert.group(".replace")
 assert.label("default tests")
 assert.test(A.replace("Hi Fred", "Fred", "Barney"), "Hi Barney")
 assert.test(A.replace("1234", "/(\d+)/", "numbers"), "numbers")
@@ -1303,7 +1303,7 @@ assert.label("blank parameters")
 assert.test(A.replace("Hi Barney"), "Hi Barney")
 assert.test(A.replace(), "")
 
-assert.category := "snakeCase"
+assert.group(".snakeCase")
 assert.label("default tests")
 assert.test(A.snakeCase("Foo Bar"), "foo_bar")
 assert.test(A.snakeCase("fooBar"), "foo_bar")
@@ -1313,7 +1313,7 @@ assert.test(A.snakeCase("--FOO-BAR--"), "foo_bar")
 ; omit
 assert.test(A.snakeCase("  Foo-Bar--"), "FOO_BAR")
 
-assert.category := "split"
+assert.group(".split")
 assert.label("default tests")
 assert.test(A.split("a-b-c", "-", 2), ["a", "b"])
 assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
@@ -1323,13 +1323,13 @@ assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
 assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
 assert.test(A.split("a--b-c", ","), ["a--b-c"])
 
-assert.category := "startCase"
+assert.group(".startCase")
 assert.label("default tests")
 assert.test(A.startCase("--foo-bar--"), "Foo Bar")
 assert.test(A.startCase("fooBar"), "Foo Bar")
 assert.test(A.startCase("__FOO_BAR__"), "Foo Bar")
 
-assert.category := "startsWith"
+assert.group(".startsWith")
 assert.label("default tests")
 assert.true(A.startsWith("abc", "a"))
 assert.false(A.startsWith("abc", "b"))
@@ -1347,19 +1347,19 @@ assert.true(A.startsWith("; String", ";"))
 assert.true(A.startsWith("; String", "; "))
 assert.true(A.startsWith("; String", "; String"))
 
-assert.category := "toLower"
+assert.group(".toLower")
 assert.label("default tests")
 assert.test(A.toLower("--Foo-Bar--"), "--foo-bar--")
 assert.test(A.toLower("fooBar"), "foobar")
 assert.test(A.toLower("__FOO_BAR__"), "__foo_bar__")
 
-assert.category := "toUpper"
+assert.group(".toUpper")
 assert.label("default tests")
 assert.test(A.toUpper("--foo-bar--"), "--FOO-BAR--")
 assert.test(A.toUpper("fooBar"), "FOOBAR")
 assert.test(A.toUpper("__foo_bar__"), "__FOO_BAR__")
 
-assert.category := "trim"
+assert.group(".trim")
 assert.label("default tests")
 assert.test(A.trim("  abc  "), "abc")
 assert.test(A.trim("-_-abc-_-", "_-"), "abc")
@@ -1369,7 +1369,7 @@ assert.test(A.map([" foo  ", "  bar  "], A.trim), ["foo", "bar"])
 ; omit
 assert.test(A.trim(A_Tab A_Tab "  abc  " A_Tab), "abc")
 
-assert.category := "trimEnd"
+assert.group(".trimEnd")
 assert.label("default tests")
 assert.test(A.trimEnd("  abc  "), "  abc")
 assert.test(A.trimEnd("-_-abc-_-", "_-"), "-_-abc")
@@ -1378,12 +1378,12 @@ assert.test(A.trimEnd("-_-abc-_-", "_-"), "-_-abc")
 ; omit
 assert.test(A.trimEnd("filename.txt", ".txt"), "filename")
 
-assert.category := "trimStart"
+assert.group(".trimStart")
 assert.label("default tests")
 assert.test(A.trimStart("  abc  "), "abc  ")
 assert.test(A.trimStart("-_-abc-_-", "_-"), "abc-_-")
 
-assert.category := "truncate"
+assert.group(".truncate")
 assert.label("default tests")
 string := "hi-diddly-ho there, neighborino"
 assert.test(A.truncate(string), "hi-diddly-ho there, neighbor...")
@@ -1396,7 +1396,7 @@ assert.test(A.truncate(string, {"length": 24, "separator": "/, /"}), "hi-diddly-
 string := "the quick red fox jumped into something"
 assert.test(A.truncate(string, {"length": A.size(string) - 1, "omission":""}), "the quick red fox jumped into somethin")
 
-assert.category := "unescape"
+assert.group(".unescape")
 assert.label("default tests")
 string := "fred, barney, &amp; pebbles"
 assert.test(A.unescape(string), "fred, barney, & pebbles")
@@ -1405,7 +1405,7 @@ assert.test(A.unescape(string), "fred, barney, & pebbles")
 ; omit
 assert.test(A.unescape("&amp;&amp;&amp;"), "&&&")
 
-assert.category := "upperCase"
+assert.group(".upperCase")
 assert.label("default tests")
 assert.test(A.upperCase("--Foo-Bar--"), "FOO BAR")
 assert.test(A.upperCase("fooBar"), "FOO BAR")
@@ -1415,7 +1415,7 @@ assert.test(A.upperCase("__FOO_BAR__"), "FOO BAR")
 ; omit
 assert.test(A.upperCase("  Foo-Bar--"), "FOO BAR")
 
-assert.category := "words"
+assert.group(".words")
 assert.label("default tests")
 assert.test(A.words("fred, barney, & pebbles"), ["fred", "barney", "pebbles"])
 
@@ -1425,7 +1425,7 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 ; omit
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
 
-assert.category := "constant"
+assert.group(".constant")
 assert.label("default tests")
 object := A.times(2, A.constant({"a": 1}))
 ; => [{"a": 1}, {"a": 1}]
@@ -1440,7 +1440,7 @@ assert.label("string")
 object := A.times(2, A.constant("string"))
 assert.test(object, ["string", "string"])
 
-assert.category := "matches"
+assert.group(".matches")
 assert.label("default tests")
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
 assert.test(A.filter(objects, A.matches({ "a": 4, "c": 6 })), [{ "a": 4, "b": 5, "c": 6 }])
@@ -1451,7 +1451,7 @@ assert.false(functor.call({ "a": 1 }))
 
 ; omit
 
-assert.category := "matchesProperty"
+assert.group(".matchesProperty")
 assert.label("default tests")
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
 assert.test(A.find(objects, A.matchesProperty("a", 4)), { "a": 4, "b": 5, "c": 6 })
@@ -1483,7 +1483,7 @@ objects := [{ "name": "fred", "options": {"private": true} }
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 
-assert.category := "property"
+assert.group(".property")
 assert.label("default tests")
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
 assert.test(A.map(objects, A.property("a.b")), ["2", "1"])
@@ -1500,7 +1500,7 @@ assert.test(fn.call({ "a": {"b": 2} }), "2")
 fn := A.property("a")
 assert.test(fn.call({ "a": 1, "b": 2 }), 1)
 
-assert.category := "times"
+assert.group(".times")
 assert.label("default tests")
 assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
 
@@ -1508,7 +1508,7 @@ assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
 ; omit
 ;; Display test results in GUI
 speed := QPC(0)
-assert.fullreport()
+assert.fullReport()
 msgbox, %speed%
 ExitApp
 

@@ -6,7 +6,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"biga.ahk": "^0.38.0",
-		"unit-testing.ahk": "^0.5.3",
+		"unit-testing.ahk": "^0.6.1",
 		"util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
 	},
 	"author": "Shawn Brooker",
