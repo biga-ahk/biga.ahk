@@ -927,11 +927,20 @@ assert.false(A.isMatch(object, {"b": 2, "z": 99}))
 assert.group(".isUndefined")
 assert.label("default tests")
 assert.true(A.isUndefined(""))
-assert.true(A.isUndefined(non_existant_Var))
+assert.true(A.isUndefined(non_existant_var))
 assert.false(A.isUndefined({}))
 assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))
 assert.false(A.isUndefined(false))
+
+assert.group(".toString")
+assert.label("default tests")
+assert.test(A.toString(non_existant_var), "")
+assert.test(A.toString(-0), "-0")
+assert.test(A.toString([1,2,3]), "1,2,3")
+
+
+; omit
 
 assert.group(".add")
 assert.label("default tests")

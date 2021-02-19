@@ -1470,6 +1470,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return false
 	}
+	toString(param_value) {
+
+		if (isObject(param_value)) {
+			return this.join(param_value, ",")
+		} else {
+			return "" param_value
+		}
+	}
 	add(param_augend,param_addend) {
 		if (!this.isNumber(param_augend) || !this.isNumber(param_addend)) {
 			this._internal_ThrowException()
