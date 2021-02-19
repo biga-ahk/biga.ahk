@@ -1695,7 +1695,7 @@ value (*): The value to check.
 A.isUndefined("")
 ; => true
 
-A.isUndefined(non_existant_Var)
+A.isUndefined(non_existant_var)
 ; => true
 
 A.isUndefined({})
@@ -1709,6 +1709,34 @@ A.isUndefined(0)
 
 A.isUndefined(false)
 ; => false
+
+```
+
+
+
+## .toString
+Converts value to a string. An empty string is returned for undefined values. The sign of -0 is preserved.
+
+
+#### Arguments
+value (*): The value to convert.
+
+
+#### Returns
+(boolean): Returns the converted string.
+
+
+#### Example
+
+```autohotkey
+A.toString(non_existant_var)
+; => ""
+
+A.toString(-0)
+; => "-0"
+
+A.toString([1,2,3])
+; => "1,2,3"
 
 ```
 
