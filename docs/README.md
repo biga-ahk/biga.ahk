@@ -1715,7 +1715,7 @@ A.isUndefined(false)
 
 
 ## .toString
-Converts value to a string. An empty string is returned for undefined values. The sign of -0 is preserved.
+Converts value to a string. An empty string is returned for undefined values. The sign of `-0` is preserved.
 
 
 #### Arguments
@@ -1735,7 +1735,7 @@ A.toString(non_existant_var)
 A.toString(-0)
 ; => "-0"
 
-A.toString([1,2,3])
+A.toString([1, 2, 3])
 ; => "1,2,3"
 
 ```
