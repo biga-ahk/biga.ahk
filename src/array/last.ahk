@@ -1,7 +1,15 @@
 last(param_array) {
 
+	; prepare
+	if (isObject(param_array)) {
+		param_array := this.clone(param_array)
+	}
+	if (this.isString(param_array)) {
+		param_array := StrSplit(param_array)
+	}
+
 	; create
-	return this.takeRight(param_array)[1]
+	return param_array.pop()
 }
 
 
@@ -13,3 +21,7 @@ assert.test(A.last(100), "0")
 
 
 ; omit
+assert.label("no mutations")
+array := [1, 2, "hey"]
+assert.test(A.last(array), "hey")
+assert.test(array.count(), 3)

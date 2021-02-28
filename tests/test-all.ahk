@@ -287,6 +287,10 @@ assert.test(A.last(100), "0")
 
 
 ; omit
+assert.label("no mutations")
+array := [1, 2, "hey"]
+assert.test(A.last(array), "hey")
+assert.test(array.count(), 3)
 
 assert.group(".lastIndexOf")
 assert.label("default tests")
