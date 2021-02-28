@@ -416,8 +416,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	last(param_array) {
 
+		; prepare
+		if (isObject(param_array)) {
+			param_array := this.clone(param_array)
+		}
+		if (this.isString(param_array)) {
+			param_array := StrSplit(param_array)
+		}
+
 		; create
-		return this.takeRight(param_array)[1]
+		return param_array.pop()
 	}
 	lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 		if (param_fromIndex == 0) {
