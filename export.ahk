@@ -167,7 +167,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		if (l_droppableElements >= 1) {
-			l_array.RemoveAt(1, l_droppableElements)
+			l_array.removeAt(1, l_droppableElements)
 		}
 		return l_array
 	}
@@ -406,7 +406,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		for l_key, l_value in l_array {
-			if (l_key == 1) {
+			if (A_Index == 1) {
 				l_string := "" l_value
 				continue
 			}
@@ -758,9 +758,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 					continue
 				}
 				return false
-			}
-			if (param_predicate.call(Value, Key, param_collection) == true) {
-				continue
+			} else {
+				if (param_predicate.call(Value, Key, param_collection) == true) {
+					continue
+				}
 			}
 		}
 		return true
@@ -783,22 +784,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		for Key, Value in param_collection {
-			if (l_paramAmmount == 3) {
+			if (l_paramAmmount >= 1) {
 				vIteratee := param_predicate.call(Value, Key, collectionClone)
-				if (vIteratee) {
-					l_array.push(Value)
-				}
-				continue
-			}
-			if (l_paramAmmount == 2) {
-				vIteratee := param_predicate.call(Value, Key)
-				if (vIteratee) {
-					l_array.push(Value)
-				}
-				continue
-			}
-			if (l_paramAmmount == 1) {
-				vIteratee := param_predicate.call(Value)
 				if (vIteratee) {
 					l_array.push(Value)
 				}
@@ -812,8 +799,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				continue
 			}
 			; calling own method
-			vValue := param_predicate.call(Value)
-			if (vValue) {
+			if (param_predicate.call(Value)) {
 				l_array.push(Value)
 				continue
 			}
@@ -843,6 +829,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (param_fromindex > A_Index) {
 				continue
 			}
+			; undeteriminable functor
+			if (param_predicate.call(Value)) {
+				return Value
+			}
 			; regular function
 			if (IsFunc(param_predicate)) {
 				if (param_predicate.call(Value)) {
@@ -850,16 +840,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				}
 				continue
 			}
-			; undeteriminable functor
-			if (param_predicate.call(Value)) {
-				return Value
-			}
 			; shorthand
-			if (shorthand) {
-				if (boundFunc.call(Value)) {
-					return Value
-				}
-				continue
+			if (shorthand != false && boundFunc.call(Value)) {
+				return Value
 			}
 		}
 		return false
@@ -1190,6 +1173,34 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return  param_collection.MaxIndex()
 		}
 		return StrLen(param_collection)
+	}
+	some(param_collection,param_predicate) {
+		if (!isObject(param_collection)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		if (shorthand != false) {
+			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+		}
+		if (param_predicate.maxParams > 0) {
+			boundFunc := param_predicate.bind()
+		}
+
+		; create
+		for Key, Value in param_collection {
+			if (shorthand != false) {
+				if (boundFunc.call(Value, Key, param_collection) = true) {
+					return true
+				}
+			} else {
+				if (param_predicate.call(Value, Key, param_collection) == true) {
+					return true
+				}
+			}
+		}
+		return false
 	}
 	sortBy(param_collection,param_iteratees:="") {
 		if (!isObject(param_collection)) {

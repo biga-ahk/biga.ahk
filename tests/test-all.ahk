@@ -278,6 +278,11 @@ assert.label("default tests")
 assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
 assert.test(A.join(["a", "b", "c"]), "a,b,c")
 
+
+; omit
+assert.test(A.join({"first": 1, "second": 2, "third": 3}), "1,2,3")
+assert.test(A.join({"first": 1, "second": 2, "third": 3}, "~"), "1~2~3")
+
 assert.group(".last")
 assert.label("default tests")
 assert.test(A.last([1, 2, 3]), 3)
@@ -795,6 +800,25 @@ users := [{"user": "barney", "active": true}
 	, {"user": "pebbles", "active": false}]
 assert.test(A.size(users), 3)
 
+assert.group(".some")
+assert.label("default tests")
+users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]
+
+; The `A.matches` iteratee shorthand.
+assert.label("A.matches iteratee shorthand.")
+assert.false(A.some(users, { "user": "barney", "active": false }))
+
+; The `A.matchesProperty` iteratee shorthand.
+assert.label("A.matchesProperty iteratee shorthand.")
+assert.true(A.some(users, ["active", false]))
+
+; The `A.property` iteratee shorthand.
+assert.label("A.property iteratee shorthand.")
+assert.true(A.some(users, "active"))
+
+
+; omit
+
 assert.group(".sortBy")
 assert.label("default tests")
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
@@ -941,7 +965,7 @@ assert.group(".toString")
 assert.label("default tests")
 assert.test(A.toString(non_existant_var), "")
 assert.test(A.toString(-0), "-0")
-assert.test(A.toString([1,2,3]), "1,2,3")
+assert.test(A.toString([1, 2, 3]), "1,2,3")
 
 
 ; omit

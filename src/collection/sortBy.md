@@ -4,7 +4,7 @@ Creates an array of elements, sorted in ascending order by the results of runnin
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratees:=[A.identity]] (...(Function|Function[])): The iteratees to sort by.
+[iteratees:=A.identity] (Function): The iteratees to sort by.
 
 
 ## Returns

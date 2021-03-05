@@ -1529,6 +1529,36 @@ A.size("pebbles")
 
 
 
+## .some
+Checks if predicate returns truthy for **any** element of collection. Iteration is stopped once predicate returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
+
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[iteratees:=[A.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(Array): Returns true if any element passes the predicate check, else false.
+
+
+#### Example
+
+```autohotkey
+users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]; The `A.matches` iteratee shorthand.A.some(users, { "user": "barney", "active": false })
+; => false
+
+; The `A.matchesProperty` iteratee shorthand.A.some(users, ["active", false])
+; => true
+
+; The `A.property` iteratee shorthand.A.some(users, "active")
+; => true
+
+```
+
+
+
 ## .sortBy
 Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This method performs a stable sort, that is, it preserves the original sort order of equal elements. The iteratees are invoked with one argument: (value).
 
@@ -1536,7 +1566,7 @@ Creates an array of elements, sorted in ascending order by the results of runnin
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratees:=[A.identity]] (...(Function|Function[])): The iteratees to sort by.
+[iteratees:=A.identity] (Function): The iteratees to sort by.
 
 
 #### Returns
