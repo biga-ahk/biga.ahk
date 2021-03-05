@@ -8,7 +8,7 @@ join(param_array,param_sepatator:=",") {
 
 	; create
 	for l_key, l_value in l_array {
-		if (l_key == 1) {
+		if (A_Index == 1) {
 			l_string := "" l_value
 			continue
 		}
@@ -21,3 +21,8 @@ join(param_array,param_sepatator:=",") {
 ; tests
 assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
 assert.test(A.join(["a", "b", "c"]), "a,b,c")
+
+
+; omit
+assert.test(A.join({"first": 1, "second": 2, "third": 3}), "1,2,3")
+assert.test(A.join({"first": 1, "second": 2, "third": 3}, "~"), "1~2~3")
