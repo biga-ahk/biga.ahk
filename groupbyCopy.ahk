@@ -19,7 +19,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 			vIteratee := param_iteratee.call(Value)
 		}
 		; shorthand
-		if (shorthand = ".property") {
+		if (shorthand == ".property") {
 			vIteratee := boundFunc.call(Value)
 		}
 

@@ -28,7 +28,7 @@ dropWhile(param_array,param_predicate:="__identity") {
 		}
 	}
 	if (l_droppableElements >= 1) {
-		l_array.RemoveAt(1, l_droppableElements)
+		l_array.removeAt(1, l_droppableElements)
 	}
 	return l_array
 }

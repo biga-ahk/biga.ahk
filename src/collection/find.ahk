@@ -14,6 +14,10 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 		if (param_fromindex > A_Index) {
 			continue
 		}
+		; undeteriminable functor
+		if (param_predicate.call(Value)) {
+			return Value
+		}
 		; regular function
 		if (IsFunc(param_predicate)) {
 			if (param_predicate.call(Value)) {
@@ -21,16 +25,9 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 			}
 			continue
 		}
-		; undeteriminable functor
-		if (param_predicate.call(Value)) {
-			return Value
-		}
 		; shorthand
-		if (shorthand) {
-			if (boundFunc.call(Value)) {
-				return Value
-			}
-			continue
+		if (shorthand != false && boundFunc.call(Value)) {
+			return Value
 		}
 	}
 	return false

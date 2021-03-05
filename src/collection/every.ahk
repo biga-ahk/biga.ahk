@@ -20,9 +20,10 @@ every(param_collection,param_predicate) {
 				continue
 			}
 			return false
-		}
-		if (param_predicate.call(Value, Key, param_collection) == true) {
-			continue
+		} else {
+			if (param_predicate.call(Value, Key, param_collection) == true) {
+				continue
+			}
 		}
 	}
 	return true

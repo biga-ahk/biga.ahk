@@ -16,22 +16,8 @@ filter(param_collection,param_predicate:="__identity") {
 
 	; create
 	for Key, Value in param_collection {
-		if (l_paramAmmount == 3) {
+		if (l_paramAmmount >= 1) {
 			vIteratee := param_predicate.call(Value, Key, collectionClone)
-			if (vIteratee) {
-				l_array.push(Value)
-			}
-			continue
-		}
-		if (l_paramAmmount == 2) {
-			vIteratee := param_predicate.call(Value, Key)
-			if (vIteratee) {
-				l_array.push(Value)
-			}
-			continue
-		}
-		if (l_paramAmmount == 1) {
-			vIteratee := param_predicate.call(Value)
 			if (vIteratee) {
 				l_array.push(Value)
 			}
@@ -45,8 +31,7 @@ filter(param_collection,param_predicate:="__identity") {
 			continue
 		}
 		; calling own method
-		vValue := param_predicate.call(Value)
-		if (vValue) {
+		if (param_predicate.call(Value)) {
 			l_array.push(Value)
 			continue
 		}
