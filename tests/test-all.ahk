@@ -677,6 +677,7 @@ users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
+assert.label("call own biga.ahk function")
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
 
 assert.group(".partition")

@@ -4,7 +4,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 	}
 	; check what kind of param_iteratee being worked with
 	if (!IsFunc(param_iteratee)) {
-		BoundFunc := param_iteratee.Bind(this)
+		boundFunc := param_iteratee.Bind(this)
 	}
 
 	; prepare
@@ -17,21 +17,21 @@ keyBy(param_collection,param_iteratee:="__identity") {
 
 	; run against every value in the collection
 	for Key, Value in param_collection {
-		if (!BoundFunc) { ; is property/string
+		if (!boundFunc) { ; is property/string
 			;nothing currently
 		}
 		if (l_paramAmmount == 3) {
-			if (!BoundFunc.call(Value, Key, collectionClone)) {
+			if (!boundFunc.call(Value, Key, collectionClone)) {
 				vIteratee := param_iteratee.call(Value, Key, collectionClone)
 			}
 		}
 		if (l_paramAmmount == 2) {
-			if (!BoundFunc.call(Value, Key)) {
+			if (!boundFunc.call(Value, Key)) {
 				vIteratee := param_iteratee.call(Value, Key)
 			}
 		}
 		if (l_paramAmmount == 1) {
-			if (!BoundFunc.call(Value)) {
+			if (!boundFunc.call(Value)) {
 				vIteratee := param_iteratee.call(Value)
 			}
 		}

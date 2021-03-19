@@ -6,10 +6,10 @@ findIndex(param_array,param_value,fromIndex:=1) {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_value, param_array)
 	if (shorthand != false) {
-		BoundFunc := this._internal_createShorthandfn(param_value, param_array)
+		boundFunc := this._internal_createShorthandfn(param_value, param_array)
 	}
 	if (IsFunc(param_value)) {
-		BoundFunc := param_value
+		boundFunc := param_value
 	}
 	if (isObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
 		vSearchingobjects := true
@@ -23,15 +23,15 @@ findIndex(param_array,param_value,fromIndex:=1) {
 		}
 
 		if (shorthand == ".matchesProperty" || shorthand == ".property") {
-			if (BoundFunc.call(param_array[Index]) == true) {
+			if (boundFunc.call(param_array[Index]) == true) {
 				return Index
 			}
 		}
 		if (vSearchingobjects) {
 			Value := this._printObj(param_array[Index])
 		}
-		if (IsFunc(BoundFunc)) {
-			if (BoundFunc.call(param_array[Index]) == true) {
+		if (IsFunc(boundFunc)) {
+			if (boundFunc.call(param_array[Index]) == true) {
 				return Index
 			}
 		}

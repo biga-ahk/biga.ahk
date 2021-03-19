@@ -14,11 +14,11 @@ property(param_source) {
 		for Key, Value in param_source {
 			keyArray.push(Value)
 		}
-		BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
-		return BoundFunc
+		boundFunc := ObjBindMethod(this, "internal_property", keyArray)
+		return boundFunc
 	} else {
-		BoundFunc := ObjBindMethod(this, "internal_property", param_source)
-	return BoundFunc
+		boundFunc := ObjBindMethod(this, "internal_property", param_source)
+	return boundFunc
 	}
 }
 

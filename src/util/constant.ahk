@@ -1,7 +1,7 @@
 constant(param_value) {
 
-	BoundFunc := ObjBindMethod(this, "_internal_constant", param_value)
-	return BoundFunc
+	boundFunc := ObjBindMethod(this, "_internal_constant", param_value)
+	return boundFunc
 }
 
 _internal_constant(param_value) {

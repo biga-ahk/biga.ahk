@@ -8,18 +8,18 @@ partition(param_collection,param_predicate) {
 	falseArray := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		BoundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	for Key, Value in param_collection {
 		if (!this.isUndefined(param_predicate.call(Value))) {
-			BoundFunc := param_predicate.bind()
+			boundFunc := param_predicate.bind()
 		}
 		break
 	}
 
 	; create
 	for Key, Value in param_collection {
-		if (BoundFunc.call(Value) == true) {
+		if (boundFunc.call(Value) == true) {
 			trueArray.push(Value)
 		} else {
 			falseArray.push(Value)
