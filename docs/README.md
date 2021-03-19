@@ -305,7 +305,7 @@ This method is like A.find except that it returns the index of the first element
 #### Arguments
 array (Array): The array to inspect.
 
-[predicate:=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 [fromIndex:=0] (number): The index to search from.
 
@@ -345,7 +345,7 @@ This method is like A.(findIndex)[/findIndex] except that it iterates over eleme
 #### Arguments
 array (Array): The array to inspect.
 
-[predicate=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 [fromIndex:=array.size] (number): The index to search from.
 
@@ -1336,12 +1336,13 @@ fn_keyByFunc(value){	return value.dir}```
 
 
 ## .map
-Creates an array of values by running each element in collection thru iteratee.
+Creates an array of values by running each element in collection thru iteratee. The iteratee is invoked with three arguments: (value, index|key, collection).
+
 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-iteratee:=A.identity (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -1374,7 +1375,7 @@ Creates an array of elements split into two groups, the first of which contains 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[predicate:=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -1406,7 +1407,7 @@ The opposite of `A.filter`; this method returns the elements of collection that 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[predicate:=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -1536,7 +1537,7 @@ Checks if predicate returns truthy for **any** element of collection. Iteration 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratees:=[A.identity] (Function): The function invoked per iteration.
+[iteratees:=[.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -1566,7 +1567,7 @@ Creates an array of elements, sorted in ascending order by the results of runnin
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratees:=A.identity] (Function): The iteratees to sort by.
+[iteratees:=.identity] (Function): The iteratees to sort by.
 
 
 #### Returns
@@ -1934,7 +1935,7 @@ This method is like `A.mean` except that it accepts iteratee which is invoked fo
 #### Arguments
 array (Array): The array to iterate over.
 
-[iteratee:=A.identity] (Function): The iteratee invoked per element.
+[iteratee:=.identity] (Function): The iteratee invoked per element.
 
 
 #### Returns
@@ -2454,7 +2455,7 @@ A.kebabCase("--FOO_BAR--")
 
 
 ## .lowerCase
-Converts string, as a whole, to lower case.
+Converts string, as space separated words, to lower case.
 
 
 #### Arguments

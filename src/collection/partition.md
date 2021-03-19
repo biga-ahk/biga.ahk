@@ -4,7 +4,7 @@ Creates an array of elements split into two groups, the first of which contains 
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[predicate:=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns

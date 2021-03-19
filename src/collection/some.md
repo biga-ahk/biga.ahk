@@ -4,7 +4,7 @@ Checks if predicate returns truthy for **any** element of collection. Iteration 
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratees:=[A.identity] (Function): The function invoked per iteration.
+[iteratees:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns

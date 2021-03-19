@@ -3,7 +3,7 @@ The opposite of `A.filter`; this method returns the elements of collection that 
 ## Arguments
 collection (Array|Object): The collection to iterate over.
 
-[predicate:=A.identity] (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns
