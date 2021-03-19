@@ -23,12 +23,13 @@ map(param_collection,param_iteratee:="__identity") {
 			continue
 		}
 		if (thisthing == "function") {
-			l_array.push(param_iteratee.call(Value))
+			l_array.push(param_iteratee.call(Value, Key, param_collection))
 			continue
 		}
-		if (IsFunc(param_iteratee)) { ;if calling own method
-			BoundFunc := param_iteratee.Bind(this)
-			l_array.push(BoundFunc.call(Value))
+		;if calling own method
+		if (IsFunc(param_iteratee)) {
+			boundFunc := param_iteratee.Bind(this)
+			l_array.push(boundFunc.call(Value))
 		}
 	}
 	return l_array
@@ -49,4 +50,5 @@ users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
+assert.label("call own biga.ahk function")
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
