@@ -198,10 +198,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_value, param_array)
 		if (shorthand != false) {
-			BoundFunc := this._internal_createShorthandfn(param_value, param_array)
+			boundFunc := this._internal_createShorthandfn(param_value, param_array)
 		}
 		if (IsFunc(param_value)) {
-			BoundFunc := param_value
+			boundFunc := param_value
 		}
 		if (isObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
 			vSearchingobjects := true
@@ -215,15 +215,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 
 			if (shorthand == ".matchesProperty" || shorthand == ".property") {
-				if (BoundFunc.call(param_array[Index]) == true) {
+				if (boundFunc.call(param_array[Index]) == true) {
 					return Index
 				}
 			}
 			if (vSearchingobjects) {
 				Value := this._printObj(param_array[Index])
 			}
-			if (IsFunc(BoundFunc)) {
-				if (BoundFunc.call(param_array[Index]) == true) {
+			if (IsFunc(boundFunc)) {
+				if (boundFunc.call(param_array[Index]) == true) {
 					return Index
 				}
 			}
@@ -697,8 +697,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		l_obj := {}
 		for Key, Value in param_props {
-			vValue := param_values[A_Index]
-			l_obj[Value] := vValue
+			l_obj[Value] := param_values[A_Index]
 		}
 		return l_obj
 	}
@@ -854,9 +853,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (!IsFunc(param_iteratee)) {
-			BoundFunc := param_iteratee.Bind(this)
+			boundFunc := param_iteratee.Bind(this)
 		}
-		l_paramAmmount := param_iteratee.maxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
 		}
@@ -864,23 +862,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		; run against every value in the collection
 		for Key, Value in param_collection {
-			if (!BoundFunc) { ; is property/string
+			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
-			if (l_paramAmmount == 3) {
-				if (!BoundFunc.call(Value, Key, collectionClone)) {
-					vIteratee := param_iteratee.call(Value, Key, collectionClone)
-				}
-			}
-			if (l_paramAmmount == 2) {
-				if (!BoundFunc.call(Value, Key)) {
-					vIteratee := param_iteratee.call(Value, Key)
-				}
-			}
-			if (l_paramAmmount == 1) {
-				if (!BoundFunc.call(Value)) {
-					vIteratee := param_iteratee.call(Value)
-				}
+			if (!boundFunc.call(Value, Key, collectionClone)) {
+				vIteratee := param_iteratee.call(Value, Key, collectionClone)
 			}
 			; exit iteration early by explicitly returning false
 			if (vIteratee == false) {
@@ -969,7 +955,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		; check what kind of param_iteratee being worked with
 		if (!IsFunc(param_iteratee)) {
-			BoundFunc := param_iteratee.Bind(this)
+			boundFunc := param_iteratee.Bind(this)
 		}
 
 		; prepare
@@ -981,21 +967,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; run against every value in the collection
 		for Key, Value in param_collection {
-			if (!BoundFunc) { ; is property/string
+			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
 			if (l_paramAmmount == 3) {
-				if (!BoundFunc.call(Value, Key, collectionClone)) {
+				if (!boundFunc.call(Value, Key, collectionClone)) {
 					vIteratee := param_iteratee.call(Value, Key, collectionClone)
 				}
 			}
 			if (l_paramAmmount == 2) {
-				if (!BoundFunc.call(Value, Key)) {
+				if (!boundFunc.call(Value, Key)) {
 					vIteratee := param_iteratee.call(Value, Key)
 				}
 			}
 			if (l_paramAmmount == 1) {
-				if (!BoundFunc.call(Value)) {
+				if (!boundFunc.call(Value)) {
 					vIteratee := param_iteratee.call(Value)
 				}
 			}
@@ -1028,12 +1014,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				continue
 			}
 			if (thisthing == "function") {
-				l_array.push(param_iteratee.call(Value))
+				l_array.push(param_iteratee.call(Value, Key, param_collection))
 				continue
 			}
-			if (IsFunc(param_iteratee)) { ;if calling own method
-				BoundFunc := param_iteratee.Bind(this)
-				l_array.push(BoundFunc.call(Value))
+			;if calling own method
+			if (IsFunc(param_iteratee)) {
+				boundFunc := param_iteratee.Bind(this)
+				l_array.push(boundFunc.call(Value))
 			}
 		}
 		return l_array
@@ -1048,18 +1035,18 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		falseArray := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			BoundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 		for Key, Value in param_collection {
 			if (!this.isUndefined(param_predicate.call(Value))) {
-				BoundFunc := param_predicate.bind()
+				boundFunc := param_predicate.bind()
 			}
 			break
 		}
 
 		; create
 		for Key, Value in param_collection {
-			if (BoundFunc.call(Value) == true) {
+			if (boundFunc.call(Value) == true) {
 				trueArray.push(Value)
 			} else {
 				falseArray.push(Value)
@@ -2252,8 +2239,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	constant(param_value) {
 
-		BoundFunc := ObjBindMethod(this, "_internal_constant", param_value)
-		return BoundFunc
+		boundFunc := ObjBindMethod(this, "_internal_constant", param_value)
+		return boundFunc
 	}
 
 	_internal_constant(param_value) {
@@ -2264,8 +2251,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		BoundFunc := ObjBindMethod(this, "internal_matches", param_source)
-		return BoundFunc
+		boundFunc := ObjBindMethod(this, "internal_matches", param_source)
+		return boundFunc
 	}
 
 	internal_matches(param_matches,param_itaree) {
@@ -2314,11 +2301,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			for Key, Value in param_source {
 				keyArray.push(Value)
 			}
-			BoundFunc := ObjBindMethod(this, "internal_property", keyArray)
-			return BoundFunc
+			boundFunc := ObjBindMethod(this, "internal_property", keyArray)
+			return boundFunc
 		} else {
-			BoundFunc := ObjBindMethod(this, "internal_property", param_source)
-		return BoundFunc
+			boundFunc := ObjBindMethod(this, "internal_property", param_source)
+		return boundFunc
 		}
 	}
 
@@ -2362,9 +2349,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (!IsFunc(param_iteratee)) {
-			BoundFunc := param_iteratee.Bind(this)
+			boundFunc := param_iteratee.Bind(this)
 		}
-		l_paramAmmount := param_iteratee.maxParams
 		if (l_paramAmmount == 3) {
 			collectionClone := this.cloneDeep(param_collection)
 		}
@@ -2372,23 +2358,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		; run against every value in the collection
 		for Key, Value in param_collection {
-			if (!BoundFunc) { ; is property/string
+			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
-			if (l_paramAmmount == 3) {
-				if (!BoundFunc.call(Value, Key, collectionClone)) {
-					vIteratee := param_iteratee.call(Value, Key, collectionClone)
-				}
-			}
-			if (l_paramAmmount == 2) {
-				if (!BoundFunc.call(Value, Key)) {
-					vIteratee := param_iteratee.call(Value, Key)
-				}
-			}
-			if (l_paramAmmount == 1) {
-				if (!BoundFunc.call(Value)) {
-					vIteratee := param_iteratee.call(Value)
-				}
+			if (!boundFunc.call(Value, Key, collectionClone)) {
+				vIteratee := param_iteratee.call(Value, Key, collectionClone)
 			}
 			; exit iteration early by explicitly returning false
 			if (vIteratee == false) {
