@@ -152,7 +152,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 		}
-		if (IsFunc(param_predicate)) {
+		if (isFunc(param_predicate)) {
 			boundFunc := param_predicate.Bind()
 		}
 
@@ -200,10 +200,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_value, param_array)
 		}
-		if (IsFunc(param_value)) {
+		if (isFunc(param_value)) {
 			boundFunc := param_value
 		}
-		if (isObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
+		if (isObject(param_value) && !isFunc(param_value)) { ; do not convert objects that are functions
 			vSearchingobjects := true
 			param_value := this._printObj(param_value)
 		}
@@ -222,7 +222,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (vSearchingobjects) {
 				value := this._printObj(param_array[Index])
 			}
-			if (IsFunc(boundFunc)) {
+			if (isFunc(boundFunc)) {
 				if (boundFunc.call(param_array[Index]) == true) {
 					return Index
 				}
@@ -790,7 +790,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				continue
 			}
 			; functor
-			if (IsFunc(param_predicate)) {
+			if (isFunc(param_predicate)) {
 				if (param_predicate.call(value)) {
 					l_array.push(value)
 				}
@@ -832,7 +832,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				return value
 			}
 			; regular function
-			if (IsFunc(param_predicate)) {
+			if (isFunc(param_predicate)) {
 				if (param_predicate.call(value)) {
 					return value
 				}
@@ -851,7 +851,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		if (!IsFunc(param_iteratee)) {
+		if (!isFunc(param_iteratee)) {
 			boundFunc := param_iteratee.Bind(this)
 		}
 		if (l_paramAmmount == 3) {
@@ -953,7 +953,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 		; check what kind of param_iteratee being worked with
-		if (!IsFunc(param_iteratee)) {
+		if (!isFunc(param_iteratee)) {
 			boundFunc := param_iteratee.Bind(this)
 		}
 
@@ -1065,7 +1065,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		for key, value in param_collection {
 			; functor
 			; predefined !functor handling (slower as it .calls blindly)
-			if (IsFunc(param_predicate)) {
+			if (isFunc(param_predicate)) {
 				if (!param_predicate.call(value)) {
 					l_array.push(value)
 				}
@@ -1194,7 +1194,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		; if called with a function
-		if (IsFunc(param_iteratees)) {
+		if (isFunc(param_iteratees)) {
 			tempArray := []
 			for key, value in param_collection {
 				l_index := param_iteratees.call(param_collection[key])
@@ -1571,7 +1571,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		if (!IsFunc(param_iteratee)) {
+		if (!isFunc(param_iteratee)) {
 			boundFunc := param_iteratee.Bind(this)
 		}
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
@@ -2343,7 +2343,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		if (!IsFunc(param_iteratee)) {
+		if (!isFunc(param_iteratee)) {
 			boundFunc := param_iteratee.Bind(this)
 		}
 		if (l_paramAmmount == 3) {

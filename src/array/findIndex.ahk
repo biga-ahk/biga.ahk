@@ -8,10 +8,10 @@ findIndex(param_array,param_value,fromIndex:=1) {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_value, param_array)
 	}
-	if (IsFunc(param_value)) {
+	if (isFunc(param_value)) {
 		boundFunc := param_value
 	}
-	if (isObject(param_value) && !IsFunc(param_value)) { ; do not convert objects that are functions
+	if (isObject(param_value) && !isFunc(param_value)) { ; do not convert objects that are functions
 		vSearchingobjects := true
 		param_value := this._printObj(param_value)
 	}
@@ -30,7 +30,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 		if (vSearchingobjects) {
 			value := this._printObj(param_array[Index])
 		}
-		if (IsFunc(boundFunc)) {
+		if (isFunc(boundFunc)) {
 			if (boundFunc.call(param_array[Index]) == true) {
 				return Index
 			}

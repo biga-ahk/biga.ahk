@@ -14,7 +14,7 @@ reject(param_collection,param_predicate) {
 	for key, value in param_collection {
 		; functor
 		; predefined !functor handling (slower as it .calls blindly)
-		if (IsFunc(param_predicate)) {
+		if (isFunc(param_predicate)) {
 			if (!param_predicate.call(value)) {
 				l_array.push(value)
 			}

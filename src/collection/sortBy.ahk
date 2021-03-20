@@ -8,7 +8,7 @@ sortBy(param_collection,param_iteratees:="") {
 
 	; create
 	; if called with a function
-	if (IsFunc(param_iteratees)) {
+	if (isFunc(param_iteratees)) {
 		tempArray := []
 		for key, value in param_collection {
 			l_index := param_iteratees.call(param_collection[key])

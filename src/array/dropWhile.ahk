@@ -13,7 +13,7 @@ dropWhile(param_array,param_predicate:="__identity") {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 	}
-	if (IsFunc(param_predicate)) {
+	if (isFunc(param_predicate)) {
 		boundFunc := param_predicate.Bind()
 	}
 

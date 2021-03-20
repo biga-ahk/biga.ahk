@@ -3,7 +3,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 		this._internal_ThrowException()
 	}
 	; check what kind of param_iteratee being worked with
-	if (!IsFunc(param_iteratee)) {
+	if (!isFunc(param_iteratee)) {
 		boundFunc := param_iteratee.Bind(this)
 	}
 

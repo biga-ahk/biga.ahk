@@ -4,7 +4,7 @@ forEach(param_collection,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	if (!IsFunc(param_iteratee)) {
+	if (!isFunc(param_iteratee)) {
 		boundFunc := param_iteratee.Bind(this)
 	}
 	if (l_paramAmmount == 3) {

@@ -15,7 +15,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 		vIteratee := 0
 
 		; functor
-		if (IsFunc(param_iteratee || !vIteratee)) {
+		if (isFunc(param_iteratee || !vIteratee)) {
 			vIteratee := param_iteratee.call(value)
 		}
 		; shorthand

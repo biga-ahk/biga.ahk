@@ -24,7 +24,7 @@ filter(param_collection,param_predicate:="__identity") {
 			continue
 		}
 		; functor
-		if (IsFunc(param_predicate)) {
+		if (isFunc(param_predicate)) {
 			if (param_predicate.call(value)) {
 				l_array.push(value)
 			}

@@ -19,7 +19,7 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 			return value
 		}
 		; regular function
-		if (IsFunc(param_predicate)) {
+		if (isFunc(param_predicate)) {
 			if (param_predicate.call(value)) {
 				return value
 			}
