@@ -13,12 +13,11 @@ take(param_array,param_n:=1) {
 	l_array := []
 
 	; create
-	loop, % param_n	{
-		;continue if requested index is higher than param_array can account for
-		if (param_array.Count() < A_Index) {
-			continue
+	for Key, Value in param_array {
+		if (param_n < A_Index) {
+			break
 		}
-		l_array.push(param_array[A_Index])
+		l_array.push(Value)
 	}
 	; return empty array if empty
 	if (l_array.Count() == 0 || param_n == 0) {
