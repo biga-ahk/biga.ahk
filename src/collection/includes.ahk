@@ -5,11 +5,11 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 
 	; create
 	if (isObject(param_collection)) {
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (param_fromIndex > A_Index) {
 				continue
 			}
-			if (Value = param_value) {
+			if (value = param_value) {
 				return true
 			}
 		}

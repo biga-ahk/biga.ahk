@@ -8,8 +8,8 @@ matches(param_source) {
 }
 
 internal_matches(param_matches,param_itaree) {
-	for Key, Value in param_matches {
-		if (param_matches[Key] != param_itaree[Key]) {
+	for key, value in param_matches {
+		if (param_matches[key] != param_itaree[key]) {
 			return false
 		}
 	}

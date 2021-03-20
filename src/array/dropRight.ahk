@@ -13,10 +13,10 @@ dropRight(param_array,param_n:=1) {
 
 	; create
 	loop, % param_n	{
-		l_array.RemoveAt(l_array.Count())
+		l_array.RemoveAt(l_array.count())
 	}
 	; return empty array if empty
-	if (l_array.Count() == 0) {
+	if (l_array.count() == 0) {
 		return []
 	}
 	return l_array

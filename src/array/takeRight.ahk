@@ -14,14 +14,14 @@ takeRight(param_array,param_n:=1) {
 
 	; create
 	loop, % param_n	{
-		if (param_array.Count() == 0) {
+		if (param_array.count() == 0) {
 			continue
 		}
-		vValue := param_array.pop()
-		l_array.push(vValue)
+		vvalue := param_array.pop()
+		l_array.push(vvalue)
 	}
 	; return empty array if empty
-	if (l_array.Count() == 0 || param_n == 0) {
+	if (l_array.count() == 0 || param_n == 0) {
 		return []
 	}
 	return this.reverse(l_array)

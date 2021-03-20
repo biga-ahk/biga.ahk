@@ -4,7 +4,7 @@ dropWhile(param_array,param_predicate:="__identity") {
 	}
 	; validate
 	; return empty array if empty
-	if (param_array.Count() == 0) {
+	if (param_array.count() == 0) {
 		return []
 	}
 
@@ -20,8 +20,8 @@ dropWhile(param_array,param_predicate:="__identity") {
 	; create
 	l_array := this.cloneDeep(param_array)
 	l_droppableElements := 0
-	for Key, Value in l_array {
-		if (!this.isFalsey(boundFunc.call(Value, Key, l_array))) {
+	for key, value in l_array {
+		if (!this.isFalsey(boundFunc.call(value, key, l_array))) {
 			l_droppableElements++
 		} else {
 			break

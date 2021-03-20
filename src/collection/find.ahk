@@ -10,24 +10,24 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 	}
 
 	; create
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (param_fromindex > A_Index) {
 			continue
 		}
 		; undeteriminable functor
-		if (param_predicate.call(Value)) {
-			return Value
+		if (param_predicate.call(value)) {
+			return value
 		}
 		; regular function
 		if (IsFunc(param_predicate)) {
-			if (param_predicate.call(Value)) {
-				return Value
+			if (param_predicate.call(value)) {
+				return value
 			}
 			continue
 		}
 		; shorthand
-		if (shorthand != false && boundFunc.call(Value)) {
-			return Value
+		if (shorthand != false && boundFunc.call(value)) {
+			return value
 		}
 	}
 	return false

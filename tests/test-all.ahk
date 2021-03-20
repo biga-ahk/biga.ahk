@@ -226,7 +226,7 @@ assert.test(A.head(100), "1")
 
 
 ; omit
-
+assert.test(A.head({"a": 1, "b": 2, "c":3}), 1)
 
 ; aliases
 assert.test(A.first([1, 2, 3]), 1)
@@ -365,8 +365,8 @@ StringCaseSense, off
 
 arr := [1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7, 8, 8, 9, 10]
 arr2 := A.sortedUniq(arr)
-assert.test(arr.Count(), 15)
-assert.test(arr2.Count(), 10)
+assert.test(arr.count(), 15)
+assert.test(arr2.count(), 10)
 
 assert.group(".tail")
 assert.label("default tests")
@@ -421,8 +421,8 @@ assert.test(A.uniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "
 
 arr := [70, 88, 12, 52, 27, 14, 86, 54, 24, 55, 29, 33, 33, 25, 99]
 arr2 := A.uniq(arr)
-assert.test(arr.Count(), 15)
-assert.test(arr2.Count(), 14)
+assert.test(arr.count(), 15)
+assert.test(arr2.count(), 14)
 
 assert.group(".without")
 assert.label("default tests")
@@ -673,12 +673,27 @@ assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 ; The `A.property` shorthand
+assert.label(".property shorthand")
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
 assert.label("call own biga.ahk function")
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
+
+assert.label("call with 2 parameters")
+assert.test(A.map([1, 2], Func("fn_map2")), ["1-1", "2-2"])
+fn_map2(param1, param2)
+{
+	return param1 "-" param2
+}
+
+assert.label("call with 3 parameters")
+assert.test(A.map([1, 2], Func("fn_map3")), ["1-1-1", "2-2-1"])
+fn_map3(param1, param2, param3)
+{
+	return param1 "-" param2 "-" param3[1]
+}
 
 assert.group(".partition")
 assert.label("default tests")
@@ -740,15 +755,15 @@ assert.true(A.includes(output, "value"))
 assert.group(".samplesize")
 assert.label("default tests")
 output := A.sampleSize([1, 2, 3], 2)
-assert.test(output.Count(), 2)
+assert.test(output.count(), 2)
 
 output := A.sampleSize([1, 2, 3], 4)
-assert.test(output.Count(), 3)
+assert.test(output.count(), 3)
 
 
 ; omit
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 2)
-assert.test(output.Count(), 2)
+assert.test(output.count(), 2)
 
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 3)
 assert.true(A.includes(output, 1))
@@ -761,13 +776,13 @@ assert.label("default tests")
 
 ; omit
 shuffleTestVar := A.shuffle([1, 2, 3, 4])
-assert.test(shuffleTestVar.Count(), 4)
+assert.test(shuffleTestVar.count(), 4)
 
 shuffleTestVar := A.shuffle(["barney", "fred", "pebbles"])
-assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar.count(), 3)
 
 shuffleTestVar := A.shuffle([{"x": 1}, {"x": 1}, {"x": 1}])
-assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar.count(), 3)
 assert.test(shuffleTestVar[1], {"x": 1})
 assert.test(shuffleTestVar[2], {"x": 1})
 assert.test(shuffleTestVar[3], {"x": 1})
@@ -778,13 +793,13 @@ assert.test(A.shuffle([]), [])
 assert.label("sparse arrays")
 shuffleTestVar := A.shuffle({2: 1, 4: 1, 6: 1})
 shuffleTestVar := A.map(A.compact(shuffleTestVar))
-assert.test(shuffleTestVar.Count(), 3)
+assert.test(shuffleTestVar.count(), 3)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
 assert.test(shuffleTestVar[3], 1)
 shuffleTestVar := A.shuffle({2: 1, 600: 1})
 shuffleTestVar := A.map(A.compact(shuffleTestVar))
-assert.test(shuffleTestVar.Count(), 2)
+assert.test(shuffleTestVar.count(), 2)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
 

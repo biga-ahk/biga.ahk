@@ -11,26 +11,26 @@ reject(param_collection,param_predicate) {
 	l_array := []
 
 	; create
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		; functor
 		; predefined !functor handling (slower as it .calls blindly)
 		if (IsFunc(param_predicate)) {
-			if (!param_predicate.call(Value)) {
-				l_array.push(Value)
+			if (!param_predicate.call(value)) {
+				l_array.push(value)
 			}
 			continue
 		}
 		; shorthand
 		if (shorthand != false) {
-			if (!boundFunc.call(Value)) {
-				l_array.push(Value)
+			if (!boundFunc.call(value)) {
+				l_array.push(value)
 			}
 			continue
 		}
 		; predefined !functor handling (slower as it .calls blindly)
-		vValue := param_predicate.call(Value)
-		if (!vValue) {
-			l_array.push(Value)
+		vvalue := param_predicate.call(value)
+		if (!vvalue) {
+			l_array.push(value)
 			continue
 		}
 	}

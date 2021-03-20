@@ -9,12 +9,12 @@ chunk(param_array,param_size:=1) {
 
 	; create
 	; keep working till the parameter array is empty
-	while (param_array.Count() > 0) {
+	while (param_array.count() > 0) {
 		l_innerArr := []
 		; fill the inner array to the max size of the size parameter
 		loop, % param_size {
 			; exit loop if there is nothing left in parameter array to work with
-			if (param_array.Count() == 0) {
+			if (param_array.count() == 0) {
 				break
 			}
 			l_innerArr.push(param_array.RemoveAt(1))

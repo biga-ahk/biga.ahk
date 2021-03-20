@@ -4,7 +4,7 @@ dropRightWhile(param_array,param_predicate:="__identity") {
 	}
 	; validate
 	; return empty array if empty
-	if (param_array.Count() == 0) {
+	if (param_array.count() == 0) {
 		return []
 	}
 

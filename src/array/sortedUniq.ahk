@@ -7,11 +7,11 @@ sortedUniq(param_collection) {
 	l_array := []
 
 	; create
-	for Key, Value in param_collection {
-		printedelement := this._printObj(param_collection[Key])
+	for key, value in param_collection {
+		printedelement := this._printObj(param_collection[key])
 		if (l_temp != printedelement) {
 			l_temp := printedelement
-			l_array.push(Value)
+			l_array.push(value)
 		}
 	}
 	return l_array
@@ -29,5 +29,5 @@ StringCaseSense, off
 
 arr := [1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7, 8, 8, 9, 10]
 arr2 := A.sortedUniq(arr)
-assert.test(arr.Count(), 15)
-assert.test(arr2.Count(), 10)
+assert.test(arr.count(), 15)
+assert.test(arr2.count(), 10)

@@ -15,18 +15,18 @@ map(param_collection,param_iteratee:="__identity") {
 	l_array := []
 
 	; create
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (param_iteratee == "__identity") {
-			l_array.push(Value)
+			l_array.push(value)
 			continue
 		}
 		; calling own method
 		if (!isFunc(param_iteratee)) { ;somehow NOT a function
-			l_array.push(param_iteratee.call(Value))
+			l_array.push(param_iteratee.call(value))
 			continue
 		}
 		; regular function
-		l_array.push(param_iteratee.call(Value, Key, param_collection))
+		l_array.push(param_iteratee.call(value, key, param_collection))
 	}
 	return l_array
 }

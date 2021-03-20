@@ -15,14 +15,14 @@ nth(param_array,param_n:=1) {
 	}
 
 	; create
-	if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size
+	if (l_array.count() < param_n) { ;return "" if n is greater than the array's size
 		return ""
 	}
 	if (param_n > 0) {
 		return l_array[param_n]
 	}
 	; return empty array if empty
-	if (l_array.Count() == 0) {
+	if (l_array.count() == 0) {
 		return ""
 	}
 	; if called with negative n, call self with reversed array and positive number

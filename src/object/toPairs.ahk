@@ -4,8 +4,8 @@ toPairs(param_object) {
 	}
 
 	l_array := []
-	for Key, Value in param_object {
-		l_array.push([Key, Value])
+	for key, value in param_object {
+		l_array.push([key, value])
 	}
 	return l_array
 }

@@ -10,7 +10,7 @@ words(param_string,param_pattern:="/[^\W]+/") {
 	}
 	l_needle := "O)" param_pattern
 	while(RegExMatch(l_string, l_needle, RE_Match)) {
-		tempString := RE_Match.Value()
+		tempString := RE_Match.value()
 		l_array.push(tempString)
 		l_string := SubStr(l_string, RE_Match.Pos()+RE_Match.Len())
 	}

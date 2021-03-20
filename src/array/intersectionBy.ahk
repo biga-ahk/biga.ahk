@@ -4,18 +4,18 @@ intersectionBy(param_params*) {
 	; prepare
 	oParams := []
 	boundFunc := ""
-	for Key, Value in param_params {
-		if (isObject(Value)) {
-			; msgbox, % this._printObj(Value) " / " Value.call(1)
-			oParams.push(this.cloneDeep(Value))
+	for key, value in param_params {
+		if (isObject(value)) {
+			; msgbox, % this._printObj(value) " / " value.call(1)
+			oParams.push(this.cloneDeep(value))
 		}
 		; check last item as possible function or shorthand
-		if (Key == param_params.Count()) {
-			if (!this.isUndefined(Value.call(1))) {
-				msgbox, % "this was callable and returned" Value.call(1)
-				boundFunc := Value.bind()
+		if (key == param_params.count()) {
+			if (!this.isUndefined(value.call(1))) {
+				msgbox, % "this was callable and returned" value.call(1)
+				boundFunc := value.bind()
 			}
-			shorthand := this._internal_differenciateShorthand(Value, oParams)
+			shorthand := this._internal_differenciateShorthand(value, oParams)
 		}
 	}
 
@@ -24,18 +24,18 @@ intersectionBy(param_params*) {
 	l_array := []
 
 	; create
-	for Key, Value in tempArray { ;for each value in first array
-		for Key2, Value2 in oParams { ;for each array sent to the method
+	for key, value in tempArray { ;for each value in first array
+		for key2, value2 in oParams { ;for each array sent to the method
 			; search entire array for value in first array
-			if (this.indexOf(Value2, Value) != -1) {
+			if (this.indexOf(value2, value) != -1) {
 				found := true
 			} else {
 				break
 				found := false
 			}
 		}
-		if (found && this.indexOf(l_array, Value) == -1) {
-			l_array.push(Value)
+		if (found && this.indexOf(l_array, value) == -1) {
+			l_array.push(value)
 		}
 	}
 	return l_array

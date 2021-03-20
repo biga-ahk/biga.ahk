@@ -15,30 +15,30 @@ filter(param_collection,param_predicate:="__identity") {
 	l_array := []
 
 	; create
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (l_paramAmmount >= 1) {
-			vIteratee := param_predicate.call(Value, Key, collectionClone)
+			vIteratee := param_predicate.call(value, key, collectionClone)
 			if (vIteratee) {
-				l_array.push(Value)
+				l_array.push(value)
 			}
 			continue
 		}
 		; functor
 		if (IsFunc(param_predicate)) {
-			if (param_predicate.call(Value)) {
-				l_array.push(Value)
+			if (param_predicate.call(value)) {
+				l_array.push(value)
 			}
 			continue
 		}
 		; calling own method
-		if (param_predicate.call(Value)) {
-			l_array.push(Value)
+		if (param_predicate.call(value)) {
+			l_array.push(value)
 			continue
 		}
 		; shorthand
 		if (shorthand != false) {
-			if (boundFunc.call(Value)) {
-				l_array.push(Value)
+			if (boundFunc.call(value)) {
+				l_array.push(value)
 			}
 			continue
 		}

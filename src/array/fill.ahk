@@ -10,9 +10,9 @@ fill(param_array,param_value:="",param_start:=1,param_end:=-1) {
 	}
 
 	; create
-	for Key, Value in l_array {
-		if (Key >= param_start && Key <= param_end) {
-			l_array[Key] := param_value
+	for key, value in l_array {
+		if (key >= param_start && key <= param_end) {
+			l_array[key] := param_value
 		}
 	}
 	return l_array

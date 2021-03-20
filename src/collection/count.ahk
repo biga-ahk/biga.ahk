@@ -14,19 +14,19 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 			param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 		}
 		param_collection := this.split(param_collection, param_predicate)
-		return param_collection.Count() - 1
+		return param_collection.count() - 1
 	}
-	for Key, Value in param_collection {
-		if (Key < param_fromIndex) {
+	for key, value in param_collection {
+		if (key < param_fromIndex) {
 			continue
 		}
 		if (shorthand != false) {
-			if (boundFunc.call(Value, Key, param_collection) == true) {
+			if (boundFunc.call(value, key, param_collection) == true) {
 				l_count++
 				continue
 			}
 		}
-		if (this.isEqual(Value, param_predicate)) {
+		if (this.isEqual(value, param_predicate)) {
 			l_count++
 		}
 	}

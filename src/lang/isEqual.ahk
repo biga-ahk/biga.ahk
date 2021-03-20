@@ -4,7 +4,7 @@ isEqual(param_value,param_other*) {
 	if (isObject(param_value)) {
 		l_array := []
 		param_value := this._printObj(param_value)
-		loop, % param_other.Count() {
+		loop, % param_other.count() {
 			l_array.push(this._printObj(param_other[A_Index]))
 		}
 	} else {
@@ -12,7 +12,7 @@ isEqual(param_value,param_other*) {
 	}
 
 	; create
-	loop, % l_array.Count() {
+	loop, % l_array.count() {
 		if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
 			return false
 		}

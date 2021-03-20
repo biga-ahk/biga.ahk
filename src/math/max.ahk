@@ -4,9 +4,9 @@ max(param_array) {
 	}
 
 	l_max := ""
-	for Key, Value in param_array {
-		if (l_max < Value || this.isUndefined(l_max)) {
-			l_max := Value
+	for key, value in param_array {
+		if (l_max < value || this.isUndefined(l_max)) {
+			l_max := value
 		}
 	}
 	return l_max

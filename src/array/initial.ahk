@@ -10,7 +10,7 @@ initial(param_array) {
 
 	; create
 	; return empty array if empty
-	if (l_array.Count() == 0) {
+	if (l_array.count() == 0) {
 		return []
 	}
 	return % this.dropRight(l_array)

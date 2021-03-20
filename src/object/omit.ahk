@@ -8,8 +8,8 @@ omit(param_object,param_paths) {
 
 	; create
 	if (isObject(param_paths)) {
-		for Key, Value in param_paths {
-			l_obj.delete(Value)
+		for key, value in param_paths {
+			l_obj.delete(value)
 		}
 	} else {
 		l_obj.delete(param_paths)

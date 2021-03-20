@@ -5,17 +5,17 @@ zip(param_arrays*) {
 	l_array := []
 
 	; loop all Variadic inputs
-	for Key, Value in param_arrays {
+	for key, value in param_arrays {
 		; for each value in the supplied set of array(s)
-		for Key2, Value2 in Value {
-			loop, % Value.Count() {
-				if (Key2 == A_Index) {
+		for key2, value2 in value {
+			loop, % value.count() {
+				if (key2 == A_Index) {
 					; create array if not encountered yet
 					if (isObject(l_array[A_Index]) == false) {
 						l_array[A_Index] := []
 					}
 					; push values onto the array for their position in the supplied arrays
-					l_array[A_Index].push(Value2)
+					l_array[A_Index].push(value2)
 				}
 			}
 		}

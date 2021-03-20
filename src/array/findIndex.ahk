@@ -17,7 +17,7 @@ findIndex(param_array,param_value,fromIndex:=1) {
 	}
 
 	; create
-	for Index, Value in param_array {
+	for Index, value in param_array {
 		if (Index < fromIndex) {
 			continue
 		}
@@ -28,14 +28,14 @@ findIndex(param_array,param_value,fromIndex:=1) {
 			}
 		}
 		if (vSearchingobjects) {
-			Value := this._printObj(param_array[Index])
+			value := this._printObj(param_array[Index])
 		}
 		if (IsFunc(boundFunc)) {
 			if (boundFunc.call(param_array[Index]) == true) {
 				return Index
 			}
 		}
-		if (this.isEqual(Value, param_value)) {
+		if (this.isEqual(value, param_value)) {
 			return Index
 		}
 	}

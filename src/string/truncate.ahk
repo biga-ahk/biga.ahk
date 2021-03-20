@@ -8,7 +8,7 @@ truncate(param_string,param_options:="") {
 		param_options := {}
 		param_options.length := 30
 	}
-	if (!param_options.hasKey("omission")) {
+	if (!param_options.haskey("omission")) {
 		param_options.omission := "..."
 	}
 

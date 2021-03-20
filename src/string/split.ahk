@@ -16,7 +16,7 @@ split(param_string:="",param_separator:=",",param_limit:=0) {
 	} else {
 		oReducedArray := []
 		loop, % param_limit {
-			if (A_Index <= oSplitArray.Count()) {
+			if (A_Index <= oSplitArray.count()) {
 				oReducedArray.push(oSplitArray[A_Index])
 			}
 		}

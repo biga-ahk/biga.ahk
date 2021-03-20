@@ -7,8 +7,8 @@ fromPairs(param_pairs) {
 	l_obj := {}
 
 	; create
-	for Key, Value in param_pairs {
-		l_obj[Value[1]] := Value[2]
+	for key, value in param_pairs {
+		l_obj[value[1]] := value[2]
 	}
 	return l_obj
 }

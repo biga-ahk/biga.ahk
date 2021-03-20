@@ -9,12 +9,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		; keep working till the parameter array is empty
-		while (param_array.Count() > 0) {
+		while (param_array.count() > 0) {
 			l_innerArr := []
 			; fill the inner array to the max size of the size parameter
 			loop, % param_size {
 				; exit loop if there is nothing left in parameter array to work with
-				if (param_array.Count() == 0) {
+				if (param_array.count() == 0) {
 					break
 				}
 				l_innerArr.push(param_array.RemoveAt(1))
@@ -30,9 +30,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in param_array {
-			if (Value != "" && Value != 0 && Value != false) {
-				l_array.push(Value)
+		for key, value in param_array {
+			if (value != "" && value != 0 && value != false) {
+				l_array.push(value)
 			}
 		}
 		return l_array
@@ -69,7 +69,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		; loop all Variadic inputs
 		for i, obj in param_values {
-			loop, % obj.Count() {
+			loop, % obj.count() {
 				foundIndex := this.indexOf(l_array, obj[A_Index])
 				if (foundIndex != -1) {
 					l_array.RemoveAt(foundIndex)
@@ -96,7 +96,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			l_array.RemoveAt(1)
 		}
 		; return empty array if empty
-		if (l_array.Count() == 0) {
+		if (l_array.count() == 0) {
 			return []
 		}
 		return l_array
@@ -116,10 +116,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		loop, % param_n	{
-			l_array.RemoveAt(l_array.Count())
+			l_array.RemoveAt(l_array.count())
 		}
 		; return empty array if empty
-		if (l_array.Count() == 0) {
+		if (l_array.count() == 0) {
 			return []
 		}
 		return l_array
@@ -130,7 +130,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		; validate
 		; return empty array if empty
-		if (param_array.Count() == 0) {
+		if (param_array.count() == 0) {
 			return []
 		}
 
@@ -143,7 +143,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		; validate
 		; return empty array if empty
-		if (param_array.Count() == 0) {
+		if (param_array.count() == 0) {
 			return []
 		}
 
@@ -159,8 +159,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		l_array := this.cloneDeep(param_array)
 		l_droppableElements := 0
-		for Key, Value in l_array {
-			if (!this.isFalsey(boundFunc.call(Value, Key, l_array))) {
+		for key, value in l_array {
+			if (!this.isFalsey(boundFunc.call(value, key, l_array))) {
 				l_droppableElements++
 			} else {
 				break
@@ -183,9 +183,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Key, Value in l_array {
-			if (Key >= param_start && Key <= param_end) {
-				l_array[Key] := param_value
+		for key, value in l_array {
+			if (key >= param_start && key <= param_end) {
+				l_array[key] := param_value
 			}
 		}
 		return l_array
@@ -209,7 +209,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Index, Value in param_array {
+		for Index, value in param_array {
 			if (Index < fromIndex) {
 				continue
 			}
@@ -220,14 +220,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				}
 			}
 			if (vSearchingobjects) {
-				Value := this._printObj(param_array[Index])
+				value := this._printObj(param_array[Index])
 			}
 			if (IsFunc(boundFunc)) {
 				if (boundFunc.call(param_array[Index]) == true) {
 					return Index
 				}
 			}
-			if (this.isEqual(Value, param_value)) {
+			if (this.isEqual(value, param_value)) {
 				return Index
 			}
 		}
@@ -284,10 +284,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	depthOf(param_obj,param_depth:=1) {
-		for Key, Value in param_obj {
-			if (isObject(Value)) {
+		for key, value in param_obj {
+			if (isObject(value)) {
 				param_depth++
-				param_depth := this.depthOf(Value, param_depth)
+				param_depth := this.depthOf(value, param_depth)
 			}
 		}
 		return param_depth
@@ -315,8 +315,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_obj := {}
 
 		; create
-		for Key, Value in param_pairs {
-			l_obj[Value[1]] := Value[2]
+		for key, value in param_pairs {
+			l_obj[value[1]] := value[2]
 		}
 		return l_obj
 	}
@@ -361,15 +361,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		; return empty array if empty
-		if (l_array.Count() == 0) {
+		if (l_array.count() == 0) {
 			return []
 		}
 		return % this.dropRight(l_array)
 
 	}
 	intersection(param_arrays*) {
-		for Key, Value in param_arrays {
-			if (!isObject(Value)) {
+		for key, value in param_arrays {
+			if (!isObject(value)) {
 				this._internal_ThrowException()
 			}
 		}
@@ -380,18 +380,18 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in tempArray { ;for each value in first array
-			for Key2, Value2 in param_arrays { ;for each array sent to the method
+		for key, value in tempArray { ;for each value in first array
+			for key2, value2 in param_arrays { ;for each array sent to the method
 				; search all arrays for value in first array
-				if (this.indexOf(Value2, Value) != -1) {
+				if (this.indexOf(value2, value) != -1) {
 					found := true
 				} else {
 					found := false
 					break
 				}
 			}
-			if (found && this.indexOf(l_array, Value) == -1) {
-				l_array.push(Value)
+			if (found && this.indexOf(l_array, value) == -1) {
+				l_array.push(value)
 			}
 		}
 		return l_array
@@ -429,13 +429,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 		if (param_fromIndex == 0) {
-			param_fromIndex := param_array.Count()
+			param_fromIndex := param_array.count()
 		}
 
 		; create
-		for Index, Value in param_array {
+		for Index, value in param_array {
 			Index -= 1
-			vNegativeIndex := param_array.Count() - Index
+			vNegativeIndex := param_array.count() - Index
 			if (vNegativeIndex > param_fromIndex) { ;skip search
 				continue
 			}
@@ -462,14 +462,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		if (l_array.Count() < param_n) { ;return "" if n is greater than the array's size
+		if (l_array.count() < param_n) { ;return "" if n is greater than the array's size
 			return ""
 		}
 		if (param_n > 0) {
 			return l_array[param_n]
 		}
 		; return empty array if empty
-		if (l_array.Count() == 0) {
+		if (l_array.count() == 0) {
 			return ""
 		}
 		; if called with negative n, call self with reversed array and positive number
@@ -487,7 +487,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		while (l_collection.Count() != 0) {
+		while (l_collection.count() != 0) {
 			l_array.push(l_collection.pop())
 		}
 		return l_array
@@ -505,16 +505,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_array := strSplit(param_array)
 		}
 		if (param_end == 0) {
-			param_end := param_array.Count()
+			param_end := param_array.count()
 		}
 
 		; prepare
 		l_array := []
 
 		; create
-		for Key, Value in param_array {
+		for key, value in param_array {
 			if (A_Index >= param_start && A_Index <= param_end) {
-				l_array.push(Value)
+				l_array.push(value)
 			}
 		}
 		return l_array
@@ -527,12 +527,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		loop, % param_array.Count() {
+		loop, % param_array.count() {
 			if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
 				return A_Index + 1
 			}
 		}
-		return param_array.Count() + 1
+		return param_array.count() + 1
 	}
 	sortedUniq(param_collection) {
 		if (!isObject(param_collection)) {
@@ -543,11 +543,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in param_collection {
-			printedelement := this._printObj(param_collection[Key])
+		for key, value in param_collection {
+			printedelement := this._printObj(param_collection[key])
 			if (l_temp != printedelement) {
 				l_temp := printedelement
-				l_array.push(Value)
+				l_array.push(value)
 			}
 		}
 		return l_array
@@ -572,15 +572,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		loop, % param_n	{
-			;continue if requested index is higher than param_array can account for
-			if (param_array.Count() < A_Index) {
-				continue
+		for key, value in param_array {
+			if (param_n < A_Index) {
+				break
 			}
-			l_array.push(param_array[A_Index])
+			l_array.push(value)
 		}
 		; return empty array if empty
-		if (l_array.Count() == 0 || param_n == 0) {
+		if (l_array.count() == 0 || param_n == 0) {
 			return []
 		}
 		return l_array
@@ -601,14 +600,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		loop, % param_n	{
-			if (param_array.Count() == 0) {
+			if (param_array.count() == 0) {
 				continue
 			}
-			vValue := param_array.pop()
-			l_array.push(vValue)
+			vvalue := param_array.pop()
+			l_array.push(vvalue)
 		}
 		; return empty array if empty
-		if (l_array.Count() == 0 || param_n == 0) {
+		if (l_array.count() == 0 || param_n == 0) {
 			return []
 		}
 		return this.reverse(l_array)
@@ -619,7 +618,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Array in param_arrays {
+		for key, Array in param_arrays {
 			if (isObject(Array)) {
 				l_array := this.concat(l_array, Array)
 			} else {
@@ -638,11 +637,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in param_collection {
-			l_printedElement := this._internal_MD5(param_collection[Key])
+		for key, value in param_collection {
+			l_printedElement := this._internal_MD5(param_collection[key])
 			if (this.indexOf(tempArray, l_printedElement) == -1) {
 				tempArray.push(l_printedElement)
-				l_array.push(Value)
+				l_array.push(value)
 			}
 		}
 		return l_array
@@ -670,17 +669,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; loop all Variadic inputs
-		for Key, Value in param_arrays {
+		for key, value in param_arrays {
 			; for each value in the supplied set of array(s)
-			for Key2, Value2 in Value {
-				loop, % Value.Count() {
-					if (Key2 == A_Index) {
+			for key2, value2 in value {
+				loop, % value.count() {
+					if (key2 == A_Index) {
 						; create array if not encountered yet
 						if (isObject(l_array[A_Index]) == false) {
 							l_array[A_Index] := []
 						}
 						; push values onto the array for their position in the supplied arrays
-						l_array[A_Index].push(Value2)
+						l_array[A_Index].push(value2)
 					}
 				}
 			}
@@ -696,8 +695,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_obj := {}
-		for Key, Value in param_props {
-			l_obj[Value] := param_values[A_Index]
+		for key, value in param_props {
+			l_obj[value] := param_values[A_Index]
 		}
 		return l_obj
 	}
@@ -717,19 +716,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 			}
 			param_collection := this.split(param_collection, param_predicate)
-			return param_collection.Count() - 1
+			return param_collection.count() - 1
 		}
-		for Key, Value in param_collection {
-			if (Key < param_fromIndex) {
+		for key, value in param_collection {
+			if (key < param_fromIndex) {
 				continue
 			}
 			if (shorthand != false) {
-				if (boundFunc.call(Value, Key, param_collection) == true) {
+				if (boundFunc.call(value, key, param_collection) == true) {
 					l_count++
 					continue
 				}
 			}
-			if (this.isEqual(Value, param_predicate)) {
+			if (this.isEqual(value, param_predicate)) {
 				l_count++
 			}
 		}
@@ -751,14 +750,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (shorthand != false) {
-				if (boundFunc.call(Value, Key, param_collection) == true) {
+				if (boundFunc.call(value, key, param_collection) == true) {
 					continue
 				}
 				return false
 			} else {
-				if (param_predicate.call(Value, Key, param_collection) == true) {
+				if (param_predicate.call(value, key, param_collection) == true) {
 					continue
 				}
 			}
@@ -782,30 +781,30 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (l_paramAmmount >= 1) {
-				vIteratee := param_predicate.call(Value, Key, collectionClone)
+				vIteratee := param_predicate.call(value, key, collectionClone)
 				if (vIteratee) {
-					l_array.push(Value)
+					l_array.push(value)
 				}
 				continue
 			}
 			; functor
 			if (IsFunc(param_predicate)) {
-				if (param_predicate.call(Value)) {
-					l_array.push(Value)
+				if (param_predicate.call(value)) {
+					l_array.push(value)
 				}
 				continue
 			}
 			; calling own method
-			if (param_predicate.call(Value)) {
-				l_array.push(Value)
+			if (param_predicate.call(value)) {
+				l_array.push(value)
 				continue
 			}
 			; shorthand
 			if (shorthand != false) {
-				if (boundFunc.call(Value)) {
-					l_array.push(Value)
+				if (boundFunc.call(value)) {
+					l_array.push(value)
 				}
 				continue
 			}
@@ -824,24 +823,24 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (param_fromindex > A_Index) {
 				continue
 			}
 			; undeteriminable functor
-			if (param_predicate.call(Value)) {
-				return Value
+			if (param_predicate.call(value)) {
+				return value
 			}
 			; regular function
 			if (IsFunc(param_predicate)) {
-				if (param_predicate.call(Value)) {
-					return Value
+				if (param_predicate.call(value)) {
+					return value
 				}
 				continue
 			}
 			; shorthand
-			if (shorthand != false && boundFunc.call(Value)) {
-				return Value
+			if (shorthand != false && boundFunc.call(value)) {
+				return value
 			}
 		}
 		return false
@@ -861,12 +860,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		; run against every value in the collection
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
-			if (!boundFunc.call(Value, Key, collectionClone)) {
-				vIteratee := param_iteratee.call(Value, Key, collectionClone)
+			if (!boundFunc.call(value, key, collectionClone)) {
+				vIteratee := param_iteratee.call(value, key, collectionClone)
 			}
 			; exit iteration early by explicitly returning false
 			if (vIteratee == false) {
@@ -893,25 +892,25 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		l_array := []
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (thisThing == "boundfunc") {
 				; calling own method
-				vIteratee := boundFunc.call(Value)
+				vIteratee := boundFunc.call(value)
 			} else {
 				; functor
-				vIteratee := param_iteratee.call(Value)
+				vIteratee := param_iteratee.call(value)
 			}
 			if (shorthand == ".property") {
 				; property shorthand
-				vIteratee := Value[param_iteratee]
+				vIteratee := value[param_iteratee]
 			}
 
 			; create array at key if not encountered yet
-			if (!l_array.hasKey(vIteratee)) {
+			if (!l_array.haskey(vIteratee)) {
 				l_array[vIteratee] := []
 			}
 			; add value to this key
-			l_array[vIteratee].push(Value)
+			l_array[vIteratee].push(value)
 		}
 		return l_array
 	}
@@ -922,11 +921,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (isObject(param_collection)) {
-			for Key, Value in param_collection {
+			for key, value in param_collection {
 				if (param_fromIndex > A_Index) {
 					continue
 				}
-				if (Value = param_value) {
+				if (value = param_value) {
 					return true
 				}
 			}
@@ -966,26 +965,26 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_obj := {}
 
 		; run against every value in the collection
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
 			if (l_paramAmmount == 3) {
-				if (!boundFunc.call(Value, Key, collectionClone)) {
-					vIteratee := param_iteratee.call(Value, Key, collectionClone)
+				if (!boundFunc.call(value, key, collectionClone)) {
+					vIteratee := param_iteratee.call(value, key, collectionClone)
 				}
 			}
 			if (l_paramAmmount == 2) {
-				if (!boundFunc.call(Value, Key)) {
-					vIteratee := param_iteratee.call(Value, Key)
+				if (!boundFunc.call(value, key)) {
+					vIteratee := param_iteratee.call(value, key)
 				}
 			}
 			if (l_paramAmmount == 1) {
-				if (!boundFunc.call(Value)) {
-					vIteratee := param_iteratee.call(Value)
+				if (!boundFunc.call(value)) {
+					vIteratee := param_iteratee.call(value)
 				}
 			}
-			ObjRawSet(l_obj, vIteratee, Value)
+			ObjRawSet(l_obj, vIteratee, value)
 		}
 		return l_obj
 	}
@@ -999,29 +998,25 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand == ".property") {
 			param_iteratee := this.property(param_iteratee)
 		}
-		for Key, Value in param_collection {
-			if (!this.isUndefined(param_iteratee.call(Value))) {
-				thisthing := "function"
-			}
-			break
+		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+			param_iteratee := param_iteratee.bind(this)
 		}
+		param_collection := param_collection.clone()
 		l_array := []
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (param_iteratee == "__identity") {
-				l_array.push(Value)
+				l_array.push(value)
 				continue
 			}
-			if (thisthing == "function") {
-				l_array.push(param_iteratee.call(Value, Key, param_collection))
+			; calling own method
+			if (!isFunc(param_iteratee)) { ;somehow NOT a function
+				l_array.push(param_iteratee.call(value))
 				continue
 			}
-			;if calling own method
-			if (IsFunc(param_iteratee)) {
-				boundFunc := param_iteratee.Bind(this)
-				l_array.push(boundFunc.call(Value))
-			}
+			; regular function
+			l_array.push(param_iteratee.call(value, key, param_collection))
 		}
 		return l_array
 	}
@@ -1037,19 +1032,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
-		for Key, Value in param_collection {
-			if (!this.isUndefined(param_predicate.call(Value))) {
+		for key, value in param_collection {
+			if (!this.isUndefined(param_predicate.call(value))) {
 				boundFunc := param_predicate.bind()
 			}
 			break
 		}
 
 		; create
-		for Key, Value in param_collection {
-			if (boundFunc.call(Value) == true) {
-				trueArray.push(Value)
+		for key, value in param_collection {
+			if (boundFunc.call(value) == true) {
+				trueArray.push(value)
 			} else {
-				falseArray.push(Value)
+				falseArray.push(value)
 			}
 		}
 		return [trueArray, falseArray]
@@ -1067,26 +1062,26 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			; functor
 			; predefined !functor handling (slower as it .calls blindly)
 			if (IsFunc(param_predicate)) {
-				if (!param_predicate.call(Value)) {
-					l_array.push(Value)
+				if (!param_predicate.call(value)) {
+					l_array.push(value)
 				}
 				continue
 			}
 			; shorthand
 			if (shorthand != false) {
-				if (!boundFunc.call(Value)) {
-					l_array.push(Value)
+				if (!boundFunc.call(value)) {
+					l_array.push(value)
 				}
 				continue
 			}
 			; predefined !functor handling (slower as it .calls blindly)
-			vValue := param_predicate.call(Value)
-			if (!vValue) {
-				l_array.push(Value)
+			vvalue := param_predicate.call(value)
+			if (!vvalue) {
+				l_array.push(value)
 				continue
 			}
 		}
@@ -1105,7 +1100,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		randomIndex := this.random(1, l_array.Count())
+		randomIndex := this.random(1, l_array.count())
 		return l_array[randomIndex]
 	}
 	sampleSize(param_collection,param_SampleSize:=1) {
@@ -1114,7 +1109,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; return immediately if array is smaller than requested sampleSize
-		if (param_SampleSize > param_collection.Count()) {
+		if (param_SampleSize > param_collection.count()) {
 			return param_collection
 		}
 
@@ -1126,8 +1121,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		loop, % param_SampleSize
 		{
-			orderValue := l_order.pop()
-			l_array.push(l_collection[orderValue])
+			ordervalue := l_order.pop()
+			l_array.push(l_collection[ordervalue])
 		}
 		return l_array
 	}
@@ -1142,7 +1137,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		l_index := l_array.count()
 		loop, % l_index - 1 {
-			Random, randomIndex, 1, % l_index
+			random, randomIndex, 1, % l_index
 			l_tempVar := l_array[l_index]
 			l_array[l_index] := l_array[randomIndex]
 			l_array[randomIndex] := l_tempVar
@@ -1153,8 +1148,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	size(param_collection) {
 
 		; create
-		if (param_collection.Count() > 0) {
-			return param_collection.Count()
+		if (param_collection.count() > 0) {
+			return param_collection.count()
 		}
 		if (param_collection.MaxIndex() > 0) {
 			return  param_collection.MaxIndex()
@@ -1176,13 +1171,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (shorthand != false) {
-				if (boundFunc.call(Value, Key, param_collection) = true) {
+				if (boundFunc.call(value, key, param_collection) = true) {
 					return true
 				}
 			} else {
-				if (param_predicate.call(Value, Key, param_collection) == true) {
+				if (param_predicate.call(value, key, param_collection) == true) {
 					return true
 				}
 			}
@@ -1201,14 +1196,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; if called with a function
 		if (IsFunc(param_iteratees)) {
 			tempArray := []
-			for Key, Value in param_collection {
-				l_index := param_iteratees.call(param_collection[Key])
-				param_collection[Key]._temp_bigaSortIndex := l_index
-				tempArray.push(param_collection[Key])
+			for key, value in param_collection {
+				l_index := param_iteratees.call(param_collection[key])
+				param_collection[key]._temp_bigaSortIndex := l_index
+				tempArray.push(param_collection[key])
 			}
 			l_array := this.sortBy(tempArray, "_temp_bigaSortIndex")
-			for Key, Value in l_array {
-				l_array[Key].delete("_temp_bigaSortIndex")
+			for key, value in l_array {
+				l_array[key].delete("_temp_bigaSortIndex")
 			}
 			return l_array
 		}
@@ -1216,8 +1211,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; if called with shorthands
 		if (isObject(param_iteratees)) {
 			; sort the collection however many times is requested by the shorthand identity
-			for Key, Value in param_iteratees {
-				l_array := this.internal_sort(l_array, Value)
+			for key, value in param_iteratees {
+				l_array := this.internal_sort(l_array, value)
 			}
 		} else {
 			l_array := this.internal_sort(l_array, param_iteratees)
@@ -1234,16 +1229,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
 				; out will look like:   value+index|value+index|
 			}
-			lastValue := l_array[Index, param_iteratees]
+			lastvalue := l_array[Index, param_iteratees]
 		} else {
 			; sort regular arrays
 			for Index, obj in l_array {
 				out .= obj "+" Index "|"
 			}
-			lastValue := l_array[l_array.Count()]
+			lastvalue := l_array[l_array.count()]
 		}
 
-		if lastValue is number
+		if lastvalue is number
 		{
 			sortType := "N"
 		}
@@ -1268,20 +1263,20 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		for Key, Value in param_obj {
-			if Key is not Number
+		for key, value in param_obj {
+			if key is not Number
 			{
-				Output .= """" . Key . """:"
+				Output .= """" . key . """:"
 			} else {
-				Output .= Key . ":"
+				Output .= key . ":"
 			}
-			if (isObject(Value)) {
-				Output .= "[" . this._printObj(Value) . "]"
-			} else if Value is not number
+			if (isObject(value)) {
+				Output .= "[" . this._printObj(value) . "]"
+			} else if value is not number
 			{
-				Output .= """" . Value . """"
+				Output .= """" . value . """"
 			} else {
-				Output .= Value
+				Output .= value
 			}
 			Output .= ", "
 		}
@@ -1324,8 +1319,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 	_internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		if (isObject(param_shorthand)) {
-			for Key, in param_shorthand {
-				if (this.isNumber(Key)) {
+			for key, in param_shorthand {
+				if (this.isNumber(key)) {
 					continue
 				} else {
 					return ".matches"
@@ -1431,11 +1426,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		Objs := {}
 		Obj := param_array.Clone()
 		Objs[&param_array] := Obj ; Save this new array
-		for Key, Value in Obj {
-			if (isObject(Value)) ; if it is a subarray
-				Obj[Key] := Objs[&Value] ; if we already know of a refrence to this array
-				? Objs[&Value] ; Then point it to the new array
-				: this.clone(Value, Objs) ; Otherwise, clone this sub-array
+		for key, value in Obj {
+			if (isObject(value)) ; if it is a subarray
+				Obj[key] := Objs[&value] ; if we already know of a refrence to this array
+				? Objs[&value] ; Then point it to the new array
+				: this.clone(value, Objs) ; Otherwise, clone this sub-array
 		}
 		return Obj
 	}
@@ -1445,7 +1440,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_value)) {
 			l_array := []
 			param_value := this._printObj(param_value)
-			loop, % param_other.Count() {
+			loop, % param_other.count() {
 				l_array.push(this._printObj(param_other[A_Index]))
 			}
 		} else {
@@ -1453,7 +1448,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		loop, % l_array.Count() {
+		loop, % l_array.count() {
 			if (param_value != l_array[A_Index]) { ; != follows StringCaseSense
 				return false
 			}
@@ -1461,8 +1456,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return true
 	}
 	isMatch(param_object,param_source) {
-		for Key, Value in param_source {
-			if (param_object[key] == Value) {
+		for key, value in param_source {
+			if (param_object[key] == value) {
 				continue
 			} else {
 				return false
@@ -1552,9 +1547,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_max := ""
-		for Key, Value in param_array {
-			if (l_max < Value || this.isUndefined(l_max)) {
-				l_max := Value
+		for key, value in param_array {
+			if (l_max < value || this.isUndefined(l_max)) {
+				l_max := value
 			}
 		}
 		return l_max
@@ -1565,8 +1560,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_sum := 0
-		for Key, Value in param_array {
-			l_sum += Value
+		for key, value in param_array {
+			l_sum += value
 		}
 		return l_sum / this.size(param_array)
 	}
@@ -1591,23 +1586,23 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_total := 0
 
 		; run against every value in the array
-		for Key, Value in param_array {
+		for key, value in param_array {
 			; shorthand
 			if (shorthand == ".property") {
 				fn := this.property(param_iteratee)
-				l_iteratee := fn.call(Value)
+				l_iteratee := fn.call(value)
 			}
 			if (boundFunc) {
-				l_iteratee := boundFunc.call(Value)
+				l_iteratee := boundFunc.call(value)
 			}
 			if (param_iteratee.maxParams == 1) {
-				if (!boundFunc.call(Value)) {
-					l_iteratee := param_iteratee.call(Value)
+				if (!boundFunc.call(value)) {
+					l_iteratee := param_iteratee.call(value)
 				}
 			}
 			l_total += l_iteratee
 		}
-		return l_total / param_array.Count()
+		return l_total / param_array.count()
 	}
 	min(param_array) {
 		if (!isObject(param_array)) {
@@ -1615,9 +1610,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_min := ""
-		for Key, Value in param_array {
-			if (l_min > Value || this.isUndefined(l_min)) {
-				l_min := Value
+		for key, value in param_array {
+			if (l_min > value || this.isUndefined(l_min)) {
+				l_min := value
 			}
 		}
 		return l_min
@@ -1653,8 +1648,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		vSum := 0
-		for Key, Value in param_array {
-			vSum += Value
+		for key, value in param_array {
+			vSum += value
 		}
 		return vSum
 	}
@@ -1722,9 +1717,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		for Index, Object in param_sources {
-			for Key, Value in Object {
-				if (!l_obj.hasKey(Key)) { ; if the key is not already in use
-					l_obj[Key] := Value
+			for key, value in Object {
+				if (!l_obj.haskey(key)) { ; if the key is not already in use
+					l_obj[key] := value
 				}
 			}
 		}
@@ -1736,13 +1731,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (!isObject(param_object)) {
 			param_object := StrSplit(param_object)
 		}
-		l_returnKeys := []
+		l_returnkeys := []
 
 		; create
 		for key, _ in param_object {
-			l_returnKeys.push(key)
+			l_returnkeys.push(key)
 		}
-		return l_returnKeys
+		return l_returnkeys
 	}
 	merge(param_collections*) {
 		if (!isObject(param_collections)) {
@@ -1775,12 +1770,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; initialize an associative array
 		combined := {}
 
-		for Key, Value in param_collection1 {
-			combined[Key] := this.internal_Merge(Value, param_collection2[Key])
+		for key, value in param_collection1 {
+			combined[key] := this.internal_Merge(value, param_collection2[key])
 		}
-		for Key, Value in param_collection2 {
-			if(!combined.hasKey(Key)) {
-				combined[Key] := Value
+		for key, value in param_collection2 {
+			if(!combined.haskey(key)) {
+				combined[key] := value
 			}
 		}
 		return combined
@@ -1795,8 +1790,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (isObject(param_paths)) {
-			for Key, Value in param_paths {
-				l_obj.delete(Value)
+			for key, value in param_paths {
+				l_obj.delete(value)
 			}
 		} else {
 			l_obj.delete(param_paths)
@@ -1813,13 +1808,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (isObject(param_paths)) {
-			for Key, Value in param_paths {
-				vValue := this.internal_property(Value, param_object)
-				l_obj[Value] := vValue
+			for key, value in param_paths {
+				vvalue := this.internal_property(value, param_object)
+				l_obj[value] := vvalue
 			}
 		} else {
-			vValue := this.internal_property(param_paths, param_object)
-			l_obj[param_paths] := vValue
+			vvalue := this.internal_property(param_paths, param_object)
+			l_obj[param_paths] := vvalue
 		}
 		return l_obj
 	}
@@ -1829,8 +1824,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_array := []
-		for Key, Value in param_object {
-			l_array.push([Key, Value])
+		for key, value in param_object {
+			l_array.push([key, value])
 		}
 		return l_array
 	}
@@ -1875,8 +1870,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
-		for Key, Value in HTMLmap {
-			element := Value
+		for key, value in HTMLmap {
+			element := value
 			param_string := StrReplace(param_string, element.1, element.2, , -1)
 		}
 		return param_string
@@ -1934,7 +1929,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_string := param_string
 		while (strLen(l_string) < param_length) {
 			l_pos++
-			if (l_pos > l_pad.Count()) {
+			if (l_pos > l_pad.count()) {
 				l_pos := 1
 			}
 			l_string .= l_pad[l_pos]
@@ -1955,7 +1950,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_pad := this.slice(param_chars)
 		while (strLen(param_string) + strLen(l_padding) < param_length) {
 			l_pos++
-			if (l_pos > l_pad.Count()) {
+			if (l_pos > l_pad.count()) {
 				l_pos := 1
 			}
 			l_padding .= l_pad[l_pos]
@@ -2026,7 +2021,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		} else {
 			oReducedArray := []
 			loop, % param_limit {
-				if (A_Index <= oSplitArray.Count()) {
+				if (A_Index <= oSplitArray.count()) {
 					oReducedArray.push(oSplitArray[A_Index])
 				}
 			}
@@ -2043,14 +2038,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; add space before each capitalized character
 		RegExMatch(l_string, "O)([A-Z])", RE_Match)
-		if (RE_Match.Count()) {
-			loop, % RE_Match.Count() {
+		if (RE_Match.count()) {
+			loop, % RE_Match.count() {
 				l_string := % SubStr(l_string, 1, RE_Match.Pos(A_Index) - 1) " " SubStr(l_string, RE_Match.Pos(A_Index))
 			}
 		}
 		; Split the string into array and Titlecase each element in the array
 		l_array := StrSplit(l_string, " ")
-		loop, % l_array.Count() {
+		loop, % l_array.count() {
 			l_string := l_array[A_Index]
 			StringUpper, l_string, l_string, T
 			l_array[A_Index] := l_string
@@ -2122,11 +2117,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
 		} else {
 			l_array := StrSplit(param_chars, "")
-			for Key, Value in l_array {
-				if (this.includes(Value, "/[a-zA-Z0-9]/")) {
-					l_removechars .= Value
+			for key, value in l_array {
+				if (this.includes(value, "/[a-zA-Z0-9]/")) {
+					l_removechars .= value
 				} else {
-					l_removechars .= "\" Value
+					l_removechars .= "\" value
 				}
 			}
 			; replace ending characters
@@ -2144,11 +2139,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
 		} else {
 			l_array := StrSplit(param_chars, "")
-			for Key, Value in l_array {
-				if (this.includes(Value, "/[a-zA-Z0-9]/")) {
-					l_removechars .= Value
+			for key, value in l_array {
+				if (this.includes(value, "/[a-zA-Z0-9]/")) {
+					l_removechars .= value
 				} else {
-					l_removechars .= "\" Value
+					l_removechars .= "\" value
 				}
 			}
 			; replace leading characters
@@ -2166,7 +2161,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_options := {}
 			param_options.length := 30
 		}
-		if (!param_options.hasKey("omission")) {
+		if (!param_options.haskey("omission")) {
 			param_options.omission := "..."
 		}
 
@@ -2203,8 +2198,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
-		for Key, Value in HTMLmap {
-			element := Value
+		for key, value in HTMLmap {
+			element := value
 			param_string := StrReplace(param_string, element.2, element.1, , -1)
 		}
 		return param_string
@@ -2231,7 +2226,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		l_needle := "O)" param_pattern
 		while(RegExMatch(l_string, l_needle, RE_Match)) {
-			tempString := RE_Match.Value()
+			tempString := RE_Match.value()
 			l_array.push(tempString)
 			l_string := SubStr(l_string, RE_Match.Pos()+RE_Match.Len())
 		}
@@ -2256,37 +2251,37 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	internal_matches(param_matches,param_itaree) {
-		for Key, Value in param_matches {
-			if (param_matches[Key] != param_itaree[Key]) {
+		for key, value in param_matches {
+			if (param_matches[key] != param_itaree[key]) {
 				return false
 			}
 		}
 		return true
 	}
-	matchesProperty(param_path,param_srcValue) {
-		if (isObject(param_srcValue)) {
+	matchesProperty(param_path,param_srcvalue) {
+		if (isObject(param_srcvalue)) {
 			this._internal_ThrowException()
 		}
 
 		; create the property fn
 		fnProperty := this.property(param_path)
 		; create the fn
-		boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcValue)
+		boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
 		return boundFunc
 	}
 
 	_internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
-		itareeValue := param_property.call(param_itaree)
-		; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareeValue) " from(" this._printObj(param_itaree) ")"
-		if (!this.isUndefined(itareeValue)) {
-			if (itareeValue = param_matchvalue) {
+		itareevalue := param_property.call(param_itaree)
+		; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareevalue) " from(" this._printObj(param_itaree) ")"
+		if (!this.isUndefined(itareevalue)) {
+			if (itareevalue = param_matchvalue) {
 				return true
 			}
 		}
 		return false
 	}
 	property(param_source) {
-		if (!this.isString(param_srcValue)) {
+		if (!this.isString(param_srcvalue)) {
 			this._internal_ThrowException()
 		}
 
@@ -2298,8 +2293,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create the fn
 		if (isObject(param_source)) {
 			keyArray := []
-			for Key, Value in param_source {
-				keyArray.push(Value)
+			for key, value in param_source {
+				keyArray.push(value)
 			}
 			boundFunc := ObjBindMethod(this, "internal_property", keyArray)
 			return boundFunc
@@ -2311,12 +2306,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 	internal_property(param_property,param_itaree) {
 		if (isObject(param_property)) {
-			for Key, Value in param_property {
-				if (param_property.Count() == 1) {
-					; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
-					return  ObjRawGet(param_itaree, Value)
-				} else if (param_itaree.hasKey(Value)){
-					rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
+			for key, value in param_property {
+				if (param_property.count() == 1) {
+					; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, value)
+					return  ObjRawGet(param_itaree, value)
+				} else if (param_itaree.haskey(value)){
+					rvalue := this.internal_property(this.tail(param_property), param_itaree[value])
 				}
 			}
 			return rvalue
@@ -2357,12 +2352,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		; run against every value in the collection
-		for Key, Value in param_collection {
+		for key, value in param_collection {
 			if (!boundFunc) { ; is property/string
 				;nothing currently
 			}
-			if (!boundFunc.call(Value, Key, collectionClone)) {
-				vIteratee := param_iteratee.call(Value, Key, collectionClone)
+			if (!boundFunc.call(value, key, collectionClone)) {
+				vIteratee := param_iteratee.call(value, key, collectionClone)
 			}
 			; exit iteration early by explicitly returning false
 			if (vIteratee == false) {
@@ -2377,8 +2372,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		l_array := []
-		for Key, Value in param_object {
-			l_array.push([Key, Value])
+		for key, value in param_object {
+			l_array.push([key, value])
 		}
 		return l_array
 	}

@@ -7,8 +7,8 @@ zipObject(param_props,param_values) {
 	}
 
 	l_obj := {}
-	for Key, Value in param_props {
-		l_obj[Value] := param_values[A_Index]
+	for key, value in param_props {
+		l_obj[value] := param_values[A_Index]
 	}
 	return l_obj
 }

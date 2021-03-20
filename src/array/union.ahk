@@ -4,7 +4,7 @@ union(param_arrays*) {
 	l_array := []
 
 	; create
-	for Key, Array in param_arrays {
+	for key, Array in param_arrays {
 		if (isObject(Array)) {
 			l_array := this.concat(l_array, Array)
 		} else {

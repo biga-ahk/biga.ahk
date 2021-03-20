@@ -11,24 +11,24 @@ groupBy(param_collection,param_iteratee:="__identity") {
 
 	; create
 	l_array := []
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		vIteratee := 0
 
 		; functor
 		if (IsFunc(param_iteratee || !vIteratee)) {
-			vIteratee := param_iteratee.call(Value)
+			vIteratee := param_iteratee.call(value)
 		}
 		; shorthand
 		if (shorthand == ".property") {
-			vIteratee := boundFunc.call(Value)
+			vIteratee := boundFunc.call(value)
 		}
 
 		; create array at key if not encountered yet
-		if (!l_array.hasKey(vIteratee)) {
+		if (!l_array.haskey(vIteratee)) {
 			l_array[vIteratee] := []
 		}
 		; add value to this key
-		l_array[vIteratee].push(Value)
+		l_array[vIteratee].push(value)
 	}
 	return l_array
 }

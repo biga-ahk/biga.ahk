@@ -1,8 +1,8 @@
 size(param_collection) {
-	
+
 	; create
-	if (param_collection.Count() > 0) {
-		return param_collection.Count()
+	if (param_collection.count() > 0) {
+		return param_collection.count()
 	}
 	if (param_collection.MaxIndex() > 0) {
 		return  param_collection.MaxIndex()

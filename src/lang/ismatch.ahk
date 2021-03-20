@@ -1,6 +1,6 @@
 isMatch(param_object,param_source) {
-	for Key, Value in param_source {
-		if (param_object[key] == Value) {
+	for key, value in param_source {
+		if (param_object[key] == value) {
 			continue
 		} else {
 			return false

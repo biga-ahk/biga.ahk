@@ -1,5 +1,5 @@
 property(param_source) {
-	if (!this.isString(param_srcValue)) {
+	if (!this.isString(param_srcvalue)) {
 		this._internal_ThrowException()
 	}
 
@@ -11,8 +11,8 @@ property(param_source) {
 	; create the fn
 	if (isObject(param_source)) {
 		keyArray := []
-		for Key, Value in param_source {
-			keyArray.push(Value)
+		for key, value in param_source {
+			keyArray.push(value)
 		}
 		boundFunc := ObjBindMethod(this, "internal_property", keyArray)
 		return boundFunc
@@ -24,12 +24,12 @@ property(param_source) {
 
 internal_property(param_property,param_itaree) {
 	if (isObject(param_property)) {
-		for Key, Value in param_property {
-			if (param_property.Count() == 1) {
-				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, Value)
-				return  ObjRawGet(param_itaree, Value)
-			} else if (param_itaree.hasKey(Value)){
-				rvalue := this.internal_property(this.tail(param_property), param_itaree[Value])
+		for key, value in param_property {
+			if (param_property.count() == 1) {
+				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, value)
+				return  ObjRawGet(param_itaree, value)
+			} else if (param_itaree.haskey(value)){
+				rvalue := this.internal_property(this.tail(param_property), param_itaree[value])
 			}
 		}
 		return rvalue

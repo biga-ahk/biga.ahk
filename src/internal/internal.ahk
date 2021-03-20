@@ -10,20 +10,20 @@ _printObj(param_obj) {
 		this._internal_ThrowException()
 	}
 
-	for Key, Value in param_obj {
-		if Key is not Number
+	for key, value in param_obj {
+		if key is not Number
 		{
-			Output .= """" . Key . """:"
+			Output .= """" . key . """:"
 		} else {
-			Output .= Key . ":"
+			Output .= key . ":"
 		}
-		if (isObject(Value)) {
-			Output .= "[" . this._printObj(Value) . "]"
-		} else if Value is not number
+		if (isObject(value)) {
+			Output .= "[" . this._printObj(value) . "]"
+		} else if value is not number
 		{
-			Output .= """" . Value . """"
+			Output .= """" . value . """"
 		} else {
-			Output .= Value
+			Output .= value
 		}
 		Output .= ", "
 	}
@@ -69,8 +69,8 @@ _internal_JSRegEx(param_string) {
 
 _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	if (isObject(param_shorthand)) {
-		for Key, in param_shorthand {
-			if (this.isNumber(Key)) {
+		for key, in param_shorthand {
+			if (this.isNumber(key)) {
 				continue
 			} else {
 				return ".matches"

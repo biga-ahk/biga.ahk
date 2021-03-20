@@ -29,12 +29,12 @@ internal_Merge(param_collection1, param_collection2) {
 	; initialize an associative array
 	combined := {}
 
-	for Key, Value in param_collection1 {
-		combined[Key] := this.internal_Merge(Value, param_collection2[Key])
+	for key, value in param_collection1 {
+		combined[key] := this.internal_Merge(value, param_collection2[key])
 	}
-	for Key, Value in param_collection2 {
-		if(!combined.hasKey(Key)) {
-			combined[Key] := Value
+	for key, value in param_collection2 {
+		if(!combined.haskey(key)) {
+			combined[key] := value
 		}
 	}
 	return combined

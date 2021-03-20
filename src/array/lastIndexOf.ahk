@@ -1,12 +1,12 @@
 lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 	if (param_fromIndex == 0) {
-		param_fromIndex := param_array.Count()
+		param_fromIndex := param_array.count()
 	}
 
 	; create
-	for Index, Value in param_array {
+	for Index, value in param_array {
 		Index -= 1
-		vNegativeIndex := param_array.Count() - Index
+		vNegativeIndex := param_array.count() - Index
 		if (vNegativeIndex > param_fromIndex) { ;skip search
 			continue
 		}

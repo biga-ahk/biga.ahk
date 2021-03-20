@@ -13,14 +13,14 @@ take(param_array,param_n:=1) {
 	l_array := []
 
 	; create
-	for Key, Value in param_array {
+	for key, value in param_array {
 		if (param_n < A_Index) {
 			break
 		}
-		l_array.push(Value)
+		l_array.push(value)
 	}
 	; return empty array if empty
-	if (l_array.Count() == 0 || param_n == 0) {
+	if (l_array.count() == 0 || param_n == 0) {
 		return []
 	}
 	return l_array

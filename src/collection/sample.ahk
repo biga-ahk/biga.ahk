@@ -11,7 +11,7 @@ sample(param_collection) {
 	}
 
 	; create
-	randomIndex := this.random(1, l_array.Count())
+	randomIndex := this.random(1, l_array.count())
 	return l_array[randomIndex]
 }
 

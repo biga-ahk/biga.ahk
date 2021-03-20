@@ -10,19 +10,19 @@ partition(param_collection,param_predicate) {
 	if (shorthand != false) {
 		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
-	for Key, Value in param_collection {
-		if (!this.isUndefined(param_predicate.call(Value))) {
+	for key, value in param_collection {
+		if (!this.isUndefined(param_predicate.call(value))) {
 			boundFunc := param_predicate.bind()
 		}
 		break
 	}
 
 	; create
-	for Key, Value in param_collection {
-		if (boundFunc.call(Value) == true) {
-			trueArray.push(Value)
+	for key, value in param_collection {
+		if (boundFunc.call(value) == true) {
+			trueArray.push(value)
 		} else {
-			falseArray.push(Value)
+			falseArray.push(value)
 		}
 	}
 	return [trueArray, falseArray]

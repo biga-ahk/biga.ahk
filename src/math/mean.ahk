@@ -4,8 +4,8 @@ mean(param_array) {
 	}
 
 	l_sum := 0
-	for Key, Value in param_array {
-		l_sum += Value
+	for key, value in param_array {
+		l_sum += value
 	}
 	return l_sum / this.size(param_array)
 }

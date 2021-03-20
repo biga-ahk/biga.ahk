@@ -13,12 +13,12 @@ forEach(param_collection,param_iteratee:="__identity") {
 
 	; create
 	; run against every value in the collection
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (!boundFunc) { ; is property/string
 			;nothing currently
 		}
-		if (!boundFunc.call(Value, Key, collectionClone)) {
-			vIteratee := param_iteratee.call(Value, Key, collectionClone)
+		if (!boundFunc.call(value, key, collectionClone)) {
+			vIteratee := param_iteratee.call(value, key, collectionClone)
 		}
 		; exit iteration early by explicitly returning false
 		if (vIteratee == false) {

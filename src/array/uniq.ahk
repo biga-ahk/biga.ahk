@@ -8,11 +8,11 @@ uniq(param_collection) {
 	l_array := []
 
 	; create
-	for Key, Value in param_collection {
-		l_printedElement := this._internal_MD5(param_collection[Key])
+	for key, value in param_collection {
+		l_printedElement := this._internal_MD5(param_collection[key])
 		if (this.indexOf(tempArray, l_printedElement) == -1) {
 			tempArray.push(l_printedElement)
-			l_array.push(Value)
+			l_array.push(value)
 		}
 	}
 	return l_array
@@ -28,5 +28,5 @@ assert.test(A.uniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "
 
 arr := [70, 88, 12, 52, 27, 14, 86, 54, 24, 55, 29, 33, 33, 25, 99]
 arr2 := A.uniq(arr)
-assert.test(arr.Count(), 15)
-assert.test(arr2.Count(), 14)
+assert.test(arr.count(), 15)
+assert.test(arr2.count(), 14)

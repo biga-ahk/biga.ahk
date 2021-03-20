@@ -4,7 +4,7 @@ sampleSize(param_collection,param_SampleSize:=1) {
 	}
 
 	; return immediately if array is smaller than requested sampleSize
-	if (param_SampleSize > param_collection.Count()) {
+	if (param_SampleSize > param_collection.count()) {
 		return param_collection
 	}
 
@@ -16,8 +16,8 @@ sampleSize(param_collection,param_SampleSize:=1) {
 	; create
 	loop, % param_SampleSize
 	{
-		orderValue := l_order.pop()
-		l_array.push(l_collection[orderValue])
+		ordervalue := l_order.pop()
+		l_array.push(l_collection[ordervalue])
 	}
 	return l_array
 }
@@ -25,15 +25,15 @@ sampleSize(param_collection,param_SampleSize:=1) {
 
 ; tests
 output := A.sampleSize([1, 2, 3], 2)
-assert.test(output.Count(), 2)
+assert.test(output.count(), 2)
 
 output := A.sampleSize([1, 2, 3], 4)
-assert.test(output.Count(), 3)
+assert.test(output.count(), 3)
 
 
 ; omit
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 2)
-assert.test(output.Count(), 2)
+assert.test(output.count(), 2)
 
 output := A.sampleSize({1:1, 8:2, "key":"value"}, 3)
 assert.true(A.includes(output, 1))

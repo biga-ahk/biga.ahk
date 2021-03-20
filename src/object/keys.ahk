@@ -4,13 +4,13 @@ keys(param_object) {
 	if (!isObject(param_object)) {
 		param_object := StrSplit(param_object)
 	}
-	l_returnKeys := []
+	l_returnkeys := []
 
 	; create
 	for key, _ in param_object {
-		l_returnKeys.push(key)
+		l_returnkeys.push(key)
 	}
-	return l_returnKeys
+	return l_returnkeys
 }
 
 

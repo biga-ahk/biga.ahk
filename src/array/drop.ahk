@@ -16,7 +16,7 @@ drop(param_array,param_n:=1) {
 		l_array.RemoveAt(1)
 	}
 	; return empty array if empty
-	if (l_array.Count() == 0) {
+	if (l_array.count() == 0) {
 		return []
 	}
 	return l_array

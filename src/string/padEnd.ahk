@@ -13,7 +13,7 @@ padEnd(param_string:="",param_length:=0,param_chars:=" ") {
 	l_string := param_string
 	while (strLen(l_string) < param_length) {
 		l_pos++
-		if (l_pos > l_pad.Count()) {
+		if (l_pos > l_pad.count()) {
 			l_pos := 1
 		}
 		l_string .= l_pad[l_pos]

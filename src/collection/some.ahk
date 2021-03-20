@@ -13,13 +13,13 @@ some(param_collection,param_predicate) {
 	}
 
 	; create
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (shorthand != false) {
-			if (boundFunc.call(Value, Key, param_collection) = true) {
+			if (boundFunc.call(value, key, param_collection) = true) {
 				return true
 			}
 		} else {
-			if (param_predicate.call(Value, Key, param_collection) == true) {
+			if (param_predicate.call(value, key, param_collection) == true) {
 				return true
 			}
 		}

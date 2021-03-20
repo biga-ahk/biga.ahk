@@ -108,10 +108,10 @@ test_head := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_head.ahk")
 test_tail := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_tail.ahk")
 
 FileAppend, %test_head%, % test_File
-loop, % The_Array.Count() {
+loop, % The_Array.count() {
 	element := The_Array[A_Index]
 	; perform the tests if in specific array or specific array is less than or 1
-	if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).Count() == 0) {
+	if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).count() == 0) {
 		FileAppend, % newline "assert.group(""." element.name """)", % test_File
 		FileAppend, % newline "assert.label(""default tests"")", % test_File
 		FileAppend, % element.tests "", % test_File
@@ -122,7 +122,7 @@ FileAppend, %test_tail%, % test_File
 ; ===============
 ; method names
 ; ===============
-loop, % The_Array.Count() {
+loop, % The_Array.count() {
 	element := The_Array[A_Index]
 	vMethodNames_Array.push(element.name)
 }
@@ -136,7 +136,7 @@ loop, % The_Array.Count() {
 FileDelete, % Readme_File
 DOCS_Array := [fn_ReadFile(A_WorkingDir "\src\_head.tail\doc_head.md")]
 
-loop, % The_Array.Count() {
+loop, % The_Array.count() {
 	element := The_Array[A_Index]
 	if (A.indexof(ignoreMethodDocsArr, element.name) != -1 || A.startsWith(element.name, "internal")) { ; skip ignored methods
 		continue
@@ -162,7 +162,7 @@ loop, % The_Array.Count() {
 	txt.push(newline newline)
 	DOCS_Array := A.concat(DOCS_Array, txt)
 }
-loop, % DOCS_Array.Count() {
+loop, % DOCS_Array.count() {
 	FileAppend, % DOCS_Array[A_Index], % Readme_File
 }
 
@@ -199,7 +199,7 @@ lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 ; blank out commented sections from lib_txt
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
 while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
-	lib_txt := A.replace(lib_txt, RE_Match.Value(), "")
+	lib_txt := A.replace(lib_txt, RE_Match.value(), "")
 }
 FileAppend, %lib_txt%, % lib_File
 
@@ -227,39 +227,39 @@ fn_BuildExample(param_tests) {
 	global
 	return_array := []
 
-	for Key, Value in param_tests {
+	for key, value in param_tests {
 		; stop parsing if omit section reached
-		if (A.includes(Value,"; omit")) {
+		if (A.includes(value,"; omit")) {
 			break
 		}
 		; skip this line if part of assert.label
-		if (A.includes(Value,"assert.label")) {
+		if (A.includes(value,"assert.label")) {
 			continue
 		}
 
-		hey := Fn_QuickRegEx(Value,testtest,0)
+		hey := Fn_QuickRegEx(value,testtest,0)
 		if (hey.count() = 2) {
-			return_array.push(settings.objectName hey.Value(1) "`n; => " hey.Value(2) newline newline)
+			return_array.push(settings.objectName hey.value(1) "`n; => " hey.value(2) newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(Value,testnotequal,0)
+		hey := Fn_QuickRegEx(value,testnotequal,0)
 		if (hey.count() = 2) {
-			return_array.push(settings.objectName hey.Value(1) "`n; => " hey.Value(2) newline newline)
+			return_array.push(settings.objectName hey.value(1) "`n; => " hey.value(2) newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(Value,testtrue,0)
+		hey := Fn_QuickRegEx(value,testtrue,0)
 		if (hey.count() = 2) {
-			return_array.push(hey.Value(1) hey.Value(2) "`n; => true" newline newline)
+			return_array.push(hey.value(1) hey.value(2) "`n; => true" newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(Value,testfalse,0)
+		hey := Fn_QuickRegEx(value,testfalse,0)
 		if (hey.count() = 2) {
-			return_array.push(hey.Value(1) hey.Value(2)"`n; => false" newline newline)
+			return_array.push(hey.value(1) hey.value(2)"`n; => false" newline newline)
 			continue
 		}
 
-		if (A.size(Value) > 1) {
-			return_array.push(Value)
+		if (A.size(value) > 1) {
+			return_array.push(value)
 		}
 	}
 	return return_array

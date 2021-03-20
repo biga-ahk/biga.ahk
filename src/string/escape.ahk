@@ -6,8 +6,8 @@ escape(param_string:="") {
 	; prepare
 	HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
-	for Key, Value in HTMLmap {
-		element := Value
+	for key, value in HTMLmap {
+		element := value
 		param_string := StrReplace(param_string, element.1, element.2, , -1)
 	}
 	return param_string

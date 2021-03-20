@@ -12,10 +12,10 @@ flattenDeep(param_array) {
 
 
 depthOf(param_obj,param_depth:=1) {
-	for Key, Value in param_obj {
-		if (isObject(Value)) {
+	for key, value in param_obj {
+		if (isObject(value)) {
 			param_depth++
-			param_depth := this.depthOf(Value, param_depth)
+			param_depth := this.depthOf(value, param_depth)
 		}
 	}
 	return param_depth

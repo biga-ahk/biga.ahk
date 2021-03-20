@@ -8,13 +8,13 @@ pick(param_object,param_paths) {
 
 	; create
 	if (isObject(param_paths)) {
-		for Key, Value in param_paths {
-			vValue := this.internal_property(Value, param_object)
-			l_obj[Value] := vValue
+		for key, value in param_paths {
+			vvalue := this.internal_property(value, param_object)
+			l_obj[value] := vvalue
 		}
 	} else {
-		vValue := this.internal_property(param_paths, param_object)
-		l_obj[param_paths] := vValue
+		vvalue := this.internal_property(param_paths, param_object)
+		l_obj[param_paths] := vvalue
 	}
 	return l_obj
 }

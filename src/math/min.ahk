@@ -4,9 +4,9 @@ min(param_array) {
 	}
 
 	l_min := ""
-	for Key, Value in param_array {
-		if (l_min > Value || this.isUndefined(l_min)) {
-			l_min := Value
+	for key, value in param_array {
+		if (l_min > value || this.isUndefined(l_min)) {
+			l_min := value
 		}
 	}
 	return l_min

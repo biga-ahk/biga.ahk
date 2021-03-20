@@ -4,8 +4,8 @@ sum(param_array) {
 	}
 
 	vSum := 0
-	for Key, Value in param_array {
-		vSum += Value
+	for key, value in param_array {
+		vSum += value
 	}
 	return vSum
 }

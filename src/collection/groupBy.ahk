@@ -16,25 +16,25 @@ groupBy(param_collection,param_iteratee:="__identity") {
 
 	; create
 	l_array := []
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (thisThing == "boundfunc") {
 			; calling own method
-			vIteratee := boundFunc.call(Value)
+			vIteratee := boundFunc.call(value)
 		} else {
 			; functor
-			vIteratee := param_iteratee.call(Value)
+			vIteratee := param_iteratee.call(value)
 		}
 		if (shorthand == ".property") {
 			; property shorthand
-			vIteratee := Value[param_iteratee]
+			vIteratee := value[param_iteratee]
 		}
 
 		; create array at key if not encountered yet
-		if (!l_array.hasKey(vIteratee)) {
+		if (!l_array.haskey(vIteratee)) {
 			l_array[vIteratee] := []
 		}
 		; add value to this key
-		l_array[vIteratee].push(Value)
+		l_array[vIteratee].push(value)
 	}
 	return l_array
 }

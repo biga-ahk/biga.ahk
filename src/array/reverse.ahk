@@ -8,7 +8,7 @@ reverse(param_collection) {
 	l_array := []
 
 	; create
-	while (l_collection.Count() != 0) {
+	while (l_collection.count() != 0) {
 		l_array.push(l_collection.pop())
 	}
 	return l_array

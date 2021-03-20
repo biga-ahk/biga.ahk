@@ -10,14 +10,14 @@ sortBy(param_collection,param_iteratees:="") {
 	; if called with a function
 	if (IsFunc(param_iteratees)) {
 		tempArray := []
-		for Key, Value in param_collection {
-			l_index := param_iteratees.call(param_collection[Key])
-			param_collection[Key]._temp_bigaSortIndex := l_index
-			tempArray.push(param_collection[Key])
+		for key, value in param_collection {
+			l_index := param_iteratees.call(param_collection[key])
+			param_collection[key]._temp_bigaSortIndex := l_index
+			tempArray.push(param_collection[key])
 		}
 		l_array := this.sortBy(tempArray, "_temp_bigaSortIndex")
-		for Key, Value in l_array {
-			l_array[Key].delete("_temp_bigaSortIndex")
+		for key, value in l_array {
+			l_array[key].delete("_temp_bigaSortIndex")
 		}
 		return l_array
 	}
@@ -25,8 +25,8 @@ sortBy(param_collection,param_iteratees:="") {
 	; if called with shorthands
 	if (isObject(param_iteratees)) {
 		; sort the collection however many times is requested by the shorthand identity
-		for Key, Value in param_iteratees {
-			l_array := this.internal_sort(l_array, Value)
+		for key, value in param_iteratees {
+			l_array := this.internal_sort(l_array, value)
 		}
 	} else {
 		l_array := this.internal_sort(l_array, param_iteratees)
@@ -43,16 +43,16 @@ internal_sort(param_collection,param_iteratees:="") {
 			out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
 			; out will look like:   value+index|value+index|
 		}
-		lastValue := l_array[Index, param_iteratees]
+		lastvalue := l_array[Index, param_iteratees]
 	} else {
 		; sort regular arrays
 		for Index, obj in l_array {
 			out .= obj "+" Index "|"
 		}
-		lastValue := l_array[l_array.Count()]
+		lastvalue := l_array[l_array.count()]
 	}
 
-	if lastValue is number
+	if lastvalue is number
 	{
 		sortType := "N"
 	}

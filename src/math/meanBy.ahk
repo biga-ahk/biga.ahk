@@ -19,23 +19,23 @@ meanBy(param_array,param_iteratee:="__identity") {
 	l_total := 0
 
 	; run against every value in the array
-	for Key, Value in param_array {
+	for key, value in param_array {
 		; shorthand
 		if (shorthand == ".property") {
 			fn := this.property(param_iteratee)
-			l_iteratee := fn.call(Value)
+			l_iteratee := fn.call(value)
 		}
 		if (boundFunc) {
-			l_iteratee := boundFunc.call(Value)
+			l_iteratee := boundFunc.call(value)
 		}
 		if (param_iteratee.maxParams == 1) {
-			if (!boundFunc.call(Value)) {
-				l_iteratee := param_iteratee.call(Value)
+			if (!boundFunc.call(value)) {
+				l_iteratee := param_iteratee.call(value)
 			}
 		}
 		l_total += l_iteratee
 	}
-	return l_total / param_array.Count()
+	return l_total / param_array.count()
 }
 
 

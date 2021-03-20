@@ -1,6 +1,6 @@
 intersection(param_arrays*) {
-	for Key, Value in param_arrays {
-		if (!isObject(Value)) {
+	for key, value in param_arrays {
+		if (!isObject(value)) {
 			this._internal_ThrowException()
 		}
 	}
@@ -11,18 +11,18 @@ intersection(param_arrays*) {
 	l_array := []
 
 	; create
-	for Key, Value in tempArray { ;for each value in first array
-		for Key2, Value2 in param_arrays { ;for each array sent to the method
+	for key, value in tempArray { ;for each value in first array
+		for key2, value2 in param_arrays { ;for each array sent to the method
 			; search all arrays for value in first array
-			if (this.indexOf(Value2, Value) != -1) {
+			if (this.indexOf(value2, value) != -1) {
 				found := true
 			} else {
 				found := false
 				break
 			}
 		}
-		if (found && this.indexOf(l_array, Value) == -1) {
-			l_array.push(Value)
+		if (found && this.indexOf(l_array, value) == -1) {
+			l_array.push(value)
 		}
 	}
 	return l_array

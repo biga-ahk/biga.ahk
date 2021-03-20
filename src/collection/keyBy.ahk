@@ -16,26 +16,26 @@ keyBy(param_collection,param_iteratee:="__identity") {
 
 
 	; run against every value in the collection
-	for Key, Value in param_collection {
+	for key, value in param_collection {
 		if (!boundFunc) { ; is property/string
 			;nothing currently
 		}
 		if (l_paramAmmount == 3) {
-			if (!boundFunc.call(Value, Key, collectionClone)) {
-				vIteratee := param_iteratee.call(Value, Key, collectionClone)
+			if (!boundFunc.call(value, key, collectionClone)) {
+				vIteratee := param_iteratee.call(value, key, collectionClone)
 			}
 		}
 		if (l_paramAmmount == 2) {
-			if (!boundFunc.call(Value, Key)) {
-				vIteratee := param_iteratee.call(Value, Key)
+			if (!boundFunc.call(value, key)) {
+				vIteratee := param_iteratee.call(value, key)
 			}
 		}
 		if (l_paramAmmount == 1) {
-			if (!boundFunc.call(Value)) {
-				vIteratee := param_iteratee.call(Value)
+			if (!boundFunc.call(value)) {
+				vIteratee := param_iteratee.call(value)
 			}
 		}
-		ObjRawSet(l_obj, vIteratee, Value)
+		ObjRawSet(l_obj, vIteratee, value)
 	}
 	return l_obj
 }

@@ -8,14 +8,14 @@ startCase(param_string:="") {
 
 	; add space before each capitalized character
 	RegExMatch(l_string, "O)([A-Z])", RE_Match)
-	if (RE_Match.Count()) {
-		loop, % RE_Match.Count() {
+	if (RE_Match.count()) {
+		loop, % RE_Match.count() {
 			l_string := % SubStr(l_string, 1, RE_Match.Pos(A_Index) - 1) " " SubStr(l_string, RE_Match.Pos(A_Index))
 		}
 	}
 	; Split the string into array and Titlecase each element in the array
 	l_array := StrSplit(l_string, " ")
-	loop, % l_array.Count() {
+	loop, % l_array.count() {
 		l_string := l_array[A_Index]
 		StringUpper, l_string, l_string, T
 		l_array[A_Index] := l_string

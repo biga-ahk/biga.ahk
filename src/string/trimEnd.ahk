@@ -9,11 +9,11 @@ trimEnd(param_string,param_chars:="") {
 		return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
 	} else {
 		l_array := StrSplit(param_chars, "")
-		for Key, Value in l_array {
-			if (this.includes(Value, "/[a-zA-Z0-9]/")) {
-				l_removechars .= Value
+		for key, value in l_array {
+			if (this.includes(value, "/[a-zA-Z0-9]/")) {
+				l_removechars .= value
 			} else {
-				l_removechars .= "\" Value
+				l_removechars .= "\" value
 			}
 		}
 		; replace ending characters

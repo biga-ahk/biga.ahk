@@ -3,11 +3,11 @@ cloneDeep(param_array) {
 	Objs := {}
 	Obj := param_array.Clone()
 	Objs[&param_array] := Obj ; Save this new array
-	for Key, Value in Obj {
-		if (isObject(Value)) ; if it is a subarray
-			Obj[Key] := Objs[&Value] ; if we already know of a refrence to this array
-			? Objs[&Value] ; Then point it to the new array
-			: this.clone(Value, Objs) ; Otherwise, clone this sub-array
+	for key, value in Obj {
+		if (isObject(value)) ; if it is a subarray
+			Obj[key] := Objs[&value] ; if we already know of a refrence to this array
+			? Objs[&value] ; Then point it to the new array
+			: this.clone(value, Objs) ; Otherwise, clone this sub-array
 	}
 	return Obj
 }
