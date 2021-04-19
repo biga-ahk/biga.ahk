@@ -19,3 +19,5 @@ assert.test(A.max([]), "")
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.max({"foo": 10, "bar": 20}), 20)

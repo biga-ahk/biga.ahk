@@ -19,3 +19,5 @@ assert.test(A.min([]), "")
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.min({"foo": 10, "bar": 20}), 10)
