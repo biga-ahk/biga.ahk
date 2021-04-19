@@ -26,7 +26,7 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 			continue
 		}
 		; shorthand
-		if (shorthand != false && boundFunc.call(value)) {
+		if (boundFunc.call(value) && shorthand) {
 			return value
 		}
 	}
@@ -35,15 +35,13 @@ find(param_collection,param_predicate,param_fromindex:=1) {
 
 
 ; tests
-users := [ { "user": "barney", "age": 36, "active": true }
-	, { "user": "fred", "age": 40, "active": false }
-	, { "user": "pebbles", "age": 1, "active": true } ]
+users := [ {"user": "barney", "age": 36, "active": true}
+	, {"user": "fred", "age": 40, "active": false}
+	, {"user": "pebbles", "age": 1, "active": true} ]
 
 assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
 fn_findFunc(o) {
-	if (o.active) {
-		return true
-	}
+	return o.active
 }
 
 ; The A.matches iteratee shorthand.

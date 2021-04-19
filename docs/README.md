@@ -1186,10 +1186,10 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }	, { "user": "fred", "age": 40, "active": false }	, { "user": "pebbles", "age": 1, "active": true } ]A.find(users, Func("fn_findFunc"))
+users := [ {"user": "barney", "age": 36, "active": true}	, {"user": "fred", "age": 40, "active": false}	, {"user": "pebbles", "age": 1, "active": true} ]A.find(users, Func("fn_findFunc"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_findFunc(o) {	if (o.active) {		return true	}}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
+fn_findFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
 
 ; The A.matchesProperty iteratee shorthand.A.find(users, ["active", false])
@@ -2208,6 +2208,28 @@ object (Object): The destination object.
 ```autohotkey
 A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 ; => {"a": 1, "b": 2}
+
+```
+
+
+
+## .findKey
+
+
+#### Example
+
+```autohotkey
+users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, Func("fn_findKeyFunc"))
+; => "barney"
+
+fn_findKeyFunc(o) {	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
+; => "pebbles"
+
+; The A.matchesProperty iteratee shorthand.A.findKey(users, ["active", false])
+; => "fred"
+
+; The A.property iteratee shorthand.A.findKey(users, "active")
+; => "barney"
 
 ```
 
