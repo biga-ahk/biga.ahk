@@ -11,7 +11,7 @@ map(param_collection,param_iteratee:="__identity") {
 	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
 		param_iteratee := param_iteratee.bind(this)
 	}
-	param_collection := param_collection.clone()
+	param_collection := this.cloneDeep(param_collection)
 	l_array := []
 
 	; create
