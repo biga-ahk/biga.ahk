@@ -78,9 +78,9 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		}
 		return ".matchesProperty"
 	}
-	if (this.size(param_shorthand) > 0) {
-		if (isObject(param_objects)) {
-			if (this.head(param_objects).hasKey(param_shorthand)) {
+	if (strLen(param_shorthand) > 0 && isObject(param_objects)) {
+		for key, value in param_objects {
+			if (value.hasKey(param_shorthand)) {
 				return ".property"
 			}
 		}
