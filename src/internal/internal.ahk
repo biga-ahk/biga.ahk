@@ -69,12 +69,8 @@ _internal_JSRegEx(param_string) {
 
 _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	if (isObject(param_shorthand)) {
-		for key, in param_shorthand {
-			if (this.isNumber(key)) {
-				continue
-			} else {
-				return ".matches"
-			}
+		if (param_shorthand.maxIndex() != param_shorthand.count()) {
+			return ".matches"
 		}
 		return ".matchesProperty"
 	}
