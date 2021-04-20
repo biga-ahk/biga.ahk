@@ -1346,7 +1346,7 @@ class biga {
 		}
 		if (this.size(param_shorthand) > 0) {
 			if (isObject(param_objects)) {
-				if (this.head(param_objects)[param_shorthand] != "") {
+				if (this.head(param_objects).hasKey(param_shorthand)) {
 					return ".property"
 				}
 			}
