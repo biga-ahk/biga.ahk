@@ -1202,6 +1202,30 @@ fn_findFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.find(u
 
 
 
+## .findLast
+This method is like `A.find` except that it iterates over elements of collection from right to left.
+
+
+#### Arguments
+collection (Array|Object): The collection to inspect.
+
+function (Function): The function invoked per iteration.
+
+
+#### Returns
+(*): Returns the matched element, else false.
+
+
+#### Example
+
+```autohotkey
+A.findLast([1, 2, 3, 4], Func("fn_findLastFunc"))
+; => 3
+
+fn_findLastFunc(n) {	return mod(n, 2) == 1}```
+
+
+
 ## .forEach
 Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
 
@@ -2214,6 +2238,19 @@ A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 
 
 ## .findKey
+This method is like `A.find` except that it returns the key of the first element predicate returns truthy for instead of the element itself.
+
+
+#### Arguments
+collection (Array|Object): The collection to inspect.
+
+function (Function): The function invoked per iteration.
+
+[fromIndex:=1] (number): The index to search from.
+
+
+#### Returns
+(*): Returns the matched element, else false.
 
 
 #### Example
