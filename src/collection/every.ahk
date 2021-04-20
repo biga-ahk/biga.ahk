@@ -34,10 +34,9 @@ every(param_collection,param_predicate) {
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
 assert.true(A.every(users, func("fn_isOver18")))
-fn_isOver18(x) {
-	if (x.age > 18) {
-		return true
-	}
+fn_isOver18(o)
+{
+	return % o.age >= 18
 }
 
 ; The `A.matches` iteratee shorthand.
@@ -61,7 +60,8 @@ isPositive(value) {
 }
 
 assert.false(A.every([true, false, true, true], Func("fn_istrue")))
-fn_istrue(value) {
+fn_istrue(value)
+{
 	if (value != true) {
 		return false
 	}

@@ -1121,7 +1121,7 @@ collection (Array|Object): The collection to iterate over.
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18")
 ; => true
 
-fn_isOver18(x) {	if (x.age > 18) {		return true	}}; The `A.matches` iteratee shorthand.A.every(users, { "user": "barney", "age": 36, "active": false })
+fn_isOver18(o){	return % o.age >= 18}; The `A.matches` iteratee shorthand.A.every(users, { "user": "barney", "age": 36, "active": false })
 ; => false
 
 ; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
@@ -1154,7 +1154,7 @@ function (Function): The function invoked per iteration.
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filterFunc(param_iteratee) {	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
+fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ; The A.matchesProperty shorthandA.filter(users, ["active", false])
@@ -1189,7 +1189,7 @@ function (Function): The function invoked per iteration.
 users := [ {"user": "barney", "age": 36, "active": true}	, {"user": "fred", "age": 40, "active": false}	, {"user": "pebbles", "age": 1, "active": true} ]A.find(users, Func("fn_findFunc"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_findFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
+fn_findFunc(o){	return o.active}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
 
 ; The A.matchesProperty iteratee shorthand.A.find(users, ["active", false])
@@ -1222,7 +1222,7 @@ function (Function): The function invoked per iteration.
 A.findLast([1, 2, 3, 4], Func("fn_findLastFunc"))
 ; => 3
 
-fn_findLastFunc(n) {	return mod(n, 2) == 1}```
+fn_findLastFunc(n){	return mod(n, 2) == 1}```
 
 
 
@@ -1248,13 +1248,15 @@ collection (Array|Object): The collection to iterate over.
 
 ```autohotkey
 A.forEach([1, 2], Func("fn_forEachFunc1"))
-fn_forEachFunc1(value) {
+fn_forEachFunc1(value)
+{
     msgbox, % value
 }
 ; msgboxes 1 then 2
 
 A.forEach({ "a": 1, "b": 2 }, Func("fn_forEachFunc2"))
-fn_forEachFunc2(value, key) {
+fn_forEachFunc2(value, key)
+{
     msgbox, % key
 }
 ; msgboxes "a" then "b"
@@ -1376,7 +1378,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-fn_square(n) {	return  n * n}A.map([4, 8], Func("fn_square"))
+fn_square(n){	return  n * n}A.map([4, 8], Func("fn_square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, Func("fn_square"))
@@ -1412,7 +1414,7 @@ collection (Array|Object): The collection to iterate over.
 users := [ { "user": "barney", "age": 36, "active": false }	, { "user": "fred", "age": 40, "active": true }	, { "user": "pebbles", "age": 1, "active": false } ]A.partition(users, func("fn_partitionFunc"))
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
-fn_partitionFunc(o) {	return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
+fn_partitionFunc(o){	return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
 ; => [[{ "user": "pebbles", "age": 1, "active": false }], [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": true }]]
 
 ; The A.propertyMatches iteratee shorthand.A.partition(users, ["active", false])
@@ -1444,7 +1446,7 @@ collection (Array|Object): The collection to iterate over.
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, Func("fn_rejectFunc"))
 ; => [{"user":"fred", "age":40, "active":true}]
 
-fn_rejectFunc(o) {	return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
+fn_rejectFunc(o){	return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
 ; => [{"user":"barney", "age":36, "active":false}]
 
 ; The A.matchesProperty shorthandA.reject(users, ["active", false])
@@ -1613,7 +1615,7 @@ A.sortBy(users, ["age", "name"])
 A.sortBy(users, Func("fn_sortByFunc"))
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
-fn_sortByFunc(o) {	return o.name}```
+fn_sortByFunc(o){	return o.name}```
 
 
 
@@ -2259,7 +2261,7 @@ function (Function): The function invoked per iteration.
 users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, Func("fn_findKeyFunc"))
 ; => "barney"
 
-fn_findKeyFunc(o) {	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
+fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
 ; => "pebbles"
 
 ; The A.matchesProperty iteratee shorthand.A.findKey(users, ["active", false])

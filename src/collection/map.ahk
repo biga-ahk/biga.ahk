@@ -33,7 +33,8 @@ map(param_collection,param_iteratee:="__identity") {
 
 
 ; tests
-fn_square(n) {
+fn_square(n)
+{
 	return  n * n
 }
 

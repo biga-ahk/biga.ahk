@@ -40,7 +40,8 @@ users := { "barney": {"age": 36, "active": true}
 , "pebbles": {"age": 1, "active": true} }
 
 assert.test(A.findKey(users, Func("fn_findKeyFunc")), "barney")
-fn_findKeyFunc(o) {
+fn_findKeyFunc(o)
+{
 	return o.age < 40
 }
 

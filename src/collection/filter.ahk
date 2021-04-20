@@ -51,7 +51,8 @@ filter(param_collection,param_predicate:="__identity") {
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
-fn_filterFunc(param_iteratee) {
+fn_filterFunc(param_iteratee)
+{
 	if (param_iteratee.active) {
 		return true
 	}

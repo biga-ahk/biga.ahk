@@ -484,10 +484,9 @@ assert.label("default tests")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
 
 assert.true(A.every(users, func("fn_isOver18")))
-fn_isOver18(x) {
-	if (x.age > 18) {
-		return true
-	}
+fn_isOver18(o)
+{
+	return % o.age >= 18
 }
 
 ; The `A.matches` iteratee shorthand.
@@ -511,7 +510,8 @@ isPositive(value) {
 }
 
 assert.false(A.every([true, false, true, true], Func("fn_istrue")))
-fn_istrue(value) {
+fn_istrue(value)
+{
 	if (value != true) {
 		return false
 	}
@@ -536,7 +536,8 @@ assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
 assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
-fn_filterFunc(param_iteratee) {
+fn_filterFunc(param_iteratee)
+{
 	if (param_iteratee.active) {
 		return true
 	}
@@ -578,15 +579,14 @@ fn_filter4(param_iteratee, param_key, param_collection) {
 
 assert.group(".find")
 assert.label("default tests")
-users := [ { "user": "barney", "age": 36, "active": true }
-	, { "user": "fred", "age": 40, "active": false }
-	, { "user": "pebbles", "age": 1, "active": true } ]
+users := [ {"user": "barney", "age": 36, "active": true}
+	, {"user": "fred", "age": 40, "active": false}
+	, {"user": "pebbles", "age": 1, "active": true} ]
 
 assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
-fn_findFunc(o) {
-	if (o.active) {
-		return true
-	}
+fn_findFunc(o)
+{
+	return o.active
 }
 
 ; The A.matches iteratee shorthand.
@@ -602,13 +602,24 @@ assert.test(A.find(users, "active"), { "user": "barney", "age": 36, "active": tr
 ; omit
 assert.test(A.find(users, "active", 2), { "user": "pebbles", "age": 1, "active": true }) ;fromindex argument
 
+assert.group(".findLast")
+assert.label("default tests")
+assert.test(A.findLast([1, 2, 3, 4], Func("fn_findLastFunc")), 3)
+fn_findLastFunc(n)
+{
+	return mod(n, 2) == 1
+}
+
+; omit
+
 assert.group(".forEach")
 assert.label("default tests")
 
 
 ; omit
 assert.test(A.forEach([1, 2], Func("fn_forEachFunc")), [1, 2])
-fn_forEachFunc(value) {
+fn_forEachFunc(value)
+{
    ; msgbox, % value
 }
 ; msgboxes `1` then `2`
@@ -664,7 +675,8 @@ fn_keyByFunc(value)
 
 assert.group(".map")
 assert.label("default tests")
-fn_square(n) {
+fn_square(n)
+{
 	return  n * n
 }
 
@@ -702,7 +714,8 @@ users := [ { "user": "barney", "age": 36, "active": false }
 	, { "user": "pebbles", "age": 1, "active": false } ]
 
 assert.test(A.partition(users, func("fn_partitionFunc")), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
-fn_partitionFunc(o) {
+fn_partitionFunc(o)
+{
 	return o.active
 }
 
@@ -720,7 +733,8 @@ assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
 
 assert.test(A.reject(users, Func("fn_rejectFunc")), [{"user":"fred", "age":40, "active":true}])
-fn_rejectFunc(o) {
+fn_rejectFunc(o)
+{
 	return !o.active
 }
 
@@ -847,7 +861,8 @@ users := [
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
 assert.test(A.sortBy(users, Func("fn_sortByFunc")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
-fn_sortByFunc(o) {
+fn_sortByFunc(o)
+{
 	return o.name
 }
 
@@ -1054,6 +1069,8 @@ assert.test(A.max([]), "")
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.max({"foo": 10, "bar": 20}), 20)
 
 assert.group(".mean")
 assert.label("default tests")
@@ -1091,6 +1108,8 @@ assert.test(A.min([]), "")
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.min({"foo": 10, "bar": 20}), 10)
 
 assert.group(".multiply")
 assert.label("default tests")
@@ -1189,6 +1208,31 @@ assert.test(A.defaults({"a": 1}, {"b": 2}, {"a": 3}), {"a": 1, "b": 2})
 object := {"a": 1}
 assert.test(A.defaults(object, {"b": 2, "c": 3}), {"a": 1, "b": 2, "c": 3})
 assert.test(object, {"a": 1})
+
+assert.group(".findKey")
+assert.label("default tests")
+users := { "barney": {"age": 36, "active": true}
+, "fred": {"age": 40, "active": false}
+, "pebbles": {"age": 1, "active": true} }
+
+assert.test(A.findKey(users, Func("fn_findKeyFunc")), "barney")
+fn_findKeyFunc(o)
+{
+	return o.age < 40
+}
+
+; The A.matches iteratee shorthand.
+assert.test(A.findKey(users, {"age": 1, "active": true}), "pebbles")
+
+; The A.matchesProperty iteratee shorthand.
+assert.test(A.findKey(users, ["active", false]), "fred")
+
+; The A.property iteratee shorthand.
+assert.test(A.findKey(users, "active"), "barney")
+
+
+; omit
+assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
 
 assert.group(".keys")
 assert.label("default tests")
