@@ -201,6 +201,8 @@ lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 	lib_txt := A.replace(lib_txt, RE_Match.value(), "")
 }
+; remove blank lines
+; lib_txt := A.replace(lib_txt, "/([`r`n]+)/","`r`n")
 FileAppend, %lib_txt%, % lib_File
 
 ; === GLOBAL TESTS ===

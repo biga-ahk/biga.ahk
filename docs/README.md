@@ -90,6 +90,37 @@ A.concat(array)
 
 
 
+## .depthOf
+This method is explores the array and returns the maximum depth.
+
+
+#### Arguments
+array (Array): The array to inspect.
+
+
+#### Returns
+(number): Returns the maximum depth.
+
+
+#### Example
+
+```autohotkey
+A.depthOf([1])
+; => 1
+
+A.depthOf([1, [2]])
+; => 2
+
+A.depthOf([1, [[2]]])
+; => 3
+
+A.depthOf([1, [2, [3, [4]], 5]])
+; => 4
+
+```
+
+
+
 ## .difference
 Creates an array of array values not included in the other given arrays. The order and references of result values are determined by the first array.
 
@@ -299,7 +330,7 @@ A.fill([4, 6, 8, 10], "*", 2, 3)
 
 
 ## .findIndex
-This method is like A.find except that it returns the index of the first element predicate returns truthy for instead of the element itself.
+This method is like `A.find` except that it returns the index of the first element predicate returns truthy for instead of the element itself.
 
 
 #### Arguments
