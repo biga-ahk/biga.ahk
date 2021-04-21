@@ -1646,7 +1646,10 @@ A.sortBy(users, ["age", "name"])
 A.sortBy(users, Func("fn_sortByFunc"))
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
-fn_sortByFunc(o){	return o.name}```
+fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sortBy(["ab", "a", " abc", "abc"], A.size)
+; => ["a", "ab", "abc", " abc"]
+
+```
 
 
 
