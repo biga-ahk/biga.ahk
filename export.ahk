@@ -1,12 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -65,6 +57,19 @@ class biga {
 			}
 		}
 		return l_array
+	}
+	depthOf(param_array,param_depth:=1) {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
+
+		for key, value in param_array {
+			if (isObject(value)) {
+				param_depth++
+				param_depth := this.depthOf(value, param_depth)
+			}
+		}
+		return param_depth
 	}
 	difference(param_array,param_values*) {
 		if (!isObject(param_array)) {
@@ -289,16 +294,6 @@ class biga {
 
 		; create
 		return this.flattenDepth(param_array, l_depth)
-	}
-
-	depthOf(param_obj,param_depth:=1) {
-		for key, value in param_obj {
-			if (isObject(value)) {
-				param_depth++
-				param_depth := this.depthOf(value, param_depth)
-			}
-		}
-		return param_depth
 	}
 	flattenDepth(param_array,param_depth:=1) {
 		if (!isObject(param_array)) {
@@ -1200,66 +1195,72 @@ class biga {
 		}
 		return false
 	}
-	sortBy(param_collection,param_iteratees:="") {
+	sortBy(param_collection,param_iteratees:="__identity") {
 		if (!isObject(param_collection)) {
 			this._internal_ThrowException()
 		}
-
 		; prepare
-		l_array := this.cloneDeep(param_collection)
+		if (this.startsWith(param_iteratees.name, this.__Class ".")) { ;if starts with "biga."
+			thisThing := "boundfunc"
+		}
+		l_array := []
 
 		; create
-		; if called with a function
-		if (isFunc(param_iteratees)) {
-			tempArray := []
-			for key, value in param_collection {
-				l_index := param_iteratees.call(param_collection[key])
-				param_collection[key]._temp_bigaSortIndex := l_index
-				tempArray.push(param_collection[key])
+		; no param_iteratees
+		if (param_iteratees == "__identity") {
+			return this._internal_sort(param_collection)
+		}
+		if (this.isAlnum(param_iteratees)) {
+			return this._internal_sort(param_collection, param_iteratees)
+		}
+		; own method or function
+		if (param_iteratees.maxParams > 0) {
+			if (thisThing == "boundfunc") {
+				param_iteratees := param_iteratees.bind(this)
 			}
-			l_array := this.sortBy(tempArray, "_temp_bigaSortIndex")
-			for key, value in l_array {
-				l_array[key].delete("_temp_bigaSortIndex")
+			for key, value in param_collection {
+				l_array[A_Index] := {}
+				l_array[A_Index].value := value
+				l_array[A_Index].key := param_iteratees.call(value)
+			}
+			l_array := this._internal_sort(l_array, "key")
+			return this.map(l_array, "value")
+		}
+		; shorthand/multiple keys
+		if (isObject(param_iteratees)) {
+			l_array := this.cloneDeep(param_collection)
+			; sort the collection however many times is requested by the shorthand identity
+			for key, value in param_iteratees {
+				l_array := this._internal_sort(l_array, value)
 			}
 			return l_array
 		}
-
-		; if called with shorthands
-		if (isObject(param_iteratees)) {
-			; sort the collection however many times is requested by the shorthand identity
-			for key, value in param_iteratees {
-				l_array := this.internal_sort(l_array, value)
-			}
-		} else {
-			l_array := this.internal_sort(l_array, param_iteratees)
-		}
-		return l_array
+		return -1
 	}
 
-	internal_sort(param_collection,param_iteratees:="") {
+	_internal_sort(param_collection,param_iteratees:="") {
 		l_array := this.cloneDeep(param_collection)
 
+		; associative arrays
 		if (param_iteratees != "") {
-			; sort associative arrays
 			for Index, obj in l_array {
 				out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
 				; out will look like:   value+index|value+index|
 			}
 			lastvalue := l_array[Index, param_iteratees]
 		} else {
-			; sort regular arrays
+			; regular arrays
 			for Index, obj in l_array {
 				out .= obj "+" Index "|"
 			}
 			lastvalue := l_array[l_array.count()]
 		}
 
-		if lastvalue is number
-		{
+		if (this.isNumber(lastvalue)) {
 			sortType := "N"
 		}
-		StringTrimRight, out, out, 1 ; remove trailing |
-		Sort, out, % "D| " sortType
+		stringTrimRight, out, out, 1 ; remove trailing |
+		sort, out, % "D| " sortType
 		arrStorage := []
 		loop, parse, out, |
 		{
@@ -1335,17 +1336,13 @@ class biga {
 
 	_internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		if (isObject(param_shorthand)) {
-			for key, in param_shorthand {
-				if (this.isNumber(key)) {
-					continue
-				} else {
-					return ".matches"
-				}
+			if (param_shorthand.maxIndex() != param_shorthand.count()) {
+				return ".matches"
 			}
 			return ".matchesProperty"
 		}
 		if (strLen(param_shorthand) > 0 && isObject(param_objects)) {
-			for , value in param_objects {
+			for key, value in param_objects {
 				if (value.hasKey(param_shorthand)) {
 					return ".property"
 				}
@@ -1788,6 +1785,70 @@ class biga {
 			l_returnkeys.push(key)
 		}
 		return l_returnkeys
+	}
+	mapKeys(param_object,param_iteratee:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+		if (shorthand == ".property") {
+			param_iteratee := this.property(param_iteratee)
+		}
+		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+			param_iteratee := param_iteratee.bind(this)
+		}
+		param_object := this.cloneDeep(param_object)
+		l_array := {}
+
+		; create
+		for key, value in param_object {
+			if (param_iteratee == "__identity") {
+				l_array[value] := A_Index
+				continue
+			}
+			; calling own method
+			if (!isFunc(param_iteratee)) { ;somehow NOT a function
+				l_array[param_iteratee.call(value, key)] := A_Index
+				continue
+			}
+			; regular function
+			l_array[param_iteratee.call(value, key, param_object)] := A_Index
+		}
+		return l_array
+	}
+	mapValues(param_object,param_iteratee:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+		if (shorthand == ".property") {
+			param_iteratee := this.property(param_iteratee)
+		}
+		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+			param_iteratee := param_iteratee.bind(this)
+		}
+		param_object := this.cloneDeep(param_object)
+		l_array := {}
+
+		; create
+		for key, value in param_object {
+			if (param_iteratee == "__identity") {
+				l_array[key] := value
+				continue
+			}
+			; calling own method
+			if (!isFunc(param_iteratee)) { ;somehow NOT a function
+				l_array[key] := param_iteratee.call(value, key)
+				continue
+			}
+			; regular function
+			l_array[key] := param_iteratee.call(value, key, param_object)
+		}
+		return l_array
 	}
 	merge(param_collections*) {
 		if (!isObject(param_collections)) {
@@ -2427,8 +2488,4 @@ class biga {
 		}
 		return l_array
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}
