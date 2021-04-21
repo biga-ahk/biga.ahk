@@ -1,63 +1,70 @@
-sortBy(param_collection,param_iteratees:="") {
+sortBy(param_collection,param_iteratees:="__identity") {
 	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
-
 	; prepare
-	l_array := this.cloneDeep(param_collection)
+	if (this.startsWith(param_iteratees.name, this.__Class ".")) { ;if starts with "biga."
+		thisThing := "boundfunc"
+	}
+	l_array := []
 
 	; create
-	; if called with a function
-	if (isFunc(param_iteratees)) {
-		tempArray := []
-		for key, value in param_collection {
-			l_index := param_iteratees.call(param_collection[key])
-			param_collection[key]._temp_bigaSortIndex := l_index
-			tempArray.push(param_collection[key])
+	; no param_iteratees
+	if (param_iteratees == "__identity") {
+		return this._internal_sort(param_collection)
+	}
+	if (this.isAlnum(param_iteratees)) {
+		return this._internal_sort(param_collection, param_iteratees)
+	}
+	; own method or function
+	if (param_iteratees.maxParams > 0) {
+		if (thisThing == "boundfunc") {
+			param_iteratees := param_iteratees.bind(this)
 		}
-		l_array := this.sortBy(tempArray, "_temp_bigaSortIndex")
-		for key, value in l_array {
-			l_array[key].delete("_temp_bigaSortIndex")
+		for key, value in param_collection {
+			l_array[A_Index] := {}
+			l_array[A_Index].value := value
+			l_array[A_Index].key := param_iteratees.call(value)
+		}
+		l_array := this._internal_sort(l_array, "key")
+		return this.map(l_array, "value")
+	}
+	; shorthand/multiple keys
+	if (isObject(param_iteratees)) {
+		l_array := this.cloneDeep(param_collection)
+		; sort the collection however many times is requested by the shorthand identity
+		for key, value in param_iteratees {
+			l_array := this._internal_sort(l_array, value)
 		}
 		return l_array
 	}
-
-	; if called with shorthands
-	if (isObject(param_iteratees)) {
-		; sort the collection however many times is requested by the shorthand identity
-		for key, value in param_iteratees {
-			l_array := this.internal_sort(l_array, value)
-		}
-	} else {
-		l_array := this.internal_sort(l_array, param_iteratees)
-	}
-	return l_array
+	return -1
 }
 
-internal_sort(param_collection,param_iteratees:="") {
+
+_internal_sort(param_collection,param_iteratees:="") {
 	l_array := this.cloneDeep(param_collection)
 
+	; associative arrays
 	if (param_iteratees != "") {
-		; sort associative arrays
 		for Index, obj in l_array {
 			out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
 			; out will look like:   value+index|value+index|
 		}
 		lastvalue := l_array[Index, param_iteratees]
 	} else {
-		; sort regular arrays
+		; regular arrays
 		for Index, obj in l_array {
 			out .= obj "+" Index "|"
 		}
 		lastvalue := l_array[l_array.count()]
 	}
 
-	if lastvalue is number
-	{
+	if (this.isNumber(lastvalue)) {
 		sortType := "N"
 	}
-	StringTrimRight, out, out, 1 ; remove trailing |
-	Sort, out, % "D| " sortType
+	stringTrimRight, out, out, 1 ; remove trailing |
+	sort, out, % "D| " sortType
 	arrStorage := []
 	loop, parse, out, |
 	{
@@ -82,6 +89,9 @@ fn_sortByFunc(o)
 	return o.name
 }
 
+; sort using result of another method
+assert.label("calling own method")
+assert.test(A.sortBy(["ab", "a", " abc", "abc"], A.size), ["a", "ab", "abc", " abc"])
 
 ; omit
 myArray := [3, 4, 2, 9, 4, 12, 2]
@@ -100,6 +110,5 @@ users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "Zoey", "age": 40 }]
-assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
-assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
+  , { "name": "zoey", "age": 40 }]
+assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
