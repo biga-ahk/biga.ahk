@@ -1,4 +1,4 @@
-The opposite of `A.pick`; this method creates an object composed of the own and inherited enumerable property paths of object that are not omitted.
+The opposite of [A.pick](/?id=pick); this method creates an object composed of the own and inherited enumerable property paths of object that are not omitted.
 
 
 ## Arguments

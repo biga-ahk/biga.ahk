@@ -1,4 +1,4 @@
-This method is like `A.find` except that it returns the key of the first element predicate returns truthy for instead of the element itself.
+This method is like [A.find](/?id=find) except that it returns the key of the first element predicate returns truthy for instead of the element itself.
 
 
 ## Arguments

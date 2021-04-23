@@ -1,4 +1,4 @@
-This method is like A.fromPairs except that it accepts two arrays, one of property identifiers and one of corresponding values.
+This method is like [A.fromPairs](/?id=frompairs) except that it accepts two arrays, one of property identifiers and one of corresponding values.
 
 
 ##  Arguments

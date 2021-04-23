@@ -1,6 +1,6 @@
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
-Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See A.isEqual for a list of supported value comparisons.
+Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See [A.isEqual](/?id=isEqual) for a list of supported value comparisons.
 
 
 ## Arguments

@@ -1,4 +1,4 @@
-This method is like A.(findIndex)[/findIndex] except that it iterates over elements of collection from right to left.
+This method is like [A.findIndex](/?id=findindex) except that it iterates over elements of collection from right to left.
 
 ## Arguments
 array (Array): The array to inspect.

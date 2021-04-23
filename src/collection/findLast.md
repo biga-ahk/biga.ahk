@@ -1,4 +1,4 @@
-This method is like `A.find` except that it iterates over elements of collection from right to left.
+This method is like [A.find](/?id=find) except that it iterates over elements of collection from right to left.
 
 
 ## Arguments

@@ -1,4 +1,4 @@
-This method is like A.clone except that it recursively clones value.
+This method is like [A.clone](/?id=clone) except that it recursively clones value.
 
 
 ## Arguments

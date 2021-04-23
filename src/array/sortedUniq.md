@@ -1,4 +1,4 @@
-This method is like `.uniq` except that it's optimized for sorted arrays.
+This method is like [A.uniq](/?id=uniq) except that it's optimized for sorted arrays.
 
 
 ## Arguments
