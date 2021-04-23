@@ -106,53 +106,10 @@ _internal_ThrowException() {
 }
 
 
-isAlnum(param) {
-	if (isObject(param)) {
-		return false
-	}
-	if param is alnum
-	{
-		return true
-	}
-	return false
-}
-
-isString(param) {
-	if (isObject(param)) {
-		return false
-	}
-	if param is alnum
-	{
-		return true
-	}
-	if (strLen(param) > 0) {
-		return true
-	}
-	return false
-}
 
 
-isNumber(param) {
-	if (isObject(param)) {
-		return false
-	}
-	if param is number
-	{
-		return true
-	}
-	return false
-}
 
-isFloat(param) {
-	if (isObject(param)) {
-		return false
-	}
-	if param is float
-	{
-		return true
-	}
-	return false
-}
+
 
 
 isFalsey(param) {
@@ -174,15 +131,9 @@ assert.label("md5")
 assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
 
 assert.label("type checking")
-assert.true(A.isAlnum(1))
-assert.true(A.isAlnum("hello"))
-assert.false(A.isAlnum([]))
-assert.false(A.isAlnum({}))
 
-assert.true(A.isNumber(1))
-assert.true(A.isNumber("1"))
-assert.false(A.isNumber([]))
-assert.false(A.isNumber({}))
+
+
 
 assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
