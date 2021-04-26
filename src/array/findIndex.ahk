@@ -58,8 +58,8 @@ assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney
 users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
-assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
-findIndexFunc(o) {
+assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 1)
+fn_findIndexFunc(o) {
 	return o.user == "barney"
 }
 

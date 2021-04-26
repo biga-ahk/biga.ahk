@@ -390,10 +390,10 @@ A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"})
 users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
-A.findIndex(users, Func("findIndexFunc"))
+A.findIndex(users, Func("fn_findIndexFunc"))
 ; => 1
 
-findIndexFunc(o) {
+fn_findIndexFunc(o) {
 	return o.user == "barney"
 }
 ```
@@ -2289,10 +2289,10 @@ array (Array): The array to iterate over.
 
 ```autohotkey
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-A.meanBy(objects, Func("meanByFunc1"))
+A.meanBy(objects, Func("fn_meanByFunc"))
 ; => 5
 
-meanByFunc1(o)
+fn_meanByFunc(o)
 {
 	return o.n
 }
