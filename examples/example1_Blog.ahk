@@ -7,7 +7,6 @@ SetBatchLines -1
 A := new biga()
 
 
-
 ; In the following example, we take on the role of a blogger, who wants to automate some features of their blog
 blogPost := "This recipe is for a really scrumptious soup from Thailand. Grab a big bunch of lemongrass. We also need tomatoes."
 ; let's start by finding some interesting tags for this post. Breakup this post into an array of words and remove any duplicates
@@ -15,8 +14,8 @@ allWords := A.words(blogPost)
 uniqWords := A.uniq(allWords)
 
 ; short words aren't useful for post tags. Let's remove anything that isn't at least 8 characters long
-tagShortList := A.filter(uniqWords, Func("filterlengthFunc"))
-filterlengthFunc(o) {
+tagShortList := A.filter(uniqWords, Func("fn_filterlengthFunc"))
+fn_filterlengthFunc(o) {
 	global
 	; We use A.size to measure the length of the string. But it can measure objects too
 	; StrLen would also work fine here and remove the need for global scope in this function

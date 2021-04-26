@@ -7,7 +7,6 @@ SetBatchLines -1
 A := new biga()
 
 
-
 ; In this example, let's take on the role of a gaming script that announces which enemy to attack
 enemies := [{"name": "bear", "hp": 200, "armor": 20, "status": "exposed_wound"}
 		, {"name": "wolf", "hp": 100, "armor": 12}
@@ -27,8 +26,8 @@ sortedEnemies.InsertAt(insertIndex, newEnemy)
 
 ; Assume rogues get bonus damage to anything with a status of "exposed_{{x}}";
 ; let's filter the sorted array by those and call all of them out. In this case there is only 1
-exposedTargets := A.filter(sortedEnemies, Func("filterexposedFunc"))
-filterexposedFunc(o) {
+exposedTargets := A.filter(sortedEnemies, Func("fn_filterExposedFunc"))
+fn_filterExposedFunc(o) {
 	global
 	; We use A.startsWith inside this function to check the status
 	return A.startsWith(o.status, "exposed")

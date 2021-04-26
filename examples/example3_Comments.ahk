@@ -7,7 +7,6 @@ SetBatchLines -1
 A := new biga()
 
 
-
 ; For the last example let's administer some online comments.
 comments := [{"text": "I think...", "likes": 1, "sentiment": -9, "author": "Bob", "subscriber": false}
 			, {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}
@@ -16,7 +15,7 @@ comments := [{"text": "I think...", "likes": 1, "sentiment": -9, "author": "Bob"
 Newcomments := [{"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}
 			, {"text": "You see...", "likes": 2, "sentiment": 10, "author": "Fred", "subscriber": true}]
 
-; You can combine two arrays with .concat. 
+; You can combine two arrays with .concat.
 A.concat(comments, Newcomments)
 ; biga does NOT mutate inputs, changes are always delivered by the return value/object
 comments := A.concat(comments, Newcomments)
