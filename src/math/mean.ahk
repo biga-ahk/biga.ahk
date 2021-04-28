@@ -24,3 +24,6 @@ assert.test(A.mean([10, "10", 10]), 10)
 
 assert.label("decimals")
 assert.test(A.mean([10.1, 42.2]), 26.150000000000002)
+
+assert.label("empty values")
+assert.test(A.mean([3, , 3]), 2)
