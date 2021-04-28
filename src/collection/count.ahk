@@ -8,13 +8,14 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 
 	; create
 	l_count := 0
-	if (this.isString(param_collection)) {
+	if (this.isAlnum(param_collection) || this.isString(param_collection)) {
 		; cut fromindex length off from start of string if specified fromIndex > 1
 		if (param_fromIndex > 1) {
 			param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 		}
-		param_collection := this.split(param_collection, param_predicate)
-		return param_collection.count() - 1
+		; count by replacing all occurances
+		StrReplace(param_collection, param_predicate, "", l_count)
+		return l_count
 	}
 	for key, value in param_collection {
 		if (key < param_fromIndex) {
