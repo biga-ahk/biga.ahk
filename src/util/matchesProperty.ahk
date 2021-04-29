@@ -1,9 +1,10 @@
 matchesProperty(param_path,param_srcvalue) {
-	if (isObject(param_srcvalue)) {
+	if (!this.isAlnum(param_srcvalue)) {
 		this._internal_ThrowException()
 	}
 
 	; create the property fn
+	; msgbox, % param_path "|" param_srcvalue
 	fnProperty := this.property(param_path)
 	; create the fn
 	boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
