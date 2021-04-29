@@ -60,6 +60,9 @@ _internal_MD5(param_string, case := 0) {
 
 
 _internal_JSRegEx(param_string) {
+	if (!this.isString(param_string) && !this.isAlnum(param_string)) {
+		this._internal_ThrowException()
+	}
 	if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
 		return SubStr(param_string, 2, StrLen(param_string) - 2)
 	}
@@ -105,6 +108,19 @@ _internal_ThrowException() {
 	}
 }
 
+_internal_inStr(param_haystack,param_needle,param_fromIndex:=1,param_occurance:=1) {
+	; used inplace of inStr to follow A_StringCaseSense
+	if (A_StringCaseSense == "On") {
+		StringCaseSense := 1
+	} else {
+		StringCaseSense := 0
+	}
+	if (position := inStr(param_collection, param_value, StringCaseSense, param_fromIndex, param_occurance)) {
+		return position
+	} else {
+		return false
+	}
+}
 
 
 
