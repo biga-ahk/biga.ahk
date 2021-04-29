@@ -2,17 +2,16 @@ isString(param) {
 	if (isObject(param)) {
 		return false
 	}
-	if param is alnum
-	{
-		return true
+	if (ObjGetCapacity([param], 1) == "") {
+		return false
 	}
-	if (strLen(param) > 0) {
-		return true
-	}
-	return false
+	return true
 }
 
 
 ; tests
 assert.true(A.isString("abc"))
-assert.true(A.isString(1))
+assert.false(A.isString(1))
+
+; omit
+assert.true(A.isString("."))
