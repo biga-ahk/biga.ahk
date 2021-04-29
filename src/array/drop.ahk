@@ -7,7 +7,7 @@ drop(param_array,param_n:=1) {
 	if (isObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
-	if (this.isString(param_array)) {
+	if (this.isString(param_array) || this.isAlnum(param_array)) {
 		l_array := StrSplit(param_array)
 	}
 
