@@ -1,5 +1,5 @@
 startsWith(param_string,param_needle,param_fromIndex:= 1) {
-	if (!this.isString(param_string) || !this.isString(param_needle) || !this.isNumber(param_fromIndex)) {
+	if (!this.isString(param_string) || !(this.isString(param_needle) || this.isAlnum(param_needle)) || !this.isNumber(param_fromIndex)) {
 		this._internal_ThrowException()
 	}
 
