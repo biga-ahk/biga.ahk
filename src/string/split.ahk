@@ -1,5 +1,5 @@
 split(param_string:="",param_separator:=",",param_limit:=0) {
-	if (!(this.isString(param_string) || this.isAlnum(param_string)) || isObject(param_separator) || !this.isNumber(param_limit)) {
+	if (!this.isStringLike(param_string) || !this.isStringLike(param_separator) || !this.isNumber(param_limit)) {
 		this._internal_ThrowException()
 	}
 
@@ -10,7 +10,7 @@ split(param_string:="",param_separator:=",",param_limit:=0) {
 	}
 
 	; create
-	oSplitArray := StrSplit(param_string, param_separator)
+	oSplitArray := strSplit(param_string, param_separator)
 	if (!param_limit) {
 		return oSplitArray
 	} else {
@@ -33,3 +33,5 @@ assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
 ; omit
 assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
 assert.test(A.split("a--b-c", ","), ["a--b-c"])
+assert.label("blank seperator")
+assert.test(A.split("a--b-c", ""), ["a","-","-","b","-","c"])
