@@ -7,13 +7,13 @@ dropRight(param_array,param_n:=1) {
 	if (isObject(param_array)) {
 		l_array := this.clone(param_array)
 	}
-	if (this.isString(param_array) || this.isAlnum(param_array)) {
-		l_array := StrSplit(param_array)
+	if (strLen(param_array)) {
+		l_array := strSplit(param_array)
 	}
 
 	; create
 	loop, % param_n	{
-		l_array.RemoveAt(l_array.count())
+		l_array.removeAt(l_array.count())
 	}
 	; return empty array if empty
 	if (l_array.count() == 0) {

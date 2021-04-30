@@ -1,11 +1,11 @@
 property(param_source) {
-	if (!this.isString(param_srcvalue)) {
-		this._internal_ThrowException()
+	if (!this.isStringLike(param_source)) {
+		; this._internal_ThrowException()
 	}
 
 	; prepare
 	if (this.includes(param_source, ".")) {
-		param_source := this.split(param_source, ".")
+		param_source := strSplit(param_source, ".")
 	}
 
 	; create the fn

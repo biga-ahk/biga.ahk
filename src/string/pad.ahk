@@ -1,5 +1,5 @@
 pad(param_string:="",param_length:=0,param_chars:=" ") {
-	if (!this.isString(param_string) || !this.isNumber(param_length) || !this.isString(param_chars)) {
+	if (!this.isStringLike(param_string) || !this.isNumber(param_length) || !this.isStringLike(param_chars)) {
 		this._internal_ThrowException()
 	}
 

@@ -1,5 +1,5 @@
 upperCase(param_string:="") {
-	if (!this.isString(param_string)) {
+	if (!this.isStringLike(param_string)) {
 		this._internal_ThrowException()
 	}
 

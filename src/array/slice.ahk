@@ -7,7 +7,7 @@ slice(param_array,param_start:=1,param_end:=0) {
 	}
 
 	; defaults
-	if (this.isString(param_array) || this.isAlnum(param_array)) {
+	if (strLen(param_array)) {
 		param_array := strSplit(param_array)
 	}
 	if (param_end == 0) {

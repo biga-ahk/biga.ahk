@@ -77,7 +77,7 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		}
 		return ".matchesProperty"
 	}
-	if (strLen(param_shorthand) > 0 && isObject(param_objects)) {
+	if (strLen(param_shorthand) && isObject(param_objects)) {
 		for key, value in param_objects {
 			if (value.hasKey(param_shorthand)) {
 				return ".property"
@@ -137,7 +137,15 @@ isFalsey(param) {
 	}
 	return false
 }
-
+isStringLike(param) {
+	if (isObject(param)) {
+		return false
+	}
+	if (this.isString(param) || this.isAlnum(param)) {
+		return true
+	}
+	return false
+}
 
 ; tests
 assert.label("_internal_JSRegEx")
