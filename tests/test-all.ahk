@@ -39,6 +39,16 @@ assert.test(A.concat(array), [1])
 ; omit
 assert.test(A.concat(array, 1), [1, 1])
 
+assert.group(".depthOf")
+assert.label("default tests")
+assert.test(A.depthOf([1]), 1)
+assert.test(A.depthOf([1, [2]]), 2)
+assert.test(A.depthOf([1, [[2]]]), 3)
+assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
+
+; omit
+assert.test(A.depthOf({"key": 1}), 1)
+
 assert.group(".difference")
 assert.label("default tests")
 assert.test(A.difference([2, 1], [2, 3]), [1])
@@ -139,36 +149,43 @@ assert.test(array, [1, 2, 3])
 ; ensure that mutation did not occur
 assert.group(".findIndex")
 assert.label("default tests")
-assert.test(A.findIndex([1, 2, 1, 2], 2), 2)
-
-; Search from the `fromIndex`.
-assert.test(A.findIndex([1, 2, 1, 2], 2, 3), 4)
-
-assert.test(A.findIndex(["fred", "barney"], "pebbles"), -1)
-
-StringCaseSense, On
-assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
-assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
-
 users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
-assert.test(A.findIndex(users, Func("findIndexFunc")), 1)
-findIndexFunc(o) {
-	return o.user == "barney"
-}
+
+; The A.matches iteratee shorthand.
+assert.test(A.findIndex(users, { "age": 1, "active": true }), 3)
+
+; The A.matchesProperty iteratee shorthand.
+assert.test(A.findIndex(users, ["active", false]), 2)
+
+; The A.property iteratee shorthand.
+assert.test(A.findIndex(users, "active"), 1)
 
 
 ; omit
+StringCaseSense, On
+assert.label("case sensitive")
+assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
+assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 StringCaseSense, Off
-assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
+assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
+fn_findIndexFunc(o) {
+	return o.user == "fred"
+}
+
+assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1) ;duplicate test of A.matches iteratee
+
+assert.label("not first element")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
 	, {"user": "pebbles", "active": false}]
 
 assert.test(A.findIndex(users, ["active", false]), 2)
 
+assert.label("fromIndex")
+assert.test(A.findIndex(users, ["active", false], 3), 3)
 assert.group(".findLastIndex")
 assert.label("default tests")
 users := [{"user": "barney", "active": true}
@@ -181,11 +198,6 @@ assert.test(A.findLastIndex(users, "active"), 1)
 
 
 ; omit
-testusers := ["barney","jane","pebbles","barney","bill"]
-assert.test(A.findLastIndex(testusers, "barney"), 4)
-assert.test(A.findLastIndex(testusers, "jane"), 2)
-assert.test(A.findLastIndex(testusers, "bill"), 5)
-assert.test(A.findLastIndex(testusers, "pebbles"), 3)
 
 assert.group(".flatten")
 assert.label("default tests")
@@ -201,10 +213,7 @@ assert.test(A.flattenDeep([1, [2]]), [1, 2])
 assert.test(A.flattenDeep([1, [2, [3, [4]], 5]]), [1, 2, 3, 4, 5])
 
 ; omit
-assert.test(A.depthOf([1]), 1)
-assert.test(A.depthOf([1, [2]]), 2)
-assert.test(A.depthOf([1, [[2]]]), 3)
-assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
+assert.test(A.flattenDeep({"key": 1}), [1])
 
 assert.group(".flattenDepth")
 assert.label("default tests")
@@ -822,13 +831,18 @@ assert.label("default tests")
 assert.test(A.size([1, 2, 3]), 3)
 assert.test(A.size({ "a": 1, "b": 2 }), 2)
 assert.test(A.size("pebbles"), 7)
+assert.test(A.size([]), "")
 
 
 ; omit
+assert.label("objects")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
 	, {"user": "pebbles", "active": false}]
 assert.test(A.size(users), 3)
+
+assert.label("empty values")
+assert.test(A.size(["A", , "C"]), 3)
 
 assert.group(".some")
 assert.label("default tests")
@@ -866,6 +880,9 @@ fn_sortByFunc(o)
 	return o.name
 }
 
+; sort using result of another method
+assert.label("calling own method")
+assert.test(A.sortBy(["ab", "a", " abc", "abc"], A.size), ["a", "ab", "abc", " abc"])
 
 ; omit
 myArray := [3, 4, 2, 9, 4, 12, 2]
@@ -884,9 +901,8 @@ users := [
   , { "name": "fred",   "age": 46 }
   , { "name": "barney", "age": 34 }
   , { "name": "bernard", "age": 36 }
-  , { "name": "Zoey", "age": 40 }]
-assert.test(A.sortBy(users,"age"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":40,"name":"Zoey"},{"age":46,"name":"fred"}])
-assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"Zoey"}])
+  , { "name": "zoey", "age": 40 }]
+assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
 
 assert.group(".internal")
 assert.label("default tests")
@@ -897,15 +913,9 @@ assert.label("md5")
 assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
 
 assert.label("type checking")
-assert.true(A.isAlnum(1))
-assert.true(A.isAlnum("hello"))
-assert.false(A.isAlnum([]))
-assert.false(A.isAlnum({}))
 
-assert.true(A.isNumber(1))
-assert.true(A.isNumber("1"))
-assert.false(A.isNumber([]))
-assert.false(A.isNumber({}))
+
+
 
 assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
@@ -943,6 +953,25 @@ object[1].a := 2
 assert.test(deepclone, [{ "a": [[1, 2, 3]] }, { "b": 2 }])
 assert.test(object, [{ "a": 2 }, { "b": 2 }])
 
+assert.group(".isAlnum")
+assert.label("default tests")
+
+assert.true(A.isAlnum(1))
+assert.true(A.isAlnum("hello"))
+assert.false(A.isAlnum([]))
+assert.false(A.isAlnum({}))
+
+assert.group(".isArray")
+assert.label("default tests")
+assert.true(A.isArray([1, 2, 3]))
+assert.false(A.isArray("abc"))
+assert.true(A.isArray({"key": "value"}))
+
+
+; omit
+assert.false(A.isArray(1))
+assert.false(A.isArray(""))
+
 assert.group(".isEqual")
 assert.label("default tests")
 assert.true(A.isEqual(1, 1))
@@ -975,7 +1004,12 @@ assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
 
-assert.group(".ismatch")
+assert.group(".isFloat")
+assert.label("default tests")
+assert.true(A.isFloat(1.0))
+assert.false(A.isFloat(1))
+
+assert.group(".isMatch")
 assert.label("default tests")
 object := { "a": 1, "b": 2, "c": 3 }
 assert.true(A.isMatch(object, {"b": 2}))
@@ -983,6 +1017,29 @@ assert.true(A.isMatch(object, {"b": 2, "c": 3}))
 
 assert.false(A.isMatch(object, {"b": 1}))
 assert.false(A.isMatch(object, {"b": 2, "z": 99}))
+assert.group(".isNumber")
+assert.label("default tests")
+assert.true(A.isNumber(1))
+assert.true(A.isNumber("1"))
+
+; omit
+assert.false(A.isNumber([]))
+assert.false(A.isNumber({}))
+
+assert.group(".isObject")
+assert.label("default tests")
+assert.true(A.isObject({}))
+assert.true(A.isObject([1, 2, 3]))
+assert.false(A.isObject(""))
+
+assert.group(".isString")
+assert.label("default tests")
+assert.true(A.isString("abc"))
+assert.false(A.isString(1))
+
+; omit
+assert.true(A.isString("."))
+
 assert.group(".isUndefined")
 assert.label("default tests")
 assert.true(A.isUndefined(""))
@@ -1087,11 +1144,14 @@ assert.test(A.mean([10, "10", 10]), 10)
 assert.label("decimals")
 assert.test(A.mean([10.1, 42.2]), 26.150000000000002)
 
+assert.label("empty values")
+assert.test(A.mean([3, , 3]), 2)
+
 assert.group(".meanBy")
 assert.label("default tests")
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-assert.test(A.meanBy(objects, Func("meanByFunc1")), 5)
-meanByFunc1(o)
+assert.test(A.meanBy(objects, Func("fn_meanByFunc")), 5)
+fn_meanByFunc(o)
 {
 	return o.n
 }
@@ -1241,6 +1301,32 @@ assert.test(A.keys(object), ["a", "b", "c"])
 
 assert.test(A.keys("hi"), [1, 2])
 
+
+; omit
+
+assert.group(".mapKeys")
+assert.label("default tests")
+assert.test(A.mapKeys({"a": 1, "b": 2}, Func("fn_mapKeysFunc")), {"a+1": 1, "b+2": 2})
+fn_mapKeysFunc(value, key)
+{
+	return key "+" value
+}
+
+
+; omit
+
+assert.group(".mapValues")
+assert.label("default tests")
+users := {"fred": 		{"user": "fred",			"age": 40}
+		,"pebbles": 	{"user": "pebbles",	"age": 1}}
+assert.test(A.mapValues(users, Func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
+fn_mapValuesFunc(o)
+{
+	return o.age
+}
+
+; The A.property iteratee shorthand.
+assert.test(A.mapValues(users, "age"), {"fred": 40, "pebbles": 1})
 
 ; omit
 
@@ -1419,6 +1505,8 @@ assert.test(A.split("a--b-c", "/[\-]+/"), ["a", "b", "c"])
 ; omit
 assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
 assert.test(A.split("a--b-c", ","), ["a--b-c"])
+assert.label("blank seperator")
+assert.test(A.split("a--b-c", ""), ["a","-","-","b","-","c"])
 
 assert.group(".startCase")
 assert.label("default tests")
