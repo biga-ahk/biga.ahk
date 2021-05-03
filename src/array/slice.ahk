@@ -6,15 +6,13 @@ slice(param_array,param_start:=1,param_end:=0) {
 		this._internal_ThrowException()
 	}
 
-	; defaults
-	if (strLen(param_array)) {
+	; prepare
+	if (this.isStringLike(param_array)) {
 		param_array := strSplit(param_array)
 	}
 	if (param_end == 0) {
 		param_end := param_array.count()
 	}
-
-	; prepare
 	l_array := []
 
 	; create
