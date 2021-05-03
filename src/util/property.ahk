@@ -1,7 +1,4 @@
 property(param_source) {
-	if (!this.isStringLike(param_source)) {
-		; this._internal_ThrowException()
-	}
 
 	; prepare
 	if (this.includes(param_source, ".")) {
