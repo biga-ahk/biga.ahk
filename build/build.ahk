@@ -40,9 +40,9 @@ The_Array := [] ; Holds main data
 msgarray := []
 
 ; Test RegEx
-testtest := "test\(\w+(\.\w*.*\)),\s*(.*)\)"
+testtest := "test\((\w+\w*.*\)),\s*(.*)\)"
 testtrue := "true\((.+?)(\(.+?\))\)"
-testfalse := "false\((.+\.\w+)(.+\))\)"
+testfalse := "false\((.+\.?\w+)(.+\))\)"
 testnotequal := "notequal\(\w+(\.\w*.*\)),\s*(.*)\)"
 
 ; method names
@@ -241,12 +241,12 @@ fn_BuildExample(param_tests) {
 
 		hey := Fn_QuickRegEx(value,testtest,0)
 		if (hey.count() = 2) {
-			return_array.push(settings.objectName hey.value(1) "`n; => " hey.value(2) newline newline)
+			return_array.push(hey.value(1) "`n; => " hey.value(2) newline newline)
 			continue
 		}
 		hey := Fn_QuickRegEx(value,testnotequal,0)
 		if (hey.count() = 2) {
-			return_array.push(settings.objectName hey.value(1) "`n; => " hey.value(2) newline newline)
+			return_array.push(hey.value(1) "`n; => " hey.value(2) newline newline)
 			continue
 		}
 		hey := Fn_QuickRegEx(value,testtrue,0)

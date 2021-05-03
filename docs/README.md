@@ -1761,7 +1761,10 @@ value (*): The value to check.
 boundFunc := Func("strLen").bind()A.isCallable(boundFunc)
 ; => true
 
-assert.false(IsFunc(boundFunc))A.isCallable(A.isString)
+IsFunc(boundFunc)
+; => false
+
+A.isCallable(A.isString)
 ; => true
 
 A.isCallable(A.matchesProperty("a", 1)

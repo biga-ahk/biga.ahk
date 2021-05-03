@@ -1,10 +1,10 @@
-sampleSize(param_collection,param_SampleSize:=1) {
+sampleSize(param_collection,param_sampleSize:=1) {
 	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 
 	; return immediately if array is smaller than requested sampleSize
-	if (param_SampleSize > param_collection.count()) {
+	if (param_sampleSize > param_collection.count()) {
 		return param_collection
 	}
 
@@ -14,7 +14,7 @@ sampleSize(param_collection,param_SampleSize:=1) {
 	l_order := A.shuffle(this.keys(param_collection))
 
 	; create
-	loop, % param_SampleSize
+	loop, % param_sampleSize
 	{
 		ordervalue := l_order.pop()
 		l_array.push(l_collection[ordervalue])
