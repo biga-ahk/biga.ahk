@@ -71,7 +71,7 @@ _internal_JSRegEx(param_string) {
 
 
 _internal_differenciateShorthand(param_shorthand,param_objects:="") {
-	if (isObject(param_shorthand)) {
+	if (isObject(param_shorthand) && !this.isCallable(param_shorthand)) {
 		if (param_shorthand.maxIndex() != param_shorthand.count()) {
 			return ".matches"
 		}
