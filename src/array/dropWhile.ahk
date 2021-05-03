@@ -11,20 +11,19 @@ dropWhile(param_array,param_predicate:="__identity") {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
-	}
-	if (isFunc(param_predicate)) {
-		boundFunc := param_predicate.Bind()
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 	}
 
 	; create
 	l_array := this.cloneDeep(param_array)
 	l_droppableElements := 0
 	for key, value in l_array {
-		if (!this.isFalsey(boundFunc.call(value, key, l_array))) {
-			l_droppableElements++
-		} else {
-			break
+		if (this.isCallable(param_predicate)) {
+			if (param_predicate.call(value, key, l_array)) {
+				l_droppableElements++
+			} else {
+				break
+			}
 		}
 	}
 	if (l_droppableElements >= 1) {

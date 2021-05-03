@@ -6,20 +6,13 @@ some(param_collection,param_predicate) {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
-	}
-	if (param_predicate.maxParams > 0) {
-		boundFunc := param_predicate.bind()
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
 	; create
 	for key, value in param_collection {
-		if (shorthand != false) {
-			if (boundFunc.call(value, key, param_collection) = true) {
-				return true
-			}
-		} else {
-			if (param_predicate.call(value, key, param_collection) == true) {
+		if (this.isCallable(param_predicate)) {
+			if (param_predicate.call(value, key, param_collection) = true) {
 				return true
 			}
 		}

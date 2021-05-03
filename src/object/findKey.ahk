@@ -6,7 +6,7 @@ findKey(param_collection,param_predicate,param_fromindex:=1) {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
 	; create
@@ -14,20 +14,11 @@ findKey(param_collection,param_predicate,param_fromindex:=1) {
 		if (param_fromindex > A_Index) {
 			continue
 		}
-		; undeteriminable functor
-		if (param_predicate.call(value)) {
-			return key
-		}
-		; regular function
-		if (isFunc(param_predicate)) {
+		; functor
+		if (this.isCallable(param_predicate)) {
 			if (param_predicate.call(value)) {
 				return key
 			}
-			continue
-		}
-		; shorthand
-		if (boundFunc.call(value) && shorthand) {
-			return key
 		}
 	}
 	return false

@@ -6,12 +6,13 @@ map(param_collection,param_iteratee:="__identity") {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
-		param_iteratee := this.property(param_iteratee)
+		param_iteratee  := this.property(param_iteratee)
 	}
 	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+		guarded := this.includes(this._guardedMethods, param_iteratee.name)
 		param_iteratee := param_iteratee.bind(this)
 	}
-	param_collection := this.cloneDeep(param_collection)
+	l_collection := this.cloneDeep(param_collection)
 	l_array := []
 
 	; create
@@ -20,13 +21,14 @@ map(param_collection,param_iteratee:="__identity") {
 			l_array.push(value)
 			continue
 		}
-		; calling own method
-		if (!isFunc(param_iteratee)) { ;somehow NOT a function
+		; functor
+		if (guarded) {
 			l_array.push(param_iteratee.call(value))
 			continue
 		}
-		; regular function
-		l_array.push(param_iteratee.call(value, key, param_collection))
+		if (this.isCallable(param_iteratee)) {
+			l_array.push(param_iteratee.call(value, key, l_collection))
+		}
 	}
 	return l_array
 }

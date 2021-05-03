@@ -3,7 +3,7 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
 	; create
@@ -14,15 +14,15 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 			param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 		}
 		; count by replacing all occurances
-		StrReplace(param_collection, param_predicate, "", l_count)
+		strReplace(param_collection, param_predicate, "", l_count)
 		return l_count
 	}
 	for key, value in param_collection {
 		if (key < param_fromIndex) {
 			continue
 		}
-		if (shorthand != false) {
-			if (boundFunc.call(value, key, param_collection) == true) {
+		if (this.isCallable(param_predicate)) {
+			if (param_predicate.call(value, key, param_collection) == true) {
 				l_count++
 				continue
 			}

@@ -11,22 +11,19 @@ mapKeys(param_object,param_iteratee:="__identity") {
 	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
 		param_iteratee := param_iteratee.bind(this)
 	}
-	param_object := this.cloneDeep(param_object)
+	l_object := this.cloneDeep(param_object)
 	l_array := {}
 
 	; create
-	for key, value in param_object {
+	for key, value in l_object {
 		if (param_iteratee == "__identity") {
 			l_array[value] := A_Index
 			continue
 		}
-		; calling own method
-		if (!isFunc(param_iteratee)) { ;somehow NOT a function
-			l_array[param_iteratee.call(value, key)] := A_Index
-			continue
+		; functor
+		if (this.isCallable(param_iteratee)) {
+			l_array[param_iteratee.call(value, key, l_object)] := A_Index
 		}
-		; regular function
-		l_array[param_iteratee.call(value, key, param_object)] := A_Index
 	}
 	return l_array
 }

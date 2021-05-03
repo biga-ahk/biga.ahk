@@ -6,7 +6,7 @@ filter(param_collection,param_predicate:="__identity") {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_paramAmmount := param_predicate.maxParams
 	if (l_paramAmmount == 3) {
@@ -24,20 +24,8 @@ filter(param_collection,param_predicate:="__identity") {
 			continue
 		}
 		; functor
-		if (isFunc(param_predicate)) {
+		if (this.isCallable(param_predicate)) {
 			if (param_predicate.call(value)) {
-				l_array.push(value)
-			}
-			continue
-		}
-		; calling own method
-		if (param_predicate.call(value)) {
-			l_array.push(value)
-			continue
-		}
-		; shorthand
-		if (shorthand != false) {
-			if (boundFunc.call(value)) {
 				l_array.push(value)
 			}
 			continue
