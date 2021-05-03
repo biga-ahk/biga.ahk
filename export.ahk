@@ -1,4 +1,4 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["biga.trim"]	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -123,7 +123,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (strLen(param_array)) {
+		if (this.isStringLike(param_array)) {
 			l_array := strSplit(param_array)
 		}
 
@@ -163,20 +163,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
-		}
-		if (isFunc(param_predicate)) {
-			boundFunc := param_predicate.Bind()
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 		}
 
 		; create
 		l_array := this.cloneDeep(param_array)
 		l_droppableElements := 0
 		for key, value in l_array {
-			if (!this.isFalsey(boundFunc.call(value, key, l_array))) {
-				l_droppableElements++
-			} else {
-				break
+			if (this.isCallable(param_predicate)) {
+				if (param_predicate.call(value, key, l_array)) {
+					l_droppableElements++
+				} else {
+					break
+				}
 			}
 		}
 		if (l_droppableElements >= 1) {
@@ -212,10 +211,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
-		}
-		if (param_predicate.maxParams > 0) {
-			boundFunc := param_predicate.bind()
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 		}
 
 		; create
@@ -223,9 +219,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (index < fromIndex) {
 				continue
 			}
-			if (boundFunc.call(value, index, param_array)) {
+			if (this.isCallable(param_predicate)) {
+				; msgbox, % this.print(value) " | is " param_predicate.call(value, index, param_array)
+				if (param_predicate.call(value, index, param_array)) {
 					return index
 				}
+			}
 		}
 		return -1
 	}
@@ -440,7 +439,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (strLen(param_array)) {
+		if (this.isStringLike(param_array)) {
 			l_array := strSplit(param_array)
 		}
 		if (param_n == 0) {
@@ -550,7 +549,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (strLen(param_array)) {
+		if (this.isStringLike(param_array)) {
 			param_array := strSplit(param_array)
 		}
 		l_array := []
@@ -577,7 +576,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (strLen(param_array)) {
+		if (this.isStringLike(param_array)) {
 			param_array := strSplit(param_array)
 		}
 		l_array := []
@@ -689,7 +688,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
 		; create
@@ -700,15 +699,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 			}
 			; count by replacing all occurances
-			StrReplace(param_collection, param_predicate, "", l_count)
+			strReplace(param_collection, param_predicate, "", l_count)
 			return l_count
 		}
 		for key, value in param_collection {
 			if (key < param_fromIndex) {
 				continue
 			}
-			if (shorthand != false) {
-				if (boundFunc.call(value, key, param_collection) == true) {
+			if (this.isCallable(param_predicate)) {
+				if (param_predicate.call(value, key, param_collection) == true) {
 					l_count++
 					continue
 				}
@@ -728,23 +727,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
-		}
-		if (param_predicate.maxParams > 0) {
-			boundFunc := param_predicate.bind()
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
 		; create
 		for key, value in param_collection {
-			if (shorthand != false) {
-				if (boundFunc.call(value, key, param_collection) == true) {
-					continue
-				}
-				return false
-			} else {
+			if (this.isCallable(param_predicate)) {
 				if (param_predicate.call(value, key, param_collection) == true) {
 					continue
 				}
+				return false
 			}
 		}
 		return true
@@ -757,7 +749,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 		l_paramAmmount := param_predicate.maxParams
 		if (l_paramAmmount == 3) {
@@ -775,20 +767,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				continue
 			}
 			; functor
-			if (isFunc(param_predicate)) {
+			if (this.isCallable(param_predicate)) {
 				if (param_predicate.call(value)) {
-					l_array.push(value)
-				}
-				continue
-			}
-			; calling own method
-			if (param_predicate.call(value)) {
-				l_array.push(value)
-				continue
-			}
-			; shorthand
-			if (shorthand != false) {
-				if (boundFunc.call(value)) {
 					l_array.push(value)
 				}
 				continue
@@ -804,28 +784,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
+		l_collection := this.cloneDeep(param_collection)
 
 		; create
 		for key, value in param_collection {
 			if (param_fromindex > A_Index) {
 				continue
 			}
-			; undeteriminable functor
-			if (param_predicate.call(value)) {
-				return value
-			}
-			; regular function
-			if (isFunc(param_predicate)) {
-				if (param_predicate.call(value)) {
+			; functor
+			if (this.isCallable(param_predicate)) {
+				if (param_predicate.call(value, key, l_collection)) {
 					return value
 				}
 				continue
-			}
-			; shorthand
-			if (boundFunc.call(value) && shorthand) {
-				return value
 			}
 		}
 		return false
@@ -873,31 +846,23 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		; check what kind of param_iteratee being worked with
-		if (!param_iteratee.call(this.head(param_collection))) { ;calling own method
-			boundFunc := param_iteratee.bind(this)
-			thisThing := "boundfunc"
-		}
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
-		if (shorthand == ".property") {
-			boundFunc := this._internal_createShorthandfn(param_iteratee, param_collection)
+		if (shorthand != false) {
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
+		}
+		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+			param_iteratee := param_iteratee.bind(this)
 		}
 
 		; create
 		l_array := []
 		for key, value in param_collection {
-			if (thisThing == "boundfunc") {
-				; calling own method
-				vIteratee := boundFunc.call(value)
-			} else {
-				; functor
+			vIteratee := 0
+
+			; functor
+			if (this.isCallable(param_iteratee) || !vIteratee) {
 				vIteratee := param_iteratee.call(value)
 			}
-			if (shorthand == ".property") {
-				; property shorthand
-				vIteratee := value[param_iteratee]
-			}
-
 			; create array at key if not encountered yet
 			if (!l_array.haskey(vIteratee)) {
 				l_array[vIteratee] := []
@@ -989,12 +954,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 		if (shorthand == ".property") {
-			param_iteratee := this.property(param_iteratee)
+			param_iteratee  := this.property(param_iteratee)
 		}
 		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+			guarded := this.includes(this._guardedMethods, param_iteratee.name)
 			param_iteratee := param_iteratee.bind(this)
 		}
-		param_collection := this.cloneDeep(param_collection)
+		l_collection := this.cloneDeep(param_collection)
 		l_array := []
 
 		; create
@@ -1003,13 +969,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 				l_array.push(value)
 				continue
 			}
-			; calling own method
-			if (!isFunc(param_iteratee)) { ;somehow NOT a function
+			; functor
+			if (guarded) {
 				l_array.push(param_iteratee.call(value))
 				continue
 			}
-			; regular function
-			l_array.push(param_iteratee.call(value, key, param_collection))
+			if (this.isCallable(param_iteratee)) {
+				l_array.push(param_iteratee.call(value, key, l_collection))
+			}
 		}
 		return l_array
 	}
@@ -1023,18 +990,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		falseArray := []
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
-		}
-		for key, value in param_collection {
-			if (!this.isUndefined(param_predicate.call(value))) {
-				boundFunc := param_predicate.bind()
-			}
-			break
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
 		; create
 		for key, value in param_collection {
-			if (boundFunc.call(value) == true) {
+			if (param_predicate.call(value) == true) {
 				trueArray.push(value)
 			} else {
 				falseArray.push(value)
@@ -1050,7 +1011,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 		l_array := []
 
@@ -1058,23 +1019,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		for key, value in param_collection {
 			; functor
 			; predefined !functor handling (slower as it .calls blindly)
-			if (isFunc(param_predicate)) {
+			if (this.isCallable(param_predicate)) {
 				if (!param_predicate.call(value)) {
 					l_array.push(value)
 				}
-				continue
-			}
-			; shorthand
-			if (shorthand != false) {
-				if (!boundFunc.call(value)) {
-					l_array.push(value)
-				}
-				continue
-			}
-			; predefined !functor handling (slower as it .calls blindly)
-			vvalue := param_predicate.call(value)
-			if (!vvalue) {
-				l_array.push(value)
 				continue
 			}
 		}
@@ -1159,20 +1107,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
-		}
-		if (param_predicate.maxParams > 0) {
-			boundFunc := param_predicate.bind()
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
 		; create
 		for key, value in param_collection {
-			if (shorthand != false) {
-				if (boundFunc.call(value, key, param_collection) = true) {
-					return true
-				}
-			} else {
-				if (param_predicate.call(value, key, param_collection) == true) {
+			if (this.isCallable(param_predicate)) {
+				if (param_predicate.call(value, key, param_collection) = true) {
 					return true
 				}
 			}
@@ -1322,7 +1263,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	_internal_differenciateShorthand(param_shorthand,param_objects:="") {
-		if (isObject(param_shorthand)) {
+		if (isObject(param_shorthand) && !this.isCallable(param_shorthand)) {
 			if (param_shorthand.maxIndex() != param_shorthand.count()) {
 				return ".matches"
 			}
@@ -1425,6 +1366,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return true
 		}
 		return false
+	}
+	isCallable(param) {
+		fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
+		return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
 	}
 	isEqual(param_value,param_other*) {
 
@@ -1603,7 +1548,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_iteratee, param_array)
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
 
 		; prepare
@@ -1614,18 +1559,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; run against every value in the array
 		for key, value in param_array {
-			; shorthand
-			if (shorthand == ".property") {
-				fn := this.property(param_iteratee)
-				l_iteratee := fn.call(value)
-			}
-			if (boundFunc) {
-				l_iteratee := boundFunc.call(value)
-			}
-			if (param_iteratee.maxParams == 1) {
-				if (!boundFunc.call(value)) {
-					l_iteratee := param_iteratee.call(value)
-				}
+			; functor
+			if (this.isCallable(param_iteratee)) {
+				l_iteratee := param_iteratee.call(value)
 			}
 			l_total += l_iteratee
 		}
@@ -1760,7 +1696,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 
 		; create
@@ -1768,20 +1704,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			if (param_fromindex > A_Index) {
 				continue
 			}
-			; undeteriminable functor
-			if (param_predicate.call(value)) {
-				return key
-			}
-			; regular function
-			if (isFunc(param_predicate)) {
+			; functor
+			if (this.isCallable(param_predicate)) {
 				if (param_predicate.call(value)) {
 					return key
 				}
-				continue
-			}
-			; shorthand
-			if (boundFunc.call(value) && shorthand) {
-				return key
 			}
 		}
 		return false
@@ -1813,22 +1740,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
 			param_iteratee := param_iteratee.bind(this)
 		}
-		param_object := this.cloneDeep(param_object)
+		l_object := this.cloneDeep(param_object)
 		l_array := {}
 
 		; create
-		for key, value in param_object {
+		for key, value in l_object {
 			if (param_iteratee == "__identity") {
 				l_array[value] := A_Index
 				continue
 			}
-			; calling own method
-			if (!isFunc(param_iteratee)) { ;somehow NOT a function
-				l_array[param_iteratee.call(value, key)] := A_Index
-				continue
+			; functor
+			if (this.isCallable(param_iteratee)) {
+				l_array[param_iteratee.call(value, key, l_object)] := A_Index
 			}
-			; regular function
-			l_array[param_iteratee.call(value, key, param_object)] := A_Index
 		}
 		return l_array
 	}
@@ -1845,22 +1769,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
 			param_iteratee := param_iteratee.bind(this)
 		}
-		param_object := this.cloneDeep(param_object)
+		l_object := this.cloneDeep(param_object)
 		l_array := {}
 
 		; create
-		for key, value in param_object {
+		for key, value in l_object {
 			if (param_iteratee == "__identity") {
 				l_array[key] := value
 				continue
 			}
-			; calling own method
-			if (!isFunc(param_iteratee)) { ;somehow NOT a function
-				l_array[key] := param_iteratee.call(value, key)
-				continue
+			; functor function
+			if (this.isCallable(param_iteratee)) {
+				l_array[key] := param_iteratee.call(value, key, l_object)
 			}
-			; regular function
-			l_array[key] := param_iteratee.call(value, key, param_object)
 		}
 		return l_array
 	}
@@ -2212,27 +2133,23 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return  OutputVar
 	}
 	trim(param_string,param_chars:="") {
-		if (!this.isString(param_string) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 
 		; create
-		if (param_chars = "") {
-			l_string := this.trimStart(param_string, param_chars)
-			return  this.trimEnd(l_string, param_chars)
+		if (param_chars == "") {
+			return trim(param_string)
 		} else {
-			l_string := param_string
-			l_removechars := "\" this.join(StrSplit(param_chars, ""), "\")
-
 			; replace starting characters
-			l_string := this.trimStart(l_string, param_chars)
+			l_string := this.trimStart(param_string, param_chars)
 			; replace ending characters
 			l_string := this.trimEnd(l_string, param_chars)
 			return l_string
 		}
 	}
 	trimEnd(param_string,param_chars:="") {
-		if (!this.isString(param_string) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 
@@ -2255,7 +2172,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 	}
 	trimStart(param_string,param_chars:="") {
-		if (!this.isString(param_string) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 

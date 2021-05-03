@@ -1143,7 +1143,7 @@ collection (Array|Object): The collection to iterate over.
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18")
 ; => true
 
-fn_isOver18(o){	return % o.age >= 18}; The `A.matches` iteratee shorthand.A.every(users, { "user": "barney", "age": 36, "active": false })
+fn_isOver18(o){	return % o.age >= 18}; The `A.matches` iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
 ; => false
 
 ; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
@@ -1308,14 +1308,14 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-A.groupBy([6.1, 4.2, 6.2], A.floor)
-; => {4: [4.2], 6: [6.1, 6.2]}
+A.groupBy([6.1, 4.2, 6.3], A.floor)
+; => {4: [4.2], 6: [6.1, 6.3]}
+
+A.groupBy(["one", "two", "three"], A.size)
+; => {3: ["one", "two"], 5: ["three"]}
 
 A.groupBy([6.1, 4.2, 6.3], func("Ceil"))
 ; => {5: [4.2], 7: [6.1, 6.3]}
-
-; The `A.property` iteratee shorthand.users := [ { "user": "barney", "lastActive": "Monday" }		, { "user": "fred", "lastActive": "Tuesday" }		, { "user": "pebbles", "lastActive": "Tuesday" } ]A.groupBy(users, "lastActive")
-; => {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]}
 
 ```
 
@@ -1738,6 +1738,37 @@ A.isArray("abc")
 
 A.isArray({"key": "value"})
 ; => true
+
+```
+
+
+
+## .isCallable
+Checks if value is callable as a function object, bound function, or object method.
+
+
+#### Arguments
+value (*): The value to check.
+
+
+#### Returns
+(boolean): Returns true if value is callable, else false.
+
+
+#### Example
+
+```autohotkey
+boundFunc := Func("strLen").bind()A.isCallable(boundFunc)
+; => true
+
+assert.false(IsFunc(boundFunc))A.isCallable(A.isString)
+; => true
+
+A.isCallable(A.matchesProperty("a", 1)
+; => true
+
+A.isCallable([1,2,3])
+; => false
 
 ```
 
