@@ -1,75 +1,66 @@
-findIndex(param_array,param_value,fromIndex:=1) {
+findIndex(param_array,param_predicate,fromIndex:=1) {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
-	shorthand := this._internal_differenciateShorthand(param_value, param_array)
+	l_array := []
+	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_value, param_array)
+		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 	}
-	if (isFunc(param_value)) {
-		boundFunc := param_value
-	}
-	if (isObject(param_value) && !isFunc(param_value)) { ; do not convert objects that are functions
-		vSearchingobjects := true
-		param_value := this._printObj(param_value)
+	if (param_predicate.maxParams > 0) {
+		boundFunc := param_predicate.bind()
 	}
 
 	; create
-	for Index, value in param_array {
-		if (Index < fromIndex) {
+	for index, value in param_array {
+		if (index < fromIndex) {
 			continue
 		}
-
-		if (shorthand == ".matchesProperty" || shorthand == ".property") {
-			if (boundFunc.call(param_array[Index]) == true) {
-				return Index
+		if (boundFunc.call(value, index, param_array)) {
+				return index
 			}
-		}
-		if (vSearchingobjects) {
-			value := this._printObj(param_array[Index])
-		}
-		if (isFunc(boundFunc)) {
-			if (boundFunc.call(param_array[Index]) == true) {
-				return Index
-			}
-		}
-		if (this.isEqual(value, param_value)) {
-			return Index
-		}
 	}
 	return -1
 }
 
 
 ; tests
-assert.test(A.findIndex([1, 2, 1, 2], 2), 2)
-
-; Search from the `fromIndex`.
-assert.test(A.findIndex([1, 2, 1, 2], 2, 3), 4)
-
-assert.test(A.findIndex(["fred", "barney"], "pebbles"), -1)
-
-StringCaseSense, On
-assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
-assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
-
 users := [ { "user": "barney", "age": 36, "active": true }
 	, { "user": "fred", "age": 40, "active": false }
 	, { "user": "pebbles", "age": 1, "active": true } ]
-assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 1)
-fn_findIndexFunc(o) {
-	return o.user == "barney"
-}
+
+; The A.matches iteratee shorthand.
+assert.test(A.findIndex(users, { "age": 1, "active": true }), 3)
+
+; The A.matchesProperty iteratee shorthand.
+assert.test(A.findIndex(users, ["active", false]), 2)
+
+; The A.property iteratee shorthand.
+assert.test(A.findIndex(users, "active"), 1)
 
 
 ; omit
+StringCaseSense, On
+assert.label("case sensitive")
+assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
+assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 StringCaseSense, Off
-assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1)
 
+assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
+fn_findIndexFunc(o) {
+	return o.user == "fred"
+}
+
+assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1) ;duplicate test of A.matches iteratee
+
+assert.label("not first element")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
 	, {"user": "pebbles", "active": false}]
 
 assert.test(A.findIndex(users, ["active", false]), 2)
+
+assert.label("fromIndex")
+assert.test(A.findIndex(users, ["active", false], 3), 3)
