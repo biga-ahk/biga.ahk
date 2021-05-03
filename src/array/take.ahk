@@ -7,7 +7,7 @@ take(param_array,param_n:=1) {
 	if (isObject(param_array)) {
 		param_array := this.clone(param_array)
 	}
-	if (strLen(param_array)) {
+	if (this.isStringLike(param_array)) {
 		param_array := strSplit(param_array)
 	}
 	l_array := []
