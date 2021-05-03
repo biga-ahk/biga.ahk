@@ -100,8 +100,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			l_array := StrSplit(param_array)
+		if (this.isStringLike(param_array)) {
+			l_array := strSplit(param_array)
 		}
 
 		; create
@@ -123,13 +123,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			l_array := StrSplit(param_array)
+		if (strLen(param_array)) {
+			l_array := strSplit(param_array)
 		}
 
 		; create
 		loop, % param_n	{
-			l_array.RemoveAt(l_array.count())
+			l_array.removeAt(l_array.count())
 		}
 		; return empty array if empty
 		if (l_array.count() == 0) {
@@ -203,46 +203,29 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-	findIndex(param_array,param_value,fromIndex:=1) {
+	findIndex(param_array,param_predicate,fromIndex:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_value, param_array)
+		l_array := []
+		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 		if (shorthand != false) {
-			boundFunc := this._internal_createShorthandfn(param_value, param_array)
+			boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
 		}
-		if (isFunc(param_value)) {
-			boundFunc := param_value
-		}
-		if (isObject(param_value) && !isFunc(param_value)) { ; do not convert objects that are functions
-			vSearchingobjects := true
-			param_value := this._printObj(param_value)
+		if (param_predicate.maxParams > 0) {
+			boundFunc := param_predicate.bind()
 		}
 
 		; create
-		for Index, value in param_array {
-			if (Index < fromIndex) {
+		for index, value in param_array {
+			if (index < fromIndex) {
 				continue
 			}
-
-			if (shorthand == ".matchesProperty" || shorthand == ".property") {
-				if (boundFunc.call(param_array[Index]) == true) {
-					return Index
+			if (boundFunc.call(value, index, param_array)) {
+					return index
 				}
-			}
-			if (vSearchingobjects) {
-				value := this._printObj(param_array[Index])
-			}
-			if (isFunc(boundFunc)) {
-				if (boundFunc.call(param_array[Index]) == true) {
-					return Index
-				}
-			}
-			if (this.isEqual(value, param_value)) {
-				return Index
-			}
 		}
 		return -1
 	}
@@ -358,7 +341,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
+		if (this.isStringLike(param_array)) {
 			l_array := StrSplit(param_array)
 		}
 
@@ -423,8 +406,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			param_array := StrSplit(param_array)
+		if (this.isStringLike(param_array)) {
+			param_array := strSplit(param_array)
 		}
 
 		; create
@@ -457,8 +440,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			l_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			l_array := StrSplit(param_array)
+		if (strLen(param_array)) {
+			l_array := strSplit(param_array)
 		}
 		if (param_n == 0) {
 			param_n := 1
@@ -503,15 +486,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		; defaults
-		if (this.isString(param_array)) {
+		; prepare
+		if (this.isStringLike(param_array)) {
 			param_array := strSplit(param_array)
 		}
 		if (param_end == 0) {
 			param_end := param_array.count()
 		}
-
-		; prepare
 		l_array := []
 
 		; create
@@ -569,8 +550,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			param_array := StrSplit(param_array)
+		if (strLen(param_array)) {
+			param_array := strSplit(param_array)
 		}
 		l_array := []
 
@@ -596,8 +577,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (isObject(param_array)) {
 			param_array := this.clone(param_array)
 		}
-		if (this.isString(param_array)) {
-			param_array := StrSplit(param_array)
+		if (strLen(param_array)) {
+			param_array := strSplit(param_array)
 		}
 		l_array := []
 
@@ -713,13 +694,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		l_count := 0
-		if (this.isString(param_collection)) {
+		if (this.isAlnum(param_collection) || this.isString(param_collection)) {
 			; cut fromindex length off from start of string if specified fromIndex > 1
 			if (param_fromIndex > 1) {
 				param_collection := subStr(param_collection, param_fromIndex, strLen(param_collection))
 			}
-			param_collection := this.split(param_collection, param_predicate)
-			return param_collection.count() - 1
+			; count by replacing all occurances
+			StrReplace(param_collection, param_predicate, "", l_count)
+			return l_count
 		}
 		for key, value in param_collection {
 			if (key < param_fromIndex) {
@@ -1158,14 +1140,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	size(param_collection) {
 
+		; prepare
+		if (param_collection.count() == 0) {
+			return ""
+		}
+
 		; create
-		if (param_collection.count() > 0) {
-			return param_collection.count()
+		if (max := this.max([param_collection.count(), param_collection.maxIndex()])) {
+			return max
 		}
-		if (param_collection.MaxIndex() > 0) {
-			return  param_collection.MaxIndex()
-		}
-		return StrLen(param_collection)
+		return strLen(param_collection)
 	}
 	some(param_collection,param_predicate) {
 		if (!isObject(param_collection)) {
@@ -1328,6 +1312,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	_internal_JSRegEx(param_string) {
+		if (!this.isString(param_string) && !this.isAlnum(param_string)) {
+			this._internal_ThrowException()
+		}
 		if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
 			return SubStr(param_string, 2, StrLen(param_string) - 2)
 		}
@@ -1341,7 +1328,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 			return ".matchesProperty"
 		}
-		if (strLen(param_shorthand) > 0 && isObject(param_objects)) {
+		if (this.isStringLike(param_shorthand) && isObject(param_objects)) {
 			for key, value in param_objects {
 				if (value.hasKey(param_shorthand)) {
 					return ".property"
@@ -1370,51 +1357,18 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 	}
 
-	isAlnum(param) {
-		if (isObject(param)) {
+	_internal_inStr(param_haystack,param_needle,param_fromIndex:=1,param_occurance:=1) {
+		; used inplace of inStr to follow A_StringCaseSense
+		if (A_StringCaseSense == "On") {
+			StringCaseSense := 1
+		} else {
+			StringCaseSense := 0
+		}
+		if (position := inStr(param_collection, param_value, StringCaseSense, param_fromIndex, param_occurance)) {
+			return position
+		} else {
 			return false
 		}
-		if param is alnum
-		{
-			return true
-		}
-		return false
-	}
-
-	isString(param) {
-		if (isObject(param)) {
-			return false
-		}
-		if param is alnum
-		{
-			return true
-		}
-		if (strLen(param) > 0) {
-			return true
-		}
-		return false
-	}
-
-	isNumber(param) {
-		if (isObject(param)) {
-			return false
-		}
-		if param is number
-		{
-			return true
-		}
-		return false
-	}
-
-	isFloat(param) {
-		if (isObject(param)) {
-			return false
-		}
-		if param is float
-		{
-			return true
-		}
-		return false
 	}
 
 	isFalsey(param) {
@@ -1422,6 +1376,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return false
 		}
 		if (param == "" || param == 0) {
+			return true
+		}
+		return false
+	}
+	isStringLike(param) {
+		if (isObject(param)) {
+			return false
+		}
+		if (this.isString(param) || this.isAlnum(param)) {
 			return true
 		}
 		return false
@@ -1447,6 +1410,22 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return Obj
 	}
+	isAlnum(param) {
+		if (isObject(param)) {
+			return false
+		}
+		if param is alnum
+		{
+			return true
+		}
+		return false
+	}
+	isArray(param) {
+		if (param.GetCapacity()) {
+			return true
+		}
+		return false
+	}
 	isEqual(param_value,param_other*) {
 
 		; prepare
@@ -1468,6 +1447,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return true
 	}
+	isFloat(param) {
+		if (isObject(param)) {
+			return false
+		}
+		if param is float
+		{
+			return true
+		}
+		return false
+	}
 	isMatch(param_object,param_source) {
 		for key, value in param_source {
 			if (param_object[key] == value) {
@@ -1475,6 +1464,31 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			} else {
 				return false
 			}
+		}
+		return true
+	}
+	isNumber(param) {
+		if (isObject(param)) {
+			return false
+		}
+		if param is number
+		{
+			return true
+		}
+		return false
+	}
+	isObject(param) {
+		if (isObject(param)) {
+			return true
+		}
+		return false
+	}
+	isString(param) {
+		if (isObject(param)) {
+			return false
+		}
+		if (ObjGetCapacity([param], 1) == "") {
+			return false
 		}
 		return true
 	}
@@ -1941,7 +1955,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	camelCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -1974,7 +1988,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	escape(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -1988,7 +2002,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return param_string
 	}
 	kebabCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -1998,7 +2012,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	lowerCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2008,7 +2022,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	pad(param_string:="",param_length:=0,param_chars:=" ") {
-		if (!this.isString(param_string) || !this.isNumber(param_length) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isNumber(param_length) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 
@@ -2026,7 +2040,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_start param_string l_end
 	}
 	padEnd(param_string:="",param_length:=0,param_chars:=" ") {
-		if (!this.isString(param_string) || !this.isNumber(param_length) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isNumber(param_length) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 
@@ -2048,7 +2062,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	padStart(param_string:="",param_length:=0,param_chars:=" ") {
-		if (!this.isString(param_string) || !this.isNumber(param_length) || !this.isString(param_chars)) {
+		if (!this.isStringLike(param_string) || !this.isNumber(param_length) || !this.isStringLike(param_chars)) {
 			this._internal_ThrowException()
 		}
 
@@ -2069,7 +2083,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_padding . param_string
 	}
 	parseInt(param_string:="0") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2090,7 +2104,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return StrReplace(Format("{:0" param_number "}", 0), "0", param_string)
 	}
 	replace(param_string:="",param_needle:="",param_replacement:="") {
-		if (!this.isString(param_string) || !this.isString(param_needle) || !this.isString(param_replacement)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_needle) || !this.isStringLike(param_replacement)) {
 			this._internal_ThrowException()
 		}
 
@@ -2105,7 +2119,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return output
 	}
 	snakeCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2115,7 +2129,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	split(param_string:="",param_separator:=",",param_limit:=0) {
-		if (!this.isString(param_string) || !this.isString(param_string) || !this.isNumber(param_limit)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_separator) || !this.isNumber(param_limit)) {
 			this._internal_ThrowException()
 		}
 
@@ -2126,7 +2140,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		oSplitArray := StrSplit(param_string, param_separator)
+		oSplitArray := strSplit(param_string, param_separator)
 		if (!param_limit) {
 			return oSplitArray
 		} else {
@@ -2140,7 +2154,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return oReducedArray
 	}
 	startCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2167,12 +2181,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	startsWith(param_string,param_needle,param_fromIndex:= 1) {
-		if (!this.isString(param_string) || !this.isString(param_needle) || !this.isNumber(param_fromIndex)) {
+		if (!this.isStringLike(param_string) || !this.isStringLike(param_needle) || !this.isNumber(param_fromIndex)) {
 			this._internal_ThrowException()
 		}
 
 		; create
-		l_startString := SubStr(param_string, param_fromIndex, StrLen(param_needle))
+		l_startString := subStr(param_string, param_fromIndex, strLen(param_needle))
 		; check if substring matches
 		if (this.isEqual(l_startString, param_needle)) {
 			return true
@@ -2302,7 +2316,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_string
 	}
 	unescape(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2316,7 +2330,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return param_string
 	}
 	upperCase(param_string:="") {
-		if (!this.isString(param_string)) {
+		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
 		}
 
@@ -2370,7 +2384,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return true
 	}
 	matchesProperty(param_path,param_srcvalue) {
-		if (isObject(param_srcvalue)) {
+		if (!this.isStringLike(param_srcvalue)) {
 			this._internal_ThrowException()
 		}
 
@@ -2392,13 +2406,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	property(param_source) {
-		if (!this.isString(param_srcvalue)) {
-			this._internal_ThrowException()
-		}
 
 		; prepare
 		if (this.includes(param_source, ".")) {
-			param_source := this.split(param_source, ".")
+			param_source := strSplit(param_source, ".")
 		}
 
 		; create the fn
