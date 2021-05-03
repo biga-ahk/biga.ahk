@@ -6,7 +6,7 @@ array (Array): The array to inspect.
 
 [predicate:=.identity] (Function): The function invoked per iteration.
 
-[fromIndex:=0] (number): The index to search from.
+[fromIndex:=1] (number): The index to search from.
 
 
 ## Returns
