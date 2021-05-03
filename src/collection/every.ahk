@@ -7,23 +7,16 @@ every(param_collection,param_predicate) {
 	l_array := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_collection)
-	}
-	if (param_predicate.maxParams > 0) {
-		boundFunc := param_predicate.bind()
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
 	; create
 	for key, value in param_collection {
-		if (shorthand != false) {
-			if (boundFunc.call(value, key, param_collection) == true) {
-				continue
-			}
-			return false
-		} else {
+		if (this.isCallable(param_predicate)) {
 			if (param_predicate.call(value, key, param_collection) == true) {
 				continue
 			}
+			return false
 		}
 	}
 	return true
@@ -40,7 +33,7 @@ fn_isOver18(o)
 }
 
 ; The `A.matches` iteratee shorthand.
-assert.false(A.every(users, { "user": "barney", "age": 36, "active": false }))
+assert.false(A.every(users, {"user": "barney", "age": 36, "active": false}))
 
 ; The `A.matchesProperty` iteratee shorthand.
 assert.true(A.every(users, ["active", false]))
