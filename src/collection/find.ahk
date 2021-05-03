@@ -1,27 +1,12 @@
 find(param_collection,param_predicate,param_fromindex:=1) {
-	if (!isObject(param_collection)) {
+	if (!isObject(param_array) || !this.isNumber(fromIndex)) {
 		this._internal_ThrowException()
 	}
 
-	; prepare
-	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
-	if (shorthand != false) {
-		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
-	}
-	l_collection := this.cloneDeep(param_collection)
-
 	; create
-	for key, value in param_collection {
-		if (param_fromindex > A_Index) {
-			continue
-		}
-		; functor
-		if (this.isCallable(param_predicate)) {
-			if (param_predicate.call(value, key, l_collection)) {
-				return value
-			}
-			continue
-		}
+	foundIndex := this.findIndex(param_collection, param_predicate, param_fromindex)
+	if (foundIndex != -1) {
+		return param_collection[foundIndex]
 	}
 	return false
 }
