@@ -7,10 +7,7 @@ findIndex(param_array,param_predicate,fromIndex:=1) {
 	l_array := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
 	if (shorthand != false) {
-		boundFunc := this._internal_createShorthandfn(param_predicate, param_array)
-	}
-	if (param_predicate.maxParams > 0) {
-		boundFunc := param_predicate.bind()
+		param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 	}
 
 	; create
@@ -18,9 +15,12 @@ findIndex(param_array,param_predicate,fromIndex:=1) {
 		if (index < fromIndex) {
 			continue
 		}
-		if (boundFunc.call(value, index, param_array)) {
+		if (this.isCallable(param_predicate)) {
+			; msgbox, % this.print(value) " | is " param_predicate.call(value, index, param_array)
+			if (param_predicate.call(value, index, param_array)) {
 				return index
 			}
+		}
 	}
 	return -1
 }
@@ -48,19 +48,26 @@ assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
 assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 StringCaseSense, Off
 
+assert.label("function")
 assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
 fn_findIndexFunc(o) {
 	return o.user == "fred"
 }
 
-assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1) ;duplicate test of A.matches iteratee
-
-assert.label("not first element")
+assert.label("fromIndex")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
 	, {"user": "pebbles", "active": false}]
-
-assert.test(A.findIndex(users, ["active", false]), 2)
-
-assert.label("fromIndex")
 assert.test(A.findIndex(users, ["active", false], 3), 3)
+
+assert.label("boundFunc")
+employees := [{"name": "Mike Smith", "tenureYears": 4}, {"name": "Nath Samuel", "tenureYears": 2}]
+boundFunc := Func("fn_checkNameTenure").bind("Mike Smith", 4)
+assert.test(A.findIndex(employees, boundFunc), 1)
+
+fn_checkNameTenure(name, minTenure, obj)
+{
+	if (obj.tenureYears >= minTenure) {
+		return true
+	}
+}
