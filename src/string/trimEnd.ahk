@@ -1,5 +1,5 @@
 trimEnd(param_string,param_chars:="") {
-	if (!this.isString(param_string) || !this.isString(param_chars)) {
+	if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
 		this._internal_ThrowException()
 	}
 
