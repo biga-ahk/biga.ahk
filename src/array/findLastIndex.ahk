@@ -29,8 +29,3 @@ assert.test(A.findLastIndex(users, "active"), 1)
 
 
 ; omit
-testusers := ["barney","jane","pebbles","barney","bill"]
-assert.test(A.findLastIndex(testusers, "barney"), 4)
-assert.test(A.findLastIndex(testusers, "jane"), 2)
-assert.test(A.findLastIndex(testusers, "bill"), 5)
-assert.test(A.findLastIndex(testusers, "pebbles"), 3)

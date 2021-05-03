@@ -5,7 +5,7 @@ array (Array): The array to inspect.
 
 [predicate:=.identity] (Function): The function invoked per iteration.
 
-[fromIndex:=array.size] (number): The index to search from.
+[fromIndex:=array.count()] (number): The index to search from.
 
 
 ## Returns
