@@ -1,5 +1,5 @@
 findIndex(param_array,param_predicate,fromIndex:=1) {
-	if (!isObject(param_array)) {
+	if (!isObject(param_array) || !this.isNumber(fromIndex)) {
 		this._internal_ThrowException()
 	}
 
