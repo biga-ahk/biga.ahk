@@ -1,4 +1,4 @@
-findLastIndex(param_array,param_value,fromIndex:=1) {
+findLastIndex(param_array,param_value,param_fromIndex:=1) {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
@@ -6,7 +6,7 @@ findLastIndex(param_array,param_value,fromIndex:=1) {
 	; create
 	l_array := this.reverse(this.cloneDeep(param_array))
 	l_count := this.size(l_array)
-	l_foundIndex := this.findIndex(l_array, param_value, fromIndex)
+	l_foundIndex := this.findIndex(l_array, param_value, param_fromIndex)
 
 	if (l_foundIndex < 0) {
 		return -1
