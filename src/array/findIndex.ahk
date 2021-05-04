@@ -1,5 +1,5 @@
-findIndex(param_array,param_predicate,fromIndex:=1) {
-	if (!isObject(param_array) || !this.isNumber(fromIndex)) {
+findIndex(param_array,param_predicate,param_fromindex:=1) {
+	if (!isObject(param_array) || !this.isNumber(param_fromindex)) {
 		this._internal_ThrowException()
 	}
 
@@ -12,11 +12,10 @@ findIndex(param_array,param_predicate,fromIndex:=1) {
 
 	; create
 	for index, value in param_array {
-		if (index < fromIndex) {
+		if (param_fromIndex > A_Index) {
 			continue
 		}
 		if (this.isCallable(param_predicate)) {
-			; msgbox, % this.print(value) " | is " param_predicate.call(value, index, param_array)
 			if (param_predicate.call(value, index, param_array)) {
 				return index
 			}

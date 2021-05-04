@@ -18,7 +18,7 @@ count(param_collection,param_predicate,param_fromIndex:=1) {
 		return l_count
 	}
 	for key, value in param_collection {
-		if (key < param_fromIndex) {
+		if (param_fromIndex > A_Index) {
 			continue
 		}
 		if (this.isCallable(param_predicate)) {

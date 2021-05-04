@@ -11,7 +11,7 @@ indexOf(param_array,param_value,fromIndex:=1) {
 
 	;  create
 	for index, value in param_array {
-		if (index < fromIndex) {
+		if (A_Index < fromIndex) {
 			continue
 		}
 		if (value != param_value) {
