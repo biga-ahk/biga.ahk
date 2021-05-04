@@ -16,19 +16,17 @@ filter(param_collection,param_predicate:="__identity") {
 
 	; create
 	for key, value in param_collection {
-		if (l_paramAmmount >= 1) {
-			vIteratee := param_predicate.call(value, key, collectionClone)
-			if (vIteratee) {
-				l_array.push(value)
-			}
-			continue
-		}
 		; functor
 		if (this.isCallable(param_predicate)) {
-			if (param_predicate.call(value)) {
+			if (l_paramAmmount == 3) {
+				if (param_predicate.call(value, key, collectionClone)) {
+				l_array.push(value)
+				continue
+				}
+			}
+			if (param_predicate.call(value, key)) {
 				l_array.push(value)
 			}
-			continue
 		}
 	}
 	return l_array
