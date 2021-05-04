@@ -4,7 +4,7 @@ sortBy(param_collection,param_iteratees:="__identity") {
 	}
 	; prepare
 	if (this.startsWith(param_iteratees.name, this.__Class ".")) { ;if starts with "biga."
-		thisThing := "boundfunc"
+		param_iteratees := param_iteratees.bind(this)
 	}
 	l_array := []
 
@@ -13,14 +13,12 @@ sortBy(param_collection,param_iteratees:="__identity") {
 	if (param_iteratees == "__identity") {
 		return this._internal_sort(param_collection)
 	}
+	; property
 	if (this.isAlnum(param_iteratees)) {
 		return this._internal_sort(param_collection, param_iteratees)
 	}
 	; own method or function
-	if (param_iteratees.maxParams > 0) {
-		if (thisThing == "boundfunc") {
-			param_iteratees := param_iteratees.bind(this)
-		}
+	if (this.isCallable(param_iteratees)) {
 		for key, value in param_collection {
 			l_array[A_Index] := {}
 			l_array[A_Index].value := value
