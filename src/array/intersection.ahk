@@ -7,7 +7,7 @@ intersection(param_arrays*) {
 
 	; prepare
 	tempArray := A.cloneDeep(param_arrays[1])
-	param_arrays.RemoveAt(1) ;no need to check 1st array against itself, this does not mutate the input args
+	param_arrays.removeAt(1) ;no need to check 1st array against itself, this does not mutate the input args
 	l_array := []
 
 	; create

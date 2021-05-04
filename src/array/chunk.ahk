@@ -17,7 +17,7 @@ chunk(param_array,param_size:=1) {
 			if (param_array.count() == 0) {
 				break
 			}
-			l_innerArr.push(param_array.RemoveAt(1))
+			l_innerArr.push(param_array.removeAt(1))
 		}
 	l_array.push(l_innerArr)
 	}

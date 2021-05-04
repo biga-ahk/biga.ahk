@@ -5,7 +5,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 
 	; prepare
 	if (!isFunc(param_iteratee)) {
-		boundFunc := param_iteratee.Bind(this)
+		boundFunc := param_iteratee.bind(this)
 	}
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 	if (shorthand != false) {
