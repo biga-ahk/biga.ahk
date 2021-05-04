@@ -5,7 +5,7 @@ forEach(param_collection,param_iteratee:="__identity") {
 
 	; prepare
 	if (!isFunc(param_iteratee)) {
-		boundFunc := param_iteratee.Bind(this)
+		boundFunc := param_iteratee.bind(this)
 	}
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
