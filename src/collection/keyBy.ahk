@@ -5,7 +5,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
-	if (shorthand != false) {
+	if (shorthand == ".property") {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
 	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
@@ -40,5 +40,7 @@ fn_keyByFunc(value)
 	return value.dir
 }
 
+; The `A.property` iteratee shorthand.
 assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
+
 ; omit
