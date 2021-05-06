@@ -122,7 +122,7 @@ A.depthOf([1, [2, [3, [4]], 5]])
 
 
 ## .difference
-Creates an array of array values not included in the other given arrays. The order and references of result values are determined by the first array.
+Creates an array of array values not included in the other given arrays. The order of result values are determined by the first array.
 
 #### Arguments
 array (Array): The array to inspect.
@@ -589,7 +589,7 @@ A.initial(100)
 
 
 ## .intersection
-Creates an array of unique values that are included in all given arrays. The order and references of result values are determined by the first array.
+Creates an array of unique values that are included in all given arrays. The order of result values are determined by the first array.
 
 
 #### Arguments
@@ -1379,7 +1379,10 @@ collection (Array|Object): The collection to iterate over.
 array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, Func("fn_keyByFunc"))
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
-fn_keyByFunc(value){	return value.dir}```
+fn_keyByFunc(value){	return value.dir}; The `A.property` iteratee shorthand.A.keyBy(array, "dir")
+; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
+
+```
 
 
 
