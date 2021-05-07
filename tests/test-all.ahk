@@ -62,6 +62,9 @@ assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
 assert.test(A.difference(["Barney", "Fred"], ["Barney"], ["Fred"]), [])
 
+assert.label("remove repeat values")
+assert.test(A.difference([50, 50, 90], [50, 80]), [90])
+
 assert.group(".drop")
 assert.label("default tests")
 assert.test(A.drop([1, 2, 3]), [2, 3])
@@ -170,22 +173,30 @@ assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
 assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney"}), 2)
 StringCaseSense, Off
 
+assert.label("function")
 assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
 fn_findIndexFunc(o) {
 	return o.user == "fred"
 }
 
-assert.test(A.findIndex([{name: "fred"}, {name: "barney"}], {name: "fred"}), 1) ;duplicate test of A.matches iteratee
-
-assert.label("not first element")
+assert.label("fromIndex")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
 	, {"user": "pebbles", "active": false}]
-
-assert.test(A.findIndex(users, ["active", false]), 2)
-
-assert.label("fromIndex")
 assert.test(A.findIndex(users, ["active", false], 3), 3)
+
+assert.label("boundFunc")
+employees := [{"name": "Mike Smith", "tenureYears": 4}, {"name": "Nath Samuel", "tenureYears": 2}]
+boundFunc := Func("fn_checkNameTenure").bind("Mike Smith", 4)
+assert.test(A.findIndex(employees, boundFunc), 1)
+
+fn_checkNameTenure(name, minTenure, obj)
+{
+	if (obj.tenureYears >= minTenure) {
+		return true
+	}
+}
+
 assert.group(".findLastIndex")
 assert.label("default tests")
 users := [{"user": "barney", "active": true}
@@ -499,7 +510,7 @@ fn_isOver18(o)
 }
 
 ; The `A.matches` iteratee shorthand.
-assert.false(A.every(users, { "user": "barney", "age": 36, "active": false }))
+assert.false(A.every(users, {"user": "barney", "age": 36, "active": false}))
 
 ; The `A.matchesProperty` iteratee shorthand.
 assert.true(A.every(users, ["active", false]))
@@ -609,7 +620,8 @@ assert.test(A.find(users, "active"), { "user": "barney", "age": 36, "active": tr
 
 
 ; omit
-assert.test(A.find(users, "active", 2), { "user": "pebbles", "age": 1, "active": true }) ;fromindex argument
+assert.label("fromindex argument")
+assert.test(A.find(users, "active", 2), { "user": "pebbles", "age": 1, "active": true })
 
 assert.group(".findLast")
 assert.label("default tests")
@@ -639,20 +651,19 @@ assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
 
 assert.group(".groupBy")
 assert.label("default tests")
-assert.test(A.groupBy([6.1, 4.2, 6.2], A.floor), {4: [4.2], 6: [6.1, 6.2]})
+assert.test(A.groupBy([6.1, 4.2, 6.3], A.floor), {4: [4.2], 6: [6.1, 6.3]})
+
+assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
 
 assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
-; The `A.property` iteratee shorthand.
-users := [ { "user": "barney", "lastActive": "Monday" }
-		, { "user": "fred", "lastActive": "Tuesday" }
-		, { "user": "pebbles", "lastActive": "Tuesday" } ]
-assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "barney", "lastActive": "Monday" }], "Tuesday": [{ "user": "fred", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
-
-
 ; omit
 
-assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
+users := [ { "user": "barney", "lastActive": "Tuesday" }
+		, { "user": "fred", "lastActive": "Monday" }
+		, { "user": "pebbles", "lastActive": "Tuesday" } ]
+
+assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "fred", "lastActive": "Monday" }], "Tuesday": [{ "user": "barney", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
 
 assert.group(".includes")
 assert.label("default tests")
@@ -679,6 +690,9 @@ fn_keyByFunc(value)
 {
 	return value.dir
 }
+
+; The `A.property` iteratee shorthand.
+assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
 ; omit
 
@@ -775,7 +789,7 @@ assert.true(isObject(output))
 output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
 assert.true(A.includes(output, "value"))
 
-assert.group(".samplesize")
+assert.group(".sampleSize")
 assert.label("default tests")
 output := A.sampleSize([1, 2, 3], 2)
 assert.test(output.count(), 2)
@@ -971,6 +985,21 @@ assert.true(A.isArray({"key": "value"}))
 ; omit
 assert.false(A.isArray(1))
 assert.false(A.isArray(""))
+
+assert.group(".isCallable")
+assert.label("default tests")
+boundFunc := Func("strLen").bind()
+assert.true(A.isCallable(boundFunc))
+assert.false(IsFunc(boundFunc))
+assert.true(A.isCallable(A.isString))
+assert.true(A.isCallable(A.matchesProperty("a", 1)))
+assert.false(A.isCallable([1,2,3]))
+
+
+; omit
+assert.false(A.isCallable([]))
+assert.false(A.isCallable({}))
+assert.false(A.isCallable("string"))
 
 assert.group(".isEqual")
 assert.label("default tests")
