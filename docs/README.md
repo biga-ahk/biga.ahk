@@ -2519,6 +2519,34 @@ A.invert({1:"a", 2:"A"})
 
 
 
+## .invertBy
+This method is like [A.invert](/?id=invert) except that the inverted object is generated from the results of running each element of object thru iteratee. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+
+> [!Note]
+> AutoHotkey object keys are always converted to lowercase.
+
+#### Arguments
+object (Object): The object to invert.
+
+[iteratee=A.identity] (Function): The iteratee invoked per element.
+
+#### Returns
+(Array): Returns the new inverted object.
+
+
+#### Example
+
+```autohotkey
+object := {"a":1, "b":2, "c":1}A.invertBy(object)
+; => {"1":["a", "c"], "2":["b"]}
+
+A.invertBy(object, Func("invertByFunc"))
+; => {"group1":}
+
+invertByFunc(value){	return "group" value}```
+
+
+
 ## .keys
 Creates an array of the own enumerable properties of object.
 

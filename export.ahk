@@ -1684,6 +1684,45 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return false
 	}
+	invert(param_object) {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_obj := this.cloneDeep(param_object)
+		l_newObj := {}
+
+		; create
+		for key, value in l_obj {
+			l_newObj[value] := key
+		}
+		return l_newObj
+	}
+	invertBy(param_object,param_iteratee:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_obj := this.cloneDeep(param_object)
+		l_newObj := {}
+
+		; create
+		for key, value in l_obj {
+			if (this.isCallable(param_iteratee)) {
+				vkey := param_iteratee.call(value)
+			} else {
+				vkey := value
+			}
+
+			if (!isObject(l_newObj[vkey])) {
+				l_newObj[vkey] := []
+			}
+			l_newObj[vkey].push(key)
+		}
+		return l_newObj
+	}
 	keys(param_object) {
 
 		; prepare
