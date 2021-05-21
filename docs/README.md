@@ -246,17 +246,17 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": true }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": false } ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
+users := [ {"user": "barney", 	"active": true}		, {"user": "fred",		"active": false}		, {"user": "pebbles", 	"active": false} ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
 ; => [{"user": "barney", "active": true }]
 
 fn_dropRightWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
-; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ]
+; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false} ]
 
 ; The `A.matchesProperty` iteratee shorthand.A.dropRightWhile(users, ["active", false])
-; => [  {"user": "barney", "active": true } ]
+; => [ {"user": "barney", "active": true } ]
 
 ; The `A.property` iteratee shorthand.A.dropRightWhile(users, "active")
-; => [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ]
+; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ]
 
 ```
 
@@ -1176,7 +1176,7 @@ function (Function): The function invoked per iteration.
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age": 36,"active":true})
+fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age":36, "active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ; The A.matchesProperty shorthandA.filter(users, ["active", false])
@@ -2487,6 +2487,33 @@ fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.f
 
 ; The A.property iteratee shorthand.A.findKey(users, "active")
 ; => "barney"
+
+```
+
+
+
+## .invert
+Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
+
+> [!Note]
+> AutoHotkey object keys are always converted to lowercase.
+
+#### Arguments
+object (Object): The object to invert.
+
+
+#### Returns
+(Array): Returns the new inverted object.
+
+
+#### Example
+
+```autohotkey
+object := {"a":1, "b":2, "c":1}A.invert(object)
+; => {"1":"c", "2":"b"}
+
+A.invert({1:"a", 2:"A"})
+; => {"a":2}
 
 ```
 

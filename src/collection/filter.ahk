@@ -45,7 +45,7 @@ fn_filterFunc(param_iteratee)
 }
 
 ; The A.matches shorthand
-assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+assert.test(A.filter(users, {"age":36, "active":true}), [{"user":"barney", "age":36, "active":true}])
 
 ; The A.matchesProperty shorthand
 assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])

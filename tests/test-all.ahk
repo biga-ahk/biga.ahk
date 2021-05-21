@@ -92,9 +92,9 @@ assert.test(A.dropRight([]), [])
 
 assert.group(".dropRightWhile")
 assert.label("default tests")
-users := [ {"user": "barney", 	"active": true }
-		, { "user": "fred", 	"active": false }
-		, { "user": "pebbles", 	"active": false } ]
+users := [ {"user": "barney", 	"active": true}
+		, {"user": "fred",		"active": false}
+		, {"user": "pebbles", 	"active": false} ]
 assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
 fn_dropRightWhile(o)
 {
@@ -102,18 +102,18 @@ fn_dropRightWhile(o)
 }
 
 ; The `A.matches` iteratee shorthand.
-assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, { "user": "fred", "active": false } ])
+assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, {"user": "fred", "active": false} ])
 
 ; The `A.matchesProperty` iteratee shorthand.
-assert.test(A.dropRightWhile(users, ["active", false]), [  {"user": "barney", "active": true } ])
+assert.test(A.dropRightWhile(users, ["active", false]), [ {"user": "barney", "active": true } ])
 
 ; The `A.property` iteratee shorthand.
-assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, { "user": "fred", "active": false }, { "user": "pebbles", "active": false } ])
+assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ])
 
 ; omit
 assert.test(A.dropRightWhile([]), [])
 ; check that input has not been mutated
-assert.test(users[3], { "user": "pebbles", 	"active": false })
+assert.test(users[3], {"user": "pebbles",	"active": false})
 
 assert.group(".dropWhile")
 assert.label("default tests")
@@ -286,9 +286,13 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 
 
 ; omit
+assert.label("many arrays")
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
+assert.label("array of objects")
 assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
+assert.label("no intersecting values")
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+assert.label("no mutation of input")
 intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])
 assert.test(intersectionVar, [1,2,3])
@@ -564,7 +568,7 @@ fn_filterFunc(param_iteratee)
 }
 
 ; The A.matches shorthand
-assert.test(A.filter(users, {"age": 36,"active":true}), [{"user":"barney", "age":36, "active":true}])
+assert.test(A.filter(users, {"age":36, "active":true}), [{"user":"barney", "age":36, "active":true}])
 
 ; The A.matchesProperty shorthand
 assert.test(A.filter(users, ["active", false]), [{"user":"fred", "age":40, "active":false}])
@@ -1322,6 +1326,23 @@ assert.test(A.findKey(users, "active"), "barney")
 
 ; omit
 assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
+
+assert.group(".invert")
+assert.label("default tests")
+object := {"a":1, "b":2, "c":1}
+assert.test(A.invert(object), {"1":"c", "2":"b"})
+
+assert.test(A.invert({1:"a", 2:"A"}), {"a":2})
+
+
+; omit
+assert.label("do not mutate")
+object := {"a": 1}
+assert.test(A.invert(object), {"1":"a"})
+assert.test(object, {"a": 1})
+
+assert.label("blank object")
+assert.test(A.invert({}), {})
 
 assert.group(".keys")
 assert.label("default tests")
