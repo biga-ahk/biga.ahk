@@ -34,9 +34,13 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 
 
 ; omit
+assert.label("many arrays")
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
+assert.label("array of objects")
 assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
+assert.label("no intersecting values")
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+assert.label("no mutation of input")
 intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])
 assert.test(intersectionVar, [1,2,3])
