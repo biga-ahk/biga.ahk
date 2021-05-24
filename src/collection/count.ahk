@@ -44,13 +44,13 @@ users := [ {"user": "fred", "age": 40, "active": true}
 		, {"user": "barney", "age": 36, "active": false}
 		, {"user": "pebbles", "age": 1, "active": false} ]
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.test(A.count(users, {"age": 1, "active": false}), 1)
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.test(A.count(users, ["active", false]), 2)
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.count(users, "active"), 1)
 
 

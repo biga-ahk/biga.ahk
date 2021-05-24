@@ -24,15 +24,15 @@ some(param_collection,param_predicate) {
 ; tests
 users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.label("A.matches iteratee shorthand.")
 assert.false(A.some(users, { "user": "barney", "active": false }))
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.label("A.matchesProperty iteratee shorthand.")
 assert.true(A.some(users, ["active", false]))
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.label("A.property iteratee shorthand.")
 assert.true(A.some(users, "active"))
 

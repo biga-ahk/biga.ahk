@@ -44,7 +44,7 @@ assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
-; The `A.property` shorthand
+; The A.property shorthand
 assert.label(".property shorthand")
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])

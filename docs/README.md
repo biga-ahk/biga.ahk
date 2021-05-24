@@ -249,13 +249,13 @@ array (Array): The array to query.
 users := [ {"user": "barney", 	"active": true}		, {"user": "fred",		"active": false}		, {"user": "pebbles", 	"active": false} ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
 ; => [{"user": "barney", "active": true }]
 
-fn_dropRightWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
+fn_dropRightWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
 ; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false} ]
 
-; The `A.matchesProperty` iteratee shorthand.A.dropRightWhile(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.dropRightWhile(users, ["active", false])
 ; => [ {"user": "barney", "active": true } ]
 
-; The `A.property` iteratee shorthand.A.dropRightWhile(users, "active")
+; The A.property iteratee shorthand.A.dropRightWhile(users, "active")
 ; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ]
 
 ```
@@ -282,13 +282,13 @@ array (Array): The array to query.
 users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
 ; => [{ "user": "pebbles", "active": true }]
 
-fn_dropWhile(o){	return !o.active}; The `A.matches` iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
+fn_dropWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
 ; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ]
 
-; The `A.matchesProperty` iteratee shorthand.A.dropWhile(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.dropWhile(users, ["active", false])
 ; => [ {"user": "pebbles", "active": true } ]
 
-; The `A.property` iteratee shorthand.A.dropWhile(users, "active")
+; The A.property iteratee shorthand.A.dropWhile(users, "active")
 ; => [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
 
 ```
@@ -1107,13 +1107,13 @@ A.count("pebbles", "b")
 A.count(["fred", "barney", "pebbles"], "barney")
 ; => 1
 
-users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "age": 36, "active": false}		, {"user": "pebbles", "age": 1, "active": false} ]; The `A.matches` iteratee shorthand.A.count(users, {"age": 1, "active": false})
+users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "age": 36, "active": false}		, {"user": "pebbles", "age": 1, "active": false} ]; The A.matches iteratee shorthand.A.count(users, {"age": 1, "active": false})
 ; => 1
 
-; The `A.matchesProperty` iteratee shorthand.A.count(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.count(users, ["active", false])
 ; => 2
 
-; The `A.property` iteratee shorthand.A.count(users, "active")
+; The A.property iteratee shorthand.A.count(users, "active")
 ; => 1
 
 ```
@@ -1140,16 +1140,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18")
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18"))
 ; => true
 
-fn_isOver18(o){	return % o.age >= 18}; The `A.matches` iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
+fn_isOver18(o){	return % o.age >= 18}; The A.matches iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
 ; => false
 
-; The `A.matchesProperty` iteratee shorthand.A.every(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.every(users, ["active", false])
 ; => true
 
-; The `A.property` iteratee shorthand.A.every(users, "active")
+; The A.property iteratee shorthand.A.every(users, "active")
 ; => false
 
 ```
@@ -1379,7 +1379,7 @@ collection (Array|Object): The collection to iterate over.
 array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, Func("fn_keyByFunc"))
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
-fn_keyByFunc(value){	return value.dir}; The `A.property` iteratee shorthand.A.keyBy(array, "dir")
+fn_keyByFunc(value){	return value.dir}; The A.property iteratee shorthand.A.keyBy(array, "dir")
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
 ```
@@ -1412,7 +1412,7 @@ A.map({ "a": 4, "b": 8 }, Func("fn_square"))
 A.map({ "a": 4, "b": 8 })
 ; => [4, 8]
 
-; The `A.property` shorthandusers := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
+; The A.property shorthandusers := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
 ; => ["barney", "fred"]
 
 ```
@@ -1601,13 +1601,13 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]; The `A.matches` iteratee shorthand.A.some(users, { "user": "barney", "active": false })
+users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]; The A.matches iteratee shorthand.A.some(users, { "user": "barney", "active": false })
 ; => false
 
-; The `A.matchesProperty` iteratee shorthand.A.some(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.some(users, ["active", false])
 ; => true
 
-; The `A.property` iteratee shorthand.A.some(users, "active")
+; The A.property iteratee shorthand.A.some(users, "active")
 ; => true
 
 ```
@@ -1770,7 +1770,7 @@ IsFunc(boundFunc)
 A.isCallable(A.isString)
 ; => true
 
-A.isCallable(A.matchesProperty("a", 1)
+A.isCallable(A.matchesProperty("a", 1))
 ; => true
 
 A.isCallable([1,2,3])
@@ -2191,7 +2191,7 @@ array (Array): The array to iterate over.
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(objects, Func("fn_meanByFunc"))
 ; => 5
 
-fn_meanByFunc(o){	return o.n}; The `A.property` iteratee shorthand.A.meanBy(objects, "n")
+fn_meanByFunc(o){	return o.n}; The A.property iteratee shorthand.A.meanBy(objects, "n")
 ; => 5
 
 ```

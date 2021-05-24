@@ -40,7 +40,7 @@ fn_keyByFunc(value)
 	return value.dir
 }
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
 ; omit

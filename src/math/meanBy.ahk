@@ -38,7 +38,7 @@ fn_meanByFunc(o)
 	return o.n
 }
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.meanBy(objects, "n"), 5)
 
 ; omit

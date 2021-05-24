@@ -43,13 +43,13 @@ fn_dropWhile(o)
 	return !o.active
 }
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.test(A.dropWhile(users, {"user": "barney", "active": false}), [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ])
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.test(A.dropWhile(users, ["active", false]), [ {"user": "pebbles", "active": true } ])
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ])
 
 
