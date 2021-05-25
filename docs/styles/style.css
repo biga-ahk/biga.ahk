@@ -749,7 +749,7 @@ body {
 	color: var(--codeTextColor);
 }
 .token.property {
-	color: #e06c75;
+	color: #62d543;
 }
 .token.tag {
 	color: #2973b7;
