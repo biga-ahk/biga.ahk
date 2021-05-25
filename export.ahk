@@ -861,13 +861,19 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
+		if (isObject(param_value)) {
+			param_value := this._internal_MD5(param_value)
+			param_collection := this.map(param_collection, this._internal_MD5)
+		}
+
 		; create
 		if (isObject(param_collection)) {
 			for key, value in param_collection {
 				if (param_fromIndex > A_Index) {
 					continue
 				}
-				if (value = param_value) {
+				if (this.isEqual(value, param_value)) {
 					return true
 				}
 			}
@@ -1370,6 +1376,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if param is float
 		{
 			return true
+		}
+		return false
+	}
+	isInteger(param) {
+		if param is integer
+		{
+			if (!this.isString(param)) {
+				return true
+			}
 		}
 		return false
 	}
@@ -2018,11 +2033,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		; prepare
 		l_int := this.trimStart(param_string, " 0_")
-		if (this.size(l_int) = 0) {
+
+		; create
+		if (this.size(l_int) == 0 && inStr(param_string, "0")) {
 			return 0
 		}
-		return l_int + 0
+		if (this.isNumber(l_int)) {
+			return l_int
+		}
+		l_int := this.replace(l_int, "/\D+/")
+		if (this.isNumber(l_int)) {
+			return l_int
+		}
+		return ""
 	}
 	repeat(param_string,param_number:=1) {
 		if (!this.isString(param_string) || (!this.isNumber(param_number))) {
