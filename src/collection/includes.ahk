@@ -3,13 +3,19 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 		this._internal_ThrowException()
 	}
 
+	; prepare
+	if (isObject(param_value)) {
+		param_value := this._internal_MD5(param_value)
+		param_collection := this.map(param_collection, this._internal_MD5)
+	}
+
 	; create
 	if (isObject(param_collection)) {
 		for key, value in param_collection {
 			if (param_fromIndex > A_Index) {
 				continue
 			}
-			if (value = param_value) {
+			if (this.isEqual(value, param_value)) {
 				return true
 			}
 		}
@@ -47,3 +53,5 @@ assert.true(A.includes("hello!", "/\D/"))
 ; omit
 StringCaseSense, Off
 assert.false(A.includes("InStr", "Other"))
+assert.label("object search")
+assert.true(A.includes([[1], [2]], [2]))
