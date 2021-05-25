@@ -15,3 +15,6 @@ assert.false(A.isString(1))
 
 ; omit
 assert.true(A.isString("."))
+; assert.false(A.isString(1.0000))
+; assert.false(A.isString(1.0001))
+assert.true(A.isString("1.0000"))
