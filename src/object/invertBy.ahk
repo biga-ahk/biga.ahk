@@ -25,11 +25,10 @@ invertBy(param_object,param_iteratee:="__identity") {
 
 
 ; tests
-object := {"a":1, "b":2, "c":1}
-assert.test(A.invertBy(object), {"1":["a", "c"], "2":["b"]})
+object := {"a": 1, "b": 2, "c": 1}
+assert.test(A.invertBy(object), {"1": ["a", "c"], "2":["b"]})
 
-assert.test(A.invertBy(object, Func("invertByFunc")), {"group1":})
-
+assert.test(A.invertBy(object, Func("invertByFunc")), {"group1": ["a", "c"], "group2": ["b"]})
 invertByFunc(value)
 {
 	return "group" value

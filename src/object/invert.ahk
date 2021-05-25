@@ -16,16 +16,16 @@ invert(param_object) {
 
 
 ; tests
-object := {"a":1, "b":2, "c":1}
-assert.test(A.invert(object), {"1":"c", "2":"b"})
+object := {"a": 1, "b": 2, "c": 1}
+assert.test(A.invert(object), {"1": "c", "2": "b"})
 
-assert.test(A.invert({1:"a", 2:"A"}), {"a":2})
+assert.test(A.invert({1: "a", 2: "A"}), {"a": 2})
 
 
 ; omit
 assert.label("do not mutate")
 object := {"a": 1}
-assert.test(A.invert(object), {"1":"a"})
+assert.test(A.invert(object), {"1": "a"})
 assert.test(object, {"a": 1})
 
 assert.label("blank object")
