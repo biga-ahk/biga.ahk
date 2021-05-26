@@ -9,15 +9,17 @@ sampleSize(param_collection,param_sampleSize:=1) {
 	}
 
 	; prepare
-	l_collection := this.clone(param_collection)
-	l_array := []
+	if (this.isStringLike(param_collection)) {
+		param_collection := strSplit(param_collection)
+	}
 	l_order := A.shuffle(this.keys(param_collection))
+	l_array := []
 
 	; create
 	loop, % param_sampleSize
 	{
 		ordervalue := l_order.pop()
-		l_array.push(l_collection[ordervalue])
+		l_array.push(param_collection[ordervalue])
 	}
 	return l_array
 }

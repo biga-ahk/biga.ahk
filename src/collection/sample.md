@@ -1,7 +1,7 @@
 Gets a single random element from collection.
 
 ## Arguments
-collection (Array|Object): The collection to sample.
+collection (Array|Object|String): The collection to sample.
 
 
 ## Returns

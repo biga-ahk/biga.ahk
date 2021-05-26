@@ -1,9 +1,12 @@
 sample(param_collection) {
-	if (!isObject(param_collection)) {
+	if (!this.isStringLike(param_collection) && !isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
+	if (this.isStringLike(param_collection)) {
+		param_collection := strSplit(param_collection)
+	}
 	if (param_collection.count() != param_collection.length()) {
 		l_array := this.map(param_collection)
 	} else {
@@ -30,3 +33,8 @@ assert.true(isObject(output))
 
 output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
 assert.true(A.includes(output, "value"))
+
+assert.label("string input")
+output := A.sample("abc")
+assert.true(A.includes(["a", "b", "c"], output))
+assert.true(A.isString(output))
