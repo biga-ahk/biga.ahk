@@ -101,13 +101,13 @@ fn_dropRightWhile(o)
 	return !o.active
 }
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.test(A.dropRightWhile(users, {"user": "pebbles", "active": false}), [ {"user": "barney", "active": true }, {"user": "fred", "active": false} ])
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.test(A.dropRightWhile(users, ["active", false]), [ {"user": "barney", "active": true } ])
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ])
 
 ; omit
@@ -126,13 +126,13 @@ fn_dropWhile(o)
 	return !o.active
 }
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.test(A.dropWhile(users, {"user": "barney", "active": false}), [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ])
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.test(A.dropWhile(users, ["active", false]), [ {"user": "pebbles", "active": true } ])
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ])
 
 
@@ -485,13 +485,13 @@ users := [ {"user": "fred", "age": 40, "active": true}
 		, {"user": "barney", "age": 36, "active": false}
 		, {"user": "pebbles", "age": 1, "active": false} ]
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.test(A.count(users, {"age": 1, "active": false}), 1)
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.test(A.count(users, ["active", false]), 2)
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.count(users, "active"), 1)
 
 
@@ -513,13 +513,13 @@ fn_isOver18(o)
 	return % o.age >= 18
 }
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.false(A.every(users, {"user": "barney", "age": 36, "active": false}))
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.true(A.every(users, ["active", false]))
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.false(A.every(users, "active"))
 
 
@@ -553,7 +553,11 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 
 
 assert.label("detect all undefined array")
-; assert.true(A.every(["","",""], A.isUndefined))
+assert.true(A.every(["", "", ""], A.isUndefined))
+assert.false(A.every(["", "", 1], A.isUndefined))
+
+assert.label("Use other methods for param_predicate")
+assert.true(A.every(["hey", "you", "there"], A.isString))
 
 assert.group(".filter")
 assert.label("default tests")
@@ -683,6 +687,8 @@ assert.true(A.includes("hello!", "/\D/"))
 ; omit
 StringCaseSense, Off
 assert.false(A.includes("InStr", "Other"))
+assert.label("object search")
+assert.true(A.includes([[1], [2]], [2]))
 
 assert.group(".keyBy")
 assert.label("default tests")
@@ -695,7 +701,7 @@ fn_keyByFunc(value)
 	return value.dir
 }
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
 ; omit
@@ -711,7 +717,7 @@ assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
-; The `A.property` shorthand
+; The A.property shorthand
 assert.label(".property shorthand")
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
@@ -793,6 +799,11 @@ assert.true(isObject(output))
 output := A.sample([{"obj": "value"} , {"obj": "value"}, {"obj": "value"}])
 assert.true(A.includes(output, "value"))
 
+assert.label("string input")
+output := A.sample("abc")
+assert.true(A.includes(["a", "b", "c"], output))
+assert.true(A.isString(output))
+
 assert.group(".sampleSize")
 assert.label("default tests")
 output := A.sampleSize([1, 2, 3], 2)
@@ -866,15 +877,15 @@ assert.group(".some")
 assert.label("default tests")
 users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]
 
-; The `A.matches` iteratee shorthand.
+; The A.matches iteratee shorthand.
 assert.label("A.matches iteratee shorthand.")
 assert.false(A.some(users, { "user": "barney", "active": false }))
 
-; The `A.matchesProperty` iteratee shorthand.
+; The A.matchesProperty iteratee shorthand.
 assert.label("A.matchesProperty iteratee shorthand.")
 assert.true(A.some(users, ["active", false]))
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.label("A.property iteratee shorthand.")
 assert.true(A.some(users, "active"))
 
@@ -997,7 +1008,7 @@ assert.true(A.isCallable(boundFunc))
 assert.false(IsFunc(boundFunc))
 assert.true(A.isCallable(A.isString))
 assert.true(A.isCallable(A.matchesProperty("a", 1)))
-assert.false(A.isCallable([1,2,3]))
+assert.false(A.isCallable([1, 2, 3]))
 
 
 ; omit
@@ -1042,6 +1053,20 @@ assert.label("default tests")
 assert.true(A.isFloat(1.0))
 assert.false(A.isFloat(1))
 
+assert.group(".isInteger")
+assert.label("default tests")
+assert.true(A.isInteger(1))
+assert.false(A.isInteger("1"))
+
+; omit
+assert.label("omit")
+; assert.true(A.isInteger(1.0000))
+assert.true(A.isInteger(-1))
+assert.true(A.isInteger(-10))
+assert.false(A.isInteger(1.00001))
+assert.false(A.isInteger([]))
+assert.false(A.isInteger({}))
+
 assert.group(".isMatch")
 assert.label("default tests")
 object := { "a": 1, "b": 2, "c": 3 }
@@ -1072,6 +1097,9 @@ assert.false(A.isString(1))
 
 ; omit
 assert.true(A.isString("."))
+; assert.false(A.isString(1.0000))
+; assert.false(A.isString(1.0001))
+assert.true(A.isString("1.0000"))
 
 assert.group(".isUndefined")
 assert.label("default tests")
@@ -1189,7 +1217,7 @@ fn_meanByFunc(o)
 	return o.n
 }
 
-; The `A.property` iteratee shorthand.
+; The A.property iteratee shorthand.
 assert.test(A.meanBy(objects, "n"), 5)
 
 ; omit
@@ -1329,20 +1357,41 @@ assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
 
 assert.group(".invert")
 assert.label("default tests")
-object := {"a":1, "b":2, "c":1}
-assert.test(A.invert(object), {"1":"c", "2":"b"})
+object := {"a": 1, "b": 2, "c": 1}
+assert.test(A.invert(object), {"1": "c", "2": "b"})
 
-assert.test(A.invert({1:"a", 2:"A"}), {"a":2})
+assert.test(A.invert({1: "a", 2: "A"}), {"a": 2})
 
 
 ; omit
 assert.label("do not mutate")
 object := {"a": 1}
-assert.test(A.invert(object), {"1":"a"})
+assert.test(A.invert(object), {"1": "a"})
 assert.test(object, {"a": 1})
 
 assert.label("blank object")
 assert.test(A.invert({}), {})
+
+assert.group(".invertBy")
+assert.label("default tests")
+object := {"a": 1, "b": 2, "c": 1}
+assert.test(A.invertBy(object), {"1": ["a", "c"], "2":["b"]})
+
+assert.test(A.invertBy(object, Func("invertByFunc")), {"group1": ["a", "c"], "group2": ["b"]})
+invertByFunc(value)
+{
+	return "group" value
+}
+
+
+; omit
+assert.label("do not mutate")
+object := {"a": 1}
+assert.test(A.invertBy(object), {1:["a"]})
+assert.test(object, {"a": 1})
+
+assert.label("blank object")
+assert.test(A.invertBy({}), {})
 
 assert.group(".keys")
 assert.label("default tests")
@@ -1364,11 +1413,12 @@ fn_mapKeysFunc(value, key)
 
 
 ; omit
+assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])
 
 assert.group(".mapValues")
 assert.label("default tests")
-users := {"fred": 		{"user": "fred",			"age": 40}
-		,"pebbles": 	{"user": "pebbles",	"age": 1}}
+users := {"fred": {"user": "fred", "age": 40}
+		,"pebbles": {"user": "pebbles", "age": 1}}
 assert.test(A.mapValues(users, Func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
 fn_mapValuesFunc(o)
 {
@@ -1519,6 +1569,13 @@ assert.label("decimal places")
 assert.test(A.parseInt("1.0"), 1.0)
 assert.test(A.parseInt("1.0001"), 1.0001)
 
+assert.label("string representations")
+assert.test(A.parseInt("10,00"), 1000)
+assert.test(A.parseInt(" 10 00"), 1000)
+assert.test(A.parseInt(" 10+10"), 1010)
+
+assert.label("invalid input")
+assert.test(A.parseInt(" "), "")
 assert.group(".repeat")
 assert.label("default tests")
 assert.test(A.repeat("*", 3), "***")
@@ -1741,6 +1798,15 @@ assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
 
 
 ; omit
+assert.label("random array of numbers with boundFunc A.random")
+boundFunc := A.random.bind(A, 99, 99)
+output := A.times(5, boundFunc)
+assert.test(output, [99, 99, 99, 99, 99])
+
+assert.label("random array of letters with boundFunc A.sample")
+boundFunc := A.sample.bind(A, "abcdefghijklmnopqrstuvwxyz")
+output := A.times(5, boundFunc)
+assert.true(A.every(output, func("strLen"))) ;all strings longer than 0 chars
 ;; Display test results in GUI
 speed := QPC(0)
 assert.fullReport()

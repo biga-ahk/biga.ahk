@@ -1488,7 +1488,7 @@ fn_rejectFunc(o){	return !o.active}; The A.matches shorthandA.reject(users,
 Gets a single random element from collection.
 
 #### Arguments
-collection (Array|Object): The collection to sample.
+collection (Array|Object|String): The collection to sample.
 
 
 #### Returns
@@ -1509,7 +1509,7 @@ Gets `n` random elements at unique keys from collection up to the size of collec
 
 
 #### Arguments
-collection (Array|Object): The collection to sample.
+collection (Array|Object|String): The collection to sample.
 
 [n:=1] (number): The number of elements to sample.
 
@@ -1773,7 +1773,7 @@ A.isCallable(A.isString)
 A.isCallable(A.matchesProperty("a", 1))
 ; => true
 
-A.isCallable([1,2,3])
+A.isCallable([1, 2, 3])
 ; => false
 
 ```
