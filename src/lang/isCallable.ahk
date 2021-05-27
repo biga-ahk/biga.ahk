@@ -1,6 +1,6 @@
 isCallable(param) {
 	fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
-	return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
+	return ((isObject(param) && (numGet(&param, "Ptr") = fn)) || isFunc(param))
 }
 
 
@@ -10,7 +10,7 @@ assert.true(A.isCallable(boundFunc))
 assert.false(IsFunc(boundFunc))
 assert.true(A.isCallable(A.isString))
 assert.true(A.isCallable(A.matchesProperty("a", 1)))
-assert.false(A.isCallable([1,2,3]))
+assert.false(A.isCallable([1, 2, 3]))
 
 
 ; omit
