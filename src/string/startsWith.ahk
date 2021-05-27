@@ -1,4 +1,4 @@
-startsWith(param_string,param_needle,param_fromIndex:= 1) {
+startsWith(param_string,param_needle,param_fromIndex:=1) {
 	if (!this.isStringLike(param_string) || !this.isStringLike(param_needle) || !this.isNumber(param_fromIndex)) {
 		this._internal_ThrowException()
 	}

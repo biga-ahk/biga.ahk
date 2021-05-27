@@ -4,7 +4,6 @@ every(param_collection,param_predicate) {
 	}
 
 	; prepare
-	l_array := []
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
@@ -72,4 +71,8 @@ assert.true(A.every(userVotes, ["votes.2", "yes"]))
 
 
 assert.label("detect all undefined array")
-; assert.true(A.every(["","",""], A.isUndefined))
+assert.true(A.every(["", "", ""], A.isUndefined))
+assert.false(A.every(["", "", 1], A.isUndefined))
+
+assert.label("Use other methods for param_predicate")
+assert.true(A.every(["hey", "you", "there"], A.isString))

@@ -15,7 +15,7 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 	}
 
 	; create
-	Random, vRandom, param_lower, param_upper
+	random, vRandom, param_lower, param_upper
 	return vRandom
 }
 
