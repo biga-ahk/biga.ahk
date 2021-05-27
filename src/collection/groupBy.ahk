@@ -8,9 +8,6 @@ groupBy(param_collection,param_iteratee:="__identity") {
 	if (shorthand != false) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
-	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
-		param_iteratee := param_iteratee.bind(this)
-	}
 
 	; create
 	l_array := []

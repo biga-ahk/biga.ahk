@@ -4,6 +4,6 @@ class biga {
 	static throwExceptions := true
 	static limit := -1
 
-	static _guardedMethods := ["biga.trim"]
+	static _guardedMethods := ["trim"]
 
 	; --- Static Methods ---

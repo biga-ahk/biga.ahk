@@ -8,7 +8,7 @@ mapKeys(param_object,param_iteratee:="__identity") {
 	if (shorthand == ".property") {
 		param_iteratee := this.property(param_iteratee)
 	}
-	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
+	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
 		param_iteratee := param_iteratee.bind(this)
 	}
 	l_object := this.cloneDeep(param_object)
@@ -38,3 +38,4 @@ fn_mapKeysFunc(value, key)
 
 
 ; omit
+assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])

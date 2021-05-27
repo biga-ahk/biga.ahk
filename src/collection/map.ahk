@@ -8,8 +8,8 @@ map(param_collection,param_iteratee:="__identity") {
 	if (shorthand == ".property") {
 		param_iteratee  := this.property(param_iteratee)
 	}
-	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
-		guarded := this.includes(this._guardedMethods, param_iteratee.name)
+	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
+		guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
 		param_iteratee := param_iteratee.bind(this)
 	}
 	l_collection := this.cloneDeep(param_collection)
