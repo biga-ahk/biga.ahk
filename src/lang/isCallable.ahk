@@ -1,6 +1,6 @@
 isCallable(param) {
 	fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
-	return ((isObject(param) && (numGet(&param, "Ptr") = fn)) || isFunc(param))
+	return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
 }
 
 
