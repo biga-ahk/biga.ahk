@@ -6,9 +6,10 @@ compact(param_array) {
 
 	; create
 	for key, value in param_array {
-		if (value != "" && value != 0 && value != false) {
-			l_array.push(value)
+		if (value == "" || value == 0) {
+			continue
 		}
+		l_array.push(value)
 	}
 	return l_array
 }
