@@ -16,7 +16,7 @@ A.times(4, A.constant(0))
 ; => [0, 0, 0, 0]
 
 ; make an array with random numbers
-boundFunc := A.random.bind(1, 1000)
+boundFunc := A.random.bind(A, 1, 1000, 0)
 array := A.times(5, boundFunc)
 ; => [395, 364, 809, 904, 449]
 ```

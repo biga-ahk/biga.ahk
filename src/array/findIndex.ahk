@@ -11,13 +11,13 @@ findIndex(param_array,param_predicate,param_fromindex:=1) {
 	}
 
 	; create
-	for index, value in param_array {
+	for key, value in param_array {
 		if (param_fromIndex > A_Index) {
 			continue
 		}
 		if (this.isCallable(param_predicate)) {
-			if (param_predicate.call(value, index, param_array)) {
-				return index
+			if (param_predicate.call(value, key, param_array)) {
+				return key
 			}
 		}
 	}
@@ -41,6 +41,14 @@ assert.test(A.findIndex(users, "active"), 1)
 
 
 ; omit
+assert.label("find object")
+assert.test(A.findIndex(users, { "user": "pebbles", "age": 1, "active": true }), 3)
+
+keyedUsers := { "key1": { "user": "barney", "age": 36, "active": true }
+	, "key2": { "user": "fred", "age": 40, "active": false }
+	, "key3": { "user": "pebbles", "age": 1, "active": true } }
+assert.test(A.findIndex(keyedUsers, { "user": "pebbles", "age": 1, "active": true }), "key3")
+
 StringCaseSense, On
 assert.label("case sensitive")
 assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
