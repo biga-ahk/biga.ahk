@@ -1,4 +1,4 @@
-sumBy(param_array,param_iteratee:="__identity) {
+sumBy(param_array,param_iteratee:="__identity") {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
