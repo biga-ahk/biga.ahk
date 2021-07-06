@@ -28,7 +28,7 @@ assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
 
 ; omit
 assert.label("random array of numbers with boundFunc A.random")
-boundFunc := A.random.bind(A, 99, 99)
+boundFunc := A.random.bind(A, 99, 99, 0)
 output := A.times(5, boundFunc)
 assert.test(output, [99, 99, 99, 99, 99])
 

@@ -38,4 +38,4 @@ fn_mapKeysFunc(value, key)
 
 
 ; omit
-assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])
+; assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])

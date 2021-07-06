@@ -1746,6 +1746,37 @@ A.isArray({"key": "value"})
 
 
 
+## .isBoolean
+Checks if value is classified as a boolean.
+
+
+#### Arguments
+value (*): The value to check.
+
+
+#### Returns
+(boolean): Returns true if value is a boolean, else false.
+
+
+#### Example
+
+```autohotkey
+A.isBoolean(true)
+; => true
+
+A.isBoolean(1)
+; => true
+
+A.isBoolean(false)
+; => true
+
+A.isBoolean(0)
+; => true
+
+```
+
+
+
 ## .isCallable
 Checks if value is callable as a function object, bound function, or object method.
 
@@ -2342,6 +2373,32 @@ array (Array): The array to iterate over.
 
 ```autohotkey
 A.sum([4, 2, 8, 6])
+; => 20
+
+```
+
+
+
+## .sumBy
+This method is like [A.sum](/?id=sum) except that it accepts iteratee which is invoked for each element in array to generate the value to be summed. The iteratee is invoked with one argument: (value).
+
+
+#### Arguments
+array (Array): The array to iterate over.
+[iteratee=_.identity] (Function): The iteratee invoked per element.
+
+
+#### Returns
+(number): Returns the sum.
+
+
+#### Example
+
+```autohotkey
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.sumBy(objects, Func("fn_sumByFunc"))
+; => 20
+
+fn_sumByFunc(o){    return o.n}; The A.property iteratee shorthandA.sumBy(objects, "n")
 ; => 20
 
 ```
@@ -3565,7 +3622,7 @@ A.times(4, A.constant(0))
 ; => [0, 0, 0, 0]
 
 ; make an array with random numbers
-boundFunc := A.random.bind(1, 1000)
+boundFunc := A.random.bind(A, 1, 1000, 0)
 array := A.times(5, boundFunc)
 ; => [395, 364, 809, 904, 449]
 ```

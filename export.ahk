@@ -1,13 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-
-	static _guardedMethods := ["trim"]
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["trim"]	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -40,9 +31,10 @@ class biga {
 
 		; create
 		for key, value in param_array {
-			if (value != "" && value != 0 && value != false) {
-				l_array.push(value)
+			if (value == "" || value == 0) {
+				continue
 			}
+			l_array.push(value)
 		}
 		return l_array
 	}
@@ -226,13 +218,13 @@ class biga {
 		}
 
 		; create
-		for index, value in param_array {
+		for key, value in param_array {
 			if (param_fromIndex > A_Index) {
 				continue
 			}
 			if (this.isCallable(param_predicate)) {
-				if (param_predicate.call(value, index, param_array)) {
-					return index
+				if (param_predicate.call(value, key, param_array)) {
+					return key
 				}
 			}
 		}
@@ -1357,9 +1349,19 @@ class biga {
 		}
 		return false
 	}
+	isBoolean(param) {
+
+		if this.isEqual(param, 1) {
+			return true
+		}
+		if this.isEqual(param, 0) {
+			return true
+		}
+		return false
+	}
 	isCallable(param) {
 		fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
-		return ((isObject(param) && (numGet(&param, "Ptr") = fn)) || isFunc(param))
+		return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
 	}
 	isEqual(param_value,param_other*) {
 
@@ -1614,6 +1616,28 @@ class biga {
 			vSum += value
 		}
 		return vSum
+	}
+	sumBy(param_array,param_iteratee:="__identity") {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		if (shorthand = ".property") {
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
+		}
+		l_total := 0
+
+		; run against every value in the array
+		for key, value in param_array {
+			; functor
+			if (this.isCallable(param_iteratee)) {
+				l_iteratee := param_iteratee.call(value)
+			}
+			l_total += l_iteratee
+		}
+		return l_total
 	}
 	clamp(param_number,param_lower,param_upper) {
 		if (!this.isNumber(param_number) || !this.isNumber(param_lower) || !this.isNumber(param_upper)) {
@@ -2472,8 +2496,4 @@ class biga {
 		}
 		return l_array
 	}
-}
-
-class A extends biga {
-
-}
+}class A extends biga {}

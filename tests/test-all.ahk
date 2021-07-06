@@ -167,6 +167,14 @@ assert.test(A.findIndex(users, "active"), 1)
 
 
 ; omit
+assert.label("find object")
+assert.test(A.findIndex(users, { "user": "pebbles", "age": 1, "active": true }), 3)
+
+keyedUsers := { "key1": { "user": "barney", "age": 36, "active": true }
+	, "key2": { "user": "fred", "age": 40, "active": false }
+	, "key3": { "user": "pebbles", "age": 1, "active": true } }
+assert.test(A.findIndex(keyedUsers, { "user": "pebbles", "age": 1, "active": true }), "key3")
+
 StringCaseSense, On
 assert.label("case sensitive")
 assert.test(A.findIndex(["fred", "barney"], "Fred"), -1)
@@ -1001,6 +1009,19 @@ assert.true(A.isArray({"key": "value"}))
 assert.false(A.isArray(1))
 assert.false(A.isArray(""))
 
+assert.group(".isBoolean")
+assert.label("default tests")
+assert.true(A.isBoolean(true))
+assert.true(A.isBoolean(1))
+assert.true(A.isBoolean(false))
+assert.true(A.isBoolean(0))
+
+
+; omit
+assert.false(A.isBoolean(0.1))
+assert.false(A.isBoolean(1.1))
+assert.false(A.isBoolean("1.1"))
+
 assert.group(".isCallable")
 assert.label("default tests")
 boundFunc := Func("strLen").bind()
@@ -1275,6 +1296,21 @@ assert.group(".sum")
 assert.label("default tests")
 assert.test(A.sum([4, 2, 8, 6]), 20)
 
+
+; omit
+
+assert.group(".sumBy")
+assert.label("default tests")
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
+
+assert.test(A.sumBy(objects, Func("fn_sumByFunc")), 20)
+fn_sumByFunc(o)
+{
+    return o.n
+}
+
+; The A.property iteratee shorthand
+assert.test(A.sumBy(objects, "n"), 20)
 
 ; omit
 
@@ -1799,7 +1835,7 @@ assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
 
 ; omit
 assert.label("random array of numbers with boundFunc A.random")
-boundFunc := A.random.bind(A, 99, 99)
+boundFunc := A.random.bind(A, 99, 99, 0)
 output := A.times(5, boundFunc)
 assert.test(output, [99, 99, 99, 99, 99])
 
