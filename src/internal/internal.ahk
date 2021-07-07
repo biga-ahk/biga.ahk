@@ -63,7 +63,7 @@ _internal_JSRegEx(param_string) {
 	if (!this.isString(param_string) && !this.isAlnum(param_string)) {
 		this._internal_ThrowException()
 	}
-	if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
+	if (this.startsWith(param_string, "/") && this.endsWith(param_string, "/")) {
 		return SubStr(param_string, 2, StrLen(param_string) - 2)
 	}
 	return false
