@@ -10,7 +10,6 @@ maxBy(param_array,param_iteratee:="__identity") {
 	}
 	l_max := 0
 
-	; run against every value in the array
 	for key, value in param_array {
 		; functor
 		if (this.isCallable(param_iteratee)) {
@@ -18,22 +17,23 @@ maxBy(param_array,param_iteratee:="__identity") {
 		}
 		if (l_iteratee > l_max) {
             l_max := l_iteratee
+			l_return := value
         }
 	}
-	return l_max
+	return l_return
 }
 
 
 ; tests
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.maxBy(objects, Func("fn_maxByFunc")), 8)
+assert.test(A.maxBy(objects, Func("fn_maxByFunc")), { "n": 8 })
 fn_maxByFunc(o)
 {
     return o.n
 }
 
 ; The A.property iteratee shorthand
-assert.test(A.maxBy(objects, "n"), 8)
+assert.test(A.maxBy(objects, "n"), { "n": 8 })
 
 ; omit
