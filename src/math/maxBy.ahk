@@ -16,9 +16,9 @@ maxBy(param_array,param_iteratee:="__identity") {
 			l_iteratee := param_iteratee.call(value)
 		}
 		if (l_iteratee > l_max) {
-            l_max := l_iteratee
+			l_max := l_iteratee
 			l_return := value
-        }
+		}
 	}
 	return l_return
 }
@@ -30,7 +30,7 @@ objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 assert.test(A.maxBy(objects, Func("fn_maxByFunc")), { "n": 8 })
 fn_maxByFunc(o)
 {
-    return o.n
+	return o.n
 }
 
 ; The A.property iteratee shorthand
