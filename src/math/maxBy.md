@@ -7,4 +7,4 @@ array (Array): The array to iterate over.
 
 
 ## Returns
-(number): Returns the maximum value.
+(*): Returns the maximum value.
