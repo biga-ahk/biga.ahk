@@ -4,17 +4,9 @@ meanBy(param_array,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	if (!isFunc(param_iteratee)) {
-		boundFunc := param_iteratee.bind(this)
-	}
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 	if (shorthand != false) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
-	}
-
-	; prepare
-	if (l_paramAmmount == 3) {
-		arrayClone := this.cloneDeep(param_array)
 	}
 	l_total := 0
 
