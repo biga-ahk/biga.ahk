@@ -17,7 +17,7 @@ aliasMap := {"head": ["first"], "forEach": ["each"], "toPairs": ["entries"]}
 SetWorkingDir, "\..\" A_ScriptDir
 Readme_File := A_WorkingDir "\docs\README.md"
 lib_File := A_WorkingDir "\export.ahk"
-test_File := A_WorkingDir "\tests\test-all.ahk"
+test_File := A_WorkingDir "\test\test-all.ahk"
 methods_File := A_WorkingDir "\methodslist.txt"
 
 

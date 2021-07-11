@@ -1211,6 +1211,21 @@ assert.test(A.max([]), "")
 assert.label("associative array")
 assert.test(A.max({"foo": 10, "bar": 20}), 20)
 
+assert.group(".maxBy")
+assert.label("default tests")
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
+
+assert.test(A.maxBy(objects, Func("fn_maxByFunc")), { "n": 8 })
+fn_maxByFunc(o)
+{
+	return o.n
+}
+
+; The A.property iteratee shorthand
+assert.test(A.maxBy(objects, "n"), { "n": 8 })
+
+; omit
+
 assert.group(".mean")
 assert.label("default tests")
 assert.test(A.mean([4, 2, 8, 6]), 5)
@@ -1252,6 +1267,21 @@ assert.test(A.min([]), "")
 ; omit
 assert.label("associative array")
 assert.test(A.min({"foo": 10, "bar": 20}), 10)
+
+assert.group(".minBy")
+assert.label("default tests")
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
+
+assert.test(A.minBy(objects, Func("fn_minByFunc")), { "n": 2 })
+fn_minByFunc(o)
+{
+	return o.n
+}
+
+; The A.property iteratee shorthand
+assert.test(A.minBy(objects, "n"), { "n": 2 })
+
+; omit
 
 assert.group(".multiply")
 assert.label("default tests")
@@ -1449,7 +1479,7 @@ fn_mapKeysFunc(value, key)
 
 
 ; omit
-assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])
+; assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])
 
 assert.group(".mapValues")
 assert.label("default tests")
@@ -1496,6 +1526,16 @@ assert.test(A.pick(object, "a"), {"a": 1})
 assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
 ; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
 
+assert.group(".pickBy")
+assert.label("default tests")
+object := {"a": 1, "b": "two", "c": 3}
+assert.test(A.pickBy(object, A.isNumber), {"a": 1, "c": 3})
+
+
+; omit
+
+
+; convert array to string
 assert.group(".toPairs")
 assert.label("default tests")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
@@ -1612,6 +1652,7 @@ assert.test(A.parseInt(" 10+10"), 1010)
 
 assert.label("invalid input")
 assert.test(A.parseInt(" "), "")
+
 assert.group(".repeat")
 assert.label("default tests")
 assert.test(A.repeat("*", 3), "***")
