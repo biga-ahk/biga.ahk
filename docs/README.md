@@ -646,7 +646,7 @@ array (Array): The array to query.
 
 
 #### Returns
-(*): Returns the first element of array.
+(*): Returns the last element of array.
 
 
 #### Example
@@ -2207,6 +2207,31 @@ A.max([])
 
 
 
+## .maxBy
+This method is like [A.max](/?id=max) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
+
+#### Arguments
+array (Array): The array to iterate over.
+
+[iteratee:=.identity] (Function): The iteratee invoked per element.
+
+
+#### Returns
+(*): Returns the maximum value.
+
+#### Example
+
+```autohotkey
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.maxBy(objects, Func("fn_maxByFunc"))
+; => { "n": 8 }
+
+fn_maxByFunc(o){	return o.n}; The A.property iteratee shorthandA.maxBy(objects, "n")
+; => { "n": 8 }
+
+```
+
+
+
 ## .mean
 Computes the mean of the values in array.
 
@@ -2274,6 +2299,31 @@ A.min([4, 2, 8, 6])
 
 A.min([])
 ; => ""
+
+```
+
+
+
+## .minBy
+This method is like [A.min](/?id=min) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
+
+#### Arguments
+array (Array): The array to iterate over.
+
+[iteratee:=.identity] (Function): The iteratee invoked per element.
+
+
+#### Returns
+(*): Returns the minimum value.
+
+#### Example
+
+```autohotkey
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.minBy(objects, Func("fn_minByFunc"))
+; => { "n": 2 }
+
+fn_minByFunc(o){	return o.n}; The A.property iteratee shorthandA.minBy(objects, "n")
+; => { "n": 2 }
 
 ```
 
@@ -2772,6 +2822,19 @@ object (Object): The source object.
 
 ```autohotkey
 object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
+; => {"a": 1, "c": 3}
+
+```
+
+
+
+## .pickBy
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": "two", "c": 3}A.pickBy(object, A.isNumber)
 ; => {"a": 1, "c": 3}
 
 ```
