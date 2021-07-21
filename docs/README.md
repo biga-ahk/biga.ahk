@@ -1120,6 +1120,33 @@ users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "a
 
 
 
+## .countBy
+Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The iteratee is invoked with one argument: (value).
+
+
+#### Arguments
+object (Array|Object): The collection to iterate over.
+
+[predicate:=.identity] (Function): The iteratee to transform keys.
+
+
+#### Returns
+(Object): Returns the composed aggregate object.
+
+
+#### Example
+
+```autohotkey
+A.countBy([6.1, 4.2, 6.3], Func("floor"))
+; => {"4": 1, "6": 2}
+
+; The A.property iteratee shorthand.A.countBy(["one", "two", "three"], A.size)
+; => {"3": 2, "5": 1}
+
+```
+
+
+
 ## .every
 Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
 
@@ -2829,6 +2856,17 @@ object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
 
 
 ## .pickBy
+Creates an object composed of the object properties predicate returns truthy for. The predicate is invoked with two arguments: (value, key).
+
+
+#### Arguments
+object (Object): The source object.
+
+[predicate:=.identity] (Function): The function invoked per property.
+
+
+#### Returns
+(Object): Returns the new object.
 
 
 #### Example
