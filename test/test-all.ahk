@@ -511,6 +511,19 @@ assert.test(A.count("....", ".."), 2)
 assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)
 
+assert.group(".countBy")
+assert.label("default tests")
+assert.test(A.countBy([6.1, 4.2, 6.3], Func("floor")), {"4": 1, "6": 2})
+
+; The A.property iteratee shorthand.
+assert.test(A.countBy(["one", "two", "three"], A.size), {"3": 2, "5": 1})
+
+
+; omit
+assert.label("count word occurances")
+wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"], A.toLower)
+assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
+
 assert.group(".every")
 assert.label("default tests")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
@@ -1534,8 +1547,6 @@ assert.test(A.pickBy(object, A.isNumber), {"a": 1, "c": 3})
 
 ; omit
 
-
-; convert array to string
 assert.group(".toPairs")
 assert.label("default tests")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
@@ -1793,6 +1804,8 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 
 ; omit
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
+asser.label("appostroies")
+assert.test(A.words("it's I'd ok. ok' k'o."), ["it's", "I'd", "ok", "ok", "k'o"])
 
 assert.group(".constant")
 assert.label("default tests")
@@ -1887,6 +1900,7 @@ assert.true(A.every(output, func("strLen"))) ;all strings longer than 0 chars
 ;; Display test results in GUI
 speed := QPC(0)
 assert.fullReport()
+assert.writeResultsToFile()
 msgbox, %speed%
 ExitApp
 

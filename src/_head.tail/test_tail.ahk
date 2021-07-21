@@ -1,6 +1,7 @@
 ;; Display test results in GUI
 speed := QPC(0)
 assert.fullReport()
+assert.writeResultsToFile()
 msgbox, %speed%
 ExitApp
 
