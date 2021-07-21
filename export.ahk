@@ -720,6 +720,27 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_count
 	}
+	countBy(param_collection,param_predicate) {
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		if (shorthand) {
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
+		}
+
+		; create
+		l_array :=  []
+		for key, value in param_collection {
+			vItaree := param_predicate.call(value)
+			if (!l_array[vItaree]) {
+				; start counter at 1 if first encounter
+				l_array[vItaree] := 1
+			} else {
+				l_array[vItaree]++
+			}
+		}
+		return l_array
+	}
 	every(param_collection,param_predicate) {
 		if (!isObject(param_collection)) {
 			this._internal_ThrowException()
@@ -1232,7 +1253,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (!this.isString(param_string) && !this.isAlnum(param_string)) {
 			this._internal_ThrowException()
 		}
-		if (this.startsWith(param_string, "/") && this.startsWith(param_string, "/", StrLen(param_string))) {
+		if (this.startsWith(param_string, "/") && this.endsWith(param_string, "/")) {
 			return SubStr(param_string, 2, StrLen(param_string) - 2)
 		}
 		return false
@@ -1527,6 +1548,30 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_max
 	}
+	maxBy(param_array,param_iteratee:="__identity") {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		if (shorthand = ".property") {
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
+		}
+		l_max := 0
+
+		for key, value in param_array {
+			; functor
+			if (this.isCallable(param_iteratee)) {
+				l_iteratee := param_iteratee.call(value)
+			}
+			if (l_iteratee > l_max) {
+				l_max := l_iteratee
+				l_return := value
+			}
+		}
+		return l_return
+	}
 	mean(param_array) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
@@ -1544,17 +1589,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		if (!isFunc(param_iteratee)) {
-			boundFunc := param_iteratee.bind(this)
-		}
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
-		}
-
-		; prepare
-		if (l_paramAmmount == 3) {
-			arrayClone := this.cloneDeep(param_array)
 		}
 		l_total := 0
 
@@ -1575,11 +1612,35 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		l_min := ""
 		for key, value in param_array {
-			if (l_min > value || this.isUndefined(l_min)) {
+			if (value < l_min || this.isUndefined(l_min)) {
 				l_min := value
 			}
 		}
 		return l_min
+	}
+	minBy(param_array,param_iteratee:="__identity") {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		if (shorthand = ".property") {
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
+		}
+		l_min := ""
+
+		for key, value in param_array {
+			; functor
+			if (this.isCallable(param_iteratee)) {
+				l_iteratee := param_iteratee.call(value)
+			}
+			if (l_iteratee < l_min || this.isUndefined(l_min)) {
+				l_min := l_iteratee
+				l_return := value
+			}
+		}
+		return l_return
 	}
 	multiply(param_multiplier,param_multiplicand) {
 		if (!this.isNumber(param_multiplier) || !this.isNumber(param_multiplicand)) {
@@ -1923,6 +1984,29 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		} else {
 			vvalue := this.internal_property(param_paths, param_object)
 			l_obj[param_paths] := vvalue
+		}
+		return l_obj
+	}
+	pickBy(param_object,param_predicate:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		if (shorthand) {
+			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
+		}
+		l_obj := {}
+
+		; create
+		for key, value in param_object {
+			if (this.isCallable(param_predicate)) {
+				vItaree := param_predicate.call(value, key)
+				if (vItaree) {
+					l_obj[key] := value
+				}
+			}
 		}
 		return l_obj
 	}
@@ -2328,7 +2412,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_string := this.toupper(this.trim(l_string))
 		return l_string
 	}
-	words(param_string,param_pattern:="/[^\W]+/") {
+	words(param_string,param_pattern:="/\b\w+(?:'\w+)?\b/") {
 		if (!this.isString(param_string) || !this.isString(param_pattern)) {
 			this._internal_ThrowException()
 		}
