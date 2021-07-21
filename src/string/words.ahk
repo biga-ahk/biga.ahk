@@ -1,4 +1,4 @@
-words(param_string,param_pattern:="/[^\W]+/") {
+words(param_string,param_pattern:="/\b\w+(?:'\w+)?\b/") {
 	if (!this.isString(param_string) || !this.isString(param_pattern)) {
 		this._internal_ThrowException()
 	}
@@ -26,3 +26,5 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 
 ; omit
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
+asser.label("appostroies")
+assert.test(A.words("it's I'd ok. ok' k'o."), ["it's", "I'd", "ok", "ok", "k'o"])
