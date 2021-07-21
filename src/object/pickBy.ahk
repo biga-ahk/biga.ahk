@@ -9,7 +9,6 @@ pickBy(param_object,param_predicate:="__identity") {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_obj := {}
-	l_paramAmmount := param_predicate.maxParams
 
 	; create
 	for key, value in param_object {
