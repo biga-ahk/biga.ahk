@@ -14,14 +14,9 @@ keyBy(param_collection,param_iteratee:="__identity") {
 	; run against every value in the collection
 	for key, value in param_collection {
 		if (this.isCallable(param_iteratee)) {
-			vIteratee := param_iteratee.call(value)
+			vIteratee := param_iteratee.call(value, key, param_collection)
+			l_obj[vIteratee] := value
 		}
-		if (l_paramAmmount == 3) {
-			if (!boundFunc.call(value, key, collectionClone)) {
-				vIteratee := param_iteratee.call(value, key, collectionClone)
-			}
-		}
-		objRawSet(l_obj, vIteratee, value)
 	}
 	return l_obj
 }
