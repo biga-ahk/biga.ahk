@@ -109,7 +109,7 @@ _internal_createShorthandfn(param_shorthand,param_objects) {
 		return this.property(param_shorthand)
 	}
 	if (param_shorthand == "__identity") {
-		boundFunc := ObjBindMethod(this, "_internal_identity")
+		boundFunc := objBindMethod(this, "identity")
 		return boundFunc
 	}
 }
