@@ -19,7 +19,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 			vIteratee := param_iteratee.call(value)
 		}
 		; create array at key if not encountered yet
-		if (!l_array.haskey(vIteratee)) {
+		if (!l_array.hasKey(vIteratee)) {
 			l_array[vIteratee] := []
 		}
 		; add value to this key

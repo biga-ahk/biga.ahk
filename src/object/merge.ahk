@@ -33,7 +33,7 @@ internal_Merge(param_collection1, param_collection2) {
 		combined[key] := this.internal_Merge(value, param_collection2[key])
 	}
 	for key, value in param_collection2 {
-		if(!combined.haskey(key)) {
+		if(!combined.hasKey(key)) {
 			combined[key] := value
 		}
 	}
