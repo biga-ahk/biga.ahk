@@ -4,6 +4,10 @@ invertBy(param_object,param_iteratee:="__identity") {
 	}
 
 	; prepare
+	shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+	if (shorthand) {
+		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_object)
+	}
 	l_obj := this.cloneDeep(param_object)
 	l_newObj := {}
 
@@ -11,8 +15,6 @@ invertBy(param_object,param_iteratee:="__identity") {
 	for key, value in l_obj {
 		if (this.isCallable(param_iteratee)) {
 			vkey := param_iteratee.call(value)
-		} else {
-			vkey := value
 		}
 
 		if (!isObject(l_newObj[vkey])) {
