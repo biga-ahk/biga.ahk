@@ -1,5 +1,5 @@
 stubTrue() {
-	return ""
+	return true
 }
 
 
