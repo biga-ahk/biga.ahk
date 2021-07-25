@@ -87,6 +87,9 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 			}
 		}
 	}
+	if (param_shorthand == "__identity") {
+		return "__identity"
+	}
 	return false
 }
 
@@ -104,6 +107,10 @@ _internal_createShorthandfn(param_shorthand,param_objects) {
 	}
 	if (shorthand == ".property") {
 		return this.property(param_shorthand)
+	}
+	if (param_shorthand == "__identity") {
+		boundFunc := ObjBindMethod(this, "_internal_identity")
+		return boundFunc
 	}
 }
 
