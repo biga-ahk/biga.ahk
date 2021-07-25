@@ -16,8 +16,8 @@ invertBy(param_object,param_iteratee:="__identity") {
 		if (this.isCallable(param_iteratee)) {
 			vkey := param_iteratee.call(value)
 		}
-
-		if (!isObject(l_newObj[vkey])) {
+		; create array at key if not encountered yet
+		if (!l_newObj.hasKey(vkey)) {
 			l_newObj[vkey] := []
 		}
 		l_newObj[vkey].push(key)
