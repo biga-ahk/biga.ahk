@@ -1,4 +1,4 @@
-countBy(param_collection,param_predicate) {
+countBy(param_collection,param_predicate:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
@@ -32,4 +32,6 @@ assert.test(A.countBy(["one", "two", "three"], A.size), {"3": 2, "5": 1})
 ; omit
 assert.label("count word occurances")
 wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"], A.toLower)
+assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
+wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"])
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
