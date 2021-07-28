@@ -94,7 +94,7 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 }
 
 
-_internal_createShorthandfn(param_shorthand,param_objects) {
+_internal_createShorthandfn(param_shorthand,param_objects:="") {
 	shorthand := this._internal_differenciateShorthand(param_shorthand, param_objects)
 	if (shorthand == "_classMethod") {
 		return param_shorthand.bind(this)

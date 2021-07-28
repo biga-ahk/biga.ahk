@@ -5,22 +5,15 @@ mapValues(param_object,param_iteratee:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
-	if (shorthand == ".property") {
-		param_iteratee := this.property(param_iteratee)
-	}
-	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
-		param_iteratee := param_iteratee.bind(this)
+	if (shorthand) {
+		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_object)
 	}
 	l_object := this.cloneDeep(param_object)
 	l_array := {}
 
 	; create
 	for key, value in l_object {
-		if (param_iteratee == "__identity") {
-			l_array[key] := value
-			continue
-		}
-		; functor function
+		; functor
 		if (this.isCallable(param_iteratee)) {
 			l_array[key] := param_iteratee.call(value, key, l_object)
 		}
@@ -42,3 +35,7 @@ fn_mapValuesFunc(o)
 assert.test(A.mapValues(users, "age"), {"fred": 40, "pebbles": 1})
 
 ; omit
+
+assert.label("default .identity argument")
+assert.test(A.mapValues([0, 1, 2]), {"1": 0, "2": 1, "3": 2})
+assert.test(A.mapValues([1, 2, 3]), [1, 2, 3])

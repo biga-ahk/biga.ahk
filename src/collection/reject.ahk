@@ -1,11 +1,11 @@
-reject(param_collection,param_predicate) {
+reject(param_collection,param_predicate:="__identity") {
 	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
-	if (shorthand != false) {
+	if (shorthand) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	l_array := []
@@ -13,7 +13,6 @@ reject(param_collection,param_predicate) {
 	; create
 	for key, value in param_collection {
 		; functor
-		; predefined !functor handling (slower as it .calls blindly)
 		if (this.isCallable(param_predicate)) {
 			if (!param_predicate.call(value)) {
 				l_array.push(value)
@@ -45,3 +44,5 @@ assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":fal
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.reject([0, 1, 2]), [0])

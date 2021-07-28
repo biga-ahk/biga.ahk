@@ -5,7 +5,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
-	if (shorthand != false) {
+	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
 	l_total := 0
@@ -33,4 +33,7 @@ fn_meanByFunc(o)
 ; The A.property iteratee shorthand.
 assert.test(A.meanBy(objects, "n"), 5)
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.meanBy([0, 1, 2]), 1)

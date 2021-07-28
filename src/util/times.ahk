@@ -9,7 +9,7 @@ times(param_n,param_iteratee:="__identity") {
 		param_iteratee := param_iteratee.bind(this)
 	}
 	shorthand := this._internal_differenciateShorthand(param_iteratee)
-	if (shorthand != false) {
+	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee)
 	}
 	l_array := []
@@ -36,3 +36,6 @@ assert.label("random array of letters with boundFunc A.sample")
 boundFunc := A.sample.bind(A, "abcdefghijklmnopqrstuvwxyz")
 output := A.times(5, boundFunc)
 assert.true(A.every(output, func("strLen"))) ;all strings longer than 0 chars
+
+assert.label("default .identity argument")
+assert.test(A.times(2), [1, 2])

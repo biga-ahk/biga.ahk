@@ -5,7 +5,7 @@ minBy(param_array,param_iteratee:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
-	if (shorthand = ".property") {
+	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
 	l_min := ""
@@ -36,4 +36,7 @@ fn_minByFunc(o)
 ; The A.property iteratee shorthand
 assert.test(A.minBy(objects, "n"), { "n": 2 })
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.minBy([0, 1, 2], {"age": 1, "active": true}), 0)

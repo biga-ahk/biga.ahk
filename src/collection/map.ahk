@@ -6,7 +6,7 @@ map(param_collection,param_iteratee:="__identity") {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
-		param_iteratee  := this.property(param_iteratee)
+		param_iteratee  := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
 	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
 		guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
@@ -21,11 +21,12 @@ map(param_collection,param_iteratee:="__identity") {
 			l_array.push(value)
 			continue
 		}
-		; functor
+		; guarded method
 		if (guarded) {
 			l_array.push(param_iteratee.call(value))
 			continue
 		}
+		; functor
 		if (this.isCallable(param_iteratee)) {
 			l_array.push(param_iteratee.call(value, key, l_collection))
 		}
@@ -66,3 +67,6 @@ fn_map3(param1, param2, param3)
 {
 	return param1 "-" param2 "-" param3[1]
 }
+
+assert.label("default .identity argument")
+assert.test(A.map([1, 2, 3]), [1, 2, 3])

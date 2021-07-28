@@ -5,7 +5,7 @@ maxBy(param_array,param_iteratee:="__identity") {
 
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
-	if (shorthand = ".property") {
+	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
 	l_max := 0
@@ -36,4 +36,7 @@ fn_maxByFunc(o)
 ; The A.property iteratee shorthand
 assert.test(A.maxBy(objects, "n"), { "n": 8 })
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.maxBy([0, 1, 2]), 2)

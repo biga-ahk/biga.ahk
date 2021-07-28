@@ -14,7 +14,7 @@ pickBy(param_object,param_predicate:="__identity") {
 	for key, value in param_object {
 		if (this.isCallable(param_predicate)) {
 			vItaree := param_predicate.call(value, key)
-			if (vItaree) {
+			if (!this.isFalsey(vItaree)) {
 				l_obj[key] := value
 			}
 		}
@@ -29,3 +29,5 @@ assert.test(A.pickBy(object, A.isNumber), {"a": 1, "c": 3})
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.pickBy([0, 1, 2]), {"2": 1, "3": 2})
