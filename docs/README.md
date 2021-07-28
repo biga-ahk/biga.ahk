@@ -1314,6 +1314,45 @@ fn_forEachFunc2(value, key)
 
 
 
+## .forEachRight
+This method is like [A.forEach](/?id=foreach) except that it iterates over elements of collection from right to left.
+
+
+#### Aliases
+`.eachRight`
+
+
+#### Arguments
+collection (Array|Object): The collection to iterate over.
+
+[iteratee:=.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(*): Returns collection.
+
+
+#### Example
+
+```autohotkey
+A.forEach([1, 2], Func("fn_forEachFunc1"))
+fn_forEachFunc1(value)
+{
+    msgbox, % value
+}
+; msgboxes 2 then 1
+
+A.forEach({ "a": 1, "b": s2 }, Func("fn_forEachFunc2"))
+fn_forEachFunc2(value, key)
+{
+    msgbox, % key
+}
+; msgboxes "b" then "a"
+```
+
+
+
+
 ## .groupBy
 Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
 
@@ -3435,9 +3474,9 @@ Removes trailing whitespace or specified characters from string.
 
 
 #### Arguments
-[strins:=""] (string): The string to trim.
+[string:=""] (string): The string to trim.
 
-[chars=whitespace] (string): The characters to trim.
+[chars:=whitespace] (string): The characters to trim.
 
 
 #### Returns
@@ -3621,6 +3660,26 @@ object := A.times(2, A.constant({"a": 1})); => [{"a": 1}, {"a": 1}]```
 
 
 
+## .identity
+This method returns the first argument it receives.
+
+#### Arguments
+value (*): Any value.
+
+
+#### Returns
+(*): Returns value.
+
+#### Example
+
+```autohotkey
+object := {"a": 1}A.identity(object)
+; => {"a": 1}
+
+```
+
+
+
 ## .matches
 Creates a function that performs a shallow comparison between a given object and source, returning true if the given object has equivalent property values, else false.
 
@@ -3699,6 +3758,96 @@ objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b
 
 objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
+
+```
+
+
+
+## .stubArray
+This method returns a new empty array.
+
+
+#### Returns
+(Array): Returns the new empty array.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubArray)
+; => [[], []]
+
+```
+
+
+
+## .stubFalse
+This method returns false.
+
+
+#### Returns
+(boolean): Returns false.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubFalse)
+; => [false, false]
+
+```
+
+
+
+## .stubObject
+This method returns a new empty object.
+
+
+#### Returns
+(Object): Returns the new empty object.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubObject)
+; => [ {}, {} ]
+
+```
+
+
+
+## .stubString
+This method returns an empty string.
+
+
+#### Returns
+(string): Returns the empty string.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubString)
+; => ["", ""]
+
+```
+
+
+
+## .stubTrue
+This method returns true.
+
+
+#### Returns
+(boolean): Returns true.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubTrue)
+; => [true, true]
 
 ```
 
