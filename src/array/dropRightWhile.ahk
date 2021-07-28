@@ -32,7 +32,11 @@ assert.test(A.dropRightWhile(users, ["active", false]), [ {"user": "barney", "ac
 ; The A.property iteratee shorthand.
 assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ])
 
+
 ; omit
 assert.test(A.dropRightWhile([]), [])
 ; check that input has not been mutated
 assert.test(users[3], {"user": "pebbles",	"active": false})
+
+assert.label("default .identity argument")
+assert.test(A.dropRightWhile(["foo", 0, "bar"]), ["foo", 0])

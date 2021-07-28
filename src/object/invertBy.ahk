@@ -45,3 +45,6 @@ assert.test(object, {"a": 1})
 
 assert.label("blank object")
 assert.test(A.invertBy({}), {})
+
+assert.label("default .identity argument")
+assert.test(A.invertBy([1, 2, 3]), {"1": [1], "2":[2], "3":[3]})

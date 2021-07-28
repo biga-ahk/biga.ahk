@@ -110,3 +110,7 @@ users := [
   , { "name": "bernard", "age": 36 }
   , { "name": "zoey", "age": 40 }]
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
+
+
+assert.label("default .identity argument")
+assert.test(A.sortBy([2, 0, 1]), [0, 1, 2])

@@ -43,3 +43,6 @@ users := [ { "user": "barney", "lastActive": "Tuesday" }
 		, { "user": "pebbles", "lastActive": "Tuesday" } ]
 
 assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "fred", "lastActive": "Monday" }], "Tuesday": [{ "user": "barney", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
+
+assert.label("default .identity argument")
+assert.test(A.groupBy([6.1, 4.2, 6.3]), {"6.1": [6.1], "4.2": [4.2], "6.3": [6.3]})

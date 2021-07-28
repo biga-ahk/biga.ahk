@@ -1,4 +1,4 @@
-every(param_collection,param_predicate) {
+every(param_collection,param_predicate:="__identity") {
 	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
@@ -76,3 +76,7 @@ assert.false(A.every(["", "", 1], A.isUndefined))
 
 assert.label("Use other methods for param_predicate")
 assert.true(A.every(["hey", "you", "there"], A.isString))
+
+assert.label("default .identity argument")
+assert.true(A.every([true, true, true]))
+assert.false(A.every([true, true, false]))

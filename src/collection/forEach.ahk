@@ -29,12 +29,15 @@ forEach(param_collection,param_iteratee:="__identity") {
 
 
 ; omit
-assert.test(A.forEach([1, 2], Func("fn_forEachFunc")), [1, 2])
-fn_forEachFunc(value)
+assert.label("order")
+obj := []
+A.forEach([1, 2], Func("fn_forEachGlobal"))
+assert.test(obj, [2, 3])
+fn_forEachGlobal(value)
 {
-   ; msgbox, % value
+	global
+	obj.push(value + 1)
 }
-; msgboxes `1` then `2`
 
 
 assert.label("alias")

@@ -1,4 +1,4 @@
-findIndex(param_array,param_predicate,param_fromindex:=1) {
+findIndex(param_array,param_predicate:="__identity",param_fromindex:=1) {
 	if (!isObject(param_array) || !this.isNumber(param_fromindex)) {
 		this._internal_ThrowException()
 	}
@@ -78,3 +78,6 @@ fn_checkNameTenure(name, minTenure, obj)
 		return true
 	}
 }
+
+assert.label("default .identity argument")
+assert.test(A.findIndex(["foo", 0, "bar"]), 1)

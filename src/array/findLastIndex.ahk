@@ -1,4 +1,4 @@
-findLastIndex(param_array,param_value,param_fromIndex:=1) {
+findLastIndex(param_array,param_value:="__identity",param_fromIndex:=1) {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
@@ -29,3 +29,5 @@ assert.test(A.findLastIndex(users, "active"), 1)
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.findLastIndex(["foo", 0, "bar"]), 3)

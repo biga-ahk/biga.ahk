@@ -1,4 +1,4 @@
-some(param_collection,param_predicate) {
+some(param_collection,param_predicate:="__identity") {
 	if (!isObject(param_collection)) {
 		this._internal_ThrowException()
 	}
@@ -38,3 +38,5 @@ assert.true(A.some(users, "active"))
 
 
 ; omit
+assert.label("default .identity argument")
+assert.true(A.some([0, 1, 2]))
