@@ -27,7 +27,7 @@ truncate(param_string,param_options:="") {
 	}
 	; handle string or Regex seperator
 	if (param_options.separator) {
-		return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
+		return regexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
 	}
 
 	; omission

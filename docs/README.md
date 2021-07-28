@@ -1299,14 +1299,14 @@ collection (Array|Object): The collection to iterate over.
 A.forEach([1, 2], Func("fn_forEachFunc1"))
 fn_forEachFunc1(value)
 {
-    msgbox, % value
+	msgbox, % value
 }
 ; msgboxes 1 then 2
 
 A.forEach({ "a": 1, "b": 2 }, Func("fn_forEachFunc2"))
 fn_forEachFunc2(value, key)
 {
-    msgbox, % key
+	msgbox, % key
 }
 ; msgboxes "a" then "b"
 ```
@@ -1338,14 +1338,14 @@ collection (Array|Object): The collection to iterate over.
 A.forEach([1, 2], Func("fn_forEachFunc1"))
 fn_forEachFunc1(value)
 {
-    msgbox, % value
+	msgbox, % value
 }
 ; msgboxes 2 then 1
 
 A.forEach({ "a": 1, "b": s2 }, Func("fn_forEachFunc2"))
 fn_forEachFunc2(value, key)
 {
-    msgbox, % key
+	msgbox, % key
 }
 ; msgboxes "b" then "a"
 ```
@@ -1469,7 +1469,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-fn_square(n){	return  n * n}A.map([4, 8], Func("fn_square"))
+fn_square(n){	return n * n}A.map([4, 8], Func("fn_square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, Func("fn_square"))
@@ -1700,7 +1700,7 @@ collection (Array|Object): The collection to iterate over.
 A.sortBy(["b", "f", "e", "c", "d", "a"])
 ; => ["a", "b", "c", "d", "e", "f"]
 
-users := [  , { "name": "fred",   "age": 40 }  , { "name": "barney", "age": 34 }  , { "name": "bernard", "age": 36 }  , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
+users := [ , { "name": "fred",   	"age": 40 } , { "name": "barney", 	"age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey",	"age": 40 }]A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, ["age", "name"])
@@ -2514,7 +2514,7 @@ array (Array): The array to iterate over.
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.sumBy(objects, Func("fn_sumByFunc"))
 ; => 20
 
-fn_sumByFunc(o){    return o.n}; The A.property iteratee shorthandA.sumBy(objects, "n")
+fn_sumByFunc(o){	return o.n}; The A.property iteratee shorthandA.sumBy(objects, "n")
 ; => 20
 
 ```

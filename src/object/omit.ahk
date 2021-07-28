@@ -14,7 +14,7 @@ omit(param_object,param_paths) {
 	} else {
 		l_obj.delete(param_paths)
 	}
-	return  l_obj
+	return l_obj
 }
 
 

@@ -323,7 +323,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_array := this.map(param_array, this._internal_MD5)
 		}
 
-		;  create
+		; create
 		for index, value in param_array {
 			if (A_Index < fromIndex) {
 				continue
@@ -343,7 +343,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			l_array := this.clone(param_array)
 		}
 		if (this.isStringLike(param_array)) {
-			l_array := StrSplit(param_array)
+			l_array := strSplit(param_array)
 		}
 
 		; create
@@ -729,7 +729,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		l_array :=  []
+		l_array := []
 		for key, value in param_collection {
 			vItaree := param_predicate.call(value)
 			if (!l_array[vItaree]) {
@@ -964,7 +964,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 		if (shorthand == ".property") {
-			param_iteratee  := this._internal_createShorthandfn(param_iteratee, param_collection)
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
 		if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
 			guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
@@ -1183,7 +1183,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (param_iteratees != "") {
 			for Index, obj in l_array {
 				out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
-				; out will look like:   value+index|value+index|
+				; out will look like: value+index|value+index|
 			}
 			lastvalue := l_array[Index, param_iteratees]
 		} else {
@@ -1865,7 +1865,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		if (!isObject(param_object)) {
-			param_object := StrSplit(param_object)
+			param_object := strSplit(param_object)
 		}
 		l_returnkeys := []
 
@@ -1976,7 +1976,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		} else {
 			l_obj.delete(param_paths)
 		}
-		return  l_obj
+		return l_obj
 	}
 	pick(param_object,param_paths) {
 		if (!isObject(param_object)) {
@@ -2201,9 +2201,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (l_needle := this._internal_JSRegEx(param_needle)) {
-			return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
+			return regexReplace(param_string, l_needle, param_replacement, , this.limit)
 		}
-		output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
+		output := strReplace(l_string, param_needle, param_replacement, , this.limit)
 		return output
 	}
 	snakeCase(param_string:="") {
@@ -2257,7 +2257,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		; Split the string into array and Titlecase each element in the array
-		l_array := StrSplit(l_string, " ")
+		l_array := strSplit(l_string, " ")
 		loop, % l_array.count() {
 			l_string := l_array[A_Index]
 			StringUpper, l_string, l_string, T
@@ -2288,7 +2288,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		StringLower, OutputVar, param_string
-		return  OutputVar
+		return OutputVar
 	}
 	toUpper(param_string) {
 		if (!this.isString(param_string)) {
@@ -2297,7 +2297,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		StringUpper, OutputVar, param_string
-		return  OutputVar
+		return OutputVar
 	}
 	trim(param_string,param_chars:="") {
 		if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
@@ -2323,9 +2323,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		if (param_chars = "") {
 			l_string := param_string
-			return  regexreplace(l_string, "(\s+)$") ;trim ending whitespace
+			return regexreplace(l_string, "(\s+)$") ;trim ending whitespace
 		} else {
-			l_array := StrSplit(param_chars, "")
+			l_array := strSplit(param_chars, "")
 			for key, value in l_array {
 				if (this.includes(value, "/[a-zA-Z0-9]/")) {
 					l_removechars .= value
@@ -2345,9 +2345,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (param_chars = "") {
-			return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
+			return regexReplace(param_string, "^(\s+)") ;trim beginning whitespace
 		} else {
-			l_array := StrSplit(param_chars, "")
+			l_array := strSplit(param_chars, "")
 			for key, value in l_array {
 				if (this.includes(value, "/[a-zA-Z0-9]/")) {
 					l_removechars .= value
@@ -2389,7 +2389,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		; handle string or Regex seperator
 		if (param_options.separator) {
-			return  RegexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
+			return regexReplace(l_string, "^(.{1," param_options.length "})" param_options.separator ".*$", "$1") param_options.omission
 		}
 
 		; omission
@@ -2518,14 +2518,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			for key, value in param_property {
 				if (param_property.count() == 1) {
 					; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, value)
-					return  ObjRawGet(param_itaree, value)
+					return objRawGet(param_itaree, value)
 				} else if (param_itaree.hasKey(value)){
 					rvalue := this.internal_property(this.tail(param_property), param_itaree[value])
 				}
 			}
 			return rvalue
 		}
-		return  param_itaree[param_property]
+		return param_itaree[param_property]
 	}
 	stubArray() {
 		return []

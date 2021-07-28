@@ -6,7 +6,7 @@ map(param_collection,param_iteratee:="__identity") {
 	; prepare
 	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
 	if (shorthand == ".property") {
-		param_iteratee  := this._internal_createShorthandfn(param_iteratee, param_collection)
+		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
 	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
 		guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
@@ -38,7 +38,7 @@ map(param_collection,param_iteratee:="__identity") {
 ; tests
 fn_square(n)
 {
-	return  n * n
+	return n * n
 }
 
 assert.test(A.map([4, 8], Func("fn_square")), [16, 64])

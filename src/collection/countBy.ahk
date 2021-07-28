@@ -6,9 +6,8 @@ countBy(param_collection,param_predicate:="__identity") {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 
-
 	; create
-	l_array :=  []
+	l_array := []
 	for key, value in param_collection {
 		vItaree := param_predicate.call(value)
 		if (!l_array[vItaree]) {

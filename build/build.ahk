@@ -81,9 +81,9 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	bbb.doc := The_MemoryFile
 
 	; lib
-	bbb.lib := StrSplit(bbb.raw, "; tests")[1]
+	bbb.lib := strSplit(bbb.raw, "; tests")[1]
 	; tests
-	bbb.tests := StrSplit(bbb.raw, "; tests")[2]
+	bbb.tests := strSplit(bbb.raw, "; tests")[2]
 
 	; replace accidental headers
 	bbb.doc := A.replace(bbb.doc,"/\#{1,10}\s*Returns*/", "#### Returns")
@@ -155,7 +155,7 @@ loop, % The_Array.count() {
 	; if examples not staticly defined in .md file, parse tests for use in documentation
 	if (!A.includes(element.doc,"Example") && A.includes(element.tests, settings.objectName ".")) {
 		txt.push("#### Example" newline newline "``````autohotkey" newline)
-		ExampleArray := fn_BuildExample(StrSplit(element.tests, "`n"))
+		ExampleArray := fn_BuildExample(strSplit(element.tests, "`n"))
 		ExampleArray.push("``````" newline newline)
 		txt := A.concat(txt,ExampleArray)
 	}

@@ -5,9 +5,9 @@ trimStart(param_string,param_chars:="") {
 
 	; create
 	if (param_chars = "") {
-		return  regexreplace(param_string, "^(\s+)") ;trim beginning whitespace
+		return regexReplace(param_string, "^(\s+)") ;trim beginning whitespace
 	} else {
-		l_array := StrSplit(param_chars, "")
+		l_array := strSplit(param_chars, "")
 		for key, value in l_array {
 			if (this.includes(value, "/[a-zA-Z0-9]/")) {
 				l_removechars .= value

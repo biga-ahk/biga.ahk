@@ -8,9 +8,9 @@ replace(param_string:="",param_needle:="",param_replacement:="") {
 
 	; create
 	if (l_needle := this._internal_JSRegEx(param_needle)) {
-		return  RegExReplace(param_string, l_needle, param_replacement, , this.limit)
+		return regexReplace(param_string, l_needle, param_replacement, , this.limit)
 	}
-	output := StrReplace(l_string, param_needle, param_replacement, , this.limit)
+	output := strReplace(l_string, param_needle, param_replacement, , this.limit)
 	return output
 }
 

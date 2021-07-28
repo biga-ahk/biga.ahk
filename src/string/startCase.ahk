@@ -14,7 +14,7 @@ startCase(param_string:="") {
 		}
 	}
 	; Split the string into array and Titlecase each element in the array
-	l_array := StrSplit(l_string, " ")
+	l_array := strSplit(l_string, " ")
 	loop, % l_array.count() {
 		l_string := l_array[A_Index]
 		StringUpper, l_string, l_string, T

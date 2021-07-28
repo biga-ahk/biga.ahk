@@ -5,7 +5,7 @@ toUpper(param_string) {
 
 	; create
 	StringUpper, OutputVar, param_string
-	return  OutputVar
+	return OutputVar
 }
 
 

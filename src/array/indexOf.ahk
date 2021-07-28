@@ -9,7 +9,7 @@ indexOf(param_array,param_value,fromIndex:=1) {
 		param_array := this.map(param_array, this._internal_MD5)
 	}
 
-	;  create
+	; create
 	for index, value in param_array {
 		if (A_Index < fromIndex) {
 			continue

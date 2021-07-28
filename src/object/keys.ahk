@@ -2,7 +2,7 @@ keys(param_object) {
 
 	; prepare
 	if (!isObject(param_object)) {
-		param_object := StrSplit(param_object)
+		param_object := strSplit(param_object)
 	}
 	l_returnkeys := []
 

@@ -24,14 +24,14 @@ internal_property(param_property,param_itaree) {
 		for key, value in param_property {
 			if (param_property.count() == 1) {
 				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, value)
-				return  ObjRawGet(param_itaree, value)
+				return objRawGet(param_itaree, value)
 			} else if (param_itaree.hasKey(value)){
 				rvalue := this.internal_property(this.tail(param_property), param_itaree[value])
 			}
 		}
 		return rvalue
 	}
-	return  param_itaree[param_property]
+	return param_itaree[param_property]
 }
 
 

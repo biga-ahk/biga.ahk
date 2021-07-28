@@ -5,7 +5,7 @@ initial(param_array) {
 		l_array := this.clone(param_array)
 	}
 	if (this.isStringLike(param_array)) {
-		l_array := StrSplit(param_array)
+		l_array := strSplit(param_array)
 	}
 
 	; create
