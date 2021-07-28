@@ -9,7 +9,7 @@
 ; User updatable settings:
 settings := {}
 settings.objectName := "A"
-aliasMap := {"head": ["first"], "forEach": ["each"], "toPairs": ["entries"]}
+aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight"], "toPairs": ["entries"]}
 
 
 
