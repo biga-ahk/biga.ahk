@@ -15,7 +15,7 @@ assert.test(A.head(100), "1")
 ; omit
 assert.test(A.head({"a": 1, "b": 2, "c":3}), 1)
 
-; aliases
+assert.label("alias")
 assert.test(A.first([1, 2, 3]), 1)
 assert.test(A.first([]), "")
 assert.test(A.first("fred"), "f")
