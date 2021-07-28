@@ -4,21 +4,17 @@ forEach(param_collection,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	if (!isFunc(param_iteratee)) {
-		boundFunc := param_iteratee.bind(this)
+	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+	if (shorthand != false) {
+		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
-	if (l_paramAmmount == 3) {
-		collectionClone := this.cloneDeep(param_collection)
-	}
+	param_collection := this.cloneDeep(param_collection)
 
 	; create
 	; run against every value in the collection
 	for key, value in param_collection {
-		if (!boundFunc) { ; is property/string
-			;nothing currently
-		}
-		if (!boundFunc.call(value, key, collectionClone)) {
-			vIteratee := param_iteratee.call(value, key, collectionClone)
+		if (this.isCallable(param_iteratee)) {
+			vIteratee := param_iteratee.call(value, key, param_collection)
 		}
 		; exit iteration early by explicitly returning false
 		if (vIteratee == false) {
@@ -41,5 +37,8 @@ fn_forEachFunc(value)
 ; msgboxes `1` then `2`
 
 
-; aliases
+assert.label("alias")
 assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
+
+assert.label("default .identity argument")
+assert.test(A.forEach(["foo", 0, "bar"]), ["foo", 0, "bar"])
