@@ -362,7 +362,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		tempArray := A.cloneDeep(param_arrays[1])
+		tempArray := this.cloneDeep(param_arrays[1])
 		param_arrays.removeAt(1) ;no need to check 1st array against itself, this does not mutate the input args
 		l_array := []
 
@@ -774,22 +774,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
 		l_paramAmmount := param_predicate.maxParams
-		if (l_paramAmmount == 3) {
-			collectionClone := this.cloneDeep(param_collection)
-		}
+		collectionClone := this.cloneDeep(param_collection)
 		l_array := []
 
 		; create
 		for key, value in param_collection {
 			; functor
 			if (this.isCallable(param_predicate)) {
-				if (l_paramAmmount == 3) {
-					if (param_predicate.call(value, key, collectionClone)) {
-					l_array.push(value)
-					continue
-					}
-				}
-				if (param_predicate.call(value, key)) {
+				if (param_predicate.call(value, key, collectionClone)) {
 					l_array.push(value)
 				}
 			}
@@ -1071,7 +1063,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (this.isStringLike(param_collection)) {
 			param_collection := strSplit(param_collection)
 		}
-		l_order := A.shuffle(this.keys(param_collection))
+		l_order := this.shuffle(this.keys(param_collection))
 		l_array := []
 
 		; create
@@ -2630,4 +2622,4 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}class A extends biga {}
+}

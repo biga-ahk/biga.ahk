@@ -8,23 +8,18 @@ filter(param_collection,param_predicate:="__identity") {
 	if (shorthand != false) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
+	collectionClone := []
 	l_paramAmmount := param_predicate.maxParams
+	l_array := []
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
 	}
-	l_array := []
 
 	; create
 	for key, value in param_collection {
 		; functor
 		if (this.isCallable(param_predicate)) {
-			if (l_paramAmmount == 3) {
-				if (param_predicate.call(value, key, collectionClone)) {
-				l_array.push(value)
-				continue
-				}
-			}
-			if (param_predicate.call(value, key)) {
+			if (param_predicate.call(value, key, collectionClone)) {
 				l_array.push(value)
 			}
 		}
@@ -73,6 +68,7 @@ fn_filter3(param_iteratee, param_key) {
 assert.label("using value, key, and collection")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
 fn_filter4(param_iteratee, param_key, param_collection) {
+	A := new biga()
 	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
 		return true
 	}

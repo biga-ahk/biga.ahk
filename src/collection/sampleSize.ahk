@@ -12,7 +12,7 @@ sampleSize(param_collection,param_sampleSize:=1) {
 	if (this.isStringLike(param_collection)) {
 		param_collection := strSplit(param_collection)
 	}
-	l_order := A.shuffle(this.keys(param_collection))
+	l_order := this.shuffle(this.keys(param_collection))
 	l_array := []
 
 	; create

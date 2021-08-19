@@ -1,5 +1,1 @@
 }
-
-class A extends biga {
-
-}
