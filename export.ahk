@@ -773,9 +773,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
+		collectionClone := []
 		l_paramAmmount := param_predicate.maxParams
-		collectionClone := this.cloneDeep(param_collection)
 		l_array := []
+		if (l_paramAmmount == 3) {
+			collectionClone := this.cloneDeep(param_collection)
+		}
 
 		; create
 		for key, value in param_collection {
@@ -1730,20 +1733,24 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return param_number
 	}
-	inRange(param_number,param_lower,param_upper) {
-		if (!this.isNumber(param_number) || !this.isNumber(param_lower) || !this.isNumber(param_upper)) {
+	inRange(param_number,param_start:=0,param_end:="") {
+		if (!this.isNumber(param_number) || !this.isNumber(param_start) || isObject(param_end)) {
 			this._internal_ThrowException()
 		}
 
 		; prepare
-		if (param_lower > param_upper) {
-			l_temp := param_lower
-			param_lower := param_upper
-			param_upper := l_temp
+		if (param_end == "") {
+			param_end := param_start
+			param_start := 0
+		}
+		if (param_start > param_end) {
+			l_temp := param_start
+			param_start := param_end
+			param_end := l_temp
 		}
 
-		; check the bounds
-		if (param_number > param_lower && param_number < param_upper) {
+		; perform
+		if (param_number > param_start && param_number < param_end) {
 			return true
 		}
 		return false
@@ -1811,6 +1818,33 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		return false
+	}
+	get(param_object,param_path,param_defaultValue:="") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		regex := "/[.\[\]]/"
+		if (!isObject(param_path)) {
+			l_array := this.compact(this.split(param_path, regex))
+			param_path := []
+			; remove undefined elements from array
+			for key, value in l_array {
+				if (value != "") {
+					param_path.push(value)
+				}
+			}
+		}
+
+		; create
+		for key, value in param_path {
+			param_object := param_object[value]
+		}
+		if (param_object == "") {
+			param_object := param_defaultValue
+		}
+		return param_object
 	}
 	invert(param_object) {
 		if (!isObject(param_object)) {
