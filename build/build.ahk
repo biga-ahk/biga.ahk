@@ -126,7 +126,10 @@ loop, % The_Array.count() {
 	element := The_Array[A_Index]
 	vMethodNames_Array.push(element.name)
 }
+; put all method names on the clipboard
 ; clipboard := A.join(vMethodNames_Array, "|")
+
+; msgbox all the methods not completed yet
 ; msgbox, % A._printObj(A.difference(methods_arr, vMethodNames_Array))
 
 
