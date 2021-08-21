@@ -283,7 +283,7 @@ users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active"
 ; => [{ "user": "pebbles", "active": true }]
 
 fn_dropWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
-; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ]
+; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
 
 ; The A.matchesProperty iteratee shorthand.A.dropWhile(users, ["active", false])
 ; => [ {"user": "pebbles", "active": true } ]
@@ -2574,19 +2574,19 @@ end (number): The end of the range.
 A.inRange(3, 2, 4)
 ; => true
 
-A.inRange(4, 0, 8)
+A.inRange(4, 8)
 ; => true
 
-A.inRange(4, 0, 2)
+A.inRange(4, 2)
 ; => false
 
-A.inRange(2, 0, 2)
+A.inRange(2, 2)
 ; => false
 
-A.inRange(1.2, 0, 2)
+A.inRange(1.2, 2)
 ; => true
 
-A.inRange(5.2, 0, 4)
+A.inRange(5.2, 4)
 ; => false
 
 A.inRange(-3, -2, -6)
@@ -2685,6 +2685,38 @@ fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.f
 
 ; The A.property iteratee shorthand.A.findKey(users, "active")
 ; => "barney"
+
+```
+
+
+
+## .get
+Gets the value at path of object. If the resolved value is `""`, the defaultValue is returned in its place.
+
+
+#### Arguments
+object (Object): The object to query.
+
+path (Array|string): The path of the property to get.
+
+[defaultValue] (*): The value returned for undefined resolved values.
+
+
+#### Returns
+(*): Returns the resolved value.
+
+
+#### Example
+
+```autohotkey
+object := {"a": [{ "b": { "c": 3} }]}A.get(object, "a[1].b.c")
+; => 3
+
+A.get(object, ["a", "1", "b", "c"])
+; => 3
+
+A.get(object, "a.b.c", "default")
+; => "default"
 
 ```
 
