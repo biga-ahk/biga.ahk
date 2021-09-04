@@ -17,13 +17,11 @@ get(param_object,param_path,param_defaultValue:="") {
 	}
 
 	; create
-	for key, value in param_path {
-		param_object := param_object[value]
+	returnValue := param_object[param_path*]
+	if (returnValue == "") {
+		returnValue := param_defaultValue
 	}
-	if (param_object == "") {
-		param_object := param_defaultValue
-	}
-	return param_object
+	return returnValue
 }
 
 
