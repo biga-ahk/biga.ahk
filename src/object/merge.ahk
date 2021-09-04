@@ -5,7 +5,7 @@ merge(param_collections*) {
 
 	result := param_collections[1]
 	for index, obj in param_collections {
-		if(A_Index = 1) {
+		if (A_Index == 1) {
 			continue
 		}
 		result := this.internal_Merge(result, obj)
@@ -13,27 +13,31 @@ merge(param_collections*) {
 	return result
 }
 
-internal_Merge(param_collection1, param_collection2) {
-	if(!isObject(param_collection1) && !isObject(param_collection2)) {
-		; if only one OR the other exist, display them together.
-		if(param_collection1 = "" || param_collection2 = "") {
-			return param_collection2 param_collection1
-		}
-		; return only one if they are the same
-		if (param_collection1 = param_collection2)
-			return param_collection1
-		; otherwise, return them together as an object.
-		return [param_collection1, param_collection2]
-	}
+internal_Merge(param_value1, param_value2) {
 
-	; initialize an associative array
+	; prepare
 	combined := {}
 
-	for key, value in param_collection1 {
-		combined[key] := this.internal_Merge(value, param_collection2[key])
+	; create
+	if(!isObject(param_value1) && !isObject(param_value2)) {
+		; skip "" param_value1
+		if (this.isUndefined(param_value1) && this.isUndefined(param_value2)) {
+			return param_value2
+		}
+		; skip "" param_value2
+		if (!this.isUndefined(param_value1) && this.isUndefined(param_value2)) {
+			return param_value1
+		}
+		; otherwise, return the right side item
+		return param_value2
 	}
-	for key, value in param_collection2 {
-		if(!combined.hasKey(key)) {
+
+	; merge objects
+	for key, value in param_value1 {
+		combined[key] := this.internal_Merge(value, param_value2[key])
+	}
+	for key, value in param_value2 {
+		if (!combined.hasKey(key)) {
 			combined[key] := value
 		}
 	}
@@ -49,3 +53,9 @@ assert.test(A.merge(object, other), {"options": [{"option1": true, "option2": fa
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
 assert.test(A.merge(object, other), { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] })
+
+
+; omit
+obj1 := [100, "Fred", true]
+obj2 := [100, "Fred", false, true]
+assert.test(A.merge(obj1, obj2), [100, "Fred", false, true])
