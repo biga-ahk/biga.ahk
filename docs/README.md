@@ -1719,6 +1719,14 @@ fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sort
 
 # **Lang methods**
 ## .castArray
+Casts value as an array if it's not one.
+
+#### Arguments
+value (*): The value to inspect.
+
+
+#### Returns
+(Array): Returns the cast array.
 
 
 #### Example
