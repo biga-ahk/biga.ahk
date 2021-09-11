@@ -6,6 +6,7 @@ unescape(param_string:="") {
 	; prepare
 	HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
+	; create
 	for key, value in HTMLmap {
 		element := value
 		param_string := StrReplace(param_string, element.2, element.1, , -1)
