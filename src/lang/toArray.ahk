@@ -1,8 +1,6 @@
 toArray(param_value) {
 
-	; prepare
-
-	; remap object to array
+	; create
 	if (isObject(param_value)) {
 		return this.map(param_value)
 	} else if (this.isString(param_value)) {
