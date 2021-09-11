@@ -1718,6 +1718,28 @@ fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sort
 
 
 # **Lang methods**
+## .castArray
+
+
+#### Example
+
+```autohotkey
+A.castArray(1)
+; => [1]
+
+A.castArray({"a": 1})
+; => {"a": 1}
+
+A.castArray("abc")
+; => ["abc"]
+
+A.castArray("")
+; => [""]
+
+```
+
+
+
 ## .clone
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
@@ -2106,6 +2128,37 @@ A.isUndefined(0)
 
 A.isUndefined(false)
 ; => false
+
+```
+
+
+
+## .toArray
+Converts value to an array.
+
+
+#### Arguments
+value (*): The value to convert.
+
+
+#### Returns
+(Array): Returns the converted array.
+
+
+#### Example
+
+```autohotkey
+A.toArray({"a": 1, "b": 2})
+; => [1, 2]
+
+A.toArray("abc")
+; => ["a", "b", "c"]
+
+A.toArray(1)
+; => []
+
+A.toArray("")
+; => []
 
 ```
 
@@ -2628,6 +2681,19 @@ A.random(1.2, 5.2)
 
 
 # **Object methods**
+## .at
+
+
+#### Example
+
+```autohotkey
+object := {"a": [{ "b": { "c": 3} }, 4]}A.at(object, ["a[1].b.c", "a[2]"])
+; => [3, 4]
+
+```
+
+
+
 ## .defaults
 Assigns own and inherited enumerable string keyed properties of source objects to the destination object for all destination properties. Source objects are applied from left to right. Once a property is set, additional values of the same property are ignored.
 
