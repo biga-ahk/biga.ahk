@@ -74,10 +74,10 @@ _internal_sort(param_collection,param_iteratees:="") {
 ; tests
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
 users := [
- , { "name": "fred",   	"age": 40 }
- , { "name": "barney", 	"age": 34 }
+ , { "name": "fred", "age": 40 }
+ , { "name": "barney", "age": 34 }
  , { "name": "bernard", "age": 36 }
- , { "name": "zoey",	"age": 40 }]
+ , { "name": "zoey", "age": 40 }]
 
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
