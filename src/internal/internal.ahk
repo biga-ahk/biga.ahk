@@ -167,11 +167,7 @@ assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.label("md5")
 assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
 
-assert.label("type checking")
-
-
-
-
+assert.label("isFalsey")
 assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
 assert.false(A.isFalsey([]))
