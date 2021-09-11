@@ -127,10 +127,10 @@ loop, % The_Array.count() {
 	vMethodNames_Array.push(element.name)
 }
 ; put all method names on the clipboard
-; clipboard := A.join(vMethodNames_Array, "|")
+clipboard := A.join(vMethodNames_Array, "|")
 
 ; msgbox all the methods not completed yet
-; msgbox, % A._printObj(A.difference(methods_arr, vMethodNames_Array))
+msgbox, % A._printObj(A.difference(methods_arr, vMethodNames_Array))
 
 
 ; ===============
@@ -215,7 +215,7 @@ if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {
 
 ; exitmsg := A.join(msgarray, "`n")
 sleep, 100
-Run, %test_File%
+Run, % test_File
 ExitApp, 1
 
 

@@ -110,10 +110,14 @@ assert.test(A.dropRightWhile(users, ["active", false]), [ {"user": "barney", "ac
 ; The A.property iteratee shorthand.
 assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ])
 
+
 ; omit
 assert.test(A.dropRightWhile([]), [])
 ; check that input has not been mutated
 assert.test(users[3], {"user": "pebbles",	"active": false})
+
+assert.label("default .identity argument")
+assert.test(A.dropRightWhile(["foo", 0, "bar"]), ["foo", 0])
 
 assert.group(".dropWhile")
 assert.label("default tests")
@@ -127,7 +131,7 @@ fn_dropWhile(o)
 }
 
 ; The A.matches iteratee shorthand.
-assert.test(A.dropWhile(users, {"user": "barney", "active": false}), [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true }  ])
+assert.test(A.dropWhile(users, {"user": "barney", "active": false}), [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ])
 
 ; The A.matchesProperty iteratee shorthand.
 assert.test(A.dropWhile(users, ["active", false]), [ {"user": "pebbles", "active": true } ])
@@ -138,6 +142,9 @@ assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }
 
 ; omit
 assert.test(A.dropWhile([]), [])
+
+assert.label("default .identity argument")
+assert.test(A.dropWhile(["foo", 0, "bar"]), [0, "bar"])
 
 assert.group(".fill")
 assert.label("default tests")
@@ -205,6 +212,9 @@ fn_checkNameTenure(name, minTenure, obj)
 	}
 }
 
+assert.label("default .identity argument")
+assert.test(A.findIndex(["foo", 0, "bar"]), 1)
+
 assert.group(".findLastIndex")
 assert.label("default tests")
 users := [{"user": "barney", "active": true}
@@ -217,6 +227,8 @@ assert.test(A.findLastIndex(users, "active"), 1)
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.findLastIndex(["foo", 0, "bar"]), 3)
 
 assert.group(".flatten")
 assert.label("default tests")
@@ -256,7 +268,7 @@ assert.test(A.head(100), "1")
 ; omit
 assert.test(A.head({"a": 1, "b": 2, "c":3}), 1)
 
-; aliases
+assert.label("alias")
 assert.test(A.first([1, 2, 3]), 1)
 assert.test(A.first([]), "")
 assert.test(A.first("fred"), "f")
@@ -366,7 +378,7 @@ assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
 ; ensure no mutation
 reverseVar := [1,2,3]
 assert.test(A.reverse(reverseVar), [3, 2, 1])
-assert.test(reverseVar[3], 3)
+assert.test(reverseVar, [1,2,3])
 
 assert.group(".slice")
 assert.label("default tests")
@@ -523,7 +535,8 @@ assert.test(A.countBy(["one", "two", "three"], A.size), {"3": 2, "5": 1})
 assert.label("count word occurances")
 wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"], A.toLower)
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
-
+wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"])
+assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
 assert.group(".every")
 assert.label("default tests")
 users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
@@ -580,6 +593,10 @@ assert.false(A.every(["", "", 1], A.isUndefined))
 assert.label("Use other methods for param_predicate")
 assert.true(A.every(["hey", "you", "there"], A.isString))
 
+assert.label("default .identity argument")
+assert.true(A.every([true, true, true]))
+assert.false(A.every([true, true, false]))
+
 assert.group(".filter")
 assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
@@ -621,6 +638,7 @@ fn_filter3(param_iteratee, param_key) {
 assert.label("using value, key, and collection")
 assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
 fn_filter4(param_iteratee, param_key, param_collection) {
+	A := new biga()
 	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
 		return true
 	}
@@ -667,16 +685,44 @@ assert.label("default tests")
 
 
 ; omit
-assert.test(A.forEach([1, 2], Func("fn_forEachFunc")), [1, 2])
-fn_forEachFunc(value)
+assert.label("order")
+obj := []
+A.forEach([1, 2], Func("fn_forEachGlobal"))
+assert.test(obj, [2, 3])
+fn_forEachGlobal(value)
 {
-   ; msgbox, % value
+	global
+	obj.push(value + 1)
 }
-; msgboxes `1` then `2`
 
 
-; aliases
+assert.label("alias")
 assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
+
+assert.label("default .identity argument")
+assert.test(A.forEach(["foo", 0, "bar"]), ["foo", 0, "bar"])
+
+assert.group(".forEachRight")
+assert.label("default tests")
+
+
+; omit
+assert.label("order")
+obj := []
+A.forEachRight([1, 2], Func("fn_forEachRightFuncGlobal"))
+assert.test(obj, [3, 2])
+fn_forEachRightFuncGlobal(value)
+{
+	global
+	obj.push(value + 1)
+}
+
+
+assert.label("alias")
+assert.test(A.eachRight([1, 2], Func("fn_forEachRightFuncGlobal")), [1, 2])
+
+assert.label("default .identity argument")
+assert.test(A.forEachRight([1, 2], Func("fn_forEachRightFunc")), [1, 2])
 
 assert.group(".groupBy")
 assert.label("default tests")
@@ -693,6 +739,9 @@ users := [ { "user": "barney", "lastActive": "Tuesday" }
 		, { "user": "pebbles", "lastActive": "Tuesday" } ]
 
 assert.test(A.groupBy(users, "lastActive"), {"Monday": [{ "user": "fred", "lastActive": "Monday" }], "Tuesday": [{ "user": "barney", "lastActive": "Tuesday" }, { "user": "pebbles", "lastActive": "Tuesday" }]})
+
+assert.label("default .identity argument")
+assert.test(A.groupBy([6.1, 4.2, 6.3]), {"6.1": [6.1], "4.2": [4.2], "6.3": [6.3]})
 
 assert.group(".includes")
 assert.label("default tests")
@@ -726,12 +775,14 @@ fn_keyByFunc(value)
 assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.keyBy([1, 2, 3]), [1, 2, 3])
 
 assert.group(".map")
 assert.label("default tests")
 fn_square(n)
 {
-	return  n * n
+	return n * n
 }
 
 assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
@@ -761,6 +812,9 @@ fn_map3(param1, param2, param3)
 	return param1 "-" param2 "-" param3[1]
 }
 
+assert.label("default .identity argument")
+assert.test(A.map([1, 2, 3]), [1, 2, 3])
+
 assert.group(".partition")
 assert.label("default tests")
 users := [ { "user": "barney", "age": 36, "active": false }
@@ -781,6 +835,11 @@ assert.test(A.partition(users, ["active", false]), [[{ "user": "barney", "age": 
 
 ; The A.property iteratee shorthand.
 assert.test(A.partition(users, "active"), [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]])
+
+
+; omit
+assert.label("default .identity argument")
+assert.test(A.partition([1, 2, 3]), [[1, 2, 3], []])
 
 assert.group(".reject")
 assert.label("default tests")
@@ -803,6 +862,8 @@ assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":fal
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.reject([0, 1, 2]), [0])
 
 assert.group(".sample")
 assert.label("default tests")
@@ -912,15 +973,17 @@ assert.true(A.some(users, "active"))
 
 
 ; omit
+assert.label("default .identity argument")
+assert.true(A.some([0, 1, 2]))
 
 assert.group(".sortBy")
 assert.label("default tests")
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
 users := [
-  , { "name": "fred",   "age": 40 }
-  , { "name": "barney", "age": 34 }
-  , { "name": "bernard", "age": 36 }
-  , { "name": "zoey", "age": 40 }]
+ , { "name": "fred", "age": 40 }
+ , { "name": "barney", "age": 34 }
+ , { "name": "bernard", "age": 36 }
+ , { "name": "zoey", "age": 40 }]
 
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
@@ -948,11 +1011,15 @@ sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
 users := [
-  , { "name": "fred",   "age": 46 }
-  , { "name": "barney", "age": 34 }
-  , { "name": "bernard", "age": 36 }
-  , { "name": "zoey", "age": 40 }]
+ , { "name": "fred", "age": 46 }
+ , { "name": "barney", "age": 34 }
+ , { "name": "bernard", "age": 36 }
+ , { "name": "zoey", "age": 40 }]
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
+
+
+assert.label("default .identity argument")
+assert.test(A.sortBy([2, 0, 1]), [0, 1, 2])
 
 assert.group(".internal")
 assert.label("default tests")
@@ -962,17 +1029,24 @@ assert.test(A._internal_JSRegEx("/RegEx(capture)/"),"RegEx(capture)")
 assert.label("md5")
 assert.notEqual(A._internal_MD5({"a": [1,2,[3]]}), A._internal_MD5({"a": [1,2,[99]]}))
 
-assert.label("type checking")
-
-
-
-
+assert.label("isFalsey")
 assert.true(A.isFalsey(0))
 assert.true(A.isFalsey(""))
 assert.false(A.isFalsey([]))
 assert.false(A.isFalsey({}))
 
 ; omit
+
+assert.group(".castArray")
+assert.label("default tests")
+assert.test(A.castArray(1), [1])
+assert.test(A.castArray({"a": 1}), {"a": 1})
+assert.test(A.castArray("abc"), ["abc"])
+assert.test(A.castArray(""), [""])
+
+
+; omit
+assert.test(A.castArray([1, 2, 3]), [1, 2, 3])
 
 assert.group(".clone")
 assert.label("default tests")
@@ -1144,6 +1218,16 @@ assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))
 assert.false(A.isUndefined(false))
 
+assert.group(".toArray")
+assert.label("default tests")
+assert.test(A.toArray({"a": 1, "b": 2}), [1, 2])
+assert.test(A.toArray("abc"), ["a", "b", "c"])
+assert.test(A.toArray(1), [])
+assert.test(A.toArray(""), [])
+
+; omit
+assert.test(A.toArray("123"), [1, 2, 3])
+assert.test(A.toArray(99), [])
 assert.group(".toString")
 assert.label("default tests")
 assert.test(A.toString(non_existant_var), "")
@@ -1237,7 +1321,10 @@ fn_maxByFunc(o)
 ; The A.property iteratee shorthand
 assert.test(A.maxBy(objects, "n"), { "n": 8 })
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.maxBy([0, 1, 2]), 2)
 
 assert.group(".mean")
 assert.label("default tests")
@@ -1269,7 +1356,10 @@ fn_meanByFunc(o)
 ; The A.property iteratee shorthand.
 assert.test(A.meanBy(objects, "n"), 5)
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.meanBy([0, 1, 2]), 1)
 
 assert.group(".min")
 assert.label("default tests")
@@ -1294,7 +1384,10 @@ fn_minByFunc(o)
 ; The A.property iteratee shorthand
 assert.test(A.minBy(objects, "n"), { "n": 2 })
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.minBy([0, 1, 2], {"age": 1, "active": true}), 0)
 
 assert.group(".multiply")
 assert.label("default tests")
@@ -1349,13 +1442,16 @@ objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 assert.test(A.sumBy(objects, Func("fn_sumByFunc")), 20)
 fn_sumByFunc(o)
 {
-    return o.n
+	return o.n
 }
 
 ; The A.property iteratee shorthand
 assert.test(A.sumBy(objects, "n"), 20)
 
+
 ; omit
+assert.label("default .identity argument")
+assert.test(A.sumBy([0, 1, 2]), 3)
 
 assert.group(".clamp")
 assert.label("default tests")
@@ -1376,13 +1472,13 @@ assert.test(value, 10)
 
 assert.group(".inRange")
 assert.label("default tests")
-assert.test(A.inRange(3, 2, 4), true)
-assert.test(A.inRange(4, 0, 8), true)
-assert.test(A.inRange(4, 0, 2), false)
-assert.test(A.inRange(2, 0, 2), false)
-assert.test(A.inRange(1.2, 0, 2), true)
-assert.test(A.inRange(5.2, 0, 4), false)
-assert.test(A.inRange(-3, -2, -6), true)
+assert.true(A.inRange(3, 2, 4))
+assert.true(A.inRange(4, 8))
+assert.false(A.inRange(4, 2))
+assert.false(A.inRange(2, 2))
+assert.true(A.inRange(1.2, 2))
+assert.false(A.inRange(5.2, 4))
+assert.true(A.inRange(-3, -2, -6))
 
 
 ; omit
@@ -1398,6 +1494,15 @@ assert.false(isObject(output))
 ; test that floating point is returned
 output := A.random(0, 1, true)
 assert.test(A.includes(output, "."), true)
+
+assert.group(".at")
+assert.label("default tests")
+object := {"a": [{ "b": { "c": 3} }, 4]}
+
+assert.test(A.at(object, ["a[1].b.c", "a[2]"]), [3, 4])
+
+
+; omit
 
 assert.group(".defaults")
 assert.label("default tests")
@@ -1433,6 +1538,17 @@ assert.test(A.findKey(users, "active"), "barney")
 
 ; omit
 assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
+
+assert.group(".get")
+assert.label("default tests")
+object := {"a": [{ "b": { "c": 3} }]}
+
+assert.test(A.get(object, "a[1].b.c"), 3)
+assert.test(A.get(object, ["a", "1", "b", "c"]), 3)
+assert.test(A.get(object, "a.b.c", "default"), "default")
+
+
+; omit
 
 assert.group(".invert")
 assert.label("default tests")
@@ -1472,6 +1588,9 @@ assert.test(object, {"a": 1})
 assert.label("blank object")
 assert.test(A.invertBy({}), {})
 
+assert.label("default .identity argument")
+assert.test(A.invertBy([1, 2, 3]), {"1": [1], "2":[2], "3":[3]})
+
 assert.group(".keys")
 assert.label("default tests")
 object := {"a": 1, "b": 2, "c": 3}
@@ -1494,6 +1613,10 @@ fn_mapKeysFunc(value, key)
 ; omit
 ; assert.test(A.mapkeys([ {"false": 0}, {"true": 1} ]), [ {0: "false"}, {1: "true"} ])
 
+assert.label("default .identity argument")
+assert.test(A.mapkeys([0, 1, 2]), {"0": 1, "1": 2, "2": 3})
+assert.test(A.mapkeys([1, 2, 3]), [1, 2, 3])
+
 assert.group(".mapValues")
 assert.label("default tests")
 users := {"fred": {"user": "fred", "age": 40}
@@ -1509,6 +1632,10 @@ assert.test(A.mapValues(users, "age"), {"fred": 40, "pebbles": 1})
 
 ; omit
 
+assert.label("default .identity argument")
+assert.test(A.mapValues([0, 1, 2]), {"1": 0, "2": 1, "3": 2})
+assert.test(A.mapValues([1, 2, 3]), [1, 2, 3])
+
 assert.group(".merge")
 assert.label("default tests")
 object := {"options": [{"option1": true}]}
@@ -1518,6 +1645,12 @@ assert.test(A.merge(object, other), {"options": [{"option1": true, "option2": fa
 object := { "a": [{ "b": 2 }, { "d": 4 }] }
 other := { "a": [{ "c": 3 }, { "e": 5 }] }
 assert.test(A.merge(object, other), { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] })
+
+
+; omit
+obj1 := [100, "Fred", true]
+obj2 := [100, "Fred", false, true]
+assert.test(A.merge(obj1, obj2), [100, "Fred", false, true])
 
 assert.group(".omit")
 assert.label("default tests")
@@ -1537,7 +1670,7 @@ assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
 ; omit
 assert.test(A.pick(object, "a"), {"a": 1})
 assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
-; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"b": 2})
+; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"a": {"b": 2}})
 
 assert.group(".pickBy")
 assert.label("default tests")
@@ -1546,6 +1679,8 @@ assert.test(A.pickBy(object, A.isNumber), {"a": 1, "c": 3})
 
 
 ; omit
+assert.label("default .identity argument")
+assert.test(A.pickBy([0, 1, 2]), {"2": 1, "3": 2})
 
 assert.group(".toPairs")
 assert.label("default tests")
@@ -1555,7 +1690,7 @@ assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 ; omit
 
 
-; aliases
+assert.label("alias")
 assert.test(A.entries({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
 assert.group(".camelCase")
@@ -1822,6 +1957,14 @@ assert.label("string")
 object := A.times(2, A.constant("string"))
 assert.test(object, ["string", "string"])
 
+assert.group(".identity")
+assert.label("default tests")
+object := {"a": 1}
+assert.test(A.identity(object), {"a": 1})
+
+
+; omit
+
 assert.group(".matches")
 assert.label("default tests")
 objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
@@ -1882,6 +2025,41 @@ assert.test(fn.call({ "a": {"b": 2} }), "2")
 fn := A.property("a")
 assert.test(fn.call({ "a": 1, "b": 2 }), 1)
 
+assert.group(".stubArray")
+assert.label("default tests")
+assert.test(A.times(2, A.stubArray), [[], []])
+
+
+; omit
+
+assert.group(".stubFalse")
+assert.label("default tests")
+assert.test(A.times(2, A.stubFalse), [false, false])
+
+
+; omit
+
+assert.group(".stubObject")
+assert.label("default tests")
+assert.test(A.times(2, A.stubObject), [ {}, {} ])
+
+
+; omit
+
+assert.group(".stubString")
+assert.label("default tests")
+assert.test(A.times(2, A.stubString), ["", ""])
+
+
+; omit
+
+assert.group(".stubTrue")
+assert.label("default tests")
+assert.test(A.times(2, A.stubTrue), [true, true])
+
+
+; omit
+
 assert.group(".times")
 assert.label("default tests")
 assert.test(A.times(4, A.constant(0)), [0, 0, 0, 0])
@@ -1897,6 +2075,9 @@ assert.label("random array of letters with boundFunc A.sample")
 boundFunc := A.sample.bind(A, "abcdefghijklmnopqrstuvwxyz")
 output := A.times(5, boundFunc)
 assert.true(A.every(output, func("strLen"))) ;all strings longer than 0 chars
+
+assert.label("default .identity argument")
+assert.test(A.times(2), [1, 2])
 ;; Display test results in GUI
 speed := QPC(0)
 assert.fullReport()
