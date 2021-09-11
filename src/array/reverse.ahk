@@ -24,4 +24,4 @@ assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
 ; ensure no mutation
 reverseVar := [1,2,3]
 assert.test(A.reverse(reverseVar), [3, 2, 1])
-assert.test(reverseVar[3], 3)
+assert.test(reverseVar, [1,2,3])
