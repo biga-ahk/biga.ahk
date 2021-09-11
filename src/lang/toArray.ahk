@@ -5,9 +5,8 @@ toArray(param_value) {
 		return this.map(param_value)
 	} else if (this.isString(param_value)) {
 		return strSplit(param_value)
-	} else {
-		return []
 	}
+	return []
 }
 
 
