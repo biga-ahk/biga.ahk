@@ -44,14 +44,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		l_array := this.clone(param_array)
+		l_array := this.cloneDeep(param_array)
 
 		; create
 		for index, object in param_values {
 			; push on any plain values
 			if (!isObject(object)) {
 				l_array.push(object)
-			} else { ;push object values 1 level deep
+			} else {
+				; push object values 1 level deep
 				for index2, object2 in object {
 					l_array.push(object2)
 				}
@@ -1502,9 +1503,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return this.map(param_value)
 		} else if (this.isString(param_value)) {
 			return strSplit(param_value)
-		} else {
-			return []
 		}
+		return []
 	}
 	toString(param_value) {
 
@@ -2472,6 +2472,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		HTMLmap := [["&","&amp;"], ["<","&lt;"], [">","&gt;"], ["""","&quot;"], ["'","&#39;"]]
 
+		; create
 		for key, value in HTMLmap {
 			element := value
 			param_string := StrReplace(param_string, element.2, element.1, , -1)
@@ -2564,7 +2565,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_source := strSplit(param_source, ".")
 		}
 
-		; create the fn
+		; create
 		if (isObject(param_source)) {
 			keyArray := []
 			for key, value in param_source {

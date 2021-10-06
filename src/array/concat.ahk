@@ -4,14 +4,15 @@ concat(param_array,param_values*) {
 	}
 
 	; prepare
-	l_array := this.clone(param_array)
+	l_array := this.cloneDeep(param_array)
 
 	; create
 	for index, object in param_values {
 		; push on any plain values
 		if (!isObject(object)) {
 			l_array.push(object)
-		} else { ;push object values 1 level deep
+		} else {
+			; push object values 1 level deep
 			for index2, object2 in object {
 				l_array.push(object2)
 			}
@@ -28,3 +29,5 @@ assert.test(A.concat(array), [1])
 
 ; omit
 assert.test(A.concat(array, 1), [1, 1])
+assert.label("associative object")
+assert.test(A.concat([], {"a": "abc", "b": "bcd"}), ["abc", "bcd"])
