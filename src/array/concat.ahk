@@ -31,3 +31,4 @@ assert.test(A.concat(array), [1])
 assert.test(A.concat(array, 1), [1, 1])
 assert.label("associative object")
 assert.test(A.concat([], {"a": "abc", "b": "bcd"}), ["abc", "bcd"])
+; the correct way to concat associative objects AND retain their keys is A.merge as confirmed with tests
