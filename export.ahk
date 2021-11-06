@@ -1099,14 +1099,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	size(param_collection) {
 
-		; prepare
-		if (param_collection.count() == 0) {
-			return ""
-		}
-
 		; create
-		if (max := this.max([param_collection.count(), param_collection.maxIndex()])) {
-			return max
+		if (isObject(param_collection)) {
+			return param_collection.count()
 		}
 		return strLen(param_collection)
 	}
@@ -1201,6 +1196,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
 		}
 		return arrStorage
+	}
+	now() {
+
+		; prepare
+		nowUTC := A_NowUTC
+
+		; create
+		nowUTC -= 19700101000000, s
+		return nowUTC "000"
 	}
 	; /--\--/--\--/--\--/--\--/--\
 	; Internal functions
@@ -1618,11 +1622,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		l_sum := 0
-		for key, value in param_array {
-			l_sum += value
-		}
-		return l_sum / this.size(param_array)
+		; create
+		return this.sum(param_array) / param_array.maxIndex()
 	}
 	meanBy(param_array,param_iteratee:="__identity") {
 		if (!isObject(param_array)) {
