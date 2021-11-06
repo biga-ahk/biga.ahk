@@ -13,6 +13,8 @@ aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight
 
 
 
+
+
 ; FilePaths
 SetWorkingDir, "\..\" A_ScriptDir
 Readme_File := A_WorkingDir "\docs\README.md"
@@ -22,7 +24,7 @@ methods_File := A_WorkingDir "\methodslist.txt"
 
 
 FileRead, methods_arr, % methods_File
-methods_arr := A.compact(A.split(methods_arr, "`r`n"))
+methods_arr := A.compact(strSplit(methods_arr, "`r`n"))
 
 ; Globals
 A := new biga()
@@ -130,7 +132,7 @@ loop, % The_Array.count() {
 clipboard := A.join(vMethodNames_Array, "|")
 
 ; msgbox all the methods not completed yet
-msgbox, % A._printObj(A.difference(methods_arr, vMethodNames_Array))
+; msgbox, % A.print(A.difference(A.castArray(methods_arr), vMethodNames_Array))
 
 
 ; ===============

@@ -2,7 +2,7 @@
 speed := QPC(0)
 assert.fullReport()
 assert.writeResultsToFile()
-msgbox, %speed%
+msgbox, % speed
 ExitApp
 
 QPC(R := 0)
