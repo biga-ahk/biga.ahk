@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -16,7 +14,7 @@
    height="800"
    viewBox="0 0 3000 800"
    sodipodi:docname="header.svg"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    inkscape:export-filename="C:\biga.png"
    inkscape:export-xdpi="60.939999"
    inkscape:export-ydpi="60.939999">
@@ -185,6 +183,24 @@
          operator="over"
          result="composite2" />
     </filter>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-132.45819"
+       x2="1881.9504"
+       y1="319.73761"
+       x1="1881.9504"
+       id="linearGradient1208"
+       xlink:href="#linearGradient5341"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="607.74152"
+       x2="1782.5403"
+       y1="699.74152"
+       x1="1782.5403"
+       id="linearGradient875"
+       xlink:href="#linearGradient5341"
+       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -195,19 +211,20 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="3072"
-     inkscape:window-height="1683"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
      id="namedview4498"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="0.5"
-     inkscape:cx="1642"
-     inkscape:cy="-152.46649"
-     inkscape:window-x="5107"
-     inkscape:window-y="-13"
+     inkscape:zoom="0.32"
+     inkscape:cx="1563.875"
+     inkscape:cy="403.22101"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2">
+     inkscape:current-layer="layer2"
+     inkscape:document-rotation="0">
     <sodipodi:guide
        position="401.42006,348.14234"
        orientation="1,0"
@@ -218,6 +235,10 @@
        orientation="0,1"
        inkscape:locked="false"
        id="guide5384" />
+    <sodipodi:guide
+       position="880,566"
+       orientation="1,0"
+       id="guide867" />
   </sodipodi:namedview>
   <g
      inkscape:groupmode="layer"
@@ -239,26 +260,26 @@
        id="path5285-7"
        inkscape:connector-curvature="0" />
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:612.37078857px;line-height:1.25;font-family:'Cascadia Code';-inkscape-font-specification:'Cascadia Code';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:15.30926991;filter:url(#filter5477)"
-       x="836.15955"
-       y="473.50208"
-       id="text5421"><tspan
-         sodipodi:role="line"
-         x="836.15955"
-         y="473.50208"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:Calibri;stroke-width:15.30926991"
-         id="tspan5423">biga.ahk</tspan></text>
+       id="text968"
+       y="489.99219"
+       x="837.86719"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:610.941px;line-height:1.25;font-family:Calibri;-inkscape-font-specification:Calibri;fill:url(#linearGradient1208);fill-opacity:1;stroke:none;stroke-width:0.999998"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:Calibri;stroke-width:0.999998;fill-opacity:1;fill:url(#linearGradient1208)"
+         y="489.99219"
+         x="837.86719"
+         id="tspan966"
+         sodipodi:role="line">biga.ahk</tspan></text>
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:72.95343018px;line-height:1.25;font-family:'Cascadia Code';-inkscape-font-specification:'Cascadia Code';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.82383585;filter:url(#filter5465)"
-       x="847.32422"
-       y="666.39435"
-       id="text5429"><tspan
-         sodipodi:role="line"
-         id="tspan5427"
-         x="847.32422"
-         y="666.39435"
-         style="stroke-width:1.82383585">A modern immutable utility library for AutoHotkey</tspan></text>
+       id="text1212"
+       y="710.46497"
+       x="893.00488"
+       style="font-style:normal;font-weight:normal;font-size:89.841px;line-height:1.25;font-family:sans-serif;fill:url(#linearGradient875);fill-opacity:1;stroke:none;stroke-width:0.999999"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:89.841px;font-family:Calibri;-inkscape-font-specification:Calibri;stroke-width:0.999999;fill-opacity:1;fill:url(#linearGradient875)"
+         y="710.46497"
+         x="893.00488"
+         id="tspan1210"
+         sodipodi:role="line">A modern immutable utility library for AutoHotkey</tspan></text>
   </g>
 </svg>
