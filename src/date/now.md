@@ -10,5 +10,5 @@ Gets the timestamp of the number of milliseconds that have elapsed since the Uni
 ## Example
 ```autohotkey
 A.now()
-; => Logs the number of milliseconds it took for the deferred invocation.
+; => 1636159584000
 ```

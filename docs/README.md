@@ -1643,9 +1643,6 @@ A.size({ "a": 1, "b": 2 })
 A.size("pebbles")
 ; => 7
 
-A.size([])
-; => ""
-
 ```
 
 
@@ -1713,6 +1710,27 @@ fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sort
 ; => ["a", "ab", "abc", " abc"]
 
 ```
+
+
+
+
+# **Date methods**
+## .now
+Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch *(1 January 1970 00:00:00 UTC)*.
+
+> [!Note]
+> The returned timestamp is only accurate to the second.
+
+#### Returns
+(number): Returns the timestamp.
+
+
+#### Example
+```autohotkey
+A.now()
+; => 1636159584000
+```
+
 
 
 

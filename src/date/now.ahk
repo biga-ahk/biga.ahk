@@ -16,5 +16,3 @@ now() {
 ; omit
 assert.label("timestamps have 13 digits")
 assert.test(A.size(A.now()), 13)
-
-msgbox, % A.now()
