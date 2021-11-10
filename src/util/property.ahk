@@ -5,7 +5,7 @@ property(param_source) {
 		param_source := strSplit(param_source, ".")
 	}
 
-	; create the fn
+	; create
 	if (isObject(param_source)) {
 		keyArray := []
 		for key, value in param_source {

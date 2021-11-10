@@ -30,3 +30,4 @@ assert.test(A.trimEnd("-_-abc-_-", "_-"), "-_-abc")
 
 ; omit
 assert.test(A.trimEnd("filename.txt", ".txt"), "filename")
+assert.test(A.trimEnd(1000.00, 0), 1000.)
