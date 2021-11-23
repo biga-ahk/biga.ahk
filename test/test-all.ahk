@@ -450,6 +450,82 @@ assert.test(A.takeRight("fred", 3), ["r","e","d"])
 assert.test(A.takeRight("fred", 4), ["f","r","e","d"])
 
 assert.group(".union")
+assert.label("default tests")
+assert.test(A.union([2], [1, 2]), [2, 1])
+
+
+; omit
+assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+assert.test(A.union("hello!"), ["hello!"])
+
+assert.group(".uniq")
+assert.label("default tests")
+assert.test(A.uniq([2, 1, 2]), [2, 1])
+
+
+; omit
+assert.test(A.uniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
+
+arr := [70, 88, 12, 52, 27, 14, 86, 54, 24, 55, 29, 33, 33, 25, 99]
+arr2 := A.uniq(arr)
+assert.test(arr.count(), 15)
+assert.test(arr2.count(), 14)
+
+assert.group(".without")
+assert.label("default tests")
+assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
+
+
+; omit
+assert.test(A.without([2, 1, 2, 3], 1), [2, 3])
+assert.test(A.without([2, 1, 2, 3], 1, 2, 3), [])
+
+assert.group(".zip")
+assert.label("default tests")
+assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
+
+
+; omit
+obj1 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+obj2 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+assert.test(A.zip(obj1, obj2),[["one", "one"], ["two", "two"], ["three", "three"], ["four", "four"], ["five", "five"], ["six", "six"], ["seven", "seven"], ["eight", "eight"], ["nine", "nine"], ["ten", "ten"]])
+
+assert.group(".zipObject")
+assert.label("default tests")
+assert.test(A.zipObject(["a", "b"], [1, 2]), {"a": 1, "b": 2})
+
+
+; omit
+assert.test(A.zipObject(["a", "b", "c"], [1, 2]), {"a": 1, "b": 2, "c": ""})
+
+assert.group(".count")
+assert.label("default tests")
+assert.test(A.count([1, 2, 3], 2), 1)
+assert.test(A.count("pebbles", "b"), 2)
+assert.test(A.count(["fred", "barney", "pebbles"], "barney"), 1)
+
+users := [ {"user": "fred", "age": 40, "active": true}
+		, {"user": "barney", "age": 36, "active": false}
+		, {"user": "pebbles", "age": 1, "active": false} ]
+
+; The A.matches iteratee shorthand.
+assert.test(A.count(users, {"age": 1, "active": false}), 1)
+
+; The A.matchesProperty iteratee shorthand.
+assert.test(A.count(users, ["active", false]), 2)
+
+; The A.property iteratee shorthand.
+assert.test(A.count(users, "active"), 1)
+
+
+; omit
+assert.label("double characters")
+assert.test(A.count("pebbles", "bb"), 1)
+assert.label("double characters2")
+assert.test(A.count("....", ".."), 2)
+assert.test(A.count("   ", "test"), 0)
+assert.test(A.count(1221221221, 22), 3)
+
 assert.group(".countBy")
 assert.label("default tests")
 assert.test(A.countBy([6.1, 4.2, 6.3], Func("floor")), {"4": 1, "6": 2})
@@ -957,6 +1033,24 @@ assert.label("default tests")
 ; omit
 assert.label("timestamps have 13 digits")
 assert.test(A.size(A.now()), 13)
+
+assert.group(".delay")
+assert.label("default tests")
+
+
+; omit
+assert.label("return true")
+boundFunc := A.random.bind(A, 99, 99, 0)
+assert.true(A.delay(boundFunc, 1000))
+
+
+A.delay(Func("fn_delayTest"), 10, "hello", "world")
+fn_delayTest(msg, msg2) {
+	global assert
+	assert.group(".delay")
+	assert.label("successful callback")
+	assert.test(msg " " msg2, "hello world")
+}
 
 assert.group(".internal")
 assert.label("default tests")
@@ -1829,7 +1923,7 @@ assert.test(A.trimEnd("-_-abc-_-", "_-"), "-_-abc")
 
 ; omit
 assert.test(A.trimEnd("filename.txt", ".txt"), "filename")
-assert.test(A.trimEnd(1000.00, 0), 1000)
+assert.test(A.trimEnd(1000.00, 0), 1000.)
 
 assert.group(".trimStart")
 assert.label("default tests")
@@ -2018,10 +2112,11 @@ assert.label("default .identity argument")
 assert.test(A.times(2), [1, 2])
 ;; Display test results in GUI
 speed := QPC(0)
+sleep, 200 ; allow callback tests to complete
 assert.fullReport()
 assert.writeResultsToFile()
 msgbox, % speed
-ExitApp
+exitApp
 
 QPC(R := 0)
 {

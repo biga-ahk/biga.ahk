@@ -21,11 +21,15 @@ delay(param_func,param_wait,param_args*) {
 
 
 ; omit
-A.delay(Func("fn_delayTest"), 30, "howdy", "stranger")
-fn_delayTest(msg, gg) {
-	msgbox, % msg gg
-}
-
-
+assert.label("return true")
 boundFunc := A.random.bind(A, 99, 99, 0)
-A.delay(boundFunc, 1000)
+assert.true(A.delay(boundFunc, 1000))
+
+
+A.delay(Func("fn_delayTest"), 10, "hello", "world")
+fn_delayTest(msg, msg2) {
+	global assert
+	assert.group(".delay")
+	assert.label("successful callback")
+	assert.test(msg " " msg2, "hello world")
+}

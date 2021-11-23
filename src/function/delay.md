@@ -19,5 +19,5 @@ A.delay(Func("fn_delayFunc"), 1000, "later")
 fn_delayFunc(text) {
 	msgbox, % text
 }
-; => msgboxs 'later' after one second.
+; => msgboxes 'later' after one second.
 ```
