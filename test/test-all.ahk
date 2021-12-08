@@ -293,6 +293,9 @@ assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 ; omit
 StringCaseSense, Off
 
+assert.label("array of empty object")
+assert.test(A.indexOf([{}], {}), 1)
+
 assert.group(".initial")
 assert.label("default tests")
 assert.test(A.initial([1, 2, 3]), [1, 2])
@@ -727,6 +730,13 @@ assert.test(A.eachRight([1, 2], Func("fn_forEachRightFuncGlobal")), [1, 2])
 assert.label("default .identity argument")
 assert.test(A.forEachRight([1, 2], Func("fn_forEachRightFunc")), [1, 2])
 
+assert.group(".freqencies")
+assert.label("default tests")
+assert.test(A.frequency([1, 1, 1, 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 10], {1: 6, 3: 3, 4: 3, 5: 3, 6: 4, 7: 2, 8: 1, 10: 1}))
+
+
+; omit
+
 assert.group(".groupBy")
 assert.label("default tests")
 assert.test(A.groupBy([6.1, 4.2, 6.3], A.floor), {4: [4.2], 6: [6.1, 6.3]})
@@ -735,8 +745,8 @@ assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: [
 
 assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
-; omit
 
+; omit
 users := [ { "user": "barney", "lastActive": "Tuesday" }
 		, { "user": "fred", "lastActive": "Monday" }
 		, { "user": "pebbles", "lastActive": "Tuesday" } ]
@@ -1048,9 +1058,23 @@ A.delay(Func("fn_delayTest"), 10, "hello", "world")
 fn_delayTest(msg, msg2) {
 	global assert
 	assert.group(".delay")
-	assert.label("successful callback")
+	assert.label("callback")
 	assert.test(msg " " msg2, "hello world")
 }
+; same but as a boundfunc
+boundfunc := Func("fn_delayTest").bind("hello", "world")
+A.delay(boundfunc, 10)
+
+A.delay(Func("fn_delayTest2"), 10)
+fn_delayTest2() {
+	global assert
+	assert.group(".delay")
+	assert.label("callback with zero parameters")
+	assert.test("hello world", "hello world")
+}
+; same but as a boundfunc
+boundfunc := Func("fn_delayTest2").bind()
+A.delay(boundfunc, 10)
 
 assert.group(".internal")
 assert.label("default tests")
@@ -1186,6 +1210,9 @@ assert.false(A.isEqual(11, 11.0000000001))
 assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
+
+assert.label("empty string")
+assert.true(A.isEqual({}, {}))
 
 assert.group(".isFloat")
 assert.label("default tests")
@@ -1401,6 +1428,9 @@ assert.test(A.min([]), "")
 ; omit
 assert.label("associative array")
 assert.test(A.min({"foo": 10, "bar": 20}), 10)
+
+assert.label("non-numeric value")
+assert.test(A.min(["one", "two", "three"]), "")
 
 assert.group(".minBy")
 assert.label("default tests")

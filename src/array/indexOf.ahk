@@ -38,3 +38,6 @@ assert.test(A.indexOf(["fred", "barney"], "Fred"), -1)
 
 ; omit
 StringCaseSense, Off
+
+assert.label("array of empty object")
+assert.test(A.indexOf([{}], {}), 1)
