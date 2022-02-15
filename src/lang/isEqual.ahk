@@ -57,4 +57,4 @@ assert.true(A.isEqual({}, {}))
 
 assert.label("different keys")
 assert.false(A.isEqual({"a": 1}, {"b": 1}))
-assert.false(A.isEqual({"a": 1}, [1]]))
+assert.false(A.isEqual({"a": 1}, [1]))
