@@ -16,3 +16,5 @@ assert.test(A.sum([4, 2, 8, 6]), 20)
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.sum({"key1": 4, "key2": 6}), 10)
