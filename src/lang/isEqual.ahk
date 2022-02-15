@@ -51,3 +51,10 @@ assert.false(A.isEqual(11, 11.0000000001))
 assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
+
+assert.label("empty string")
+assert.true(A.isEqual({}, {}))
+
+assert.label("different keys")
+assert.false(A.isEqual({"a": 1}, {"b": 1}))
+assert.false(A.isEqual({"a": 1}, [1]]))
