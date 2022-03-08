@@ -28,9 +28,8 @@ sortedEnemies.InsertAt(insertIndex, newEnemy)
 ; let's filter the sorted array by those and call all of them out. In this case there is only 1
 exposedTargets := A.filter(sortedEnemies, Func("fn_filterExposedFunc"))
 fn_filterExposedFunc(o) {
-	global
-	; We use A.startsWith inside this function to check the status
-	return A.startsWith(o.status, "exposed")
+	; We use .startsWith inside this function to check the status
+	return biga.startsWith(o.status, "exposed")
 }
 
 ; We can format our message with StartCase which is a ittle like ahk's TitleCase
@@ -40,4 +39,4 @@ callOutMessage := " Everyone attack: " A.startCase(sortedEnemies[1].name) "`n Ro
 magicweaknessTarget := A.find(sortedEnemies,"magicweakness")
 callOutMessage := "Mages attack: " magicweaknessTarget.name
 
-ExitApp
+exitApp

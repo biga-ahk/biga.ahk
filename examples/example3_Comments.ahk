@@ -50,4 +50,4 @@ featureCommentText := A.trimEnd(featureCommentText, " .!?;:")
 ; .replace works like StrReplace but also accepts javascript formatted regular expressions. We'll remove any scripts the comment might have
 featureCommentText := A.replace(featureCommentText, "/(<script>[\s\S]+<\/script>)/")
 
-ExitApp
+exitApp

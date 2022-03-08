@@ -16,10 +16,8 @@ uniqWords := A.uniq(allWords)
 ; short words aren't useful for post tags. Let's remove anything that isn't at least 8 characters long
 tagShortList := A.filter(uniqWords, Func("fn_filterlengthFunc"))
 fn_filterlengthFunc(o) {
-	global
-	; We use A.size to measure the length of the string. But it can measure objects too
-	; StrLen would also work fine here and remove the need for global scope in this function
-	if (A.size(o) >= 8) {
+	; It is encouraged to use the classname when accessing methods inside a function scope
+	if (biga.size(o) >= 8) {
 		return true
 	}
 }
@@ -41,4 +39,4 @@ postPreview := A.truncate(blogPost, 40)
 postPreview := A.join(A.split(blogPost, " ", 15), " ") " [...]"
 ; => This recipe is for a really scrumptious soup from Thailand. Grab a big bunch of [...]
 
-ExitApp
+exitApp
