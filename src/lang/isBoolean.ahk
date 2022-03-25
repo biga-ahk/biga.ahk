@@ -1,9 +1,9 @@
 isBoolean(param) {
 
-	if this.isEqual(param, 1) {
+	if (param == 1) {
 		return true
 	}
-	if this.isEqual(param, 0) {
+	if (param == 0) {
 		return true
 	}
 	return false
@@ -21,3 +21,5 @@ assert.true(A.isBoolean(0))
 assert.false(A.isBoolean(0.1))
 assert.false(A.isBoolean(1.1))
 assert.false(A.isBoolean("1.1"))
+assert.false(A.isBoolean("false"))
+assert.false(A.isBoolean("true"))
