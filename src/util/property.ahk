@@ -15,7 +15,7 @@ property(param_source) {
 		return boundFunc
 	} else {
 		boundFunc := ObjBindMethod(this, "internal_property", param_source)
-	return boundFunc
+		return boundFunc
 	}
 }
 
