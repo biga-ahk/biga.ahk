@@ -10,7 +10,7 @@ By default the following attributes are as follows:
 Wherever typeif errors can be detected, biga.ahk will throw an exception pointing out the location the error occurred. Set this to `false` if you would like your script to continue without being stopped by exceptions.
 
 `A.limit := -1`
-Determines the number of times strings will be replaced when using [.replace](#replace) with a string argument. Set this to Set this to `1` to get closer to a javascript experience.
+Determines the number of times strings will be replaced when using [.replace](#replace) with a string argument. Set this to `1` to get closer to a javascript experience.
 
 <br><br>
 
@@ -3616,7 +3616,7 @@ A.trim("  abc  ")
 A.trim("-_-abc-_-", "_-")
 ; => "abc"
 
-A.map([" foo  ", "  bar  "], A.trim)
+A.map(["  foo  ", "  bar  "], A.trim)
 ; => ["foo", "bar"]
 
 ```
@@ -4029,6 +4029,22 @@ A.times(4, A.constant(0))
 boundFunc := A.random.bind(A, 1, 1000, 0)
 array := A.times(5, boundFunc)
 ; => [395, 364, 809, 904, 449]
+```
+
+
+
+## .uniqueId
+
+
+#### Example
+
+```autohotkey
+A.uniqueId("contact_")
+; => "contact_1"
+
+A.uniqueId()
+; => 2
+
 ```
 
 

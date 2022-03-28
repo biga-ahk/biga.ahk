@@ -24,7 +24,7 @@ By default the following attributes are as follows:
 Wherever type errors can be detected, biga.ahk will throw an exception pointing out the location the error occurred. Set this to `false` if you would like your script to continue without being stopped by exceptions.
 
 `A.limit := -1`
-Determines the number of times strings will be replaced when using [.replace](#replace) with a string argument. Set this to Set this to `1` to mimic the javascript `str.replace()`experience.
+Determines the number of times strings will be replaced when using [.replace](#replace) with a string argument. Set this to `1` to mimic the javascript `str.replace()`experience.
 
 biga.ahk will refer to ahk's [StringCaseSense](StringCaseSense) concerning case sensitive comparisons. By default ahk sets this to `Off`. Setting to `On` will mimic the javascript experience.
 
@@ -48,7 +48,6 @@ uniqWords := A.uniq(allWords)
 ; short words aren't useful for post tags. Let's remove anything that isn't at least 8 characters long
 tagShortList := A.filter(uniqWords, Func("fn_filterlengthFunc"))
 fn_filterlengthFunc(o) {
-	global
 	; It is encouraged to use the classname when accessing methods inside a function scope
 	if (biga.size(o) >= 8) {
 		return true
