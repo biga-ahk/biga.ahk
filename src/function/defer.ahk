@@ -1,11 +1,13 @@
 ; ###incomplete###
-defer(param_func, param_args*) {
+defer(param_func,param_args*) {
 
 	; prepare
 	boundFunc := param_func.bind(this, param_args*)
 
 	; create
-	settimer, % boundFunc, % -500
+	setTimer, % boundFunc, % -500
+	Thread, Priority, -2147483648
+	Thread, NoTimers
 }
 
 _defer() {
