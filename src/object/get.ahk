@@ -4,9 +4,8 @@ get(param_object,param_path,param_defaultValue:="") {
 	}
 
 	; prepare
-	regex := "/[.\[\]]/"
 	if (!isObject(param_path)) {
-		l_array := this.compact(this.split(param_path, regex))
+		l_array := this.compact(this.split(param_path, this._pathRegex))
 		param_path := []
 		; remove undefined elements from array
 		for key, value in l_array {
