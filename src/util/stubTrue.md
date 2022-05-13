@@ -1,5 +1,5 @@
-This method returns true.
+This method returns `true`.
 
 
 ## Returns
-(boolean): Returns true.
+(boolean): Returns `true`.
