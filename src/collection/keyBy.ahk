@@ -13,7 +13,7 @@ keyBy(param_collection,param_iteratee:="__identity") {
 
 	; run against every value in the collection
 	for key, value in param_collection {
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			vIteratee := param_iteratee.call(value, key, param_collection)
 			l_obj[vIteratee] := value
 		}

@@ -14,7 +14,7 @@ mapValues(param_object,param_iteratee:="__identity") {
 	; create
 	for key, value in l_object {
 		; functor
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			l_array[key] := param_iteratee.call(value, key, l_object)
 		}
 	}

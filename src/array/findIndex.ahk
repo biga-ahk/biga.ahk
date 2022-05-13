@@ -15,7 +15,7 @@ findIndex(param_array,param_predicate:="__identity",param_fromindex:=1) {
 		if (param_fromIndex > A_Index) {
 			continue
 		}
-		if (this.isCallable(param_predicate)) {
+		if (this.isFunction(param_predicate)) {
 			if (param_predicate.call(value, key, param_array)) {
 				return key
 			}

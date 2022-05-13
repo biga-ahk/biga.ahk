@@ -18,7 +18,7 @@ dropWhile(param_array,param_predicate:="__identity") {
 	l_array := this.cloneDeep(param_array)
 	l_droppableElements := 0
 	for key, value in l_array {
-		if (this.isCallable(param_predicate)) {
+		if (this.isFunction(param_predicate)) {
 			if (param_predicate.call(value, key, l_array)) {
 				l_droppableElements++
 			} else {

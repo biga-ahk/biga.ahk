@@ -10,7 +10,7 @@ intersectionBy(param_params*) {
 		}
 		; check last item as possible function or shorthand
 		if (key == param_params.count()) {
-			if (this.isCallable(value)) {
+			if (this.isFunction(value)) {
 				iterateeFunc := value.bind()
 			}
 			shorthand := this._internal_differenciateShorthand(value, oParams[1])

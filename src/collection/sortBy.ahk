@@ -18,7 +18,7 @@ sortBy(param_collection,param_iteratees:="__identity") {
 		return this._internal_sort(param_collection, param_iteratees)
 	}
 	; own method or function
-	if (this.isCallable(param_iteratees)) {
+	if (this.isFunction(param_iteratees)) {
 		for key, value in param_collection {
 			l_array[A_Index] := {}
 			l_array[A_Index].value := value

@@ -1,5 +1,5 @@
 delay(param_func,param_wait,param_args*) {
-	if (!this.isCallable(param_func) || !this.isNumber(param_wait)) {
+	if (!this.isFunction(param_func) || !this.isNumber(param_wait)) {
 		this._internal_ThrowException()
 	}
 

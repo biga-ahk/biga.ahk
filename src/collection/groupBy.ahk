@@ -15,7 +15,7 @@ groupBy(param_collection,param_iteratee:="__identity") {
 		vIteratee := 0
 
 		; functor
-		if (this.isCallable(param_iteratee) || !vIteratee) {
+		if (this.isFunction(param_iteratee) || !vIteratee) {
 			vIteratee := param_iteratee.call(value)
 		}
 		; create array at key if not encountered yet
@@ -36,8 +36,8 @@ assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: [
 
 assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
-; omit
 
+; omit
 users := [ { "user": "barney", "lastActive": "Tuesday" }
 		, { "user": "fred", "lastActive": "Monday" }
 		, { "user": "pebbles", "lastActive": "Tuesday" } ]

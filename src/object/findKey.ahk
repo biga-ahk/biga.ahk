@@ -15,7 +15,7 @@ findKey(param_collection,param_predicate,param_fromindex:=1) {
 			continue
 		}
 		; functor
-		if (this.isCallable(param_predicate)) {
+		if (this.isFunction(param_predicate)) {
 			if (param_predicate.call(value)) {
 				return key
 			}

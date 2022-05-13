@@ -27,7 +27,7 @@ map(param_collection,param_iteratee:="__identity") {
 			continue
 		}
 		; functor
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			l_array.push(param_iteratee.call(value, key, l_collection))
 		}
 	}

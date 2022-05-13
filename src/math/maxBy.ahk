@@ -12,7 +12,7 @@ maxBy(param_array,param_iteratee:="__identity") {
 
 	for key, value in param_array {
 		; functor
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			l_iteratee := param_iteratee.call(value)
 		}
 		if (l_iteratee > l_max) {

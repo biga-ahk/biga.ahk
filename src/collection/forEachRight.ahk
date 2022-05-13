@@ -13,7 +13,7 @@ forEachRight(param_collection,param_iteratee:="__identity") {
 	; create
 	; run against every value in the collection
 	for key, value in collectionClone {
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			vIteratee := param_iteratee.call(value, key, collectionClone)
 		}
 		; exit iteration early by explicitly returning false

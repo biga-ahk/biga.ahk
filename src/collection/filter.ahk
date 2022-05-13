@@ -18,7 +18,7 @@ filter(param_collection,param_predicate:="__identity") {
 	; create
 	for key, value in param_collection {
 		; functor
-		if (this.isCallable(param_predicate)) {
+		if (this.isFunction(param_predicate)) {
 			if (param_predicate.call(value, key, collectionClone)) {
 				l_array.push(value)
 			}

@@ -12,7 +12,7 @@ pickBy(param_object,param_predicate:="__identity") {
 
 	; create
 	for key, value in param_object {
-		if (this.isCallable(param_predicate)) {
+		if (this.isFunction(param_predicate)) {
 			vItaree := param_predicate.call(value, key)
 			if (!this.isFalsey(vItaree)) {
 				l_obj[key] := value

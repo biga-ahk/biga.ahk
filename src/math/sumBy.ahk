@@ -13,7 +13,7 @@ sumBy(param_array,param_iteratee:="__identity") {
 	; run against every value in the array
 	for key, value in param_array {
 		; functor
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			l_iteratee := param_iteratee.call(value)
 		}
 		l_total += l_iteratee

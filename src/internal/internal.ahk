@@ -74,7 +74,7 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 	if (this.startsWith(param_shorthand.name, this.base.__Class ".")) { ;if starts with "biga."
 		return "_classMethod"
 	}
-	if (isObject(param_shorthand) && !this.isCallable(param_shorthand)) {
+	if (isObject(param_shorthand) && !this.isFunction(param_shorthand)) {
 		if (param_shorthand.maxIndex() != param_shorthand.count()) {
 			return ".matches"
 		}

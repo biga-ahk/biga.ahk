@@ -13,7 +13,7 @@ invertBy(param_object,param_iteratee:="__identity") {
 
 	; create
 	for key, value in l_obj {
-		if (this.isCallable(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
 			vkey := param_iteratee.call(value)
 		}
 		; create array at key if not encountered yet
