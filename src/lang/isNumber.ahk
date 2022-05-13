@@ -13,6 +13,7 @@ isNumber(param) {
 ; tests
 assert.true(A.isNumber(1))
 assert.true(A.isNumber("1"))
+assert.true(A.isNumber("1.001"))
 
 ; omit
 assert.false(A.isNumber([]))
