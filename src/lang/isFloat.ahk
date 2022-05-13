@@ -1,7 +1,4 @@
 isFloat(param) {
-	if (isObject(param)) {
-		return false
-	}
 	if param is float
 	{
 		return true
