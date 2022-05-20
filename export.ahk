@@ -2723,10 +2723,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return param_collection
 	}
-	isCallable(param) {
-		fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
-		return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
-	}
 	entries(param_object) {
 		if (!isObject(param_object)) {
 			this._internal_ThrowException()

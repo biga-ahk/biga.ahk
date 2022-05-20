@@ -41,3 +41,4 @@ _internal_stringify(param_value) {
 assert.test(A.print([1, 2, 3]), "1:1, 2:2, 3:3")
 
 ; omit
+assert.test(A.print("hello ", "world ", [1, 2, 3]), "hello world 1:1, 2:2, 3:3")
