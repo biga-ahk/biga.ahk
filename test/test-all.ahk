@@ -525,6 +525,7 @@ assert.test(A.count(users, "active"), 1)
 assert.label("double characters")
 assert.test(A.count("pebbles", "bb"), 1)
 assert.label("double characters2")
+assert.test(A.count("3.14", "."), 1)
 assert.test(A.count("....", ".."), 2)
 assert.test(A.count("   ", "test"), 0)
 assert.test(A.count(1221221221, 22), 3)
@@ -626,6 +627,10 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 
 
 ; omit
+assert.label(".matches longhand")
+assert.test(A.filter(users, A.matches({"user": "fred"})), [{"user":"fred", "age":40, "active":false}])
+
+assert.label("using value")
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
 fn_filter2(param_iteratee) {
 	if (param_iteratee >= 2) {
@@ -729,13 +734,6 @@ assert.test(A.eachRight([1, 2], Func("fn_forEachRightFuncGlobal")), [1, 2])
 
 assert.label("default .identity argument")
 assert.test(A.forEachRight([1, 2], Func("fn_forEachRightFunc")), [1, 2])
-
-assert.group(".freqencies")
-assert.label("default tests")
-assert.test(A.frequency([1, 1, 1, 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 8, 10], {1: 6, 3: 3, 4: 3, 5: 3, 6: 4, 7: 2, 8: 1, 10: 1}))
-
-
-; omit
 
 assert.group(".groupBy")
 assert.label("default tests")
@@ -1140,6 +1138,9 @@ assert.true(A.isAlnum("hello"))
 assert.false(A.isAlnum([]))
 assert.false(A.isAlnum({}))
 
+; omit
+assert.true(A.isAlnum("08"))
+
 assert.group(".isArray")
 assert.label("default tests")
 assert.true(A.isArray([1, 2, 3]))
@@ -1163,21 +1164,8 @@ assert.true(A.isBoolean(0))
 assert.false(A.isBoolean(0.1))
 assert.false(A.isBoolean(1.1))
 assert.false(A.isBoolean("1.1"))
-
-assert.group(".isCallable")
-assert.label("default tests")
-boundFunc := Func("strLen").bind()
-assert.true(A.isCallable(boundFunc))
-assert.false(IsFunc(boundFunc))
-assert.true(A.isCallable(A.isString))
-assert.true(A.isCallable(A.matchesProperty("a", 1)))
-assert.false(A.isCallable([1, 2, 3]))
-
-
-; omit
-assert.false(A.isCallable([]))
-assert.false(A.isCallable({}))
-assert.false(A.isCallable("string"))
+assert.false(A.isBoolean("false"))
+assert.false(A.isBoolean("true"))
 
 assert.group(".isEqual")
 assert.label("default tests")
@@ -1214,10 +1202,29 @@ assert.true(A.isEqual("11", "11"))
 assert.label("empty string")
 assert.true(A.isEqual({}, {}))
 
+assert.label("different keys")
+assert.false(A.isEqual({"a": 1}, {"b": 1}))
+assert.false(A.isEqual({"a": 1}, [1]))
+
 assert.group(".isFloat")
 assert.label("default tests")
 assert.true(A.isFloat(1.0))
 assert.false(A.isFloat(1))
+
+assert.group(".isFunction")
+assert.label("default tests")
+boundFunc := Func("strLen").bind()
+assert.true(A.isFunction(boundFunc))
+assert.false(IsFunc(boundFunc))
+assert.true(A.isFunction(A.isString))
+assert.true(A.isFunction(A.matchesProperty("a", 1)))
+assert.false(A.isFunction([1, 2, 3]))
+
+
+; omit
+assert.false(A.isFunction([]))
+assert.false(A.isFunction({}))
+assert.false(A.isFunction("string"))
 
 assert.group(".isInteger")
 assert.label("default tests")
@@ -1245,6 +1252,7 @@ assert.group(".isNumber")
 assert.label("default tests")
 assert.true(A.isNumber(1))
 assert.true(A.isNumber("1"))
+assert.true(A.isNumber("1.001"))
 
 ; omit
 assert.false(A.isNumber([]))
@@ -1294,6 +1302,21 @@ assert.test(A.toString([1, 2, 3]), "1,2,3")
 
 
 ; omit
+
+assert.group(".typeOf")
+assert.label("default tests")
+assert.test(A.typeOf(42), "integer")
+assert.test(A.typeOf(0.25), "float")
+assert.test(A.typeOf("blubber"), "string")
+assert.test(A.typeOf([]), "object")
+assert.test(A.typeOf(undeclaredVariable), "undefined")
+
+; omit
+; fix to string if ever possible
+assert.test(A.typeOf("0.25"), "float") ;
+
+; ahk `true` is indistinguishable from `1`, etc
+; assert.test(A.typeOf(true), "boolean")
 
 assert.group(".add")
 assert.label("default tests")
@@ -1429,9 +1452,6 @@ assert.test(A.min([]), "")
 assert.label("associative array")
 assert.test(A.min({"foo": 10, "bar": 20}), 10)
 
-assert.label("non-numeric value")
-assert.test(A.min(["one", "two", "three"]), "")
-
 assert.group(".minBy")
 assert.label("default tests")
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
@@ -1495,6 +1515,8 @@ assert.test(A.sum([4, 2, 8, 6]), 20)
 
 
 ; omit
+assert.label("associative array")
+assert.test(A.sum({"key1": 4, "key2": 6}), 10)
 
 assert.group(".sumBy")
 assert.label("default tests")
@@ -1898,6 +1920,8 @@ assert.test(A.split("concat.ahk", "."), ["concat", "ahk"])
 assert.test(A.split("a--b-c", ","), ["a--b-c"])
 assert.label("blank seperator")
 assert.test(A.split("a--b-c", ""), ["a","-","-","b","-","c"])
+assert.label("whitespace seperator")
+assert.test(A.split("one     two", "/\s+/"), ["one", "two"])
 
 assert.group(".startCase")
 assert.label("default tests")
@@ -2070,6 +2094,12 @@ objects := [{ "name": "fred", "options": {"private": true} }
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 
+assert.group(".print")
+assert.label("default tests")
+assert.test(A.print([1, 2, 3]), "1:1, 2:2, 3:3")
+
+; omit
+
 assert.group(".property")
 assert.label("default tests")
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
@@ -2140,6 +2170,21 @@ assert.true(A.every(output, func("strLen"))) ;all strings longer than 0 chars
 
 assert.label("default .identity argument")
 assert.test(A.times(2), [1, 2])
+
+assert.group(".toPath")
+assert.label("default tests")
+assert.test(A.toPath("a.b.c"), ["a", "b", "c"])
+assert.test(A.toPath("a[1].b.c"), ["a", "1", "b", "c"])
+
+
+; omit
+
+assert.group(".uniqueId")
+assert.label("default tests")
+assert.test(A.uniqueId("contact_"), "contact_1")
+assert.test(A.uniqueId(), 2)
+
+; omit
 ;; Display test results in GUI
 speed := QPC(0)
 sleep, 200 ; allow callback tests to complete

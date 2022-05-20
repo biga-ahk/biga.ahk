@@ -5,8 +5,8 @@
 	"main": "export.ahk",
 	"dependencies": {},
 	"devDependencies": {
-		"biga.ahk": "^0.40.2",
-		"unit-testing.ahk": "^0.6.1",
+		"biga.ahk": "^0.52.0",
+		"expect.ahk": "^0.1.0",
 		"util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
 	},
 	"author": "Shawn Brooker",

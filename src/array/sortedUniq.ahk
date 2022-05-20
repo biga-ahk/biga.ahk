@@ -8,7 +8,7 @@ sortedUniq(param_collection) {
 
 	; create
 	for key, value in param_collection {
-		printedelement := this._printObj(param_collection[key])
+		printedelement := this._internal_stringify(param_collection[key])
 		if (l_temp != printedelement) {
 			l_temp := printedelement
 			l_array.push(value)

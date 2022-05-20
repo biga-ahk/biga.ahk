@@ -3,9 +3,9 @@ isEqual(param_value,param_other*) {
 	; prepare
 	if (isObject(param_value)) {
 		l_array := []
-		param_value := this._printObj(param_value)
+		param_value := this._internal_stringify(param_value)
 		loop, % param_other.count() {
-			l_array.push(this._printObj(param_other[A_Index]))
+			l_array.push(this._internal_stringify(param_other[A_Index]))
 		}
 	} else {
 		l_array := this.cloneDeep(param_other)

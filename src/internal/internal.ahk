@@ -2,44 +2,6 @@
 ; Internal functions
 ; \--/--\--/--\--/--\--/--\--/
 
-_printObj(param_obj) {
-	if (!isObject(param_obj)) {
-		return """" param_obj """"
-	}
-	if this._internal_IsCircle(param_obj) {
-		this._internal_ThrowException()
-	}
-
-	for key, value in param_obj {
-		if key is not Number
-		{
-			Output .= """" . key . """:"
-		} else {
-			Output .= key . ":"
-		}
-		if (isObject(value)) {
-			Output .= "[" . this._printObj(value) . "]"
-		} else if value is not number
-		{
-			Output .= """" . value . """"
-		} else {
-			Output .= value
-		}
-		Output .= ", "
-	}
-	StringTrimRight, OutPut, OutPut, 2
-	return OutPut
-}
-print(param_obj) {
-	if (!isObject(param_obj)) {
-		return """" param_obj """"
-	}
-	if this._internal_IsCircle(param_obj) {
-		this._internal_ThrowException()
-	}
-
-	return this._printObj(param_obj)
-}
 
 
 _internal_MD5(param_string, case := 0) {

@@ -12,7 +12,6 @@ matchesProperty(param_path,param_srcvalue) {
 
 _internal_matchesProperty(param_property,param_matchvalue,param_itaree) {
 	itareevalue := param_property.call(param_itaree)
-	; msgbox, % "comparing " this._printObj(param_matchvalue) " to " this._printObj(itareevalue) " from(" this._printObj(param_itaree) ")"
 	if (!this.isUndefined(itareevalue)) {
 		if (itareevalue = param_matchvalue) {
 			return true
