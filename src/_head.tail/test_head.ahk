@@ -6,7 +6,7 @@
 SetBatchLines, -1
 
 A := new biga()
-assert := new unittesting()
+assert := new expect()
 
 ; Start speed function
 QPC(1)
