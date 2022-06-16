@@ -5,7 +5,6 @@ get(param_object,param_path,param_defaultValue:="") {
 
 	; prepare
 	if (!isObject(param_path)) {
-		; remove undefined elements from array
 		param_path := this.compact(this.split(param_path, this._pathRegex))
 	}
 
