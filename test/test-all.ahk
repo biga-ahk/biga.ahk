@@ -1199,7 +1199,7 @@ assert.label("string comparison")
 assert.true(A.isEqual(11, "11"))
 assert.true(A.isEqual("11", "11"))
 
-assert.label("empty string")
+assert.label("empty object")
 assert.true(A.isEqual({}, {}))
 
 assert.label("different keys")
