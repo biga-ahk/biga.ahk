@@ -2094,6 +2094,18 @@ objects := [{ "name": "fred", "options": {"private": true} }
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 
+assert.group(".nthArg")
+assert.label("default tests")
+func := A.nthArg(2)
+assert.test(func.call("a", "b", "c", "d"), "b")
+
+func := A.nthArg(-2)
+assert.test(func.call("a", "b", "c", "d"), "c")
+
+; omit
+assert.label("default argument")
+func := A.nthArg()
+assert.test(func.call("a", "b", "c", "d"), "a")
 assert.group(".print")
 assert.label("default tests")
 assert.test(A.print([1, 2, 3]), "1:1, 2:2, 3:3")
