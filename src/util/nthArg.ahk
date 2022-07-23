@@ -2,7 +2,10 @@ nthArg(param_n:=1) {
 	if (!this.isNumber(param_n)) {
 		this._internal_ThrowException()
 	}
-
+	; prepare
+	if (param_n == 0) {
+		param_n := 1
+	}
 
 	; create
 	if (param_n > 0) {
