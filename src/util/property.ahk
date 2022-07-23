@@ -1,9 +1,7 @@
 property(param_source) {
 
 	; prepare
-	if (this.includes(param_source, ".")) {
-		param_source := strSplit(param_source, ".")
-	}
+	param_source := this.toPath(param_source)
 
 	; create
 	if (isObject(param_source)) {
@@ -24,7 +22,7 @@ internal_property(param_property,param_itaree) {
 		for key, value in param_property {
 			if (param_property.count() == 1) {
 				; msgbox, % "dove deep and found: " ObjRawGet(param_itaree, value)
-				return objRawGet(param_itaree, value)
+				return param_itaree[value]
 			} else if (param_itaree.hasKey(value)){
 				rvalue := this.internal_property(this.tail(param_property), param_itaree[value])
 			}
@@ -37,7 +35,8 @@ internal_property(param_property,param_itaree) {
 
 ; tests
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-assert.test(A.map(objects, A.property("a.b")), ["2", "1"])
+assert.test(A.map(objects, A.property("a.b")), [2, 1])
+assert.test(A.map(objects, A.property(["a", "b"])), [2, 1])
 
 objects := [{"name": "fred"}, {"name": "barney"}]
 assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
