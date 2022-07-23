@@ -12,7 +12,12 @@ settings.objectName := "A"
 aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight"], "toPairs": ["entries"]}
 
 
-
+; Globals
+A := new biga()
+docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
+testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
+categoryRegEx := "src\\(.+)\\\w+\.\w{2,3}"
+newline := "`r`n" ; do not change this as docsify needs `r
 
 
 ; FilePaths
@@ -22,16 +27,9 @@ lib_File := A_WorkingDir "\export.ahk"
 test_File := A_WorkingDir "\test\test-all.ahk"
 methods_File := A_WorkingDir "\methodslist.txt"
 
-
+; turn methods txt into a compacted array
 FileRead, methods_arr, % methods_File
-methods_arr := A.compact(strSplit(methods_arr, "`r`n"))
-
-; Globals
-A := new biga()
-docsRegEx := "\*\*DOC\*\*([\s\S]*?)\*\*\*"
-testsRegEx := "\*\*Tests\*\*([\s\S]*?)\*\*\*"
-categoryRegEx := "src\\(.+)\\\w+\.\w{2,3}"
-newline := "`r`n" ;do not change this as docsify needs `r
+methods_arr := A.compact(A.map(strSplit(methods_arr, "`n", "`r")))
 
 ; Arrays that control doc and test output. For ommiting or only testing certain areas
 ignoreMethodDocsArr := ["internal"]
@@ -132,7 +130,7 @@ loop, % The_Array.count() {
 clipboard := A.join(vMethodNames_Array, "|")
 
 ; msgbox all the methods not completed yet
-; msgbox, % A.print(A.difference(A.castArray(methods_arr), vMethodNames_Array))
+; msgbox, % A.join(A.difference(A.castArray(methods_arr), vMethodNames_Array), ", ")
 
 
 ; ===============
