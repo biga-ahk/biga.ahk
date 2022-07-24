@@ -16,7 +16,6 @@ at(param_object,param_paths,param_defaultValue:="") {
 
 ; tests
 object := {"a": [{ "b": { "c": 3} }, 4]}
-
 assert.test(A.at(object, ["a[1].b.c", "a[2]"]), [3, 4])
 
 
