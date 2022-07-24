@@ -11,6 +11,10 @@ settings := {}
 settings.objectName := "A"
 aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight"], "toPairs": ["entries"]}
 
+; dev options
+devOptions := {}
+devOptions.msgboxMissingMethods := false
+devOptions.clipboardMethods := false
 
 ; Globals
 A := new biga()
@@ -127,10 +131,14 @@ loop, % The_Array.count() {
 	vMethodNames_Array.push(element.name)
 }
 ; put all method names on the clipboard
-clipboard := A.join(vMethodNames_Array, "|")
+if (devOptions.clipboardMethods) {
+	clipboard := A.join(vMethodNames_Array, "|")
+}
 
 ; msgbox all the methods not completed yet
-; msgbox, % A.join(A.difference(A.castArray(methods_arr), vMethodNames_Array), ", ")
+if (devOptions.msgboxMissingMethods) {
+	msgbox, % A.join(A.difference(A.castArray(methods_arr), vMethodNames_Array), ", ")
+}
 
 
 ; ===============
