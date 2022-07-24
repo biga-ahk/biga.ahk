@@ -1006,6 +1006,27 @@ A.uniq([2, 1, 2])
 
 
 
+## .unzip
+This method is like [A.zip](/?id=zip) except that it accepts an array of grouped elements and creates an array regrouping the elements to their pre-zip configuration.
+
+#### Arguments
+array (Array): The array of grouped elements to process.
+
+
+#### Returns
+
+(Array): Returns the new array of regrouped elements.
+
+#### Example
+
+```autohotkey
+zipped := A.zip(["a", "b"], [1, 2], [true, false]); => [["a", 1, true], ["b", 2, true]]A.unzip(zipped)
+; => [["a", "b"], [1, 2], [true, false]]
+
+```
+
+
+
 ## .without
 Creates an array excluding all given values.
 
@@ -1229,7 +1250,7 @@ function (Function): The function invoked per iteration.
 
 
 #### Returns
-(*): Returns the matched element, else `false`.
+(*): Returns the matched element, else false.
 
 
 #### Example
@@ -1262,7 +1283,7 @@ function (Function): The function invoked per iteration.
 
 
 #### Returns
-(*): Returns the matched element, else `false`.
+(*): Returns the matched element, else false.
 
 
 #### Example
@@ -1957,15 +1978,15 @@ StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 
 
 ## .isFloat
-Checks if `value` is a float.
+Checks if value is a float.
 
 
 #### Arguments
-value (*): The `value` to check.
+value (*): The value to check.
 
 
 #### Returns
-(boolean): Returns `true` if `value` is a float, else `false`.
+(boolean): Returns true if value is a float, else false.
 
 
 #### Example
@@ -2218,6 +2239,31 @@ A.toArray(1)
 
 A.toArray("")
 ; => []
+
+```
+
+
+
+## .toLength
+Converts value to an integer suitable for use as the length of an array-like object.
+
+
+#### Arguments
+value (*): The value to convert.
+
+
+#### Returns
+(number): Returns the converted integer.
+
+
+#### Example
+
+```autohotkey
+A.toLength(3.2)
+; => 3
+
+A.toLength("3.2")
+; => 3
 
 ```
 
@@ -2775,6 +2821,16 @@ A.random(1.2, 5.2)
 
 # **Object methods**
 ## .at
+Creates an array of values corresponding to paths of object.
+
+#### Arguments
+object (Object): The object to iterate over.
+
+[paths] (...(string|string[])): The property paths to pick.
+
+
+#### Returns
+(Array): Returns the picked values.
 
 
 #### Example
@@ -2876,6 +2932,39 @@ A.get(object, ["a", "1", "b", "c"])
 
 A.get(object, "a.b.c", "default")
 ; => "default"
+
+```
+
+
+
+## .has
+Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
+
+> [!Note]
+> AutoHotkey object keys are always converted to lowercase.
+
+#### Arguments
+object (Object): The object to invert.
+
+
+#### Returns
+(Array): Returns the new inverted object.
+
+
+#### Example
+
+```autohotkey
+object := {"a": { "b": ""}}A.has(object, "a")
+; => true
+
+A.has(object, "a.b")
+; => true
+
+A.has(object, ["a", "b"])
+; => true
+
+A.has(object, "a.b.c")
+; => false
 
 ```
 
@@ -3929,6 +4018,45 @@ objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesPrope
 
 
 
+## .noop
+This method returns AutoHotkey's closest undefined equivilant; `""`.
+
+
+#### Example
+
+```autohotkey
+A.times(2, A.stubObject)
+; => [ {}, {} ]
+
+```
+
+
+
+## .nthArg
+Creates a function that gets the argument at index n. If n is negative, the nth argument from the end is returned.
+
+
+#### Arguments
+[n:=1] (number): The index of the argument to return.
+
+
+#### Returns
+(Function): Returns the new pass-thru function.
+
+
+#### Example
+
+```autohotkey
+func := A.nthArg(2)func.call("a", "b", "c", "d")
+; => "b"
+
+func := A.nthArg(-2)func.call("a", "b", "c", "d")
+; => "c"
+
+```
+
+
+
 ## .print
 Prints the specified `value` to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
 
@@ -3967,10 +4095,38 @@ path (Array|string): The path of the property to get.
 
 ```autohotkey
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b"))
-; => ["2", "1"]
+; => [2, 1]
+
+A.map(objects, A.property(["a", "b"]))
+; => [2, 1]
 
 objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
+
+```
+
+
+
+## .propertyOf
+The opposite of [A.property](/?id=property) this method creates a function that returns the value at a given path of object.
+
+
+#### Arguments
+object (Object): The object to query.
+
+
+#### Returns
+(Function): Returns the new accessor function.
+
+
+#### Example
+
+```autohotkey
+array := [0, 1, 2]object := {"a": array, "b": array, "c": array}A.map(["a[3]", "c[1]"], A.propertyOf(object))
+; => [2, 0]
+
+A.map([["a", 3], ["c", 1]], A.propertyOf(object))
+; => [2, 0]
 
 ```
 

@@ -474,6 +474,15 @@ arr2 := A.uniq(arr)
 assert.test(arr.count(), 15)
 assert.test(arr2.count(), 14)
 
+assert.group(".unzip")
+assert.label("default tests")
+zipped := A.zip(["a", "b"], [1, 2], [true, false])
+; => [["a", 1, true], ["b", 2, true]]
+assert.test(A.unzip(zipped), [["a", "b"], [1, 2], [true, false]])
+
+
+; omit
+
 assert.group(".without")
 assert.label("default tests")
 assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
@@ -1294,6 +1303,13 @@ assert.test(A.toArray(""), [])
 ; omit
 assert.test(A.toArray("123"), [1, 2, 3])
 assert.test(A.toArray(99), [])
+assert.group(".toLength")
+assert.label("default tests")
+assert.test(A.toLength(3.2), 3)
+assert.test(A.toLength("3.2"), 3)
+
+; omit
+
 assert.group(".toString")
 assert.label("default tests")
 assert.test(A.toString(non_existant_var), "")
@@ -1581,7 +1597,6 @@ assert.test(A.includes(output, "."), true)
 assert.group(".at")
 assert.label("default tests")
 object := {"a": [{ "b": { "c": 3} }, 4]}
-
 assert.test(A.at(object, ["a[1].b.c", "a[2]"]), [3, 4])
 
 
@@ -1632,6 +1647,19 @@ assert.test(A.get(object, "a.b.c", "default"), "default")
 
 
 ; omit
+
+assert.group(".has")
+assert.label("default tests")
+object := {"a": { "b": ""}}
+
+assert.true(A.has(object, "a"))
+assert.true(A.has(object, "a.b"))
+assert.true(A.has(object, ["a", "b"]))
+assert.false(A.has(object, "a.b.c"))
+
+; omit
+assert.label("non-modifying")
+assert.test(object, {"a": { "b": ""}})
 
 assert.group(".invert")
 assert.label("default tests")
@@ -2094,6 +2122,13 @@ objects := [{ "name": "fred", "options": {"private": true} }
 assert.test(A.filter(objects, A.matchesProperty("options.private", false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 assert.test(A.filter(objects, A.matchesProperty(["options", "private"], false)), [{ "name": "barney", "options": {"private": false} }, { "name": "pebbles", "options": {"private": false} }])
 
+assert.group(".noop")
+assert.label("default tests")
+assert.test(A.times(2, A.stubObject), [ {}, {} ])
+
+
+; omit
+
 assert.group(".nthArg")
 assert.label("default tests")
 func := A.nthArg(2)
@@ -2116,7 +2151,8 @@ assert.test(A.print("hello ", "world ", [1, 2, 3]), "hello world 1:1, 2:2, 3:3")
 assert.group(".property")
 assert.label("default tests")
 objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-assert.test(A.map(objects, A.property("a.b")), ["2", "1"])
+assert.test(A.map(objects, A.property("a.b")), [2, 1])
+assert.test(A.map(objects, A.property(["a", "b"])), [2, 1])
 
 objects := [{"name": "fred"}, {"name": "barney"}]
 assert.test(A.map(objects, A.property("name")), ["fred", "barney"])
@@ -2129,6 +2165,17 @@ assert.test(fn.call({ "a": {"b": 2} }), "2")
 
 fn := A.property("a")
 assert.test(fn.call({ "a": 1, "b": 2 }), 1)
+
+assert.group(".propertyOf")
+assert.label("default tests")
+array := [0, 1, 2]
+object := {"a": array, "b": array, "c": array}
+assert.test(A.map(["a[3]", "c[1]"], A.propertyOf(object)), [2, 0])
+
+assert.test(A.map([["a", 3], ["c", 1]], A.propertyOf(object)), [2, 0])
+
+
+; omit
 
 assert.group(".stubArray")
 assert.label("default tests")
@@ -2191,6 +2238,9 @@ assert.test(A.toPath("a[1].b.c"), ["a", "1", "b", "c"])
 
 
 ; omit
+assert.test(A.toPath("a"), ["a"])
+assert.test(A.toPath(["a", "1", "b", "c"]), ["a", "1", "b", "c"])
+assert.test(A.toPath(["a", "1", "b", "", "c"]), ["a", "1", "b", "", "c"])
 
 assert.group(".uniqueId")
 assert.label("default tests")
