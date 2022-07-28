@@ -4,11 +4,11 @@ union(param_arrays*) {
 	l_array := []
 
 	; create
-	for key, Array in param_arrays {
-		if (isObject(Array)) {
-			l_array := this.concat(l_array, Array)
+	for key, array in param_arrays {
+		if (isObject(array)) {
+			l_array := this.concat(l_array, array)
 		} else {
-			l_array.push(Array)
+			l_array.push(array)
 		}
 	}
 	return this.uniq(l_array)

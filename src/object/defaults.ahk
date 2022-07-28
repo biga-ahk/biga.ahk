@@ -8,8 +8,8 @@
 	param_sources := this.reverse(param_sources)
 
 	; create
-	for Index, Object in param_sources {
-		for key, value in Object {
+	for index, object in param_sources {
+		for key, value in object {
 			if (!l_obj.hasKey(key)) { ; if the key is not already in use
 				l_obj[key] := value
 			}

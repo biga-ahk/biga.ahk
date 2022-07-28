@@ -6,7 +6,7 @@ matchesProperty(param_path,param_srcvalue) {
 	; create the property fn
 	fnProperty := this.property(param_path)
 	; create the fn
-	boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
+	boundFunc := objBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
 	return boundFunc
 }
 

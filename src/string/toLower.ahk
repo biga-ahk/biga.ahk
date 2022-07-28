@@ -4,8 +4,8 @@ toLower(param_string) {
 	}
 
 	; create
-	StringLower, OutputVar, param_string
-	return OutputVar
+	stringLower, out, param_string
+	return out
 }
 
 

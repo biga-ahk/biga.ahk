@@ -9,10 +9,10 @@ property(param_source) {
 		for key, value in param_source {
 			keyArray.push(value)
 		}
-		boundFunc := ObjBindMethod(this, "internal_property", keyArray)
+		boundFunc := objBindMethod(this, "internal_property", keyArray)
 		return boundFunc
 	} else {
-		boundFunc := ObjBindMethod(this, "internal_property", param_source)
+		boundFunc := objBindMethod(this, "internal_property", param_source)
 		return boundFunc
 	}
 }

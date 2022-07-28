@@ -3,7 +3,7 @@ conforms(param_value) {
 		this._internal_ThrowException()
 	}
 
-	boundFunc := ObjBindMethod(this, "_internal_conforms", param_value)
+	boundFunc := objBindMethod(this, "_internal_conforms", param_value)
 	return boundFunc
 }
 

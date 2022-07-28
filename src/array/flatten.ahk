@@ -7,13 +7,13 @@ flatten(param_array) {
 	l_obj := []
 
 	; create
-	for Index, Object in param_array {
-		if (isObject(Object)) {
-			for Index2, Object2 in Object {
-				l_obj.push(Object2)
+	for index, object in param_array {
+		if (isObject(object)) {
+			for index2, object2 in object {
+				l_obj.push(object2)
 			}
 		} else {
-			l_obj.push(Object)
+			l_obj.push(object)
 		}
 	}
 	return l_obj

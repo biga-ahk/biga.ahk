@@ -3,7 +3,7 @@ matches(param_source) {
 		this._internal_ThrowException()
 	}
 
-	boundFunc := ObjBindMethod(this, "internal_matches", param_source)
+	boundFunc := objBindMethod(this, "internal_matches", param_source)
 	return boundFunc
 }
 

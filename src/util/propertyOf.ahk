@@ -4,7 +4,7 @@ propertyOf(param_object) {
 	}
 
 	; create
-	boundFunc := ObjBindMethod(this, "internal_propertyOf", param_object)
+	boundFunc := objBindMethod(this, "internal_propertyOf", param_object)
 	return boundFunc
 }
 

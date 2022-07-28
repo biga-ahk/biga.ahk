@@ -111,17 +111,17 @@ FileDelete, % test_File
 test_head := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_head.ahk")
 test_tail := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_tail.ahk")
 
-FileAppend, %test_head%, % test_File
+fileAppend, %test_head%, % test_File
 loop, % The_Array.count() {
 	element := The_Array[A_Index]
 	; perform the tests if in specific array or specific array is less than or 1
 	if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).count() == 0) {
-		FileAppend, % newline "assert.group(""." element.name """)", % test_File
-		FileAppend, % newline "assert.label(""default tests"")", % test_File
-		FileAppend, % element.tests "", % test_File
+		fileAppend, % newline "assert.group(""." element.name """)", % test_File
+		fileAppend, % newline "assert.label(""default tests"")", % test_File
+		fileAppend, % element.tests "", % test_File
 	}
 }
-FileAppend, %test_tail%, % test_File
+fileAppend, %test_tail%, % test_File
 
 ; ===============
 ; method names
@@ -174,7 +174,7 @@ loop, % The_Array.count() {
 	DOCS_Array := A.concat(DOCS_Array, txt)
 }
 loop, % DOCS_Array.count() {
-	FileAppend, % DOCS_Array[A_Index], % Readme_File
+	fileAppend, % DOCS_Array[A_Index], % Readme_File
 }
 
 
@@ -214,7 +214,7 @@ while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 }
 ; remove blank lines
 ; lib_txt := A.replace(lib_txt, "/([`r`n]+)/","`r`n")
-FileAppend, %lib_txt%, % lib_File
+fileAppend, %lib_txt%, % lib_File
 
 ; === GLOBAL TESTS ===
 if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {

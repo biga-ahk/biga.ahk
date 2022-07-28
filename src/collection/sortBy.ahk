@@ -45,15 +45,15 @@ _internal_sort(param_collection,param_iteratees:="") {
 
 	; associative arrays
 	if (param_iteratees != "") {
-		for Index, obj in l_array {
-			out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
+		for index, obj in l_array {
+			out .= obj[param_iteratees] "+" index "|" ; "+" allows for sort to work with just the value
 			; out will look like: value+index|value+index|
 		}
-		lastvalue := l_array[Index, param_iteratees]
+		lastvalue := l_array[index, param_iteratees]
 	} else {
 		; regular arrays
-		for Index, obj in l_array {
-			out .= obj "+" Index "|"
+		for index, obj in l_array {
+			out .= obj "+" index "|"
 		}
 		lastvalue := l_array[l_array.count()]
 	}

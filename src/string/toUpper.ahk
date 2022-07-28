@@ -4,8 +4,8 @@ toUpper(param_string) {
 	}
 
 	; create
-	StringUpper, OutputVar, param_string
-	return OutputVar
+	stringUpper, out, param_string
+	return out
 }
 
 

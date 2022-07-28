@@ -9,9 +9,9 @@ nthArg(param_n:=1) {
 
 	; create
 	if (param_n > 0) {
-		boundFunc := ObjBindMethod(this, "internal_nthArg", param_n)
+		boundFunc := objBindMethod(this, "internal_nthArg", param_n)
 	} else {
-		boundFunc := ObjBindMethod(this, "internal_nthArgReverse", abs(param_n))
+		boundFunc := objBindMethod(this, "internal_nthArgReverse", abs(param_n))
 	}
 	return boundFunc
 }

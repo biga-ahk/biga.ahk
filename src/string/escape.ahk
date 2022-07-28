@@ -8,7 +8,7 @@ escape(param_string:="") {
 
 	for key, value in HTMLmap {
 		element := value
-		param_string := StrReplace(param_string, element.1, element.2, , -1)
+		param_string := strReplace(param_string, element.1, element.2, , -1)
 	}
 	return param_string
 }

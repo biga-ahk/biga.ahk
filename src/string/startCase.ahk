@@ -13,14 +13,14 @@ startCase(param_string:="") {
 			l_string := subStr(l_string, 1, RE_Match.pos(A_Index) - 1) " " subStr(l_string, RE_Match.pos(A_Index))
 		}
 	}
-	; Split the string into array and Titlecase each element in the array
+	; split the string into array and titlecase each element in the array
 	l_array := strSplit(l_string, " ")
 	loop, % l_array.count() {
 		l_string := l_array[A_Index]
-		StringUpper, l_string, l_string, T
+		stringUpper, l_string, l_string, T
 		l_array[A_Index] := l_string
 	}
-	; join the string back together from Titlecased array elements
+	; join the string back together from titlecased array elements
 	l_string := this.join(l_array, " ")
 	l_string := trim(l_string)
 	return l_string

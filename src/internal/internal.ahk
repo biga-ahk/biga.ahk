@@ -8,15 +8,15 @@ _internal_MD5(param_string, case := 0) {
 	if (isObject(param_string)) {
 		param_string := this._internal_stringify(param_string)
 	}
-	static MD5_DIGEST_LENGTH := 16
-	hModule := DllCall("loadlibrary", "str", "advapi32.dll", "ptr")
-	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "ptr", &MD5_CTX)
-	, DllCall("advapi32\MD5Update", "ptr", &MD5_CTX, "AStr", param_string, "UInt", strLen(param_string))
-	, DllCall("advapi32\MD5Final", "ptr", &MD5_CTX)
-	loop % MD5_DIGEST_LENGTH {
+	digestLength := 16
+	hModule := dllCall("loadlibrary", "str", "advapi32.dll", "ptr")
+	, VarSetCapacity(MD5_CTX, 104, 0), dllCall("advapi32\MD5Init", "ptr", &MD5_CTX)
+	, dllCall("advapi32\MD5Update", "ptr", &MD5_CTX, "AStr", param_string, "UInt", strLen(param_string))
+	, dllCall("advapi32\MD5Final", "ptr", &MD5_CTX)
+	loop % digestLength {
 		o .= format("{:02" (case ? "X" : "x") "}", numGet(MD5_CTX, 87 + A_Index, "UChar"))
 	}
-	DllCall("freelibrary", "ptr", hModule)
+	dllCall("freelibrary", "ptr", hModule)
 	return o
 }
 

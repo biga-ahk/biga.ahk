@@ -4,14 +4,15 @@ lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 	}
 
 	; create
-	for Index, value in param_array {
+	for index, value in param_array {
 		Index -= 1
-		vNegativeIndex := param_array.count() - Index
-		if (vNegativeIndex > param_fromIndex) { ;skip search
+		l_negativeIndex := param_array.count() - index
+		;skip search
+		if (l_negativeIndex > param_fromIndex) {
 			continue
 		}
-		if (this.isEqual(param_array[vNegativeIndex], param_value)) {
-			return vNegativeIndex
+		if (this.isEqual(param_array[l_negativeIndex], param_value)) {
+			return l_negativeIndex
 		}
 	}
 	return -1

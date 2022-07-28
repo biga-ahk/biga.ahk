@@ -3,9 +3,9 @@ print(values*) {
 		out .= (isObject(value) ? this._internal_stringify(value) : value)
 	}
 	try {
-		DllCall("AttachConsole", "int", -1)
-		FileAppend, % "`n" out, CONOUT$
-		DllCall("FreeConsole")
+		dllCall("AttachConsole", "int", -1)
+		fileAppend, % "`n" out, CONOUT$
+		dllCall("FreeConsole")
 	} catch {
 
 	}
@@ -17,7 +17,7 @@ _internal_stringify(param_value) {
 		return """" param_value """"
 	}
 	for key, value in param_value {
-		if key is not Number
+		if key is not number
 		{
 			output .= """" . key . """:"
 		} else {

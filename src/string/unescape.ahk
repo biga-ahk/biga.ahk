@@ -9,7 +9,7 @@ unescape(param_string:="") {
 	; create
 	for key, value in HTMLmap {
 		element := value
-		param_string := StrReplace(param_string, element.2, element.1, , -1)
+		param_string := strReplace(param_string, element.2, element.1, , -1)
 	}
 	return param_string
 }

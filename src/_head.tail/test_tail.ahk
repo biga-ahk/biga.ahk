@@ -8,6 +8,6 @@ exitApp
 
 QPC(R := 0)
 {
-	static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-	return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
+	static P := 0, F := 0, Q := dllCall("QueryPerformanceFrequency", "Int64P", F)
+	return ! dllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
 }

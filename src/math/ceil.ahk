@@ -19,7 +19,7 @@ ceil(param_number,param_precision:=0) {
 	}
 	l_sum := trim(l_sum, "0") ; trim zeroes
 	l_value := (subStr(l_sum, 0) = "5") && param_number != l_sum ? subStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
-	return Round(l_value, param_precision)
+	return round(l_value, param_precision)
 }
 
 
