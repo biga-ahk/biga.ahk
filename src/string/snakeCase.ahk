@@ -4,8 +4,9 @@ snakeCase(param_string:="") {
 	}
 
 	; create
-	l_string := this.startCase(param_string)
-	l_string := StrReplace(l_string, " ", "_")
+	l_string := this.trim(param_string, "-_")
+	l_string := this.kebabCase(l_string)
+	l_string := strReplace(l_string, "-", "_")
 	return l_string
 }
 
@@ -17,4 +18,4 @@ assert.test(A.snakeCase("--FOO-BAR--"), "foo_bar")
 
 
 ; omit
-assert.test(A.snakeCase("  Foo-Bar--"), "FOO_BAR")
+assert.test(A.snakeCase("  Foo-Bar--"), "foo_bar")
