@@ -1,7 +1,7 @@
 clone(param_value) {
 
 	if (isObject(param_value)) {
-		return param_value.Clone()
+		return param_value.clone()
 	} else {
 		return param_value
 	}

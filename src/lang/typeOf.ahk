@@ -9,7 +9,7 @@ typeOf(param_value:="__default") {
 	{
 		return "float"
 	}
-	return param_value := "" || [param_value].GetCapacity(1) ? "string" : "integer"
+	return param_value := "" || [param_value].getCapacity(1) ? "string" : "integer"
 }
 
 

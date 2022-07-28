@@ -1,7 +1,7 @@
 cloneDeep(param_array) {
 
 	Objs := {}
-	Obj := param_array.Clone()
+	Obj := param_array.clone()
 	Objs[&param_array] := Obj ; Save this new array
 	for key, value in Obj {
 		if (isObject(value)) ; if it is a subarray

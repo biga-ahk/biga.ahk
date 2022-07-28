@@ -34,7 +34,7 @@ assert.test(A.groupBy([6.1, 4.2, 6.3], A.floor), {4: [4.2], 6: [6.1, 6.3]})
 
 assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
 
-assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
+assert.test(A.groupBy([6.1, 4.2, 6.3], func("ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
 
 ; omit

@@ -1,6 +1,6 @@
 print(values*) {
 	for key, value in values {
-		out .= (IsObject(value) ? this._internal_stringify(value) : value)
+		out .= (isObject(value) ? this._internal_stringify(value) : value)
 	}
 	try {
 		DllCall("AttachConsole", "int", -1)

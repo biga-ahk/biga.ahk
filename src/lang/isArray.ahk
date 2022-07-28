@@ -1,5 +1,5 @@
 isArray(param) {
-	if (param.GetCapacity()) {
+	if (param.getCapacity()) {
 		return true
 	}
 	return false

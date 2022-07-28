@@ -5,14 +5,14 @@ endsWith(param_string,param_needle,param_fromIndex:=0) {
 
 	; prepare defaults
 	if (param_fromIndex == 0) {
-		param_fromIndex := StrLen(param_string)
+		param_fromIndex := strLen(param_string)
 	}
-	if (StrLen(param_needle) > 1) {
-		param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
+	if (strLen(param_needle) > 1) {
+		param_fromIndex := strLen(param_string) - strLen(param_needle) + 1
 	}
 
 	; create
-	l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
+	l_endChar := subStr(param_string, param_fromIndex, strLen(param_needle))
 	if (this.isEqual(l_endChar, param_needle)) {
 		return true
 	}

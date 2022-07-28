@@ -6,7 +6,7 @@ string (string): The string to inspect.
 
 [target] (string): The string to search for.
 
-[position:=StrLen()] (number): The position to search up to.
+[position:=strLen()] (number): The position to search up to.
 
 
 #### Returns

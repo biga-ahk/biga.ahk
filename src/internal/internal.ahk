@@ -9,14 +9,14 @@ _internal_MD5(param_string, case := 0) {
 		param_string := this._internal_stringify(param_string)
 	}
 	static MD5_DIGEST_LENGTH := 16
-	hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
-	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "Ptr", &MD5_CTX)
-	, DllCall("advapi32\MD5Update", "Ptr", &MD5_CTX, "AStr", param_string, "UInt", StrLen(param_string))
-	, DllCall("advapi32\MD5Final", "Ptr", &MD5_CTX)
+	hModule := DllCall("loadlibrary", "str", "advapi32.dll", "ptr")
+	, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "ptr", &MD5_CTX)
+	, DllCall("advapi32\MD5Update", "ptr", &MD5_CTX, "AStr", param_string, "UInt", strLen(param_string))
+	, DllCall("advapi32\MD5Final", "ptr", &MD5_CTX)
 	loop % MD5_DIGEST_LENGTH {
-		o .= Format("{:02" (case ? "X" : "x") "}", NumGet(MD5_CTX, 87 + A_Index, "UChar"))
+		o .= format("{:02" (case ? "X" : "x") "}", numGet(MD5_CTX, 87 + A_Index, "UChar"))
 	}
-	DllCall("FreeLibrary", "Ptr", hModule)
+	DllCall("freelibrary", "ptr", hModule)
 	return o
 }
 
@@ -26,7 +26,7 @@ _internal_JSRegEx(param_string) {
 		this._internal_ThrowException()
 	}
 	if (this.startsWith(param_string, "/") && this.endsWith(param_string, "/")) {
-		return SubStr(param_string, 2, StrLen(param_string) - 2)
+		return subStr(param_string, 2, strLen(param_string) - 2)
 	}
 	return false
 }

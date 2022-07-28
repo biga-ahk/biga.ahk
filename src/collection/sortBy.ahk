@@ -66,7 +66,7 @@ _internal_sort(param_collection,param_iteratees:="") {
 	arrStorage := []
 	loop, parse, out, |
 	{
-		arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+		arrStorage.push(l_array[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
 	}
 	return arrStorage
 }

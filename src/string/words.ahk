@@ -9,10 +9,10 @@ words(param_string,param_pattern:="/\b\w+(?:'\w+)?\b/") {
 		param_pattern := l_needle
 	}
 	l_needle := "O)" param_pattern
-	while(RegExMatch(l_string, l_needle, RE_Match)) {
+	while(regExMatch(l_string, l_needle, RE_Match)) {
 		tempString := RE_Match.value()
 		l_array.push(tempString)
-		l_string := SubStr(l_string, RE_Match.Pos()+RE_Match.Len())
+		l_string := subStr(l_string, RE_Match.pos()+RE_Match.len())
 	}
 	return l_array
 }

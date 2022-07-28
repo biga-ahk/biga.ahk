@@ -12,14 +12,14 @@ floor(param_number,param_precision:=0) {
 		l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
 	}
 	if (param_precision >= 1) {
-		l_decChar := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+		l_decChar := strLen( substr(param_number, inStr(param_number, ".") + 1) ) ; count the number of decimal characters
 		l_sum := format("{:." this.max([l_decChar, param_precision]) + 1 "f}", param_number + l_offset)
 	} else {
 		l_sum := param_number + l_offset
 	}
 	l_sum := trim(l_sum, "0") ; trim zeroes
-	l_value := (SubStr(l_sum, 0) = "5") && param_number != l_sum ? SubStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
-	return Round(l_value, param_precision)
+	l_value := (subStr(l_sum, 0) = "5") && param_number != l_sum ? subStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+	return round(l_value, param_precision)
 }
 
 

@@ -32,7 +32,7 @@ test_File := A_WorkingDir "\test\test-all.ahk"
 methods_File := A_WorkingDir "\methodslist.txt"
 
 ; turn methods txt into a compacted array
-FileRead, methods_arr, % methods_File
+fileRead, methods_arr, % methods_File
 methods_arr := A.compact(A.map(strSplit(methods_arr, "`n", "`r")))
 
 ; Arrays that control doc and test output. For ommiting or only testing certain areas
@@ -54,12 +54,12 @@ vMethodNames_Array := []
 
 loop, Files, %A_WorkingDir%\src\*.ahk, R
 {
-	FileRead, The_MemoryFile, % A_LoopFileFullPath
+	fileRead, The_MemoryFile, % A_LoopFileFullPath
 
 	; chunk that b
 	bbb := {}
 	bbb.raw := The_MemoryFile
-	; bbb.name := SubStr(A_LoopFileName,1,StrLen(A_LoopFileName) - 4)
+	; bbb.name := SubStr(A_LoopFileName,1,strLen(A_LoopFileName) - 4)
 	bbb.name := A.split(A_LoopFileName, ".")[1]
 	; bbb.test := Fn_QuickRegEx(bbb.raw,testsRegEx)
 	bbb.category := Fn_QuickRegEx(A_LoopFileFullPath, categoryRegEx)
@@ -69,7 +69,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	}
 
 	; ommit if noted
-	if (InStr(bbb.raw, "###incomplete###")) {
+	if (inStr(bbb.raw, "###incomplete###")) {
 		continue
 	}
 	if (foundIndex := A.indexOf(ommitMethodsArr, bbb.name) != -1) {
@@ -81,7 +81,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	if (!FileExist(markdown_File)) {
 		msgarray.push(markdown_File " does not exist")
 	}
-	FileRead, The_MemoryFile, % markdown_File
+	fileRead, The_MemoryFile, % markdown_File
 	bbb.doc := The_MemoryFile
 
 	; lib
@@ -209,7 +209,7 @@ lib_tail := A.split(fn_ReadFile(A_WorkingDir "\src\_head.tail\lib_tail.ahk"), "`
 lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 ; blank out commented sections from lib_txt
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
-while (RegExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
+while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 	lib_txt := A.replace(lib_txt, RE_Match.value(), "")
 }
 ; remove blank lines
@@ -279,6 +279,6 @@ fn_BuildExample(param_tests) {
 }
 
 fn_ReadFile(param_FileToRead) {
-	FileRead, l_MemoryFile, % param_FileToRead
+	fileRead, l_MemoryFile, % param_FileToRead
 	return l_MemoryFile
 }

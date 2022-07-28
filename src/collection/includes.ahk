@@ -23,7 +23,7 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 	} else {
 		; RegEx
 		if (RegEx_value := this._internal_JSRegEx(param_value)) {
-			return RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
+			return regExMatch(param_collection, RegEx_value, RE, param_fromIndex)
 		}
 		; Normal string search
 		if (A_StringCaseSense == "On") {
@@ -31,7 +31,7 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 		} else {
 			StringCaseSense := 0
 		}
-		if (InStr(param_collection, param_value, StringCaseSense, param_fromIndex)) {
+		if (inStr(param_collection, param_value, StringCaseSense, param_fromIndex)) {
 			return true
 		} else {
 			return false
@@ -43,15 +43,15 @@ includes(param_collection,param_value,param_fromIndex:=1) {
 ; tests
 assert.true(A.includes([1, 2, 3], 1))
 assert.true(A.includes({ "a": 1, "b": 2 }, 1))
-assert.true(A.includes("InStr", "Str"))
+assert.true(A.includes("inStr", "Str"))
 StringCaseSense, On
-assert.false(A.includes("InStr", "str"))
+assert.false(A.includes("inStr", "str"))
 ; RegEx object
 assert.true(A.includes("hello!", "/\D/"))
 
 
 ; omit
 StringCaseSense, Off
-assert.false(A.includes("InStr", "Other"))
+assert.false(A.includes("inStr", "Other"))
 assert.label("object search")
 assert.true(A.includes([[1], [2]], [2]))
