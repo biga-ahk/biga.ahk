@@ -1,13 +1,13 @@
 intersection(param_arrays*) {
-	for key, value in param_arrays {
-		if (!isObject(value)) {
-			this._internal_ThrowException()
-		}
+	if (!isObject(param_arrays[1])) {
+		this._internal_ThrowException()
 	}
 
 	; prepare
 	tempArray := this.cloneDeep(param_arrays[1])
-	param_arrays.removeAt(1) ;no need to check 1st array against itself, this does not mutate the input args
+	; no need to check 1st array against itself
+	; this does not mutate the input arg as variadic creates a new parent array
+	param_arrays.removeAt(1)
 	l_array := []
 
 	; create
@@ -36,10 +36,12 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 ; omit
 assert.label("many arrays")
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
-assert.label("array of objects")
-assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
 assert.label("no intersecting values")
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+assert.label("keyed object")
+intersectionVar := {"a": 1, "b": 2}
+assert.test(A.intersection([1,2,3], intersectionVar), [1,2])
+
 assert.label("no mutation of input")
 intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])
