@@ -7,10 +7,10 @@ startCase(param_string:="") {
 	l_string := this.replace(param_string, "/[_ -]/", " ")
 
 	; add space before each capitalized character
-	RegExMatch(l_string, "O)([A-Z])", RE_Match)
+	regExMatch(l_string, "O)([A-Z])", RE_Match)
 	if (RE_Match.count()) {
 		loop, % RE_Match.count() {
-			l_string := % SubStr(l_string, 1, RE_Match.Pos(A_Index) - 1) " " SubStr(l_string, RE_Match.Pos(A_Index))
+			l_string := subStr(l_string, 1, RE_Match.pos(A_Index) - 1) " " subStr(l_string, RE_Match.pos(A_Index))
 		}
 	}
 	; Split the string into array and Titlecase each element in the array
