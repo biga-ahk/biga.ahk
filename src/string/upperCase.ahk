@@ -5,7 +5,7 @@ upperCase(param_string:="") {
 
 	; create
 	l_string := this.startCase(param_string)
-	l_string := this.toupper(this.trim(l_string))
+	l_string := this.toUpper(this.trim(l_string))
 	return l_string
 }
 
