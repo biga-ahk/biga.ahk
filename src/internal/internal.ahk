@@ -6,7 +6,7 @@
 
 _internal_MD5(param_string, case := 0) {
 	if (isObject(param_string)) {
-		param_string := this.print(param_string)
+		param_string := this._internal_stringify(param_string)
 	}
 	static MD5_DIGEST_LENGTH := 16
 	hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
