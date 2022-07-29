@@ -1,4 +1,4 @@
-; /--\--/--\--/--\--/--\--/--\
+﻿; /--\--/--\--/--\--/--\--/--\
 ; Internal functions
 ; \--/--\--/--\--/--\--/--\--/
 
@@ -74,6 +74,30 @@ _internal_createShorthandfn(param_shorthand,param_objects:="") {
 		boundFunc := objBindMethod(this, "identity")
 		return boundFunc
 	}
+}
+
+
+_internal_detectOwnMethods(param_iteratee) {
+	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
+		return true
+	}
+	return false
+}
+
+
+_internal_iterateeDetails(param_iteratee) {
+	returnObj := {}
+	returnObj.methodName := strSplit(param_iteratee.name, ".").2
+	returnObj.guarded := this.includes(this._guardedMethods, returnObj.methodName)
+	; call with preceeding 1
+	if (this.includes(this._guardedCallWithOne, returnObj.methodName)) {
+		returnObj.iteratee := param_iteratee.bind(this, 1)
+		return returnObj
+	} else if (this.includes(this._guardedMethods, returnObj.methodName)) {
+		returnObj.iteratee := param_iteratee.bind(this)
+		return returnObj
+	}
+	return returnObj
 }
 
 
