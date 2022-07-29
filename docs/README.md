@@ -1188,10 +1188,10 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]A.every(users, func("fn_isOver18"))
-; => true
+A.every([true, 1, false, "yes"], A.isBoolean)
+; => false
 
-fn_isOver18(o){	return % o.age >= 18}; The A.matches iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]; The A.matches iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
 ; => false
 
 ; The A.matchesProperty iteratee shorthand.A.every(users, ["active", false])
@@ -1401,7 +1401,7 @@ A.groupBy([6.1, 4.2, 6.3], A.floor)
 A.groupBy(["one", "two", "three"], A.size)
 ; => {3: ["one", "two"], 5: ["three"]}
 
-A.groupBy([6.1, 4.2, 6.3], func("Ceil"))
+A.groupBy([6.1, 4.2, 6.3], func("ceil"))
 ; => {5: [4.2], 7: [6.1, 6.3]}
 
 ```
@@ -1433,10 +1433,10 @@ A.includes([1, 2, 3], 1)
 A.includes({ "a": 1, "b": 2 }, 1)
 ; => true
 
-A.includes("InStr", "Str")
+A.includes("inStr", "Str")
 ; => true
 
-StringCaseSense, OnA.includes("InStr", "str")
+StringCaseSense, OnA.includes("inStr", "str")
 ; => false
 
 ; RegEx objectA.includes("hello!", "/\D/")
@@ -1757,6 +1757,30 @@ A.now()
 
 
 # **Function methods**
+## .ary
+Creates a function that invokes func, with up to n arguments, ignoring any additional arguments.
+
+
+#### Arguments
+func (Function): The function to cap arguments for.
+
+[n:=func.maxParams] (number): The arity cap.
+
+
+#### Returns
+(Function): Returns the new capped function.
+
+
+#### Example
+
+```autohotkey
+aryFunc := A.ary(Func("fn_aryFunc"), 2)aryFunc.call("a", "b", "c", "d")
+; => ["a", "b"]
+
+fn_aryFunc(arguments*) {	return biga.toArray(arguments)}```
+
+
+
 ## .delay
 Invokes func after wait milliseconds. Any additional arguments are provided to func when it's invoked.
 
@@ -1782,6 +1806,31 @@ fn_delayFunc(text) {
 ; => msgboxes 'later' after one second.
 ```
 
+
+
+
+## .flip
+Creates a function that invokes func with arguments reversed.
+
+
+#### Arguments
+func (Function): The function to flip arguments for.
+
+
+#### Returns
+(Function): Returns the new flipped function.
+
+
+#### Example
+
+```autohotkey
+flippedFunc1 := A.flip(Func("inStr"))flippedFunc1.call("s", "string")
+; => 1
+
+flippedFunc2 := A.flip(Func("fn_flipFunc"))flippedFunc2.call("a", "b", "c", "d")
+; => ["d", "c", "b", "a"]
+
+fn_flipFunc(arguments*) {	return biga.toArray(arguments)}```
 
 
 
@@ -1861,6 +1910,123 @@ object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)ob
 
 
 
+## .conformsTo
+Checks if object conforms to source by invoking the predicate properties of source with the corresponding property values of object.
+
+
+#### Arguments
+object (Object): The object to inspect.
+
+source (Object): The object of property predicates to conform to.
+
+
+#### Returns
+(boolean): Returns true if object conforms, else false.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": 2}A.conformsTo(object, {"b": Func("fn_conformsToFunc1")})
+; => true
+
+A.conformsTo(object, {"b": Func("fn_conformsToFunc2")})
+; => false
+
+fn_conformsToFunc1(n){	return n > 1}fn_conformsToFunc2(n){	return n > 2}```
+
+
+
+## .eq
+Performs a shallow comparison between two values to determine if they are equivalent.
+
+
+#### Arguments
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+
+#### Returns
+(boolean): Returns true if the values are equivalent, else false.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1}other := {"a": 1}A.eq(object, other)
+; => true
+
+A.eq("a", "a")
+; => true
+
+A.eq("", "")
+; => true
+
+```
+
+
+
+## .gt
+Checks if value is greater than other.
+
+
+#### Arguments
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+
+#### Returns
+(boolean): Returns true if value is greater than other, else false.
+
+
+#### Example
+
+```autohotkey
+A.gt(3, 1)
+; => true
+
+A.gt(3, 3)
+; => false
+
+A.gt(1, 3)
+; => false
+
+```
+
+
+
+## .gte
+Checks if value is greater than or equal to other.
+
+
+#### Arguments
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+
+#### Returns
+(boolean): Returns true if value is greater than or equal to other, else false.
+
+
+#### Example
+
+```autohotkey
+A.gte(3, 1)
+; => true
+
+A.gte(3, 3)
+; => true
+
+A.gte(1, 3)
+; => false
+
+```
+
+
+
 ## .isAlnum
 Checks if value is an alnum.
 
@@ -1893,6 +2059,15 @@ A.isAlnum({})
 
 
 ## .isArray
+Checks if value is an Array object.
+
+
+#### Arguments
+value (*): The value to check.
+
+
+#### Returns
+(boolean): Returns true if value is an array, else false.
 
 
 #### Example
@@ -1972,6 +2147,28 @@ A.isEqual(1, 1, 2)
 
 StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 ; => false
+
+```
+
+
+
+## .isError
+Checks if value is an exception error object.
+
+
+#### Arguments
+value (*): The value to check.
+
+
+#### Returns
+(boolean): Returns true if value is an exception object, else false.
+
+
+#### Example
+
+```autohotkey
+A.isError(Exception("something broke"))
+; => true
 
 ```
 
@@ -2207,6 +2404,66 @@ A.isUndefined(0)
 ; => false
 
 A.isUndefined(false)
+; => false
+
+```
+
+
+
+## .lt
+Checks if value is less than other.
+
+
+#### Arguments
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+
+#### Returns
+(boolean): Returns true if value is less than other, else false.
+
+
+#### Example
+
+```autohotkey
+A.lt(1, 3)
+; => true
+
+A.lt(3, 3)
+; => false
+
+A.lt(3, 1)
+; => false
+
+```
+
+
+
+## .lte
+Checks if value is less than or equal to other.
+
+
+#### Arguments
+value (*): The value to compare.
+
+other (*): The other value to compare.
+
+
+#### Returns
+(boolean): Returns true if value is less than or equal to other, else false.
+
+
+#### Example
+
+```autohotkey
+A.lte(1, 3)
+; => true
+
+A.lte(3, 3)
+; => true
+
+A.lte(3, 1)
 ; => false
 
 ```
@@ -2905,6 +3162,61 @@ fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.f
 
 
 
+## .forIn
+Iterates over own enumerable keys of an object and invokes iteratee for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
+
+
+#### Arguments
+object (Object): The object to iterate over.
+
+[iteratee:=A.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(*): Returns the resolved value.
+
+#### Example
+```autohotkey
+object := {"a": 1, "b": 2}
+
+A.forIn(object, Func("fn_forInFunc"))
+
+fn_forInFunc(value, key) {
+	msgbox, % key
+}
+; => msgboxes "a" then "b"
+```
+
+
+
+
+## .forInRight
+This method is like [A.forIn](/?id=forin) except that it iterates over properties of object in the opposite order.
+
+
+#### Arguments
+object (Object): The object to iterate over.
+
+[iteratee:=A.identity] (Function): The function invoked per iteration.
+
+
+#### Returns
+(*): Returns the resolved value.
+
+#### Example
+```autohotkey
+object := [1, 2, 3]
+A.forInRight(object, Func("fn_forInRightFunc")
+
+fn_forInRightFunc(value, key) {
+	msgbox, % value
+}
+; => msgboxes "3", "2", then "1"
+```
+
+
+
+
 ## .get
 Gets the value at path of object. If the resolved value is `""`, the defaultValue is returned in its place.
 
@@ -2940,8 +3252,6 @@ A.get(object, "a.b.c", "default")
 ## .has
 Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
 
-> [!Note]
-> AutoHotkey object keys are always converted to lowercase.
 
 #### Arguments
 object (Object): The object to invert.
@@ -2973,8 +3283,6 @@ A.has(object, "a.b.c")
 ## .invert
 Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
 
-> [!Note]
-> AutoHotkey object keys are always converted to lowercase.
 
 #### Arguments
 object (Object): The object to invert.
@@ -3000,8 +3308,6 @@ A.invert({1: "a", 2: "A"})
 ## .invertBy
 This method is like [A.invert](/?id=invert) except that the inverted object is generated from the results of running each element of object thru iteratee. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
 
-> [!Note]
-> AutoHotkey object keys are always converted to lowercase.
 
 #### Arguments
 object (Object): The object to invert.
@@ -3261,7 +3567,7 @@ string (string): The string to inspect.
 
 [target] (string): The string to search for.
 
-[position:=StrLen()] (number): The position to search up to.
+[position:=strLen()] (number): The position to search up to.
 
 
 #### Returns
@@ -3891,6 +4197,31 @@ A.upperCase("__FOO_BAR__")
 
 
 
+## .upperFirst
+Converts the first character of string to upper case.
+
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the converted string.
+
+
+#### Example
+
+```autohotkey
+A.upperFirst("fred")
+; => "Fred"
+
+A.upperFirst("FRED")
+; => "FRED"
+
+```
+
+
+
 ## .words
 Splits string into an array of its words.
 
@@ -3921,6 +4252,28 @@ A.words("fred, barney, & pebbles", "/[^, ]+/")
 
 
 # **Util methods**
+## .conforms
+Creates a function that invokes the predicate properties of source with the corresponding property values of a given object, returning true if all predicates return truthy, else false.
+
+
+#### Arguments
+source (Object): The object of property predicates to conform to.
+
+
+#### Returns
+(Function): Returns the new spec function.
+
+
+#### Example
+
+```autohotkey
+objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": Func("fn_conformsFunc1")}))
+; => [{"a": 1, "b": 2}]
+
+fn_conformsFunc1(n){	return n > 1}```
+
+
+
 ## .constant
 Creates a function that returns value.
 
@@ -4058,7 +4411,7 @@ func := A.nthArg(-2)func.call("a", "b", "c", "d")
 
 
 ## .print
-Prints the specified `value` to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
+Prints values to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
 
 
 #### Arguments
@@ -4070,11 +4423,12 @@ values* (*): The values to print.
 
 
 #### Example
-
 ```autohotkey
 A.print([1, 2, 3])
 ; => "1:1, 2:2, 3:3"
 
+msgbox, % A.print("object: ", [1, 2, 3])
+; => msgboxes "object: 1:1, 2:2, 3:3"
 ```
 
 

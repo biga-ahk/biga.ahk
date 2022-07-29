@@ -1,4 +1,4 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -165,7 +165,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
+		shorthand := this._internal_detectShorthand(param_predicate, param_array)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 		}
@@ -213,7 +213,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare
 		l_array := []
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
+		shorthand := this._internal_detectShorthand(param_predicate, param_array)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 		}
@@ -258,13 +258,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_obj := []
 
 		; create
-		for Index, Object in param_array {
-			if (isObject(Object)) {
-				for Index2, Object2 in Object {
-					l_obj.push(Object2)
+		for index, object in param_array {
+			if (isObject(object)) {
+				for index2, object2 in object {
+					l_obj.push(object2)
 				}
 			} else {
-				l_obj.push(Object)
+				l_obj.push(object)
 			}
 		}
 		return l_obj
@@ -356,15 +356,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 	}
 	intersection(param_arrays*) {
-		for key, value in param_arrays {
-			if (!isObject(value)) {
-				this._internal_ThrowException()
-			}
+		if (!isObject(param_arrays[1])) {
+			this._internal_ThrowException()
 		}
 
 		; prepare
 		tempArray := this.cloneDeep(param_arrays[1])
-		param_arrays.removeAt(1) ;no need to check 1st array against itself, this does not mutate the input args
+		; no need to check 1st array against itself
+		; this does not mutate the input arg as variadic creates a new parent array
+		param_arrays.removeAt(1)
 		l_array := []
 
 		; create
@@ -421,14 +421,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		for Index, value in param_array {
+		for index, value in param_array {
 			Index -= 1
-			vNegativeIndex := param_array.count() - Index
-			if (vNegativeIndex > param_fromIndex) { ;skip search
+			l_negativeIndex := param_array.count() - index
+			;skip search
+			if (l_negativeIndex > param_fromIndex) {
 				continue
 			}
-			if (this.isEqual(param_array[vNegativeIndex], param_value)) {
-				return vNegativeIndex
+			if (this.isEqual(param_array[l_negativeIndex], param_value)) {
+				return l_negativeIndex
 			}
 		}
 		return -1
@@ -604,11 +605,11 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for key, Array in param_arrays {
-			if (isObject(Array)) {
-				l_array := this.concat(l_array, Array)
+		for key, array in param_arrays {
+			if (isObject(array)) {
+				l_array := this.concat(l_array, array)
 			} else {
-				l_array.push(Array)
+				l_array.push(array)
 			}
 		}
 		return this.uniq(l_array)
@@ -706,7 +707,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	count(param_collection,param_predicate,param_fromIndex:=1) {
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -741,7 +742,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	countBy(param_collection,param_predicate:="__identity") {
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -765,7 +766,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -787,7 +788,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -835,7 +836,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
@@ -860,7 +861,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
@@ -885,7 +886,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
@@ -933,7 +934,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		} else {
 			; RegEx
 			if (RegEx_value := this._internal_JSRegEx(param_value)) {
-				return RegExMatch(param_collection, RegEx_value, RE, param_fromIndex)
+				return regExMatch(param_collection, RegEx_value, RE, param_fromIndex)
 			}
 			; Normal string search
 			if (A_StringCaseSense == "On") {
@@ -941,7 +942,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			} else {
 				StringCaseSense := 0
 			}
-			if (InStr(param_collection, param_value, StringCaseSense, param_fromIndex)) {
+			if (inStr(param_collection, param_value, StringCaseSense, param_fromIndex)) {
 				return true
 			} else {
 				return false
@@ -954,7 +955,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
@@ -975,32 +976,27 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
-		if (shorthand == ".property") {
-			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
+		if (this._internal_detectOwnMethods(param_iteratee)) {
+			detailObj := this._internal_iterateeDetails(param_iteratee)
 		}
-		if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
-			guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
-			param_iteratee := param_iteratee.bind(this)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
+		if (this.includes([".property", "__identity", "_classMethod"], shorthand)) {
+			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
 		l_collection := this.cloneDeep(param_collection)
 		l_array := []
 
 		; create
+		; guarded method
+		if (detailObj.guarded) {
+			for key, value in param_collection {
+				l_array.push(detailObj.iteratee.call(value))
+			}
+			return l_array
+		}
+		; functor
 		for key, value in param_collection {
-			if (param_iteratee == "__identity") {
-				l_array.push(value)
-				continue
-			}
-			; guarded method
-			if (guarded) {
-				l_array.push(param_iteratee.call(value))
-				continue
-			}
-			; functor
-			if (this.isFunction(param_iteratee)) {
-				l_array.push(param_iteratee.call(value, key, l_collection))
-			}
+			l_array.push(param_iteratee.call(value, key, l_collection))
 		}
 		return l_array
 	}
@@ -1012,7 +1008,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; prepare
 		trueArray := []
 		falseArray := []
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -1033,7 +1029,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -1128,7 +1124,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -1189,15 +1185,15 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; associative arrays
 		if (param_iteratees != "") {
-			for Index, obj in l_array {
-				out .= obj[param_iteratees] "+" Index "|" ; "+" allows for sort to work with just the value
+			for index, obj in l_array {
+				out .= obj[param_iteratees] "+" index "|" ; "+" allows for sort to work with just the value
 				; out will look like: value+index|value+index|
 			}
-			lastvalue := l_array[Index, param_iteratees]
+			lastvalue := l_array[index, param_iteratees]
 		} else {
 			; regular arrays
-			for Index, obj in l_array {
-				out .= obj "+" Index "|"
+			for index, obj in l_array {
+				out .= obj "+" index "|"
 			}
 			lastvalue := l_array[l_array.count()]
 		}
@@ -1210,7 +1206,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		arrStorage := []
 		loop, parse, out, |
 		{
-			arrStorage.push(l_array[SubStr(A_LoopField, InStr(A_LoopField, "+") + 1)])
+			arrStorage.push(l_array[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
 		}
 		return arrStorage
 	}
@@ -1222,6 +1218,25 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		nowUTC -= 19700101000000, s
 		return nowUTC "000"
+	}
+	ary(param_func, param_n:="") {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		if (param_n == "") {
+			param_n := param_func.maxParams
+		}
+
+		; create
+		boundFunc := objBindMethod(this, "_internal_ary", param_func, param_n)
+		return boundFunc
+	}
+
+	_internal_ary(param_func, param_n, param_args*) {
+		param_args := this.slice(param_args, 1, param_n)
+		return param_func.call(param_args*)
 	}
 	delay(param_func,param_wait,param_args*) {
 		if (!this.isFunction(param_func) || !this.isNumber(param_wait)) {
@@ -1240,23 +1255,37 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		setTimer, % boundFunc, % -1 * param_wait
 		return true
 	}
+	flip(param_func) {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		boundFunc := objBindMethod(this, "_internal_flip", param_func)
+		return boundFunc
+	}
+
+	_internal_flip(param_func, param_args*) {
+		param_args := this.reverse(param_args)
+		return param_func.call(param_args*)
+	}
 	; /--\--/--\--/--\--/--\--/--\
 	; Internal functions
 	; \--/--\--/--\--/--\--/--\--/
 
 	_internal_MD5(param_string, case := 0) {
 		if (isObject(param_string)) {
-			param_string := this.print(param_string)
+			param_string := this._internal_stringify(param_string)
 		}
-		static MD5_DIGEST_LENGTH := 16
-		hModule := DllCall("LoadLibrary", "Str", "advapi32.dll", "Ptr")
-		, VarSetCapacity(MD5_CTX, 104, 0), DllCall("advapi32\MD5Init", "Ptr", &MD5_CTX)
-		, DllCall("advapi32\MD5Update", "Ptr", &MD5_CTX, "AStr", param_string, "UInt", StrLen(param_string))
-		, DllCall("advapi32\MD5Final", "Ptr", &MD5_CTX)
-		loop % MD5_DIGEST_LENGTH {
-			o .= Format("{:02" (case ? "X" : "x") "}", NumGet(MD5_CTX, 87 + A_Index, "UChar"))
+		digestLength := 16
+		hModule := dllCall("loadlibrary", "str", "advapi32.dll", "ptr")
+		, VarSetCapacity(MD5_CTX, 104, 0), dllCall("advapi32\MD5Init", "ptr", &MD5_CTX)
+		, dllCall("advapi32\MD5Update", "ptr", &MD5_CTX, "AStr", param_string, "UInt", strLen(param_string))
+		, dllCall("advapi32\MD5Final", "ptr", &MD5_CTX)
+		loop % digestLength {
+			o .= format("{:02" (case ? "X" : "x") "}", numGet(MD5_CTX, 87 + A_Index, "UChar"))
 		}
-		DllCall("FreeLibrary", "Ptr", hModule)
+		dllCall("freelibrary", "ptr", hModule)
 		return o
 	}
 
@@ -1265,13 +1294,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 		if (this.startsWith(param_string, "/") && this.endsWith(param_string, "/")) {
-			return SubStr(param_string, 2, StrLen(param_string) - 2)
+			return subStr(param_string, 2, strLen(param_string) - 2)
 		}
 		return false
 	}
 
-	_internal_differenciateShorthand(param_shorthand,param_objects:="") {
-		if (this.startsWith(param_shorthand.name, this.base.__Class ".")) { ;if starts with "biga."
+	_internal_detectShorthand(param_shorthand,param_objects:="") {
+		if (this._internal_detectOwnMethods(param_shorthand)) {
 			return "_classMethod"
 		}
 		if (isObject(param_shorthand) && !this.isFunction(param_shorthand)) {
@@ -1288,13 +1317,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		if (param_shorthand == "__identity") {
-			return "__identity"
+			return param_shorthand
 		}
 		return false
 	}
 
 	_internal_createShorthandfn(param_shorthand,param_objects:="") {
-		shorthand := this._internal_differenciateShorthand(param_shorthand, param_objects)
+		shorthand := this._internal_detectShorthand(param_shorthand, param_objects)
 		if (shorthand == "_classMethod") {
 			return param_shorthand.bind(this)
 		}
@@ -1311,6 +1340,27 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			boundFunc := objBindMethod(this, "identity")
 			return boundFunc
 		}
+	}
+
+	_internal_detectOwnMethods(param_iteratee) {
+		;if starts with "biga."
+		if (this.startsWith(param_iteratee.name, this.base.__Class ".") && isObject(param_iteratee)) {
+			return true
+		}
+		return false
+	}
+
+	_internal_iterateeDetails(param_iteratee) {
+		returnObj := {}
+		returnObj.methodName := strSplit(param_iteratee.name, ".").2
+		returnObj.guarded := this.includes(this._guardedMethods, returnObj.methodName)
+		; call with preceeding 1
+		if (this.includes(this._guardedCallWithOne, returnObj.methodName)) {
+			returnObj.iteratee := param_iteratee.bind(this, 1)
+		} else if (this.includes(this._guardedMethods, returnObj.methodName)) {
+			returnObj.iteratee := param_iteratee.bind(this)
+		}
+		return returnObj
 	}
 
 	_internal_ThrowException() {
@@ -1343,9 +1393,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	isStringLike(param) {
-		if (isObject(param)) {
-			return false
-		}
 		if (this.isString(param) || this.isAlnum(param)) {
 			return true
 		}
@@ -1366,23 +1413,72 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	clone(param_value) {
 
 		if (isObject(param_value)) {
-			return param_value.Clone()
+			return param_value.clone()
 		} else {
 			return param_value
 		}
 	}
 	cloneDeep(param_array) {
 
-		Objs := {}
-		Obj := param_array.Clone()
-		Objs[&param_array] := Obj ; Save this new array
-		for key, value in Obj {
+		objs := {}
+		obj := param_array.clone()
+		objs[&param_array] := obj ; save this new array
+		for key, value in obj {
 			if (isObject(value)) ; if it is a subarray
-				Obj[key] := Objs[&value] ; if we already know of a refrence to this array
-				? Objs[&value] ; Then point it to the new array
-				: this.clone(value, Objs) ; Otherwise, clone this sub-array
+				obj[key] := objs[&value] ; if we already know of a refrence to this array
+				? objs[&value] ; then point it to the new array
+				: this.clone(value, objs) ; otherwise, clone this sub-array
 		}
-		return Obj
+		return obj
+	}
+	conformsTo(param_object, param_source) {
+		if (!isObject(param_object) || !isObject(param_source)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		for key, value in param_source {
+			if (!value.call(param_object[key])) {
+				return false
+			}
+		}
+		return true
+	}
+	eq(param_value, param_other) {
+
+		; prepare
+		if (isObject(param_value)) {
+			param_value := this._internal_stringify(param_value)
+			param_other := this._internal_stringify(param_other)
+		}
+
+		; create
+		if (param_value == param_other) {
+			return true
+		}
+		return false
+	}
+	gt(param_value, param_other) {
+		if (!this.isNumber(param_value) || !this.isNumber(param_other)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		if (param_value > param_other) {
+			return true
+		}
+		return false
+	}
+	gte(param_value, param_other) {
+		if (!this.isNumber(param_value) || !this.isNumber(param_other)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		if (param_value >= param_other) {
+			return true
+		}
+		return false
 	}
 	isAlnum(param) {
 		if (isObject(param)) {
@@ -1395,7 +1491,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	isArray(param) {
-		if (param.GetCapacity()) {
+
+		if (param.getCapacity()) {
 			return true
 		}
 		return false
@@ -1431,6 +1528,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return true
 	}
+	isError(param_value) {
+
+		; create
+		if (param_value.hasKey("message")
+		&& param_value.hasKey("what")
+		&& param_value.hasKey("file")
+		&& param_value.hasKey("line")) {
+			return true
+		}
+		return false
+	}
 	isFloat(param) {
 		if param is float
 		{
@@ -1439,8 +1547,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	isFunction(param) {
-		fn := numGet(&(_ := Func("InStr").bind()), "Ptr")
-		return (isFunc(param) || (isObject(param) && (numGet(&param, "Ptr") = fn)))
+		fn := numGet(&(_ := Func("inStr").bind()), "ptr")
+		return (isFunc(param) || (isObject(param) && (numGet(&param, "ptr") = fn)))
 	}
 	isInteger(param) {
 		if param is integer
@@ -1462,9 +1570,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return true
 	}
 	isNumber(param) {
-		if (isObject(param)) {
-			return false
-		}
+
 		if param is number
 		{
 			return true
@@ -1478,16 +1584,37 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	isString(param) {
-		if (isObject(param)) {
-			return false
-		}
+
 		if (ObjGetCapacity([param], 1) == "") {
 			return false
 		}
 		return true
 	}
 	isUndefined(param_value) {
+
 		if (param_value == "") {
+			return true
+		}
+		return false
+	}
+	lt(param_value, param_other) {
+		if (!this.isNumber(param_value) || !this.isNumber(param_other)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		if (param_value < param_other) {
+			return true
+		}
+		return false
+	}
+	lte(param_value, param_other) {
+		if (!this.isNumber(param_value) || !this.isNumber(param_other)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		if (param_value <= param_other) {
 			return true
 		}
 		return false
@@ -1516,17 +1643,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 	}
 	typeOf(param_value:="__default") {
+
 		if (isObject(param_value)) {
 			return "object"
 		}
 		if (param_value == "") {
 			return "undefined"
 		}
-		if param_value is float
-		{
+		if this.isFloat(param_value) {
 			return "float"
 		}
-		return param_value := "" || [param_value].GetCapacity(1) ? "string" : "integer"
+		return param_value := "" || [param_value].getCapacity(1) ? "string" : "integer"
 	}
 	add(param_augend,param_addend) {
 		if (!this.isNumber(param_augend) || !this.isNumber(param_addend)) {
@@ -1550,14 +1677,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
 		}
 		if (param_precision >= 1) {
-			l_decChar := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			l_decChar := strLen( substr(param_number, inStr(param_number, ".") + 1) ) ; count the number of decimal characters
 			l_sum := format("{:." this.max([l_decChar, param_precision]) + 1 "f}", param_number + l_offset)
 		} else {
 			l_sum := param_number + l_offset
 		}
 		l_sum := trim(l_sum, "0") ; trim zeroes
-		l_value := (SubStr(l_sum, 0) = "5") && param_number != l_sum ? SubStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
-		return Round(l_value, param_precision)
+		l_value := (subStr(l_sum, 0) = "5") && param_number != l_sum ? subStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+		return round(l_value, param_precision)
 	}
 	divide(param_dividend,param_divisor) {
 		if (!this.isNumber(param_dividend) || !this.isNumber(param_divisor)) {
@@ -1581,14 +1708,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
 		}
 		if (param_precision >= 1) {
-			l_decChar := strlen( substr(param_number, instr(param_number, ".") + 1) ) ; count the number of decimal characters
+			l_decChar := strLen( substr(param_number, inStr(param_number, ".") + 1) ) ; count the number of decimal characters
 			l_sum := format("{:." this.max([l_decChar, param_precision]) + 1 "f}", param_number + l_offset)
 		} else {
 			l_sum := param_number + l_offset
 		}
 		l_sum := trim(l_sum, "0") ; trim zeroes
-		l_value := (SubStr(l_sum, 0) = "5") && param_number != l_sum ? SubStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
-		return Round(l_value, param_precision)
+		l_value := (subStr(l_sum, 0) = "5") && param_number != l_sum ? subStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+		return round(l_value, param_precision)
 	}
 	max(param_array) {
 		if (!isObject(param_array)) {
@@ -1609,7 +1736,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_array)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
@@ -1641,7 +1768,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_array)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
@@ -1676,7 +1803,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_array)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
@@ -1736,7 +1863,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_array)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 		}
@@ -1833,9 +1960,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		param_sources := this.reverse(param_sources)
 
 		; create
-		for Index, Object in param_sources {
-			for key, value in Object {
-				if (!l_obj.hasKey(key)) { ; if the key is not already in use
+		for index, object in param_sources {
+			for key, value in object {
+				; write if the key is not already in use
+				if (!l_obj.hasKey(key)) {
 					l_obj[key] := value
 				}
 			}
@@ -1848,7 +1976,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand != false) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -1866,6 +1994,39 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		return false
+	}
+	forIn(param_object,param_iteratee:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_object := this.cloneDeep(param_object)
+		if (param_iteratee == "__identity") {
+			param_iteratee := this.identity().bind(param_object)
+		}
+
+		; create
+		for key, value in param_object {
+			if (this.isFunction(param_iteratee)) {
+				if (param_iteratee.call(value, key, l_object) == false) {
+					break
+				}
+			}
+		}
+		return param_object
+	}
+	forInRight(param_object,param_iteratee:="__identity") {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_object := this.reverse(param_object)
+
+		; create
+		this.forIn(l_object, param_iteratee)
+		return param_object
 	}
 	get(param_object,param_path,param_defaultValue:="") {
 		if (!isObject(param_object)) {
@@ -1926,7 +2087,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_object)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_object)
 		}
@@ -1966,7 +2127,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_object)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_object)
 		}
@@ -1974,9 +2135,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := {}
 
 		; create
-		for key, value in l_object {
-			; functor
-			if (this.isFunction(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
+			for key, value in l_object {
+				; functor
 				l_array[param_iteratee.call(value, key, l_object)] := A_Index
 			}
 		}
@@ -1988,7 +2149,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_object)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_object)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_object)
 		}
@@ -1996,9 +2157,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := {}
 
 		; create
-		for key, value in l_object {
-			; functor
-			if (this.isFunction(param_iteratee)) {
+		if (this.isFunction(param_iteratee)) {
+			for key, value in l_object {
+				; functor
 				l_array[key] := param_iteratee.call(value, key, l_object)
 			}
 		}
@@ -2093,7 +2254,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+		shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 		if (shorthand) {
 			param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 		}
@@ -2127,11 +2288,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		l_arr := this.compact(this.split(param_string, "/[_ -]+/"))
-		l_head := this.toLower(this.head(l_arr))
-		; create
-		l_tail := this.join(this.map(this.tail(l_arr), this.startCase), "")
+		l_parseChr := "/[_ -]+/"
 
+		; create
+		l_arr := this.compact(this.split(param_string, l_parseChr), l_parseChr)
+		if (l_arr.count() > 1) {
+			l_head := this.toLower(this.head(l_arr))
+			l_tail := this.join(this.map(this.tail(l_arr), this.startCase), "")
+		} else {
+			l_head := this.toLower(this.head(param_string))
+			l_tail := this.join(this.tail(param_string), "")
+		}
 		return l_head l_tail
 	}
 	endsWith(param_string,param_needle,param_fromIndex:=0) {
@@ -2141,14 +2308,14 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; prepare defaults
 		if (param_fromIndex == 0) {
-			param_fromIndex := StrLen(param_string)
+			param_fromIndex := strLen(param_string)
 		}
-		if (StrLen(param_needle) > 1) {
-			param_fromIndex := StrLen(param_string) - StrLen(param_needle) + 1
+		if (strLen(param_needle) > 1) {
+			param_fromIndex := strLen(param_string) - strLen(param_needle) + 1
 		}
 
 		; create
-		l_endChar := SubStr(param_string, param_fromIndex, StrLen(param_needle))
+		l_endChar := subStr(param_string, param_fromIndex, strLen(param_needle))
 		if (this.isEqual(l_endChar, param_needle)) {
 			return true
 		}
@@ -2164,7 +2331,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		for key, value in HTMLmap {
 			element := value
-			param_string := StrReplace(param_string, element.1, element.2, , -1)
+			param_string := strReplace(param_string, element.1, element.2, , -1)
 		}
 		return param_string
 	}
@@ -2174,8 +2341,21 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		l_string := this.startCase(param_string)
-		l_string := StrReplace(l_string, " ", "-")
+		l_string := this.trim(param_string, "- _")
+		; add space before each capitalized character
+		regExMatch(l_string, "O)([A-Z])", RE_Match)
+		if (RE_Match.count()) {
+			loop, % RE_Match.count() {
+				l_string := subStr(l_string, 1, RE_Match.pos(A_Index) - 1) " " subStr(l_string, RE_Match.pos(A_Index))
+			}
+		}
+		l_arr := this.split(l_string, "/\s/")
+		if (l_arr.count() > 1) {
+			l_string := this.join(this.compact(l_arr), "-")
+		}
+		l_string := this.toLower(l_string)
+		l_string := strReplace(l_string, "_", "-")
+		; l_string := strReplace(l_string, " ", "")
 		return l_string
 	}
 	lowerCase(param_string:="") {
@@ -2278,7 +2458,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		if (param_number == 0) {
 			return ""
 		}
-		return StrReplace(Format("{:0" param_number "}", 0), "0", param_string)
+		return strReplace(format("{:0" param_number "}", 0), "0", param_string)
 	}
 	replace(param_string:="",param_needle:="",param_replacement:="") {
 		if (!this.isStringLike(param_string) || !this.isStringLike(param_needle) || !this.isStringLike(param_replacement)) {
@@ -2301,8 +2481,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		l_string := this.startCase(param_string)
-		l_string := StrReplace(l_string, " ", "_")
+		l_string := this.trim(param_string, "-_")
+		l_string := this.kebabCase(l_string)
+		l_string := strReplace(l_string, "-", "_")
 		return l_string
 	}
 	split(param_string:="",param_separator:=",",param_limit:=0) {
@@ -2339,20 +2520,20 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_string := this.replace(param_string, "/[_ -]/", " ")
 
 		; add space before each capitalized character
-		RegExMatch(l_string, "O)([A-Z])", RE_Match)
+		regExMatch(l_string, "O)([A-Z])", RE_Match)
 		if (RE_Match.count()) {
 			loop, % RE_Match.count() {
-				l_string := % SubStr(l_string, 1, RE_Match.Pos(A_Index) - 1) " " SubStr(l_string, RE_Match.Pos(A_Index))
+				l_string := subStr(l_string, 1, RE_Match.pos(A_Index) - 1) " " subStr(l_string, RE_Match.pos(A_Index))
 			}
 		}
-		; Split the string into array and Titlecase each element in the array
+		; split the string into array and titlecase each element in the array
 		l_array := strSplit(l_string, " ")
 		loop, % l_array.count() {
 			l_string := l_array[A_Index]
-			StringUpper, l_string, l_string, T
+			stringUpper, l_string, l_string, T
 			l_array[A_Index] := l_string
 		}
-		; join the string back together from Titlecased array elements
+		; join the string back together from titlecased array elements
 		l_string := this.join(l_array, " ")
 		l_string := trim(l_string)
 		return l_string
@@ -2376,8 +2557,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		StringLower, OutputVar, param_string
-		return OutputVar
+		stringLower, out, param_string
+		return out
 	}
 	toUpper(param_string) {
 		if (!this.isString(param_string)) {
@@ -2385,8 +2566,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		StringUpper, OutputVar, param_string
-		return OutputVar
+		stringUpper, out, param_string
+		return out
 	}
 	trim(param_string,param_chars:="") {
 		if (!this.isStringLike(param_string) || !this.isStringLike(param_chars)) {
@@ -2499,7 +2680,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		for key, value in HTMLmap {
 			element := value
-			param_string := StrReplace(param_string, element.2, element.1, , -1)
+			param_string := strReplace(param_string, element.2, element.1, , -1)
 		}
 		return param_string
 	}
@@ -2510,8 +2691,16 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		l_string := this.startCase(param_string)
-		l_string := this.toupper(this.trim(l_string))
+		l_string := this.toUpper(this.trim(l_string))
 		return l_string
+	}
+	upperFirst(param_string:="") {
+		if (!this.isStringLike(param_string)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		return this.toUpper(this.head(param_string)) this.join(this.tail(param_string), "")
 	}
 	words(param_string,param_pattern:="/\b\w+(?:'\w+)?\b/") {
 		if (!this.isString(param_string) || !this.isString(param_pattern)) {
@@ -2524,16 +2713,33 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			param_pattern := l_needle
 		}
 		l_needle := "O)" param_pattern
-		while(RegExMatch(l_string, l_needle, RE_Match)) {
+		while(regExMatch(l_string, l_needle, RE_Match)) {
 			tempString := RE_Match.value()
 			l_array.push(tempString)
-			l_string := SubStr(l_string, RE_Match.Pos()+RE_Match.Len())
+			l_string := subStr(l_string, RE_Match.pos()+RE_Match.len())
 		}
 		return l_array
 	}
+	conforms(param_value) {
+		if (!isObject(param_value)) {
+			this._internal_ThrowException()
+		}
+
+		boundFunc := objBindMethod(this, "_internal_conforms", param_value)
+		return boundFunc
+	}
+
+	_internal_conforms(param_value, param_object) {
+		for key, value in param_value {
+			if (!value.call(param_object[key])) {
+				return false
+			}
+		}
+		return true
+	}
 	constant(param_value) {
 
-		boundFunc := ObjBindMethod(this, "_internal_constant", param_value)
+		boundFunc := objBindMethod(this, "_internal_constant", param_value)
 		return boundFunc
 	}
 
@@ -2548,7 +2754,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
-		boundFunc := ObjBindMethod(this, "internal_matches", param_source)
+		boundFunc := objBindMethod(this, "internal_matches", param_source)
 		return boundFunc
 	}
 
@@ -2568,7 +2774,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create the property fn
 		fnProperty := this.property(param_path)
 		; create the fn
-		boundFunc := ObjBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
+		boundFunc := objBindMethod(this, "_internal_matchesProperty", fnProperty, param_srcvalue)
 		return boundFunc
 	}
 
@@ -2595,9 +2801,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		if (param_n > 0) {
-			boundFunc := ObjBindMethod(this, "internal_nthArg", param_n)
+			boundFunc := objBindMethod(this, "internal_nthArg", param_n)
 		} else {
-			boundFunc := ObjBindMethod(this, "internal_nthArgReverse", abs(param_n))
+			boundFunc := objBindMethod(this, "internal_nthArgReverse", abs(param_n))
 		}
 		return boundFunc
 	}
@@ -2611,12 +2817,12 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 	print(values*) {
 		for key, value in values {
-			out .= (IsObject(value) ? this._internal_stringify(value) : value)
+			out .= (isObject(value) ? this._internal_stringify(value) : value)
 		}
 		try {
-			DllCall("AttachConsole", "int", -1)
-			FileAppend, % "`n" out, CONOUT$
-			DllCall("FreeConsole")
+			dllCall("AttachConsole", "int", -1)
+			fileAppend, % "`n" out, CONOUT$
+			dllCall("FreeConsole")
 		} catch {
 
 		}
@@ -2628,7 +2834,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return """" param_value """"
 		}
 		for key, value in param_value {
-			if key is not Number
+			if key is not number
 			{
 				output .= """" . key . """:"
 			} else {
@@ -2657,10 +2863,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			for key, value in param_source {
 				keyArray.push(value)
 			}
-			boundFunc := ObjBindMethod(this, "internal_property", keyArray)
+			boundFunc := objBindMethod(this, "internal_property", keyArray)
 			return boundFunc
 		} else {
-			boundFunc := ObjBindMethod(this, "internal_property", param_source)
+			boundFunc := objBindMethod(this, "internal_property", param_source)
 			return boundFunc
 		}
 	}
@@ -2685,7 +2891,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; create
-		boundFunc := ObjBindMethod(this, "internal_propertyOf", param_object)
+		boundFunc := objBindMethod(this, "internal_propertyOf", param_object)
 		return boundFunc
 	}
 
@@ -2717,7 +2923,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
 			param_iteratee := param_iteratee.bind(this)
 		}
-		shorthand := this._internal_differenciateShorthand(param_iteratee)
+		shorthand := this._internal_detectShorthand(param_iteratee)
 		if (shorthand) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee)
 		}
@@ -2751,7 +2957,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}
@@ -2776,7 +2982,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; prepare
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+		shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 		if (shorthand != false) {
 			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 		}

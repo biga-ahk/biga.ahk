@@ -13,8 +13,8 @@ aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight
 
 ; dev options
 devOptions := {}
-devOptions.msgboxMissingMethods := true
-devOptions.clipboardMethods := true
+devOptions.msgboxMissingMethods := false
+devOptions.clipboardMethods := false
 
 ; Globals
 A := new biga()
@@ -72,7 +72,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	if (A.includes(bbb.raw, "/\;\s?\#{1,10}\s?incomplete\s?\#{1,10}/")) {
 		continue
 	}
-	if (foundIndex := A.indexOf(ommitMethodsArr, bbb.name) != -1) {
+	if (A.includes(ommitMethodsArr, bbb.name)) {
 		continue
 	}
 
@@ -235,17 +235,18 @@ exitApp, 1
 
 
 fn_buildExample(param_tests) {
+	global
 	; Input - > array containing `n separated textfile of assert.{{x}} tests
 	; Output - > array suitable for export to markdown
 	returnArr := []
 
 	for key, value in param_tests {
 		; stop parsing if omit section reached
-		if (biga.includes(value,"; omit")) {
+		if (biga.includes(value, "; omit")) {
 			break
 		}
 		; skip this line if part of assert.label
-		if (biga.includes(value,"assert.label")) {
+		if (biga.includes(value, "assert.label")) {
 			continue
 		}
 

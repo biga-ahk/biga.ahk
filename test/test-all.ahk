@@ -314,10 +314,12 @@ assert.test(A.intersection([2, 1], [2, 3]), [2])
 ; omit
 assert.label("many arrays")
 assert.test(A.intersection([2, 1], [2, 3], [1, 2], [2]), [2])
-assert.label("array of objects")
-assert.test(A.intersection([{"name": "Barney"}, {"name": "Fred"}], [{"name": "Barney"}]), [{"name": "Barney"}])
 assert.label("no intersecting values")
 assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
+assert.label("keyed object")
+intersectionVar := {"a": 1, "b": 2}
+assert.test(A.intersection([1,2,3], intersectionVar), [1,2])
+
 assert.label("no mutation of input")
 intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])
@@ -555,13 +557,10 @@ wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"])
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
 assert.group(".every")
 assert.label("default tests")
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
+assert.false(A.every([true, 1, false, "yes"], A.isBoolean))
 
-assert.true(A.every(users, func("fn_isOver18")))
-fn_isOver18(o)
-{
-	return % o.age >= 18
-}
+users := [{ "user": "barney", "age": 36, "active": false }
+, { "user": "fred", "age": 40, "active": false }]
 
 ; The A.matches iteratee shorthand.
 assert.false(A.every(users, {"user": "barney", "age": 36, "active": false}))
@@ -750,7 +749,7 @@ assert.test(A.groupBy([6.1, 4.2, 6.3], A.floor), {4: [4.2], 6: [6.1, 6.3]})
 
 assert.test(A.groupBy(["one", "two", "three"], A.size), {3: ["one", "two"], 5: ["three"]})
 
-assert.test(A.groupBy([6.1, 4.2, 6.3], func("Ceil")), {5: [4.2], 7: [6.1, 6.3]})
+assert.test(A.groupBy([6.1, 4.2, 6.3], func("ceil")), {5: [4.2], 7: [6.1, 6.3]})
 
 
 ; omit
@@ -767,16 +766,16 @@ assert.group(".includes")
 assert.label("default tests")
 assert.true(A.includes([1, 2, 3], 1))
 assert.true(A.includes({ "a": 1, "b": 2 }, 1))
-assert.true(A.includes("InStr", "Str"))
+assert.true(A.includes("inStr", "Str"))
 StringCaseSense, On
-assert.false(A.includes("InStr", "str"))
+assert.false(A.includes("inStr", "str"))
 ; RegEx object
 assert.true(A.includes("hello!", "/\D/"))
 
 
 ; omit
 StringCaseSense, Off
-assert.false(A.includes("InStr", "Other"))
+assert.false(A.includes("inStr", "Other"))
 assert.label("object search")
 assert.true(A.includes([[1], [2]], [2]))
 
@@ -815,8 +814,11 @@ users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
 ; omit
-assert.label("call own biga.ahk function")
+assert.label("call own biga.ahk method (guarded)")
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])
+
+assert.label("call own biga.ahk method (unguarded)")
+assert.test(A.map(["hello", "world"], A.castArray), [["hello"], ["world"]])
 
 assert.label("call with 2 parameters")
 assert.test(A.map([1, 2], Func("fn_map2")), ["1-1", "2-2"])
@@ -834,6 +836,12 @@ fn_map3(param1, param2, param3)
 
 assert.label("default .identity argument")
 assert.test(A.map([1, 2, 3]), [1, 2, 3])
+
+
+assert.label("guarded random method")
+rands := A.map([1, 2, 3, 4, 5, 6, 7, 8], A.random)
+assert.test(rands.count(), 8)
+assert.true(A.every(rands, A.isNumber))
 
 assert.group(".partition")
 assert.label("default tests")
@@ -1051,6 +1059,18 @@ assert.label("default tests")
 assert.label("timestamps have 13 digits")
 assert.test(A.size(A.now()), 13)
 
+assert.group(".ary")
+assert.label("default tests")
+aryFunc := A.ary(Func("fn_aryFunc"), 2)
+assert.test(aryFunc.call("a", "b", "c", "d"), ["a", "b"])
+
+fn_aryFunc(arguments*) {
+	return biga.toArray(arguments)
+}
+
+
+; omit
+
 assert.group(".delay")
 assert.label("default tests")
 
@@ -1082,6 +1102,18 @@ fn_delayTest2() {
 ; same but as a boundfunc
 boundfunc := Func("fn_delayTest2").bind()
 A.delay(boundfunc, 10)
+
+assert.group(".flip")
+assert.label("default tests")
+flippedFunc1 := A.flip(Func("inStr"))
+assert.test(flippedFunc1.call("s", "string"), 1)
+
+flippedFunc2 := A.flip(Func("fn_flipFunc"))
+assert.test(flippedFunc2.call("a", "b", "c", "d"), ["d", "c", "b", "a"])
+
+fn_flipFunc(arguments*) {
+	return biga.toArray(arguments)
+}
 
 assert.group(".internal")
 assert.label("default tests")
@@ -1138,6 +1170,54 @@ object[1].a := 2
 ; omit
 assert.test(deepclone, [{ "a": [[1, 2, 3]] }, { "b": 2 }])
 assert.test(object, [{ "a": 2 }, { "b": 2 }])
+
+assert.group(".conformsTo")
+assert.label("default tests")
+object := {"a": 1, "b": 2}
+
+assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1")}))
+assert.false(A.conformsTo(object, {"b": Func("fn_conformsToFunc2")}))
+
+fn_conformsToFunc1(n)
+{
+	return n > 1
+}
+
+fn_conformsToFunc2(n)
+{
+	return n > 2
+}
+
+; omit
+object := {"a": 1, "b": 2, "c": 2}
+assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1"), "c": Func("fn_conformsToFunc1")}))
+
+assert.group(".eq")
+assert.label("default tests")
+object := {"a": 1}
+other := {"a": 1}
+
+assert.true(A.eq(object, other))
+assert.true(A.eq("a", "a"))
+assert.true(A.eq("", ""))
+
+; omit
+
+assert.group(".gt")
+assert.label("default tests")
+assert.true(A.gt(3, 1))
+assert.false(A.gt(3, 3))
+assert.false(A.gt(1, 3))
+
+; omit
+
+assert.group(".gte")
+assert.label("default tests")
+assert.true(A.gte(3, 1))
+assert.true(A.gte(3, 3))
+assert.false(A.gte(1, 3))
+
+; omit
 
 assert.group(".isAlnum")
 assert.label("default tests")
@@ -1215,6 +1295,14 @@ assert.label("different keys")
 assert.false(A.isEqual({"a": 1}, {"b": 1}))
 assert.false(A.isEqual({"a": 1}, [1]))
 
+assert.group(".isError")
+assert.label("default tests")
+assert.true(A.isError(Exception("something broke")))
+
+
+; omit
+assert.false(A.isError({"message": "", "what":"", "file":""}))
+
 assert.group(".isFloat")
 assert.label("default tests")
 assert.true(A.isFloat(1.0))
@@ -1283,6 +1371,7 @@ assert.true(A.isString("."))
 ; assert.false(A.isString(1.0000))
 ; assert.false(A.isString(1.0001))
 assert.true(A.isString("1.0000"))
+assert.false(A.isString({}))
 
 assert.group(".isUndefined")
 assert.label("default tests")
@@ -1292,6 +1381,22 @@ assert.false(A.isUndefined({}))
 assert.false(A.isUndefined(" "))
 assert.false(A.isUndefined(0))
 assert.false(A.isUndefined(false))
+
+assert.group(".lt")
+assert.label("default tests")
+assert.true(A.lt(1, 3))
+assert.false(A.lt(3, 3))
+assert.false(A.lt(3, 1))
+
+; omit
+
+assert.group(".lte")
+assert.label("default tests")
+assert.true(A.lte(1, 3))
+assert.true(A.lte(3, 3))
+assert.false(A.lte(3, 1))
+
+; omit
 
 assert.group(".toArray")
 assert.label("default tests")
@@ -1637,6 +1742,28 @@ assert.test(A.findKey(users, "active"), "barney")
 ; omit
 assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
 
+assert.group(".forIn")
+assert.label("default tests")
+object := {"a": 1, "b": 2}
+assert.test(A.forIn(object, Func("fn_forInFunc")), {"a": 1, "b": 2})
+
+fn_forInFunc(value, key) {
+	; msgbox, % key
+}
+
+; omit
+
+assert.group(".forInRight")
+assert.label("default tests")
+object := [1, 2, 3]
+assert.test(A.forInRight(object, Func("fn_forInRightFunc")), object)
+
+fn_forInRightFunc(value, key) {
+	; msgbox, % value
+}
+
+; omit
+
 assert.group(".get")
 assert.label("default tests")
 object := {"a": [{ "b": { "c": 3} }]}
@@ -1812,6 +1939,7 @@ assert.test(A.camelCase("__FOO_BAR__"), "fooBar")
 
 
 ; omit
+assert.test(A.camelCase("FooBar"), "fooBar")
 assert.test(A.camelCase("_this_is_FOO_BAR__"), "thisIsFooBar")
 
 assert.group(".endsWith")
@@ -1848,7 +1976,8 @@ assert.test(A.kebabCase("--FOO_BAR--"), "foo-bar")
 
 
 ; omit
-assert.test(A.kebabCase("  Foo-Bar--"), "FOO-BAR")
+assert.test(A.kebabCase("  Foo-Bar--"), "foo-bar")
+assert.test(A.kebabCase("foo  Bar"), "foo-bar")
 
 assert.group(".lowerCase")
 assert.label("default tests")
@@ -1935,7 +2064,7 @@ assert.test(A.snakeCase("--FOO-BAR--"), "foo_bar")
 
 
 ; omit
-assert.test(A.snakeCase("  Foo-Bar--"), "FOO_BAR")
+assert.test(A.snakeCase("  Foo-Bar--"), "foo_bar")
 
 assert.group(".split")
 assert.label("default tests")
@@ -2043,6 +2172,16 @@ assert.test(A.upperCase("__FOO_BAR__"), "FOO BAR")
 
 ; omit
 assert.test(A.upperCase("  Foo-Bar--"), "FOO BAR")
+assert.group(".upperFirst")
+assert.label("default tests")
+assert.test(A.upperFirst("fred"), "Fred")
+assert.test(A.upperFirst("FRED"), "FRED")
+
+
+; omit
+assert.test(A.upperFirst("--foo-bar--"), "--foo-bar--")
+assert.test(A.upperFirst("fooBar"), "FooBar")
+assert.test(A.upperFirst("__FOO_BAR__"), "__FOO_BAR__")
 
 assert.group(".words")
 assert.label("default tests")
@@ -2055,6 +2194,19 @@ assert.test(A.words("fred, barney, & pebbles", "/[^, ]+/"), ["fred", "barney", "
 assert.test(A.words("One, and a two, and a one two three"), ["One", "and", "a", "two", "and", "a", "one", "two", "three"])
 asser.label("appostroies")
 assert.test(A.words("it's I'd ok. ok' k'o."), ["it's", "I'd", "ok", "ok", "k'o"])
+
+assert.group(".conforms")
+assert.label("default tests")
+objects := [{"a": 2, "b": 1}
+		, {"a": 1, "b": 2}]
+assert.test(A.filter(objects, A.conforms({"b": Func("fn_conformsFunc1")})), [{"a": 1, "b": 2}])
+
+fn_conformsFunc1(n)
+{
+	return n > 1
+}
+
+; omit
 
 assert.group(".constant")
 assert.label("default tests")
@@ -2146,6 +2298,7 @@ assert.label("default tests")
 assert.test(A.print([1, 2, 3]), "1:1, 2:2, 3:3")
 
 ; omit
+assert.test(A.print("object: ", [1, 2, 3]), "object: 1:1, 2:2, 3:3")
 assert.test(A.print("hello ", "world ", [1, 2, 3]), "hello world 1:1, 2:2, 3:3")
 
 assert.group(".property")
@@ -2258,6 +2411,6 @@ exitApp
 
 QPC(R := 0)
 {
-	static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-	return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
+	static P := 0, F := 0, Q := dllCall("QueryPerformanceFrequency", "Int64P", F)
+	return ! dllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
 }
