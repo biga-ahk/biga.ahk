@@ -12,9 +12,9 @@ mapValues(param_object,param_iteratee:="__identity") {
 	l_array := {}
 
 	; create
-	for key, value in l_object {
-		; functor
-		if (this.isFunction(param_iteratee)) {
+	if (this.isFunction(param_iteratee)) {
+		for key, value in l_object {
+			; functor
 			l_array[key] := param_iteratee.call(value, key, l_object)
 		}
 	}
