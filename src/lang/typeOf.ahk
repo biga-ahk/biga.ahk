@@ -1,12 +1,12 @@
 typeOf(param_value:="__default") {
+
 	if (isObject(param_value)) {
 		return "object"
 	}
 	if (param_value == "") {
 		return "undefined"
 	}
-	if param_value is float
-	{
+	if this.isFloat(param_value) {
 		return "float"
 	}
 	return param_value := "" || [param_value].getCapacity(1) ? "string" : "integer"

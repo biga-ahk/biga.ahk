@@ -1,4 +1,5 @@
 isArray(param) {
+
 	if (param.getCapacity()) {
 		return true
 	}

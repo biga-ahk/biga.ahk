@@ -10,7 +10,8 @@
 	; create
 	for index, object in param_sources {
 		for key, value in object {
-			if (!l_obj.hasKey(key)) { ; if the key is not already in use
+			; write if the key is not already in use
+			if (!l_obj.hasKey(key)) {
 				l_obj[key] := value
 			}
 		}

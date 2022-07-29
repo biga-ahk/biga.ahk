@@ -1,7 +1,5 @@
 isNumber(param) {
-	if (isObject(param)) {
-		return false
-	}
+
 	if param is number
 	{
 		return true
