@@ -53,6 +53,11 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 assert.label(".matches longhand")
 assert.test(A.filter(users, A.matches({"user": "fred"})), [{"user":"fred", "age":40, "active":false}])
 
+
+assert.label("call own biga.ahk method (unguarded)")
+assert.test(A.filter(users, A.isObject), users)
+
+
 assert.label("using value")
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
 fn_filter2(param_iteratee) {
