@@ -6,14 +6,10 @@ map(param_collection,param_iteratee:="__identity") {
 	; prepare
 	if (this._internal_detectOwnMethods(param_iteratee)) {
 		detailObj := this._internal_iterateeDetails(param_iteratee)
-		if (!detailObj.guarded) {
-			param_iteratee := param_iteratee.bind(this)
-		}
-	} else {
-		shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
-		if (this.includes([".property", "__identity"], shorthand)) {
-			param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
-		}
+	}
+	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+	if (this.includes([".property", "__identity"], shorthand)) {
+		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
 	l_collection := this.cloneDeep(param_collection)
 	l_array := []
