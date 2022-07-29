@@ -7,7 +7,7 @@ map(param_collection,param_iteratee:="__identity") {
 	if (this._internal_detectOwnMethods(param_iteratee)) {
 		detailObj := this._internal_iterateeDetails(param_iteratee)
 	}
-	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+	shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 	if (this.includes([".property", "__identity"], shorthand)) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}

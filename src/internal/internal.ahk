@@ -1,4 +1,4 @@
-﻿; /--\--/--\--/--\--/--\--/--\
+; /--\--/--\--/--\--/--\--/--\
 ; Internal functions
 ; \--/--\--/--\--/--\--/--\--/
 
@@ -32,8 +32,8 @@ _internal_JSRegEx(param_string) {
 }
 
 
-_internal_differenciateShorthand(param_shorthand,param_objects:="") {
-	if (this.startsWith(param_shorthand.name, this.base.__Class ".")) { ;if starts with "biga."
+_internal_detectShorthand(param_shorthand,param_objects:="") {
+	if (this._internal_detectOwnMethods(param_shorthand)) {
 		return "_classMethod"
 	}
 	if (isObject(param_shorthand) && !this.isFunction(param_shorthand)) {
@@ -50,14 +50,14 @@ _internal_differenciateShorthand(param_shorthand,param_objects:="") {
 		}
 	}
 	if (param_shorthand == "__identity") {
-		return "__identity"
+		return param_shorthand
 	}
 	return false
 }
 
 
 _internal_createShorthandfn(param_shorthand,param_objects:="") {
-	shorthand := this._internal_differenciateShorthand(param_shorthand, param_objects)
+	shorthand := this._internal_detectShorthand(param_shorthand, param_objects)
 	if (shorthand == "_classMethod") {
 		return param_shorthand.bind(this)
 	}
@@ -113,9 +113,6 @@ isFalsey(param) {
 	return false
 }
 isStringLike(param) {
-	if (isObject(param)) {
-		return false
-	}
 	if (this.isString(param) || this.isAlnum(param)) {
 		return true
 	}

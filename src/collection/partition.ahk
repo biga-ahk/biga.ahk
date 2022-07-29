@@ -6,7 +6,7 @@ partition(param_collection,param_predicate:="__identity") {
 	; prepare
 	trueArray := []
 	falseArray := []
-	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+	shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 	if (shorthand) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}

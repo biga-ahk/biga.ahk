@@ -13,7 +13,7 @@ intersectionBy(param_params*) {
 			if (this.isFunction(value)) {
 				iterateeFunc := value.bind()
 			}
-			shorthand := this._internal_differenciateShorthand(value, oParams[1])
+			shorthand := this._internal_detectShorthand(value, oParams[1])
 			if (shorthand) {
 				iterateeFunc := this._internal_createShorthandfn(value, oParams[1])
 			}

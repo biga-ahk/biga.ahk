@@ -4,7 +4,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	shorthand := this._internal_differenciateShorthand(param_iteratee, param_array)
+	shorthand := this._internal_detectShorthand(param_iteratee, param_array)
 	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}

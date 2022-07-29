@@ -8,7 +8,7 @@ times(param_n,param_iteratee:="__identity") {
 		guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
 		param_iteratee := param_iteratee.bind(this)
 	}
-	shorthand := this._internal_differenciateShorthand(param_iteratee)
+	shorthand := this._internal_detectShorthand(param_iteratee)
 	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee)
 	}

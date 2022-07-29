@@ -4,7 +4,7 @@ findKey(param_collection,param_predicate,param_fromindex:=1) {
 	}
 
 	; prepare
-	shorthand := this._internal_differenciateShorthand(param_predicate, param_collection)
+	shorthand := this._internal_detectShorthand(param_predicate, param_collection)
 	if (shorthand != false) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}

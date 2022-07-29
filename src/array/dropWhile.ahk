@@ -9,7 +9,7 @@ dropWhile(param_array,param_predicate:="__identity") {
 	}
 
 	; prepare
-	shorthand := this._internal_differenciateShorthand(param_predicate, param_array)
+	shorthand := this._internal_detectShorthand(param_predicate, param_array)
 	if (shorthand != false) {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_array)
 	}

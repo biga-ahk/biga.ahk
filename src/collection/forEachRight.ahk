@@ -4,7 +4,7 @@ forEachRight(param_collection,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	shorthand := this._internal_differenciateShorthand(param_iteratee, param_collection)
+	shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
 	if (shorthand != false) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
