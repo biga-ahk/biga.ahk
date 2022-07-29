@@ -23,13 +23,10 @@ every(param_collection,param_predicate:="__identity") {
 
 
 ; tests
-users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]
+assert.false(A.every([true, 1, false, "yes"], A.isBoolean))
 
-assert.true(A.every(users, func("fn_isOver18")))
-fn_isOver18(o)
-{
-	return % o.age >= 18
-}
+users := [{ "user": "barney", "age": 36, "active": false }
+, { "user": "fred", "age": 40, "active": false }]
 
 ; The A.matches iteratee shorthand.
 assert.false(A.every(users, {"user": "barney", "age": 36, "active": false}))
