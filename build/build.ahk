@@ -69,7 +69,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	}
 
 	; ommit if noted
-	if (inStr(bbb.raw, "###incomplete###")) {
+	if (A.includes(bbb.raw, "/\;\s?\#{1,10}\s?incomplete\s?\#{1,10}/")) {
 		continue
 	}
 	if (foundIndex := A.indexOf(ommitMethodsArr, bbb.name) != -1) {
