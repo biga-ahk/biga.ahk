@@ -8,7 +8,7 @@ map(param_collection,param_iteratee:="__identity") {
 		detailObj := this._internal_iterateeDetails(param_iteratee)
 	}
 	shorthand := this._internal_detectShorthand(param_iteratee, param_collection)
-	if (this.includes([".property", "__identity"], shorthand)) {
+	if (this.includes([".property", "__identity", "_classMethod"], shorthand)) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_collection)
 	}
 	l_collection := this.cloneDeep(param_collection)
