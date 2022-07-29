@@ -1,10 +1,10 @@
-﻿SetBatchLines -1 ;Go as fast as CPU will allow
-#NoTrayIcon
-#SingleInstance force
+﻿setBatchLines -1 ;Go as fast as CPU will allow
+#noTrayIcon
+#singleInstance force
 
-#Include %A_ScriptDir%\..\node_modules
-#Include biga.ahk\export.ahk
-#Include util-misc.ahk\export.ahk
+#include %A_ScriptDir%\..\node_modules
+#include biga.ahk\export.ahk
+#include util-misc.ahk\export.ahk
 
 ; User updatable settings:
 settings := {}
@@ -25,7 +25,7 @@ newline := "`r`n" ; do not change this as docsify needs `r
 
 
 ; FilePaths
-SetWorkingDir, "\..\" A_ScriptDir
+setWorkingDir, "\..\" A_ScriptDir
 readmeFilePath := A_WorkingDir "\docs\README.md"
 libraryFilePath := A_WorkingDir "\export.ahk"
 testsFilePath := A_WorkingDir "\test\test-all.ahk"
@@ -42,6 +42,8 @@ onlyTestArr := [""]
 
 dataArr := [] ; Holds main data
 msgArr := []
+; method names
+methodNamesArr := []
 
 ; Test RegEx
 testtest := "test\((\w+\w*.*\)),\s*(.*)\)"
@@ -49,8 +51,6 @@ testtrue := "true\((.+?)(\(.+\))\)"
 testfalse := "false\((.+\.?\w+)(.+\))\)"
 testnotequal := "notequal\(\w+(\.\w*.*\)),\s*(.*)\)"
 
-; method names
-methodNamesArr := []
 
 loop, Files, %A_WorkingDir%\src\*.ahk, R
 {
@@ -78,8 +78,9 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 
 	; markdown file
 	markdown_file := A_LoopFileDir "\" bbb.name ".md"
-	if (!fileExist(markdown_file)) {
+	if (!fileExist(markdown_file) && bbb.name != "internal") {
 		msgArr.push(markdown_file " does not exist")
+		continue
 	}
 	fileRead, The_MemoryFile, % markdown_file
 	bbb.doc := The_MemoryFile
@@ -97,11 +98,7 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	bbb.doc := A.replace(bbb.doc,");", ")") ; replace accidental js semicolons
 	dataArr.push(bbb)
 }
-; dataArr := A.sortBy(dataArr,["name", "category"])
-; Array_Gui(dataArr)
-if (isObject(msgArr)) {
-	; msgbox, % A.join(msgArr, newline)
-}
+
 
 ; ===============
 ; TESTS
@@ -196,10 +193,9 @@ for _, value in dataArr {
 ; add indentation to library
 lib_array := A.map(dataArr,Func("fn_AddIndent"))
 fn_AddIndent(value) {
-	global
-	x := A.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
-	x := A.replace(x,"/m`n)^([\s\n\r]*)$/","")
-	x := A.replace(x,"/m`n)(^[\s\n\r]*$)/","")
+	x := biga.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
+	x := biga.replace(x,"/m`n)^([\s\n\r]*)$/","")
+	x := biga.replace(x,"/m`n)(^[\s\n\r]*$)/","")
 	return x
 }
 
@@ -216,12 +212,16 @@ while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 ; lib_txt := A.replace(lib_txt, "/([`r`n]+)/","`r`n")
 fileAppend, %lib_txt%, % libraryFilePath
 
-; === GLOBAL TESTS ===
+; === GLOBAL TESTS worth throwing a huge error===
 if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {
 	throw "Max() appears - script should NOT contain max() as it requires later ahk version"
 }
 
-; exitmsg := A.join(msgArr, "`n")
+; print any dev messages
+if (A.size(msgArr)) {
+	A.print(A.join(msgArr, "`n`n"))
+}
+
 sleep, 100
 run, % testsFilePath
 exitApp, 1
@@ -237,8 +237,7 @@ exitApp, 1
 fn_buildExample(param_tests) {
 	; Input - > array containing `n separated textfile of assert.{{x}} tests
 	; Output - > array suitable for export to markdown
-	global
-	return_array := []
+	returnArr := []
 
 	for key, value in param_tests {
 		; stop parsing if omit section reached
@@ -252,31 +251,31 @@ fn_buildExample(param_tests) {
 
 		line := Fn_QuickRegEx(value, testtest, 0)
 		if (line.count() = 2) {
-			return_array.push(line.value(1) "`n; => " line.value(2) newline newline)
+			returnArr.push(line.value(1) "`n; => " line.value(2) newline newline)
 			continue
 		}
 		line := Fn_QuickRegEx(value, testnotequal, 0)
 		if (line.count() = 2) {
-			return_array.push(line.value(1) "`n; => " line.value(2) newline newline)
+			returnArr.push(line.value(1) "`n; => " line.value(2) newline newline)
 			continue
 		}
 		line := Fn_QuickRegEx(value, testtrue, 0)
 		if (line.count() = 2) {
-			return_array.push(line.value(1) line.value(2) "`n; => true" newline newline)
+			returnArr.push(line.value(1) line.value(2) "`n; => true" newline newline)
 			continue
 		}
 		line := Fn_QuickRegEx(value, testfalse, 0)
 		if (line.count() = 2) {
-			return_array.push(line.value(1) line.value(2)"`n; => false" newline newline)
+			returnArr.push(line.value(1) line.value(2)"`n; => false" newline newline)
 			continue
 		}
 
 		; if the line has no changes needed
 		if (biga.size(value) > 1) {
-			return_array.push(value)
+			returnArr.push(value)
 		}
 	}
-	return return_array
+	return returnArr
 }
 
 fn_readFile(param_fileToRead) {
