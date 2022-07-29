@@ -13,8 +13,8 @@ aliasMap := {"head": ["first"], "forEach": ["each"], "forEachRight": ["eachRight
 
 ; dev options
 devOptions := {}
-devOptions.msgboxMissingMethods := false
-devOptions.clipboardMethods := false
+devOptions.msgboxMissingMethods := true
+devOptions.clipboardMethods := true
 
 ; Globals
 A := new biga()
@@ -26,22 +26,22 @@ newline := "`r`n" ; do not change this as docsify needs `r
 
 ; FilePaths
 SetWorkingDir, "\..\" A_ScriptDir
-Readme_File := A_WorkingDir "\docs\README.md"
-lib_File := A_WorkingDir "\export.ahk"
-test_File := A_WorkingDir "\test\test-all.ahk"
-methods_File := A_WorkingDir "\methodslist.txt"
+readmeFilePath := A_WorkingDir "\docs\README.md"
+libraryFilePath := A_WorkingDir "\export.ahk"
+testsFilePath := A_WorkingDir "\test\test-all.ahk"
+methodsListFilePath := A_WorkingDir "\methodslist.txt"
 
 ; turn methods txt into a compacted array
-fileRead, methods_arr, % methods_File
-methods_arr := A.compact(A.map(strSplit(methods_arr, "`n", "`r")))
+fileRead, lodashMethodNamesArr, % methodsListFilePath
+lodashMethodNamesArr := A.compact(A.map(strSplit(lodashMethodNamesArr, "`n", "`r")))
 
 ; Arrays that control doc and test output. For ommiting or only testing certain areas
 ignoreMethodDocsArr := ["internal"]
 ommitMethodsArr := [""]
 onlyTestArr := [""]
 
-The_Array := [] ; Holds main data
-msgarray := []
+dataArr := [] ; Holds main data
+msgArr := []
 
 ; Test RegEx
 testtest := "test\((\w+\w*.*\)),\s*(.*)\)"
@@ -50,7 +50,7 @@ testfalse := "false\((.+\.?\w+)(.+\))\)"
 testnotequal := "notequal\(\w+(\.\w*.*\)),\s*(.*)\)"
 
 ; method names
-vMethodNames_Array := []
+methodNamesArr := []
 
 loop, Files, %A_WorkingDir%\src\*.ahk, R
 {
@@ -77,11 +77,11 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	}
 
 	; markdown file
-	markdown_File := A_LoopFileDir "\" bbb.name ".md"
-	if (!FileExist(markdown_File)) {
-		msgarray.push(markdown_File " does not exist")
+	markdown_file := A_LoopFileDir "\" bbb.name ".md"
+	if (!fileExist(markdown_file)) {
+		msgArr.push(markdown_file " does not exist")
 	}
-	fileRead, The_MemoryFile, % markdown_File
+	fileRead, The_MemoryFile, % markdown_file
 	bbb.doc := The_MemoryFile
 
 	; lib
@@ -95,60 +95,60 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 	bbb.doc := A.replace(bbb.doc,"/\#{1,10}\s*Examples*/", "#### Example")
 	bbb.doc := A.replace(bbb.doc,"/\#{1,10}\s*Aliases*/", "#### Aliases")
 	bbb.doc := A.replace(bbb.doc,");", ")") ; replace accidental js semicolons
-	The_Array.push(bbb)
+	dataArr.push(bbb)
 }
-; The_Array := A.sortBy(The_Array,["name", "category"])
-; Array_Gui(The_Array)
-if (isObject(msgarray)) {
-	; msgbox, % A.join(msgarray, newline)
+; dataArr := A.sortBy(dataArr,["name", "category"])
+; Array_Gui(dataArr)
+if (isObject(msgArr)) {
+	; msgbox, % A.join(msgArr, newline)
 }
 
 ; ===============
 ; TESTS
 ; ===============
 
-FileDelete, % test_File
-test_head := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_head.ahk")
-test_tail := fn_ReadFile(A_WorkingDir "\src\_head.tail\test_tail.ahk")
+fileDelete, % testsFilePath
+test_head := fn_readFile(A_WorkingDir "\src\_head.tail\test_head.ahk")
+test_tail := fn_readFile(A_WorkingDir "\src\_head.tail\test_tail.ahk")
 
-fileAppend, %test_head%, % test_File
-loop, % The_Array.count() {
-	element := The_Array[A_Index]
+fileAppend, %test_head%, % testsFilePath
+loop, % dataArr.count() {
+	element := dataArr[A_Index]
 	; perform the tests if in specific array or specific array is less than or 1
 	if (A.indexOf(onlyTestArr, element.name) != -1 || A.compact(onlyTestArr).count() == 0) {
-		fileAppend, % newline "assert.group(""." element.name """)", % test_File
-		fileAppend, % newline "assert.label(""default tests"")", % test_File
-		fileAppend, % element.tests "", % test_File
+		fileAppend, % newline "assert.group(""." element.name """)", % testsFilePath
+		fileAppend, % newline "assert.label(""default tests"")", % testsFilePath
+		fileAppend, % element.tests "", % testsFilePath
 	}
 }
-fileAppend, %test_tail%, % test_File
+fileAppend, %test_tail%, % testsFilePath
 
 ; ===============
 ; method names
 ; ===============
-loop, % The_Array.count() {
-	element := The_Array[A_Index]
-	vMethodNames_Array.push(element.name)
+loop, % dataArr.count() {
+	element := dataArr[A_Index]
+	methodNamesArr.push(element.name)
 }
 ; put all method names on the clipboard
 if (devOptions.clipboardMethods) {
-	clipboard := A.join(vMethodNames_Array, "|")
+	clipboard := A.join(methodNamesArr, "|")
 }
 
 ; msgbox all the methods not completed yet
 if (devOptions.msgboxMissingMethods) {
-	msgbox, % A.join(A.difference(A.castArray(methods_arr), vMethodNames_Array), ", ")
+	msgbox, % A.join(A.difference(A.castArray(lodashMethodNamesArr), methodNamesArr), ", ")
 }
 
 
 ; ===============
 ; DOCS
 ; ===============
-FileDelete, % Readme_File
-DOCS_Array := [fn_ReadFile(A_WorkingDir "\src\_head.tail\doc_head.md")]
+fileDelete, % readmeFilePath
+docsArr := [fn_readFile(A_WorkingDir "\src\_head.tail\doc_head.md")]
 
-loop, % The_Array.count() {
-	element := The_Array[A_Index]
+loop, % dataArr.count() {
+	element := dataArr[A_Index]
 	if (A.indexof(ignoreMethodDocsArr, element.name) != -1 || A.startsWith(element.name, "internal")) { ; skip ignored methods
 		continue
 	}
@@ -158,23 +158,23 @@ loop, % The_Array.count() {
 	}
 
 	txt := []
-	ExampleArray := []
-	if (element.category != The_Array[A_Index - 1].category) {
+	exampleArray := []
+	if (element.category != dataArr[A_Index - 1].category) {
 		txt.push(newline "# **" A.startCase(element.category) " methods**" newline)
 	}
 	txt.push("## " "." element.name newline element.doc newline newline)
 	; if examples not staticly defined in .md file, parse tests for use in documentation
 	if (!A.includes(element.doc,"Example") && A.includes(element.tests, settings.objectName ".")) {
 		txt.push("#### Example" newline newline "``````autohotkey" newline)
-		ExampleArray := fn_BuildExample(strSplit(element.tests, "`n"))
-		ExampleArray.push("``````" newline newline)
-		txt := A.concat(txt,ExampleArray)
+		exampleArray := fn_buildExample(strSplit(element.tests, "`n"))
+		exampleArray.push("``````" newline newline)
+		txt := A.concat(txt,exampleArray)
 	}
 	txt.push(newline newline)
-	DOCS_Array := A.concat(DOCS_Array, txt)
+	docsArr := A.concat(docsArr, txt)
 }
-loop, % DOCS_Array.count() {
-	fileAppend, % DOCS_Array[A_Index], % Readme_File
+loop, % docsArr.count() {
+	fileAppend, % docsArr[A_Index], % readmeFilePath
 }
 
 
@@ -182,19 +182,19 @@ loop, % DOCS_Array.count() {
 ; ===============
 ; LIBRARY EXPORT
 ; ===============
-for _, value in The_Array {
+for _, value in dataArr {
 	for _, alias in aliasMap[value.name] {
 		newElement := {}
 		newElement := A.cloneDeep(value)
 		newElement.name := alias
 		newElement.lib := A.replace(newElement.lib, value.name, alias)
-		The_Array.push(newElement)
+		dataArr.push(newElement)
 	}
 
 }
 
 ; add indentation to library
-lib_array := A.map(The_Array,Func("fn_AddIndent"))
+lib_array := A.map(dataArr,Func("fn_AddIndent"))
 fn_AddIndent(value) {
 	global
 	x := A.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
@@ -203,9 +203,9 @@ fn_AddIndent(value) {
 	return x
 }
 
-FileDelete, % lib_File
-lib_head := A.split(fn_ReadFile(A_WorkingDir "\src\_head.tail\lib_head.ahk"), "`n")
-lib_tail := A.split(fn_ReadFile(A_WorkingDir "\src\_head.tail\lib_tail.ahk"), "`n")
+fileDelete, % libraryFilePath
+lib_head := A.split(fn_readFile(A_WorkingDir "\src\_head.tail\lib_head.ahk"), "`n")
+lib_tail := A.split(fn_readFile(A_WorkingDir "\src\_head.tail\lib_tail.ahk"), "`n")
 lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
 ; blank out commented sections from lib_txt
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
@@ -214,17 +214,17 @@ while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 }
 ; remove blank lines
 ; lib_txt := A.replace(lib_txt, "/([`r`n]+)/","`r`n")
-fileAppend, %lib_txt%, % lib_File
+fileAppend, %lib_txt%, % libraryFilePath
 
 ; === GLOBAL TESTS ===
 if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {
 	throw "Max() appears - script should NOT contain max() as it requires later ahk version"
 }
 
-; exitmsg := A.join(msgarray, "`n")
+; exitmsg := A.join(msgArr, "`n")
 sleep, 100
-Run, % test_File
-ExitApp, 1
+run, % testsFilePath
+exitApp, 1
 
 
 
@@ -234,7 +234,7 @@ ExitApp, 1
 ; \--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/
 
 
-fn_BuildExample(param_tests) {
+fn_buildExample(param_tests) {
 	; Input - > array containing `n separated textfile of assert.{{x}} tests
 	; Output - > array suitable for export to markdown
 	global
@@ -242,43 +242,44 @@ fn_BuildExample(param_tests) {
 
 	for key, value in param_tests {
 		; stop parsing if omit section reached
-		if (A.includes(value,"; omit")) {
+		if (biga.includes(value,"; omit")) {
 			break
 		}
 		; skip this line if part of assert.label
-		if (A.includes(value,"assert.label")) {
+		if (biga.includes(value,"assert.label")) {
 			continue
 		}
 
-		hey := Fn_QuickRegEx(value,testtest,0)
-		if (hey.count() = 2) {
-			return_array.push(hey.value(1) "`n; => " hey.value(2) newline newline)
+		line := Fn_QuickRegEx(value, testtest, 0)
+		if (line.count() = 2) {
+			return_array.push(line.value(1) "`n; => " line.value(2) newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(value,testnotequal,0)
-		if (hey.count() = 2) {
-			return_array.push(hey.value(1) "`n; => " hey.value(2) newline newline)
+		line := Fn_QuickRegEx(value, testnotequal, 0)
+		if (line.count() = 2) {
+			return_array.push(line.value(1) "`n; => " line.value(2) newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(value,testtrue,0)
-		if (hey.count() = 2) {
-			return_array.push(hey.value(1) hey.value(2) "`n; => true" newline newline)
+		line := Fn_QuickRegEx(value, testtrue, 0)
+		if (line.count() = 2) {
+			return_array.push(line.value(1) line.value(2) "`n; => true" newline newline)
 			continue
 		}
-		hey := Fn_QuickRegEx(value,testfalse,0)
-		if (hey.count() = 2) {
-			return_array.push(hey.value(1) hey.value(2)"`n; => false" newline newline)
+		line := Fn_QuickRegEx(value, testfalse, 0)
+		if (line.count() = 2) {
+			return_array.push(line.value(1) line.value(2)"`n; => false" newline newline)
 			continue
 		}
 
-		if (A.size(value) > 1) {
+		; if the line has no changes needed
+		if (biga.size(value) > 1) {
 			return_array.push(value)
 		}
 	}
 	return return_array
 }
 
-fn_ReadFile(param_FileToRead) {
-	fileRead, l_MemoryFile, % param_FileToRead
+fn_readFile(param_fileToRead) {
+	fileRead, l_MemoryFile, % param_fileToRead
 	return l_MemoryFile
 }
