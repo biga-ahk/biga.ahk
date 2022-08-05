@@ -4,7 +4,7 @@ times(param_n,param_iteratee:="__identity") {
 	}
 
 	; prepare
-	if (this.startsWith(param_iteratee.name, this.base.__Class ".")) { ;if starts with "biga."
+	if (this.startsWith(param_iteratee.name, this.__Class ".")) { ;if starts with "biga."
 		guarded := this.includes(this._guardedMethods, strSplit(param_iteratee.name, ".").2)
 		param_iteratee := param_iteratee.bind(this)
 	}

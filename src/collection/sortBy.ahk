@@ -3,7 +3,7 @@ sortBy(param_collection,param_iteratees:="__identity") {
 		this._internal_ThrowException()
 	}
 	; prepare
-	if (this.startsWith(param_iteratees.name, this.base.__Class ".")) { ;if starts with "biga."
+	if (this.startsWith(param_iteratees.name, this.__Class ".")) { ;if starts with "biga."
 		param_iteratees := param_iteratees.bind(this)
 	}
 	l_array := []

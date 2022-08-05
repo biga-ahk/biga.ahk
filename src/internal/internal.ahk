@@ -79,7 +79,7 @@ _internal_createShorthandfn(param_shorthand,param_objects:="") {
 
 _internal_detectOwnMethods(param_iteratee) {
 	;if starts with "biga."
-	if (this.startsWith(param_iteratee.name, this.base.__Class ".") && isObject(param_iteratee)) {
+	if (this.startsWith(param_iteratee.name, this.__Class ".") && isObject(param_iteratee)) {
 		return true
 	}
 	return false
