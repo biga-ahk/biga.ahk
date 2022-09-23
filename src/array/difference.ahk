@@ -10,7 +10,7 @@
 	; loop all Variadic inputs
 	for key, value in param_values {
 		for key2, value2 in value {
-			while (foundIndex := this.indexOf(l_array, value2) != -1) {
+			while ((foundIndex := this.indexOf(l_array, value2)) != -1) {
 				l_array.removeAt(foundIndex)
 			}
 		}
