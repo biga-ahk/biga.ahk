@@ -1,5 +1,5 @@
 chunk(param_array,param_size:=1) {
-	if (!isObject(param_array)) {
+	if (!isObject(param_array) || !this.isNumber(param_size)) {
 		this._internal_ThrowException()
 	}
 
