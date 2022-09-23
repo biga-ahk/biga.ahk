@@ -4,6 +4,7 @@
 #NoTrayIcon
 #SingleInstance, force
 SetBatchLines, -1
+StringCaseSense, On
 
 A := new biga()
 assert := new expect()
@@ -56,14 +57,12 @@ assert.group(".difference")
 assert.label("default tests")
 assert.test(A.difference([2, 1], [2, 3]), [1])
 
-assert.test(A.difference([2, 1], [3]), [2, 1])
-
-assert.test(A.difference([2, 1], 3), [2, 1])
 
 ; omit
+assert.test(A.difference([2, 1], [3]), [2, 1])
 assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
-assert.test(A.difference(["Barney", "Fred"], ["Barney"], ["Fred"]), [])
+assert.test(A.difference(["Barney", "Fred"], ["Pebbles"], ["Fred"]), ["Barney"])
 
 assert.label("remove repeat values")
 assert.test(A.difference([50, 50, 90], [50, 80]), [90])
@@ -637,6 +636,13 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 ; omit
 assert.label(".matches longhand")
 assert.test(A.filter(users, A.matches({"user": "fred"})), [{"user":"fred", "age":40, "active":false}])
+
+; assert.label("call own biga.ahk method (guarded)")
+; assert.test(A.filter(users, A.random), ["hey", "hey", "hey"])
+
+assert.label("call own biga.ahk method (unguarded)")
+assert.test(A.filter(users, A.isObject), users)
+
 
 assert.label("using value")
 assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
@@ -1295,6 +1301,8 @@ assert.label("different keys")
 assert.false(A.isEqual({"a": 1}, {"b": 1}))
 assert.false(A.isEqual({"a": 1}, [1]))
 
+assert.label("different lengths")
+assert.false(A.isEqual({"a": 1}, {"a": 1, "c": 2}))
 assert.group(".isError")
 assert.label("default tests")
 assert.true(A.isError(Exception("something broke")))
@@ -1367,6 +1375,7 @@ assert.true(A.isString("abc"))
 assert.false(A.isString(1))
 
 ; omit
+assert.true(A.isString("1"))
 assert.true(A.isString("."))
 ; assert.false(A.isString(1.0000))
 ; assert.false(A.isString(1.0001))
@@ -2199,14 +2208,17 @@ assert.group(".conforms")
 assert.label("default tests")
 objects := [{"a": 2, "b": 1}
 		, {"a": 1, "b": 2}]
-assert.test(A.filter(objects, A.conforms({"b": Func("fn_conformsFunc1")})), [{"a": 1, "b": 2}])
+assert.test(A.filter(objects, A.conforms({"b": Func("fn_conformsFunc")})), [{"a": 1, "b": 2}])
 
-fn_conformsFunc1(n)
+fn_conformsFunc(n)
 {
 	return n > 1
 }
 
 ; omit
+objects := [{"a": 2, "b": "hello world"}
+		, {"a": 1, "b": 2}]
+assert.test(A.filter(objects, A.conforms({"b": A.isString.bind(A)})), [{"a": 2, "b": "hello world"}])
 
 assert.group(".constant")
 assert.label("default tests")

@@ -4,6 +4,7 @@
 #NoTrayIcon
 #SingleInstance, force
 SetBatchLines, -1
+StringCaseSense, On
 
 A := new biga()
 assert := new expect()
