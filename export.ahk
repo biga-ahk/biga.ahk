@@ -96,14 +96,11 @@ class biga {
 
 		; create
 		; loop all Variadic inputs
-		for i, obj in param_values {
-			for key, value in obj {
-				loop {
-					foundIndex := this.indexOf(l_array, value)
-					if (foundIndex != -1) {
-						l_array.removeAt(foundIndex)
-					}
-				} until (foundIndex == -1)
+		for key, value in param_values {
+			for key2, value2 in value {
+				while ((foundIndex := this.indexOf(l_array, value2)) != -1) {
+					l_array.removeAt(foundIndex)
+				}
 			}
 		}
 		return l_array
