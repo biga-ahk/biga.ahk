@@ -5,7 +5,7 @@ trim(param_string,param_chars:="") {
 
 	; create
 	if (param_chars == "") {
-		return trim(param_string)
+		return this.trim(param_string, "`r`n" A_space A_tab)
 	} else {
 		; replace starting characters
 		l_string := this.trimStart(param_string, param_chars)
@@ -23,4 +23,7 @@ assert.test(A.map([" foo  ", "  bar  "], A.trim), ["foo", "bar"])
 
 
 ; omit
-assert.test(A.trim(A_Tab A_Tab "  abc  " A_Tab), "abc")
+assert.label("multiple types of whitespace")
+assert.test(A.trim(A_space A_tab "  abc  " A_tab), "abc")
+assert.label("multiple types of newline")
+assert.test(A.trim("  `rabc`n  "), "abc")
