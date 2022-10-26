@@ -140,12 +140,6 @@ values (...Array): The values to exclude.
 A.difference([2, 1], [2, 3])
 ; => [1]
 
-A.difference([2, 1], [3])
-; => [2, 1]
-
-A.difference([2, 1], 3)
-; => [2, 1]
-
 ```
 
 
@@ -3250,15 +3244,17 @@ A.get(object, "a.b.c", "default")
 
 
 ## .has
-Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
+Checks if path is a direct property of object.
 
 
 #### Arguments
-object (Object): The object to invert.
+object (Object): The object to query.
+
+path (Array|string): The path to check.
 
 
 #### Returns
-(Array): Returns the new inverted object.
+(boolean): Returns true if path exists, else false.
 
 
 #### Example
@@ -4267,10 +4263,10 @@ source (Object): The object of property predicates to conform to.
 #### Example
 
 ```autohotkey
-objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": Func("fn_conformsFunc1")}))
+objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": Func("fn_conformsFunc")}))
 ; => [{"a": 1, "b": 2}]
 
-fn_conformsFunc1(n){	return n > 1}```
+fn_conformsFunc(n){	return n > 1}```
 
 
 

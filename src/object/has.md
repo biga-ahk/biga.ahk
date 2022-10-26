@@ -1,9 +1,11 @@
-Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
+Checks if path is a direct property of object.
 
 
 ## Arguments
-object (Object): The object to invert.
+object (Object): The object to query.
+
+path (Array|string): The path to check.
 
 
 ## Returns
-(Array): Returns the new inverted object.
+(boolean): Returns true if path exists, else false.
