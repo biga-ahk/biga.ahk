@@ -47,4 +47,5 @@ assert.test(A.findKey(users, "active"), "barney")
 
 
 ; omit
-assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
+assert.label("fromindex argument")
+assert.test(A.findKey(users, "active", 2), "pebbles")
