@@ -26,5 +26,20 @@ assert.test(A.pick(object, ["a", "c"]), {"a": 1, "c": 3})
 
 ; omit
 assert.test(A.pick(object, "a"), {"a": 1})
-assert.test(A.pick({ "a": {"b": 2}}, "a"), { "a": {"b": 2}})
-; assert.test(A.pick({ "a": {"b": 2}}, "a.b"), {"a": {"b": 2}})
+assert.label("with dropped keys")
+assert.test(A.pick({"a": {"b": 2}}, "a"), { "a": {"b": 2}})
+
+assert.label("deep object")
+assert.test(A.pick({"a": {"b": 2}}, "a.b"), {"a": {"b": 2}})
+
+assert.label("deep object with dropped keys")
+object := {"a": {"b": 2, "c": 3}}
+assert.test(A.pick(object, "a.b"), {"a": {"b": 2}})
+assert.label("mutation")
+assert.test(object, {"a": {"b": 2, "c": 3}})
+
+assert.label("complicated path with dropped keys")
+object := {"a": [{"b": 2, "c": 3}], "d": 4}
+assert.test(A.pick(object, "a[1].c"), {"a": [{"c": 3}]})
+assert.label("mutation")
+assert.test(object, {"a": [{"b": 2, "c": 3}], "d": 4})
