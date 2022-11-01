@@ -30,4 +30,4 @@ fn_conformsFunc(n)
 ; omit
 objects := [{"a": 2, "b": "hello world"}
 		, {"a": 1, "b": 2}]
-assert.test(A.filter(objects, A.conforms({"b": A.isString.bind()})), [{"a": 1, "b": 2}])
+assert.test(A.filter(objects, A.conforms({"b": A.isString.bind(A)})), [{"a": 2, "b": "hello world"}])

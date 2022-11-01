@@ -9,8 +9,8 @@ filter(param_collection,param_predicate:="__identity") {
 		param_predicate := this._internal_createShorthandfn(param_predicate, param_collection)
 	}
 	collectionClone := []
-	l_paramAmmount := param_predicate.maxParams
 	l_array := []
+	l_paramAmmount := param_predicate.maxParams
 	if (l_paramAmmount == 3) {
 		collectionClone := this.cloneDeep(param_collection)
 	}
@@ -53,6 +53,8 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 assert.label(".matches longhand")
 assert.test(A.filter(users, A.matches({"user": "fred"})), [{"user":"fred", "age":40, "active":false}])
 
+assert.label("call own biga.ahk method (guarded)")
+; assert.test(A.filter(users, A.random), ["hey", "hey", "hey"])
 
 assert.label("call own biga.ahk method (unguarded)")
 assert.test(A.filter(users, A.isObject), users)

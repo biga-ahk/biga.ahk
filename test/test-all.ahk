@@ -637,7 +637,7 @@ assert.test(A.filter(users, "active"), [{"user":"barney", "age":36, "active":tru
 assert.label(".matches longhand")
 assert.test(A.filter(users, A.matches({"user": "fred"})), [{"user":"fred", "age":40, "active":false}])
 
-; assert.label("call own biga.ahk method (guarded)")
+assert.label("call own biga.ahk method (guarded)")
 ; assert.test(A.filter(users, A.random), ["hey", "hey", "hey"])
 
 assert.label("call own biga.ahk method (unguarded)")
@@ -1303,6 +1303,7 @@ assert.false(A.isEqual({"a": 1}, [1]))
 
 assert.label("different lengths")
 assert.false(A.isEqual({"a": 1}, {"a": 1, "c": 2}))
+
 assert.group(".isError")
 assert.label("default tests")
 assert.true(A.isError(Exception("something broke")))
@@ -1749,7 +1750,8 @@ assert.test(A.findKey(users, "active"), "barney")
 
 
 ; omit
-assert.test(A.findKey(users, "active", 2), "pebbles") ;fromindex argument
+assert.label("fromindex argument")
+assert.test(A.findKey(users, "active", 2), "pebbles")
 
 assert.group(".forIn")
 assert.label("default tests")
@@ -2147,7 +2149,10 @@ assert.test(A.map([" foo  ", "  bar  "], A.trim), ["foo", "bar"])
 
 
 ; omit
-assert.test(A.trim(A_Tab A_Tab "  abc  " A_Tab), "abc")
+assert.label("multiple types of whitespace")
+assert.test(A.trim(A_space A_tab "  abc  " A_tab), "abc")
+assert.label("multiple types of newline")
+assert.test(A.trim("  `rabc`n  "), "abc")
 
 assert.group(".trimEnd")
 assert.label("default tests")
