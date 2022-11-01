@@ -2249,12 +2249,11 @@ class biga {
 		; create
 		if (isObject(param_paths)) {
 			for key, value in param_paths {
-				vValue := this.internal_property(value, param_object)
-				l_obj[value] := vValue
+				l_obj[value] := this.get(param_object, value)
 			}
 		} else {
-			vValue := this.internal_property(param_paths, param_object)
-			l_obj[param_paths] := vValue
+			l_deepPath := this.toPath(param_paths)
+			l_obj[l_deepPath*] := param_object[l_deepPath*]
 		}
 		return l_obj
 	}
