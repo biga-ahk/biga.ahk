@@ -3244,7 +3244,7 @@ A.get(object, "a.b.c", "default")
 
 
 ## .has
-Checks if path is a direct property of object.
+Checks if path is a property of object.
 
 
 #### Arguments

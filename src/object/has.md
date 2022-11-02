@@ -1,4 +1,4 @@
-Checks if path is a direct property of object.
+Checks if path is a property of object.
 
 
 ## Arguments
