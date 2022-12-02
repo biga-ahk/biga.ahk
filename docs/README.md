@@ -4482,6 +4482,48 @@ A.map([["a", 3], ["c", 1]], A.propertyOf(object))
 
 
 
+## .range
+Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end. A step of -1 is used if a negative start is specified without an end or step. If end is not specified, it's set to start with start then set to 0. The array's size is used as the end when a step of 0 is specified.
+
+
+#### Arguments
+[start:=0] (number): The start of the range.
+end (number): The end of the range.
+[step:=1] (number): The value to increment or decrement by.
+
+
+#### Returns
+(Array): Returns the range of numbers.
+
+
+#### Example
+
+```autohotkey
+A.range(4)
+; => [0, 1, 2, 3]
+
+A.range(-4)
+; => [0, -1, -2, -3]
+
+A.range(1, 5)
+; => [1, 2, 3, 4]
+
+A.range(0, 20, 5)
+; => [0, 5, 10, 15]
+
+A.range(0, -4, -1)
+; => [0, -1, -2, -3]
+
+A.range(1, 4, 0)
+; => [1, 1, 1]
+
+A.range(0)
+; => []
+
+```
+
+
+
 ## .stubArray
 This method returns a new empty array.
 

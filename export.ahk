@@ -748,7 +748,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 		for key, value in param_collection {
 			vItaree := param_predicate.call(value)
-			if (!l_array[vItaree]) {
+			; use .hasKey because modern array methods such as .some can return true/1
+			if (!l_array.hasKey(vItaree)) {
 				; start counter at 1 if first encounter
 				l_array[vItaree] := 1
 			} else {
@@ -2893,6 +2894,47 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 	internal_propertyOf(param_object,param_path) {
 		return this.property(param_path).call(param_object)
+	}
+	range(param_start:=0,param_end:=0,param_step:=1) {
+		if (!this.isNumber(param_start) || !this.isNumber(param_end) || !this.isNumber(param_step)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		l_array := []
+		; A step of -1 is used if a negative start is specified without an end or step.
+		if (param_start < 0 && param_end == 0 && param_step == 1) {
+			param_step := -1
+		}
+		if (param_start == 0 && param_end == 0) {
+			return l_array
+		}
+		if (param_end == 0) {
+			param_end := param_start
+			param_start := 0
+		}
+		l_currentStep := param_start
+		if (param_end > param_start) {
+			l_negativeFlag := true
+		}
+		; where step is 0, end at the array count
+		if (param_step == 0) {
+			zeroStepFlag := true
+		}
+
+		; create
+		if (zeroStepFlag == true) {
+			loop, % param_end - 1 {
+				l_array.push(l_currentStep)
+				l_currentStep += param_step
+			}
+		} else {
+			while (l_currentStep != param_end) {
+				l_array.push(l_currentStep)
+				l_currentStep += param_step
+			}
+		}
+		return l_array
 	}
 	stubArray() {
 		return []
