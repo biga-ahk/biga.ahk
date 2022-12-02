@@ -1,31 +1,44 @@
-; ###incomplete###
 range(param_start:=0,param_end:=0,param_step:=1) {
 	if (!this.isNumber(param_start) || !this.isNumber(param_end) || !this.isNumber(param_step)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
-	return_array := []
+	l_array := []
+	; A step of -1 is used if a negative start is specified without an end or step.
+	if (param_start < 0 && param_end == 0 && param_step == 1) {
+		param_step := -1
+	}
 	if (param_start == 0 && param_end == 0) {
-		return return_array
+		return l_array
 	}
 	if (param_end == 0) {
 		param_end := param_start
 		param_start := 0
 	}
 	l_currentStep := param_start
+	if (param_end > param_start) {
+		l_negativeFlag := true
+	}
+	; where step is 0, end at the array count
+	if (param_step == 0) {
+		zeroStepFlag := true
+	}
+
 
 	; create
-	while (param_start <= param_end || param_start == param_end) {
-		return_array.push(l_currentStep)
-		if (param_step == 0) {
-			param_start += 1
-		} else {
-			param_start += param_step
+	if (zeroStepFlag == true) {
+		loop, % param_end - 1 {
+			l_array.push(l_currentStep)
+			l_currentStep += param_step
+		}
+	} else {
+		while (l_currentStep != param_end) {
+			l_array.push(l_currentStep)
 			l_currentStep += param_step
 		}
 	}
-	return return_array
+	return l_array
 }
 
 
