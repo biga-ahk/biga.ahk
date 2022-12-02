@@ -10,7 +10,8 @@ countBy(param_collection,param_predicate:="__identity") {
 	l_array := []
 	for key, value in param_collection {
 		vItaree := param_predicate.call(value)
-		if (!l_array[vItaree]) {
+		; use .hasKey because modern array methods such as .some can return true/1
+		if (!l_array.hasKey(vItaree)) {
 			; start counter at 1 if first encounter
 			l_array[vItaree] := 1
 		} else {
