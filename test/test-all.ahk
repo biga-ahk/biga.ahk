@@ -554,6 +554,7 @@ wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"], A.to
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
 wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"])
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
+
 assert.group(".every")
 assert.label("default tests")
 assert.false(A.every([true, 1, false, "yes"], A.isBoolean))
@@ -2357,6 +2358,25 @@ object := {"a": array, "b": array, "c": array}
 assert.test(A.map(["a[3]", "c[1]"], A.propertyOf(object)), [2, 0])
 
 assert.test(A.map([["a", 3], ["c", 1]], A.propertyOf(object)), [2, 0])
+
+
+; omit
+
+assert.group(".range")
+assert.label("default tests")
+assert.test(A.range(4), [0, 1, 2, 3])
+
+assert.test(A.range(-4), [0, -1, -2, -3])
+
+assert.test(A.range(1, 5), [1, 2, 3, 4])
+
+assert.test(A.range(0, 20, 5), [0, 5, 10, 15])
+
+assert.test(A.range(0, -4, -1), [0, -1, -2, -3])
+
+assert.test(A.range(1, 4, 0), [1, 1, 1])
+
+assert.test(A.range(0), [])
 
 
 ; omit
