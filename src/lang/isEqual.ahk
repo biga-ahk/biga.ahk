@@ -61,3 +61,4 @@ assert.false(A.isEqual({"a": 1}, [1]))
 
 assert.label("different lengths")
 assert.false(A.isEqual({"a": 1}, {"a": 1, "c": 2}))
+assert.false(A.isEqual({"a": 1, "c": 2}, {"a": 1}))
