@@ -1,4 +1,4 @@
-Converts the first character of string to upper case.
+Converts the first character of `string` to upper case.
 
 
 ## Arguments

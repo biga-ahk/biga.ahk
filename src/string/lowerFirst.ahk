@@ -4,7 +4,7 @@ lowerFirst(param_string:="") {
 	}
 
 	; create
-	return this.tolower(this.head(param_string)) subStr(param_string, 2)
+	return this.tolower(subStr(param_string, 1, 1)) subStr(param_string, 2)
 }
 
 

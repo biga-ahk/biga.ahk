@@ -4,7 +4,7 @@ upperFirst(param_string:="") {
 	}
 
 	; create
-	return this.toUpper(this.head(param_string)) this.join(this.tail(param_string), "")
+	return this.toUpper(subStr(param_string, 1, 1)) subStr(param_string, 2)
 }
 
 
