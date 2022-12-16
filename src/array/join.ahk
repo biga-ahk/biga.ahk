@@ -3,18 +3,13 @@ join(param_array,param_sepatator:=",") {
 		this._internal_ThrowException()
 	}
 
-	; prepare
-	l_array := this.clone(param_array)
-
 	; create
-	for l_key, l_value in l_array {
-		if (A_Index == 1) {
-			l_string := "" l_value
-			continue
-		}
-		l_string := l_string param_sepatator l_value
+	enum := param_array._newEnum()
+	enum.next(_, result)
+	while enum.next(_, item) {
+		result .= param_sepatator item
 	}
-	return l_string
+	return result
 }
 
 
