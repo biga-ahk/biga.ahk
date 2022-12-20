@@ -12,9 +12,7 @@ drop(param_array,param_n:=1) {
 	}
 
 	; create
-	loop, % param_n	{
-		l_array.removeAt(1)
-	}
+	l_array.removeAt(1, param_n)
 	; return empty array if empty
 	if (l_array.count() == 0) {
 		return []
@@ -34,3 +32,4 @@ assert.test(A.drop(100), ["0", "0"])
 
 ; omit
 assert.test(A.drop([]), [])
+; lodash .drop does not work with associative arrays
