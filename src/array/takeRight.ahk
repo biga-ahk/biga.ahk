@@ -15,7 +15,7 @@ takeRight(param_array,param_n:=1) {
 	; create
 	loop, % param_n	{
 		if (param_array.count() == 0) {
-			continue
+			break
 		}
 		vvalue := param_array.pop()
 		l_array.push(vvalue)
@@ -39,4 +39,12 @@ assert.test(A.takeRight(100), ["0"])
 ; omit
 assert.test(A.takeRight([]), [])
 assert.test(A.takeRight("fred", 3), ["r","e","d"])
-assert.test(A.takeRight("fred", 4), ["f","r","e","d"])
+
+assert.label("mutation")
+string := "fred"
+assert.test(A.takeRight(string, 4), ["f","r","e","d"])
+assert.test(string, "fred")
+
+obj := [1, 2, 3]
+assert.test(A.takeRight(obj), [3])
+assert.test(obj, [1, 2, 3])
