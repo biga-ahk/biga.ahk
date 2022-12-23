@@ -4,18 +4,17 @@ over(param_iteratees:="__identity") {
 	if (param_iteratees == "__identity") {
 		param_iteratees := [this.identity]
 	}
-	if (this.isObject(param_iteratees)) {
-		for key, value in param_iteratees {
-			; turn blank "" into .identity
-			if (this.isUndefined(value)) {
-				param_iteratees[key] := this.identity.bind(this)
-			}
-			if (this.startsWith(value.name, this.__Class ".")) { ;if starts with "biga."
-				param_iteratees[key] := value.bind(this)
-			}
-		}
-	} else {
+	if (this.isFunction(param_iteratees)) {
 		param_iteratees := [param_iteratees]
+	}
+	for key, value in param_iteratees {
+		; turn blank "" into .identity
+		if (this.isUndefined(value)) {
+			param_iteratees[key] := this.identity.bind(this)
+		}
+		if (this.startsWith(value.name, this.__Class ".")) { ;if starts with "biga."
+			param_iteratees[key] := value.bind(this)
+		}
 	}
 
 	; create
@@ -49,8 +48,12 @@ func := A.over([A.identity, A.typeOf])
 assert.test(func.call([1,2,3]), [[1,2,3], "object"])
 assert.test(func.call("C"), ["C", "string"])
 
-assert.label("defalt to .identity")
+assert.label("default to .identity")
 func := A.over()
 assert.test(func.call("hello world"), ["hello world"])
 func := A.over(["" , A.isNumber, A.isString])
 assert.test(func.call(1), [1, true, false])
+
+assert.label("round")
+func := A.over(A.round)
+assert.test(func.call(11.0001), [11])
