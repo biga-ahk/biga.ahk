@@ -1,6 +1,9 @@
 over(param_iteratees:="__identity") {
 
 	; prepare
+	if (param_iteratees == "__identity") {
+		param_iteratees := [this.identity]
+	}
 	if (this.isObject(param_iteratees)) {
 		for key, value in param_iteratees {
 			; turn blank "" into .identity
@@ -11,6 +14,8 @@ over(param_iteratees:="__identity") {
 				param_iteratees[key] := value.bind(this)
 			}
 		}
+	} else {
+		param_iteratees := [param_iteratees]
 	}
 
 	; create
@@ -39,11 +44,13 @@ assert.test(func.call(1), [true, true])
 assert.test(func.call("string"), [false, false])
 
 
-assert.label("defalt to .identity")
+assert.label("with other own methods")
 func := A.over([A.identity, A.typeOf])
 assert.test(func.call([1,2,3]), [[1,2,3], "object"])
 assert.test(func.call("C"), ["C", "string"])
 
 assert.label("defalt to .identity")
-func := A.over(["" , A.isNumber, _.isString])
-assert.test(func.call(1), [1, true, true])
+func := A.over()
+assert.test(func.call("hello world"), ["hello world"])
+func := A.over(["" , A.isNumber, A.isString])
+assert.test(func.call(1), [1, true, false])
