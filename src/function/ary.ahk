@@ -23,7 +23,7 @@ aryFunc := A.ary(Func("fn_aryFunc"), 2)
 assert.test(aryFunc.call("a", "b", "c", "d"), ["a", "b"])
 
 fn_aryFunc(arguments*) {
-	return biga.toArray(arguments)
+	return arguments
 }
 
 

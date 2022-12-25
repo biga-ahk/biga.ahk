@@ -1,6 +1,6 @@
 isFunction(param) {
-	fn := numGet(&(_ := Func("inStr").bind()), "ptr")
-	return (isFunc(param) || (isObject(param) && (numGet(&param, "ptr") = fn)))
+	funcRefrence := numGet(&(_ := Func("inStr").bind()), "ptr")
+	return (isFunc(param) || (isObject(param) && (numGet(&param, "ptr") = funcRefrence)))
 }
 
 
