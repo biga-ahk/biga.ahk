@@ -79,6 +79,7 @@ assert.test(A.drop(100), ["0", "0"])
 
 ; omit
 assert.test(A.drop([]), [])
+; lodash .drop does not work with associative arrays
 
 assert.group(".dropRight")
 assert.label("default tests")
@@ -451,7 +452,15 @@ assert.test(A.takeRight(100), ["0"])
 ; omit
 assert.test(A.takeRight([]), [])
 assert.test(A.takeRight("fred", 3), ["r","e","d"])
-assert.test(A.takeRight("fred", 4), ["f","r","e","d"])
+
+assert.label("mutation")
+string := "fred"
+assert.test(A.takeRight(string, 4), ["f","r","e","d"])
+assert.test(string, "fred")
+
+obj := [1, 2, 3]
+assert.test(A.takeRight(obj), [3])
+assert.test(obj, [1, 2, 3])
 
 assert.group(".union")
 assert.label("default tests")
@@ -1072,7 +1081,7 @@ aryFunc := A.ary(Func("fn_aryFunc"), 2)
 assert.test(aryFunc.call("a", "b", "c", "d"), ["a", "b"])
 
 fn_aryFunc(arguments*) {
-	return biga.toArray(arguments)
+	return arguments
 }
 
 
@@ -1304,6 +1313,7 @@ assert.false(A.isEqual({"a": 1}, [1]))
 
 assert.label("different lengths")
 assert.false(A.isEqual({"a": 1}, {"a": 1, "c": 2}))
+assert.false(A.isEqual({"a": 1, "c": 2}, {"a": 1}))
 
 assert.group(".isError")
 assert.label("default tests")
@@ -1329,6 +1339,7 @@ assert.false(A.isFunction([1, 2, 3]))
 
 
 ; omit
+assert.false(A.isFunction("strLen"))
 assert.false(A.isFunction([]))
 assert.false(A.isFunction({}))
 assert.false(A.isFunction("string"))
@@ -2015,6 +2026,17 @@ assert.test(A.lowerCase("__FOO_BAR__"), "foo bar")
 ; omit
 assert.test(A.lowerCase("  Foo-Bar--"), "foo bar")
 
+assert.group(".lowerFirst")
+assert.label("default tests")
+assert.test(A.lowerFirst("Fred"), "fred")
+assert.test(A.lowerFirst("FRED"), "fRED")
+
+
+; omit
+assert.test(A.lowerFirst("--foo-bar--"), "--foo-bar--")
+assert.test(A.lowerFirst("fooBar"), "fooBar")
+assert.test(A.lowerFirst("__FOO_BAR__"), "__FOO_BAR__")
+
 assert.group(".pad")
 assert.label("default tests")
 assert.test(A.pad("abc", 8), "  abc   ")
@@ -2325,6 +2347,35 @@ assert.test(func.call("a", "b", "c", "d"), "c")
 assert.label("default argument")
 func := A.nthArg()
 assert.test(func.call("a", "b", "c", "d"), "a")
+assert.group(".over")
+assert.label("default tests")
+func := A.over([func("min"), func("max")])
+assert.test(func.call(1, 2, 3, 4), [1, 4])
+
+func := A.over([A.isBoolean, A.isNumber])
+assert.test(func.call(10), [false, true])
+
+
+; omit
+assert.test(func.call(1), [true, true])
+assert.test(func.call("string"), [false, false])
+
+
+assert.label("with other own methods")
+func := A.over([A.identity, A.typeOf])
+assert.test(func.call([1,2,3]), [[1,2,3], "object"])
+assert.test(func.call("C"), ["C", "string"])
+
+assert.label("default to .identity")
+func := A.over()
+assert.test(func.call("hello world"), ["hello world"])
+func := A.over(["" , A.isNumber, A.isString])
+assert.test(func.call(1), [1, true, false])
+
+assert.label("round")
+func := A.over(A.round)
+assert.test(func.call(11.0001), [11])
+
 assert.group(".print")
 assert.label("default tests")
 assert.test(A.print([1, 2, 3]), "1:1, 2:2, 3:3")
