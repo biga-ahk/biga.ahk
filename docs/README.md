@@ -1771,7 +1771,7 @@ func (Function): The function to cap arguments for.
 aryFunc := A.ary(Func("fn_aryFunc"), 2)aryFunc.call("a", "b", "c", "d")
 ; => ["a", "b"]
 
-fn_aryFunc(arguments*) {	return biga.toArray(arguments)}```
+fn_aryFunc(arguments*) {	return arguments}```
 
 
 
@@ -3671,6 +3671,31 @@ A.lowerCase("__FOO_BAR__")
 
 
 
+## .lowerFirst
+Converts the first character of `string` to lower case.
+
+
+#### Arguments
+[string:=""] (string): The string to convert.
+
+
+#### Returns
+(string): Returns the converted string.
+
+
+#### Example
+
+```autohotkey
+A.lowerFirst("Fred")
+; => "fred"
+
+A.lowerFirst("FRED")
+; => "fRED"
+
+```
+
+
+
 ## .pad
 Pads string on the left and right sides if it's shorter than length. Padding characters are truncated if they can't be evenly divided by length.
 
@@ -4194,7 +4219,7 @@ A.upperCase("__FOO_BAR__")
 
 
 ## .upperFirst
-Converts the first character of string to upper case.
+Converts the first character of `string` to upper case.
 
 
 #### Arguments
@@ -4401,6 +4426,31 @@ func := A.nthArg(2)func.call("a", "b", "c", "d")
 
 func := A.nthArg(-2)func.call("a", "b", "c", "d")
 ; => "c"
+
+```
+
+
+
+## .over
+Creates a function that invokes iteratees with the arguments it receives and returns their results.
+
+
+#### Arguments
+[iteratees:=[A.identity]] (Function|Function[]*)): The iteratees to invoke.
+
+
+#### Returns
+(Function): Returns the new function.
+
+
+#### Example
+
+```autohotkey
+func := A.over([func("min"), func("max")])func.call(1, 2, 3, 4)
+; => [1, 4]
+
+func := A.over([A.isBoolean, A.isNumber])func.call(10)
+; => [false, true]
 
 ```
 
