@@ -1146,7 +1146,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return this._internal_sort(param_collection)
 		}
 		; property
-		if (this.isAlnum(param_iteratees)) {
+		if (this.isString(param_iteratees)) {
 			return this._internal_sort(param_collection, param_iteratees)
 		}
 		; own method or function

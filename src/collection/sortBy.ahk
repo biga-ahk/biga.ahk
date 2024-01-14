@@ -14,7 +14,7 @@ sortBy(param_collection,param_iteratees:="__identity") {
 		return this._internal_sort(param_collection)
 	}
 	; property
-	if (this.isAlnum(param_iteratees)) {
+	if (this.isStringLike(param_iteratees)) {
 		return this._internal_sort(param_collection, param_iteratees)
 	}
 	; own method or function
@@ -73,8 +73,7 @@ _internal_sort(param_collection,param_iteratees:="") {
 
 ; tests
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
-users := [
- , { "name": "fred", "age": 40 }
+users := [{ "name": "fred", "age": 40 }
  , { "name": "barney", "age": 34 }
  , { "name": "bernard", "age": 36 }
  , { "name": "zoey", "age": 40 }]
@@ -104,13 +103,22 @@ enemies := [
 sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
-users := [
- , { "name": "fred", "age": 46 }
+users := [{ "name": "fred", "age": 46 }
  , { "name": "barney", "age": 34 }
  , { "name": "bernard", "age": 36 }
  , { "name": "zoey", "age": 40 }]
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
 
+assert.label("non-existant key")
+assert.test(A.sortBy(users, "null"), users)
+
+assert.label("number key")
+assert.test(A.sortBy(users, 1), users)
 
 assert.label("default .identity argument")
 assert.test(A.sortBy([2, 0, 1]), [0, 1, 2])
+
+assert.label("with abnormal key values")
+users := [{ "name": "fred", "age |[]-=!@#$%^&*()_+": 46 }
+ , { "name": "barney", "age |[]-=!@#$%^&*()_+": 34 }]
+assert.test(A.sortBy(users, "age |[]-=!@#$%^&*()_+"), [{"age |[]-=!@#$%^&*()_+":34, "name":"barney"}, {"age |[]-=!@#$%^&*()_+":46, "name":"fred"}])

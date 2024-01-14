@@ -1712,7 +1712,7 @@ collection (Array|Object): The collection to iterate over.
 A.sortBy(["b", "f", "e", "c", "d", "a"])
 ; => ["a", "b", "c", "d", "e", "f"]
 
-users := [ , { "name": "fred", "age": 40 } , { "name": "barney", "age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
+users := [{ "name": "fred", "age": 40 } , { "name": "barney", "age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, ["age", "name"])
