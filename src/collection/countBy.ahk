@@ -23,7 +23,7 @@ countBy(param_collection,param_predicate:="__identity") {
 
 
 ; tests
-assert.test(A.countBy([6.1, 4.2, 6.3], Func("floor")), {"4": 1, "6": 2})
+assert.test(A.countBy([6.1, 4.2, 6.3], func("floor")), {"4": 1, "6": 2})
 
 ; The A.property iteratee shorthand.
 assert.test(A.countBy(["one", "two", "three"], A.size), {"3": 2, "5": 1})

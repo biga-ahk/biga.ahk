@@ -27,7 +27,7 @@ minBy(param_array,param_iteratee:="__identity") {
 ; tests
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.minBy(objects, Func("fn_minByFunc")), { "n": 2 })
+assert.test(A.minBy(objects, func("fn_minByFunc")), { "n": 2 })
 fn_minByFunc(o)
 {
 	return o.n

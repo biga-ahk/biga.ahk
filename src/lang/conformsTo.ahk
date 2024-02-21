@@ -16,8 +16,8 @@ conformsTo(param_object, param_source) {
 ; tests
 object := {"a": 1, "b": 2}
 
-assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1")}))
-assert.false(A.conformsTo(object, {"b": Func("fn_conformsToFunc2")}))
+assert.true(A.conformsTo(object, {"b": func("fn_conformsToFunc1")}))
+assert.false(A.conformsTo(object, {"b": func("fn_conformsToFunc2")}))
 
 fn_conformsToFunc1(n)
 {
@@ -31,4 +31,4 @@ fn_conformsToFunc2(n)
 
 ; omit
 object := {"a": 1, "b": 2, "c": 2}
-assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1"), "c": Func("fn_conformsToFunc1")}))
+assert.true(A.conformsTo(object, {"b": func("fn_conformsToFunc1"), "c": func("fn_conformsToFunc1")}))

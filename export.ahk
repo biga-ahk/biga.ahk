@@ -1146,7 +1146,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return this._internal_sort(param_collection)
 		}
 		; property
-		if (this.isString(param_iteratees)) {
+		if (this.isStringLike(param_iteratees)) {
 			return this._internal_sort(param_collection, param_iteratees)
 		}
 		; own method or function
@@ -1538,7 +1538,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return false
 	}
 	isFunction(param) {
-		funcRefrence := numGet(&(_ := Func("inStr").bind()), "ptr")
+		funcRefrence := numGet(&(_ := func("inStr").bind()), "ptr")
 		return (isFunc(param) || (isObject(param) && (numGet(&param, "ptr") = funcRefrence)))
 	}
 	isInteger(param) {

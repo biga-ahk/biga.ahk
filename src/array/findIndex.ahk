@@ -56,7 +56,7 @@ assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney
 StringCaseSense, Off
 
 assert.label("function")
-assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
+assert.test(A.findIndex(users, func("fn_findIndexFunc")), 2)
 fn_findIndexFunc(o) {
 	return o.user == "fred"
 }
@@ -69,7 +69,7 @@ assert.test(A.findIndex(users, ["active", false], 3), 3)
 
 assert.label("boundFunc")
 employees := [{"name": "Mike Smith", "tenureYears": 4}, {"name": "Nath Samuel", "tenureYears": 2}]
-boundFunc := Func("fn_checkNameTenure").bind("Mike Smith", 4)
+boundFunc := func("fn_checkNameTenure").bind("Mike Smith", 4)
 assert.test(A.findIndex(employees, boundFunc), 1)
 
 fn_checkNameTenure(name, minTenure, obj)

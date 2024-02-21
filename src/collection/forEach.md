@@ -18,14 +18,14 @@ collection (Array|Object): The collection to iterate over.
 ## Examples
 
 ```autohotkey
-A.forEach([1, 2], Func("fn_forEachFunc1"))
+A.forEach([1, 2], func("fn_forEachFunc1"))
 fn_forEachFunc1(value)
 {
 	msgbox, % value
 }
 ; msgboxes 1 then 2
 
-A.forEach({ "a": 1, "b": 2 }, Func("fn_forEachFunc2"))
+A.forEach({ "a": 1, "b": 2 }, func("fn_forEachFunc2"))
 fn_forEachFunc2(value, key)
 {
 	msgbox, % key

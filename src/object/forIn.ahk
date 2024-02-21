@@ -23,7 +23,7 @@ forIn(param_object,param_iteratee:="__identity") {
 
 ; tests
 object := {"a": 1, "b": 2}
-assert.test(A.forIn(object, Func("fn_forInFunc")), {"a": 1, "b": 2})
+assert.test(A.forIn(object, func("fn_forInFunc")), {"a": 1, "b": 2})
 
 fn_forInFunc(value, key) {
 	; msgbox, % key

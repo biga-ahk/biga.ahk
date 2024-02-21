@@ -34,7 +34,7 @@ fn_delayTest(msg, msg2) {
 	assert.test(msg " " msg2, "hello world")
 }
 ; same but as a boundfunc
-boundfunc := Func("fn_delayTest").bind("hello", "world")
+boundfunc := func("fn_delayTest").bind("hello", "world")
 A.delay(boundfunc, 10)
 
 A.delay(Func("fn_delayTest2"), 10)
@@ -45,5 +45,5 @@ fn_delayTest2() {
 	assert.test("hello world", "hello world")
 }
 ; same but as a boundfunc
-boundfunc := Func("fn_delayTest2").bind()
+boundfunc := func("fn_delayTest2").bind()
 A.delay(boundfunc, 10)

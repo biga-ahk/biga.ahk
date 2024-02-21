@@ -20,7 +20,7 @@ _internal_conforms(param_value, param_object) {
 ; tests
 objects := [{"a": 2, "b": 1}
 		, {"a": 1, "b": 2}]
-assert.test(A.filter(objects, A.conforms({"b": Func("fn_conformsFunc")})), [{"a": 1, "b": 2}])
+assert.test(A.filter(objects, A.conforms({"b": func("fn_conformsFunc")})), [{"a": 1, "b": 2}])
 
 fn_conformsFunc(n)
 {
