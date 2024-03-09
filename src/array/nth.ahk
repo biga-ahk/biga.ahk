@@ -33,13 +33,20 @@ nth(param_array,param_n:=1) {
 
 
 ; tests
+assert.label("Array with positive index")
 assert.test(A.nth([1, 2, 3]), 1)
+assert.label("Array with negative index")
 assert.test(A.nth([1, 2, 3], -3), 1)
+assert.label("Array with index out of range")
 assert.test(A.nth([1, 2, 3], 5), "")
+assert.label("String as input")
 assert.test(A.nth("fred"), "f")
+assert.label("Number as input")
 assert.test(A.nth(100), "1")
+assert.label("Array with index 0")
 assert.test(A.nth([1, 2, 3], 0), 1)
 
 
 ; omit
+assert.label("empty array input")
 assert.test(A.nth([]), "")

@@ -18,6 +18,12 @@ assert.test(A.chunk(["a", "b", "c", "d"], 2), [["a", "b"], ["c", "d"]])
 assert.test(A.chunk(["a", "b", "c", "d"], 3), [["a", "b", "c"], ["d"]])
 
 ; omit
+assert.test(A.chunk([], 2), [])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 2), [["a", "b"], ["c", "d"], ["e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 1), [["a"], ["b"], ["c"], ["d"], ["e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 5), [["a", "b", "c", "d", "e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 6), [["a", "b", "c", "d", "e"]])
+
 var := [1,2,3]
 A.chunk(var, 2)
 assert.label("parameter mutation")
@@ -30,6 +36,10 @@ assert.test(A.compact([0, 1, false, 2, "", 3]), [1, 2, 3])
 
 ; omit
 assert.test(A.compact([1, 2, 3, 4, 5, 6, "", "", ""]), [1, 2, 3, 4, 5, 6])
+assert.test(A.compact([]), [])
+assert.test(A.compact(["", 0, false]), [])
+assert.test(A.compact(["", 0, "hello", "", 1]), ["hello", 1])
+assert.test(A.compact([false, 0, ""]), [])
 
 assert.group(".concat")
 assert.label("default tests")
@@ -41,7 +51,12 @@ assert.test(A.concat(array), [1])
 assert.test(A.concat(array, 1), [1, 1])
 assert.label("associative object")
 assert.test(A.concat([], {"a": "abc", "b": "bcd"}), ["abc", "bcd"])
-; the correct way to concat associative objects AND retain their keys is A.merge as confirmed with tests
+assert.test(A.concat([1, 2], [3, 4]), [1, 2, 3, 4])
+assert.test(A.concat([], []), [])
+assert.test(A.concat([], [1, 2], [3], [[4]]), [1, 2, 3, [4]])
+assert.test(A.concat(["a", "b"], ["c", "d"]), ["a", "b", "c", "d"])
+assert.test(A.concat(["a"], []), ["a"])
+; the correct way to concat associative objects AND retain their keys is A.merge as confirmed with lodash tests
 
 assert.group(".depthOf")
 assert.label("default tests")
@@ -52,6 +67,11 @@ assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
 
 ; omit
 assert.test(A.depthOf({"key": 1}), 1)
+assert.test(A.depthOf([]), 1)
+assert.test(A.depthOf([1, 2, 3]), 1)
+assert.test(A.depthOf([[1, 2], [3, 4]]), 2)
+assert.test(A.depthOf([[[1]], [[2]], [[3]]]), 3)
+assert.test(A.depthOf([1, [2, [3, [4]]]]), 4)
 
 assert.group(".difference")
 assert.label("default tests")
@@ -64,8 +84,13 @@ assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
 assert.test(A.difference(["Barney", "Fred"], ["Pebbles"], ["Fred"]), ["Barney"])
 
-assert.label("remove repeat values")
-assert.test(A.difference([50, 50, 90], [50, 80]), [90])
+assert.test(A.difference([], [1, 2, 3]), [])
+assert.test(A.difference([1, 2, 3], []), [1, 2, 3])
+assert.test(A.difference([1, 2, 3], [1, 2, 3]), [])
+assert.test(A.difference([1, 2, 3], [4, 5, 6]), [1, 2, 3])
+assert.test(A.difference([1, 2, 3], [2, 3]), [1])
+
+assert.test(A.difference([50, 50, 90], [50, 80]), [90], "remove repeat values")
 
 assert.group(".drop")
 assert.label("default tests")
@@ -79,6 +104,8 @@ assert.test(A.drop(100), ["0", "0"])
 
 ; omit
 assert.test(A.drop([]), [])
+assert.test(A.drop([1, 2, 3], 3), [])
+assert.test(A.drop(["a", "b", "c", "d"], 2), ["c", "d"], "non-numeric values")
 ; lodash .drop does not work with associative arrays
 
 assert.group(".dropRight")
@@ -92,7 +119,9 @@ assert.test(A.dropRight(100), ["1", "0"])
 
 ; omit
 assert.test(A.dropRight([]), [])
-
+assert.test(A.dropRight([1, 2, 3], 3), [])
+assert.test(A.dropRight([1, 2, 3], 4), [], "param_n larger than the provided array param")
+assert.test(A.dropRight(["a", "b", "c", "d"], 2), ["a", "b"])
 assert.group(".dropRightWhile")
 assert.label("default tests")
 users := [ {"user": "barney", 	"active": true}
@@ -116,7 +145,9 @@ assert.test(A.dropRightWhile(users, "active"), [ {"user": "barney", "active": tr
 
 ; omit
 assert.test(A.dropRightWhile([]), [])
-; check that input has not been mutated
+assert.test(A.dropRightWhile([{"user": "barney", "active": true}, {"user": "fred", "active": true}], "active"), [{"user": "barney", "active": true }, {"user": "fred", "active": true}])
+
+assert.label("check that input has not been mutated")
 assert.test(users[3], {"user": "pebbles",	"active": false})
 
 assert.label("default .identity argument")
@@ -144,6 +175,9 @@ assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }
 
 
 ; omit
+assert.test(A.dropWhile([{"user": "barney", "active": true}], Func("fn_dropWhile")), [{"user": "barney", "active": true}])
+assert.test(A.dropWhile([{"user": "barney", "active": false}, {"user": "fred", "active": false}], Func("fn_dropWhile")), [])
+
 assert.test(A.dropWhile([]), [])
 
 assert.label("default .identity argument")
@@ -158,8 +192,14 @@ assert.test(A.fill([4, 6, 8, 10], "*", 2, 3), [4, "*", "*", 10])
 
 ; omit
 assert.test(A.fill([]), [])
+assert.test(A.fill([1, 2, 3], "a"), ["a", "a", "a"])
+assert.test(A.fill([4, 6, 8, 10], "*", 1, 3), ["*", "*", "*", 10])
+assert.test(A.fill([4, 6, 8, 10], "*", 0, 3), ["*", "*", "*", 10], "if zero index is specified")
+assert.test(A.fill([4, 6, 8, 10], "*", 3, 1), [4, 6, 8, 10], "param_start is geater than param_end")
+
+assert.label("ensure that mutation did not occur")
 assert.test(array, [1, 2, 3])
-; ensure that mutation did not occur
+
 assert.group(".findIndex")
 assert.label("default tests")
 users := [ { "user": "barney", "age": 36, "active": true }
@@ -239,6 +279,9 @@ assert.test(A.flatten([1, [2, [3, [4]], 5]]), [1, 2, [3, [4]], 5])
 assert.test(A.flatten([[1, 2, 3], [4, 5, 6]]), [1, 2, 3, 4, 5, 6])
 
 ; omit
+assert.test(A.flatten([]), [], "Flatten an empty array")
+assert.test(A.flatten([[], [], []]), [], "Flatten an array with nested empty arrays")
+assert.test(A.flatten([1, ["", ""], [3, 4]]), [1, "", "", 3, 4], "Flatten an array with undefined elements")
 
 assert.group(".flattenDeep")
 assert.label("default tests")
@@ -248,6 +291,17 @@ assert.test(A.flattenDeep([1, [2, [3, [4]], 5]]), [1, 2, 3, 4, 5])
 
 ; omit
 assert.test(A.flattenDeep({"key": 1}), [1])
+assert.label("multiple levels of nesting")
+assert.test(A.flattenDeep([1, [2, [3, [4, [5]]]]]), [1, 2, 3, 4, 5])
+assert.label("deeply nested arrays and mixed data types")
+assert.test(A.flattenDeep([1, [2, [3, [4, ["five", [6]]]]]]), [1, 2, 3, 4, "five", 6])
+assert.label("deeply nested arrays and empty arrays")
+assert.test(A.flattenDeep([1, [2, [3, [4, [], [5, []]]]]]), [1, 2, 3, 4, 5])
+assert.label("deeply nested arrays and null/undefined elements")
+assert.test(A.flattenDeep([1, [2, [3, [4, ["", ""], [5, [""]]]]]]), [1, 2, 3, 4, "", "", 5, ""])
+assert.label("deeply nested arrays and arrays containing only non-array elements")
+assert.test(A.flattenDeep([1, [2, [3, [4, [5], [6]], [7, 8, 9]]]]), [1, 2, 3, 4, 5, 6, 7, 8, 9])
+assert.test(A.flattenDeep([]), [], "an empty array")
 
 assert.group(".flattenDepth")
 assert.label("default tests")
@@ -255,10 +309,37 @@ assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 1), [1, 2, [3, [4]], 5])
 assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 2), [1, 2, 3, [4], 5])
 
 ; omit
+assert.test(A.flattenDepth([], 1), [], "empty array with depth 1")
+assert.test(A.flattenDepth([1, [2, [3]]], 0), [1, [2, [3]]], "with depth 0")
 
 assert.group(".fromPairs")
 assert.label("default tests")
 assert.test(A.fromPairs([["a", 1], ["b", 2]]), {"a": 1, "b": 2})
+
+; omit
+assert.label("Empty array")
+assert.test(A.fromPairs([], {}), {})
+
+assert.label("Single pair")
+assert.test(A.fromPairs([["a", 1]], {"a": 1}), {"a": 1})
+
+assert.label("Multiple pairs with unique keys")
+assert.test(A.fromPairs([["a", 1], ["b", 2], ["c", 3]]), {"a": 1, "b": 2, "c": 3})
+
+assert.label("Multiple pairs with duplicate keys")
+assert.test(A.fromPairs([["a", 1], ["b", 2], ["a", 3]]), {"a": 3, "b": 2})
+
+assert.label("With keys of different types (string, number, boolean)")
+assert.test(A.fromPairs([["a", 1], [2, "two"], [true, false]]), {"1": false, "a": 1, "2": "two"})
+
+assert.label("With empty strings as keys")
+assert.test(A.fromPairs([["", 1], ["b", 2]]), {"": 1, "b": 2})
+
+assert.label("With empty values")
+assert.test(A.fromPairs([["a", ""], ["b", ""], ["c", ""]]), {"a": "", "b": "", "c": ""})
+
+assert.label("With keys containing special characters")
+assert.test(A.fromPairs([["$key", 1], ["key_2", 2], ["key-3", 3]]), {"$key": 1, "key_2": 2, "key-3": 3})
 
 assert.group(".head")
 assert.label("default tests")
@@ -273,8 +354,14 @@ assert.test(A.head({"a": 1, "b": 2, "c":3}), 1)
 
 assert.label("alias")
 assert.test(A.first([1, 2, 3]), 1)
+
+assert.label("Empty array")
 assert.test(A.first([]), "")
+
+assert.label("String as input")
 assert.test(A.first("fred"), "f")
+
+assert.label("Number as input")
 assert.test(A.first(100), "1")
 
 assert.group(".indexOf")
@@ -305,6 +392,7 @@ assert.test(A.initial(100), ["1", "0"])
 
 ; omit
 assert.test(A.initial([]), [])
+assert.test(A.initial([1]), [])
 
 assert.group(".intersection")
 assert.label("default tests")
@@ -319,6 +407,11 @@ assert.test(A.intersection([1,2,3], [0], [1,2,3]), [])
 assert.label("keyed object")
 intersectionVar := {"a": 1, "b": 2}
 assert.test(A.intersection([1,2,3], intersectionVar), [1,2])
+
+assert.test(A.intersection([], [1, 2, 3]), [], "one empty array input")
+assert.test(A.intersection([1, 2, 3], []), [], "one empty array input")
+assert.test(A.intersection([1, 2, 2, 3], [2, 3, 3, 4]), [2, 3], "duplicate interestions")
+assert.test(A.intersection(["a", "b", "c"], ["b", "c", "d"]), ["b", "c"], "non-numeric input")
 
 assert.label("no mutation of input")
 intersectionVar := [1,2,3]
@@ -335,6 +428,30 @@ assert.test(A.join(["a", "b", "c"]), "a,b,c")
 assert.test(A.join({"first": 1, "second": 2, "third": 3}), "1,2,3")
 assert.test(A.join({"first": 1, "second": 2, "third": 3}, "~"), "1~2~3")
 
+assert.label("Join an array of strings with a specified delimiter")
+assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
+
+assert.label("Join an array of strings with the default delimiter (comma)")
+assert.test(A.join(["a", "b", "c"]), "a,b,c")
+
+assert.label("Join an array of integers with a specified delimiter")
+assert.test(A.join([1, 2, 3], "~"), "1~2~3")
+
+assert.label("Join an array of mixed types with a specified delimiter")
+assert.test(A.join(["a", 1, true], "~"), "a~1~1")
+
+assert.label("Join an array with empty strings with a specified delimiter")
+assert.test(A.join(["", "b", "", "d"], "~"), "~b~~d")
+
+assert.label("Join an empty array should return an empty string")
+assert.test(A.join([]), "")
+
+assert.label("Join an array with a single element should return the element itself")
+assert.test(A.join(["hello"]), "hello")
+
+assert.label("Join an array with non-string elements should convert them to strings")
+assert.test(A.join([1, true, "", non_existant_var]), "1,1,,")
+
 assert.group(".last")
 assert.label("default tests")
 assert.test(A.last([1, 2, 3]), 3)
@@ -349,14 +466,41 @@ array := [1, 2, "hey"]
 assert.test(A.last(array), "hey")
 assert.test(array.count(), 3)
 
+assert.label("Array with last element as array")
+assert.test(A.last([1, 2, [3, 4]]), [3, 4])
+
+assert.label("Array with last element as associative array")
+assert.test(A.last([1, {"a": 1, "b": 2}]), {"a": 1, "b": 2})
+
+assert.label("Array with last element as empty associative array")
+assert.test(A.last([1, {}]), {})
+
+assert.label("String with last character as whitespace")
+assert.test(A.last("Hello "), " ")
+
+assert.label("String with last character as special character")
+assert.test(A.last("Hello!"), "!")
+
+assert.label("String with last character as number")
+assert.test(A.last("12345"), "5")
+
+assert.label("String with last character as special symbol")
+assert.test(A.last("Hello$"), "$")
+
+assert.label("Number with multiple digits")
+assert.test(A.last(12345), "5")
+
 assert.group(".lastIndexOf")
 assert.label("default tests")
+assert.label("Array with multiple occurrences of the search element")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
 ; Search from the `fromIndex`.
+assert.label("Search from the specified index")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
 StringCaseSense, On
+assert.label("Case-sensitive search with no match")
 assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 
@@ -365,28 +509,53 @@ StringCaseSense, Off
 
 assert.group(".nth")
 assert.label("default tests")
+assert.label("Array with positive index")
 assert.test(A.nth([1, 2, 3]), 1)
+assert.label("Array with negative index")
 assert.test(A.nth([1, 2, 3], -3), 1)
+assert.label("Array with index out of range")
 assert.test(A.nth([1, 2, 3], 5), "")
+assert.label("String as input")
 assert.test(A.nth("fred"), "f")
+assert.label("Number as input")
 assert.test(A.nth(100), "1")
+assert.label("Array with index 0")
 assert.test(A.nth([1, 2, 3], 0), 1)
 
 
 ; omit
+assert.label("empty array input")
 assert.test(A.nth([]), "")
 
 assert.group(".reverse")
 assert.label("default tests")
+assert.label("Array with strings")
 assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
+assert.label("Array with mixed types including objects")
 assert.test(A.reverse([{"foo": "bar"}, "b", "c"]), ["c", "b", {"foo": "bar"}])
+assert.label("Array with nested arrays")
 assert.test(A.reverse([[1, 2, 3], "b", "c"]), ["c", "b", [1, 2, 3]])
 
 ; omit
-; ensure no mutation
+assert.label("Ensure no mutation")
 reverseVar := [1,2,3]
 assert.test(A.reverse(reverseVar), [3, 2, 1])
 assert.test(reverseVar, [1,2,3])
+
+assert.label("Empty array")
+assert.test(A.reverse([]), [])
+
+assert.label("Array with a single element")
+assert.test(A.reverse(["a"]), ["a"])
+
+assert.label("Array with multiple elements")
+assert.test(A.reverse(["a", "b", "c"]), ["c", "b", "a"])
+
+assert.label("Array with nested arrays")
+assert.test(A.reverse([[1, 2], [3, 4], [5, 6]]), [[5, 6], [3, 4], [1, 2]])
+
+assert.label("Array with mixed types")
+assert.test(A.reverse(["a", 1, true]), [true, 1, "a"])
 
 assert.group(".slice")
 assert.label("default tests")
@@ -398,12 +567,28 @@ assert.test(A.slice(100), ["1", "0", "0"])
 
 
 ; omit
+assert.label("Array with negative start index")
+assert.test(A.slice([1, 2, 3], -2), [2, 3])
+
+assert.label("Array with negative end index")
+assert.test(A.slice([1, 2, 3], 0, -1), [1, 2])
+
+assert.label("Array with negative start and end indices")
+assert.test(A.slice([1, 2, 3], -2, -1), [2])
+
+assert.label("Array with start index greater than end index")
+assert.test(A.slice([1, 2, 3], 2, 1), [])
 
 assert.group(".sortedIndex")
 assert.label("default tests")
+assert.label("Insert value into sorted array at the beginning")
 assert.test(A.sortedIndex([30, 50], 40),2)
+assert.label("Insert value into sorted array at the middle")
 assert.test(A.sortedIndex([30, 50], 20),1)
+assert.label("Insert value into sorted array at the end")
 assert.test(A.sortedIndex([30, 50], 99),3)
+
+; omit
 
 assert.group(".sortedUniq")
 assert.label("default tests")
@@ -415,10 +600,27 @@ StringCaseSense, On
 assert.test(A.sortedUniq(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
 StringCaseSense, off
 
+assert.label("Array with multiple duplicates")
 arr := [1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7, 8, 8, 9, 10]
 arr2 := A.sortedUniq(arr)
 assert.test(arr.count(), 15)
 assert.test(arr2.count(), 10)
+
+assert.test(A.sortedUniq([4, 1, 2, 3]), [4, 1, 2, 3])
+
+assert.label("Array with no duplicates")
+assert.test(A.sortedUniq([1, 2, 3]), [1, 2, 3])
+
+assert.label("Array with string types and duplicates")
+assert.test(A.sortedUniq(["apple", "banana", "banana", "orange", "orange", "orange", "peach"]), ["apple", "banana", "orange", "peach"])
+
+assert.label("Empty array")
+assert.test(A.sortedUniq([]), [])
+
+assert.label("No mutation of input array")
+arr := [1, 2, 2, 3, 3, 3]
+A.sortedUniq(arr)
+assert.test(arr, [1, 2, 2, 3, 3, 3])
 
 assert.group(".tail")
 assert.label("default tests")
@@ -428,6 +630,26 @@ assert.test(A.tail(100), ["0", "0"])
 
 ; omit
 assert.test(A.tail([]), [])
+assert.label("Array with a single element")
+assert.test(A.tail([1]), [])
+
+assert.label("Array with two elements")
+assert.test(A.tail([1, 2]), [2])
+
+assert.label("Array with multiple elements")
+assert.test(A.tail([1, 2, 3, 4]), [2, 3, 4])
+
+assert.label("String with a single character")
+assert.test(A.tail("f"), [])
+
+assert.label("String with two characters")
+assert.test(A.tail("fe"), ["e"])
+
+assert.label("String with multiple characters")
+assert.test(A.tail("fred"), ["r", "e", "d"])
+
+assert.label("Number input")
+assert.test(A.tail(100), ["0", "0"])
 
 assert.group(".take")
 assert.label("default tests")
@@ -438,7 +660,29 @@ assert.test(A.take([1, 2, 3], 0), [])
 assert.test(A.take("fred"), ["f"])
 assert.test(A.take(100), ["1"])
 ; omit
+assert.label("Empty array input")
 assert.test(A.take([]), [])
+
+assert.label("Array with a single element")
+assert.test(A.take([1], 1), [1])
+
+assert.label("Array with two elements")
+assert.test(A.take([1, 2], 1), [1])
+
+assert.label("Array with multiple elements")
+assert.test(A.take([1, 2, 3, 4], 3), [1, 2, 3])
+
+assert.label("String with a single character")
+assert.test(A.take("f", 1), ["f"])
+
+assert.label("String with two characters")
+assert.test(A.take("fe", 1), ["f"])
+
+assert.label("String with multiple characters")
+assert.test(A.take("fred", 2), ["f", "r"])
+
+assert.label("Number")
+assert.test(A.take(100, 1), ["1"])
 
 assert.group(".takeRight")
 assert.label("default tests")
@@ -462,6 +706,27 @@ obj := [1, 2, 3]
 assert.test(A.takeRight(obj), [3])
 assert.test(obj, [1, 2, 3])
 
+assert.label("Array with a single element")
+assert.test(A.takeRight([1], 1), [1])
+
+assert.label("Array with two elements")
+assert.test(A.takeRight([1, 2], 1), [2])
+
+assert.label("Array with multiple elements")
+assert.test(A.takeRight([1, 2, 3, 4], 2), [3, 4])
+
+assert.label("String with a single character")
+assert.test(A.takeRight("f", 1), ["f"])
+
+assert.label("String with two characters")
+assert.test(A.takeRight("fe", 1), ["e"])
+
+assert.label("String with multiple characters")
+assert.test(A.takeRight("fred", 2), ["e", "d"])
+
+assert.label("Number input")
+assert.test(A.takeRight(100, 1), ["0"])
+
 assert.group(".union")
 assert.label("default tests")
 assert.test(A.union([2], [1, 2]), [2, 1])
@@ -470,6 +735,21 @@ assert.test(A.union([2], [1, 2]), [2, 1])
 ; omit
 assert.test(A.union(["Fred", "Barney", "barney", "barney"]), ["Fred", "Barney", "barney"])
 assert.test(A.union("hello!"), ["hello!"])
+
+assert.label("Arrays with no common elements")
+assert.test(A.union([1, 2, 3], [4, 5, 6]), [1, 2, 3, 4, 5, 6])
+
+assert.label("Arrays with some common elements")
+assert.test(A.union([1, 2, 3], [3, 4, 5]), [1, 2, 3, 4, 5])
+
+assert.label("Arrays with all elements identical")
+assert.test(A.union([1, 2, 3], [1, 2, 3]), [1, 2, 3])
+
+assert.label("Arrays with identical elements but in different orders")
+assert.test(A.union([1, 2, 3], [3, 2, 1]), [1, 2, 3])
+
+assert.label("Empty arrays")
+assert.test(A.union([], []), [])
 
 assert.group(".uniq")
 assert.label("default tests")
@@ -484,6 +764,18 @@ arr2 := A.uniq(arr)
 assert.test(arr.count(), 15)
 assert.test(arr2.count(), 14)
 
+assert.label("Array with duplicate elements")
+assert.test(A.uniq([2, 1, 2]), [2, 1])
+
+assert.label("Array with no duplicate elements")
+assert.test(A.uniq([1, 2, 3]), [1, 2, 3])
+
+assert.label("Array with all elements identical")
+assert.test(A.uniq([1, 1, 1]), [1])
+
+assert.label("Empty array")
+assert.test(A.uniq([]), [])
+
 assert.group(".unzip")
 assert.label("default tests")
 zipped := A.zip(["a", "b"], [1, 2], [true, false])
@@ -492,15 +784,24 @@ assert.test(A.unzip(zipped), [["a", "b"], [1, 2], [true, false]])
 
 
 ; omit
+assert.label("Empty array")
+assert.test(A.unzip([]), [])
 
 assert.group(".without")
 assert.label("default tests")
+assert.label("Array with multiple instances of the excluded elements")
 assert.test(A.without([2, 1, 2, 3], 1, 2), [3])
 
 
 ; omit
-assert.test(A.without([2, 1, 2, 3], 1), [2, 3])
-assert.test(A.without([2, 1, 2, 3], 1, 2, 3), [])
+assert.label("Array with single instance of the excluded element")
+assert.test(A.without([2, 1, 2, 3], 1), [2, 2, 3])
+
+assert.label("Array with no excluded elements")
+assert.test(A.without([2, 1, 2, 3], 4), [2, 1, 2, 3])
+
+assert.label("Empty array")
+assert.test(A.without([], 1, 2), [])
 
 assert.group(".zip")
 assert.label("default tests")
@@ -543,11 +844,15 @@ assert.test(A.count(users, "active"), 1)
 ; omit
 assert.label("double characters")
 assert.test(A.count("pebbles", "bb"), 1)
-assert.label("double characters2")
+assert.label("non alnum input")
 assert.test(A.count("3.14", "."), 1)
+assert.label("with double special character parameter")
 assert.test(A.count("....", ".."), 2)
+assert.label("with space character parameter")
 assert.test(A.count("   ", "test"), 0)
+assert.label("with numeric input")
 assert.test(A.count(1221221221, 22), 3)
+
 
 assert.group(".countBy")
 assert.label("default tests")
@@ -1339,7 +1644,6 @@ assert.false(A.isFunction([1, 2, 3]))
 
 
 ; omit
-assert.false(A.isFunction("strLen"))
 assert.false(A.isFunction([]))
 assert.false(A.isFunction({}))
 assert.false(A.isFunction("string"))

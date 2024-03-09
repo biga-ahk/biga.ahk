@@ -30,6 +30,12 @@ assert.test(A.chunk(["a", "b", "c", "d"], 2), [["a", "b"], ["c", "d"]])
 assert.test(A.chunk(["a", "b", "c", "d"], 3), [["a", "b", "c"], ["d"]])
 
 ; omit
+assert.test(A.chunk([], 2), [])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 2), [["a", "b"], ["c", "d"], ["e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 1), [["a"], ["b"], ["c"], ["d"], ["e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 5), [["a", "b", "c", "d", "e"]])
+assert.test(A.chunk(["a", "b", "c", "d", "e"], 6), [["a", "b", "c", "d", "e"]])
+
 var := [1,2,3]
 A.chunk(var, 2)
 assert.label("parameter mutation")

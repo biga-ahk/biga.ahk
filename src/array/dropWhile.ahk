@@ -54,6 +54,9 @@ assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }
 
 
 ; omit
+assert.test(A.dropWhile([{"user": "barney", "active": true}], Func("fn_dropWhile")), [{"user": "barney", "active": true}])
+assert.test(A.dropWhile([{"user": "barney", "active": false}, {"user": "fred", "active": false}], Func("fn_dropWhile")), [])
+
 assert.test(A.dropWhile([]), [])
 
 assert.label("default .identity argument")

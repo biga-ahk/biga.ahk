@@ -26,3 +26,4 @@ assert.test(A.initial(100), ["1", "0"])
 
 ; omit
 assert.test(A.initial([]), [])
+assert.test(A.initial([1]), [])

@@ -29,5 +29,10 @@ assert.test(A.difference(["Barney", "Fred"], ["Fred"]), ["Barney"])
 assert.test(A.difference(["Barney", "Fred"], []), ["Barney", "Fred"])
 assert.test(A.difference(["Barney", "Fred"], ["Pebbles"], ["Fred"]), ["Barney"])
 
-assert.label("remove repeat values")
-assert.test(A.difference([50, 50, 90], [50, 80]), [90])
+assert.test(A.difference([], [1, 2, 3]), [])
+assert.test(A.difference([1, 2, 3], []), [1, 2, 3])
+assert.test(A.difference([1, 2, 3], [1, 2, 3]), [])
+assert.test(A.difference([1, 2, 3], [4, 5, 6]), [1, 2, 3])
+assert.test(A.difference([1, 2, 3], [2, 3]), [1])
+
+assert.test(A.difference([50, 50, 90], [50, 80]), [90], "remove repeat values")

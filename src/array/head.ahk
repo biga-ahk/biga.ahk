@@ -17,6 +17,12 @@ assert.test(A.head({"a": 1, "b": 2, "c":3}), 1)
 
 assert.label("alias")
 assert.test(A.first([1, 2, 3]), 1)
+
+assert.label("Empty array")
 assert.test(A.first([]), "")
+
+assert.label("String as input")
 assert.test(A.first("fred"), "f")
+
+assert.label("Number as input")
 assert.test(A.first(100), "1")

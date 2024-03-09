@@ -19,3 +19,5 @@ assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 1), [1, 2, [3, [4]], 5])
 assert.test(A.flattenDepth([1, [2, [3, [4]], 5]], 2), [1, 2, 3, [4], 5])
 
 ; omit
+assert.test(A.flattenDepth([], 1), [], "empty array with depth 1")
+assert.test(A.flattenDepth([1, [2, [3]]], 0), [1, [2, [3]]], "with depth 0")

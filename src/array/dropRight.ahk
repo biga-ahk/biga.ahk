@@ -33,3 +33,6 @@ assert.test(A.dropRight(100), ["1", "0"])
 
 ; omit
 assert.test(A.dropRight([]), [])
+assert.test(A.dropRight([1, 2, 3], 3), [])
+assert.test(A.dropRight([1, 2, 3], 4), [], "param_n larger than the provided array param")
+assert.test(A.dropRight(["a", "b", "c", "d"], 2), ["a", "b"])

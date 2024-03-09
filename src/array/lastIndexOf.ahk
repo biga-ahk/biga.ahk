@@ -20,12 +20,15 @@ lastIndexOf(param_array,param_value,param_fromIndex:=0) {
 
 
 ; tests
+assert.label("Array with multiple occurrences of the search element")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 2), 4)
 
 ; Search from the `fromIndex`.
+assert.label("Search from the specified index")
 assert.test(A.lastIndexOf([1, 2, 1, 2], 1, 2), 1)
 
 StringCaseSense, On
+assert.label("Case-sensitive search with no match")
 assert.test(A.lastIndexOf(["fred", "barney"], "Fred"), -1)
 
 

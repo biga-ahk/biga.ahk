@@ -32,4 +32,6 @@ assert.test(A.drop(100), ["0", "0"])
 
 ; omit
 assert.test(A.drop([]), [])
+assert.test(A.drop([1, 2, 3], 3), [])
+assert.test(A.drop(["a", "b", "c", "d"], 2), ["c", "d"], "non-numeric values")
 ; lodash .drop does not work with associative arrays

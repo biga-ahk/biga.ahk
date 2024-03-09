@@ -21,3 +21,8 @@ assert.test(A.depthOf([1, [2, [3, [4]], 5]]), 4)
 
 ; omit
 assert.test(A.depthOf({"key": 1}), 1)
+assert.test(A.depthOf([]), 1)
+assert.test(A.depthOf([1, 2, 3]), 1)
+assert.test(A.depthOf([[1, 2], [3, 4]]), 2)
+assert.test(A.depthOf([[[1]], [[2]], [[3]]]), 3)
+assert.test(A.depthOf([1, [2, [3, [4]]]]), 4)

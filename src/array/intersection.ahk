@@ -42,6 +42,11 @@ assert.label("keyed object")
 intersectionVar := {"a": 1, "b": 2}
 assert.test(A.intersection([1,2,3], intersectionVar), [1,2])
 
+assert.test(A.intersection([], [1, 2, 3]), [], "one empty array input")
+assert.test(A.intersection([1, 2, 3], []), [], "one empty array input")
+assert.test(A.intersection([1, 2, 2, 3], [2, 3, 3, 4]), [2, 3], "duplicate interestions")
+assert.test(A.intersection(["a", "b", "c"], ["b", "c", "d"]), ["b", "c"], "non-numeric input")
+
 assert.label("no mutation of input")
 intersectionVar := [1,2,3]
 assert.test(A.intersection(intersectionVar, [1]), [1])

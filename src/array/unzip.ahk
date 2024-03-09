@@ -21,3 +21,5 @@ assert.test(A.unzip(zipped), [["a", "b"], [1, 2], [true, false]])
 
 
 ; omit
+assert.label("Empty array")
+assert.test(A.unzip([]), [])
