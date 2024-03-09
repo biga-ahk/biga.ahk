@@ -2,6 +2,10 @@ flattenDepth(param_array,param_depth:=1) {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
+	; validate
+	if (param_array == [] || param_depth <= 0) {
+		return param_array
+	}
 
 	; prepare
 	l_obj := this.cloneDeep(param_array)
