@@ -1,4 +1,17 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]
+	static _guardedCallWithOne := ["random"]
+	static _pathRegex := "/[.\[\]]/"
+
+	; --- Instance Variables ---
+	_uniqueId := 0
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array) || !this.isNumber(param_size)) {
 			this._internal_ThrowException()
 		}
@@ -65,13 +78,17 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			this._internal_ThrowException()
 		}
 
+		max_depth := param_depth
 		for key, value in param_array {
 			if (isObject(value)) {
-				param_depth++
-				param_depth := this.depthOf(value, param_depth)
+				; Increment depth for nested objects
+				depth := this.depthOf(value, param_depth + 1)
+				; Update max_depth if necessary
+				max_depth := this.max([depth, max_depth])
 			}
 		}
-		return param_depth
+
+		return max_depth
 	}
 	difference(param_array,param_values*) {
 		if (!isObject(param_array)) {
@@ -278,6 +295,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	flattenDepth(param_array,param_depth:=1) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
+		}
+		; validate
+		if (param_array == [] || param_depth <= 0) {
+			return param_array
 		}
 
 		; prepare
@@ -647,8 +668,8 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		; create
 		for i, val in param_values {
-			while (foundindex := this.indexOf(l_array, val) != -1) {
-				l_array.removeAt(foundindex)
+			while ((foundIndex := this.indexOf(l_array, val)) != -1) {
+				l_array.removeAt(foundIndex)
 			}
 		}
 		return l_array
@@ -3081,4 +3102,4 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}
+}
