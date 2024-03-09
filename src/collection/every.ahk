@@ -48,7 +48,7 @@ isPositive(value) {
 	return false
 }
 
-assert.false(A.every([true, false, true, true], Func("fn_istrue")))
+assert.false(A.every([true, false, true, true], func("fn_istrue")))
 fn_istrue(value)
 {
 	if (value != true) {
@@ -56,7 +56,7 @@ fn_istrue(value)
 	}
 	return true
 }
-assert.true(A.every([true, true, true, true], Func("fn_istrue")))
+assert.true(A.every([true, true, true, true], func("fn_istrue")))
 
 
 userVotes := [{"name":"fred", "votes": ["yes","yes"]}

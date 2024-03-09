@@ -24,7 +24,7 @@ meanBy(param_array,param_iteratee:="__identity") {
 
 ; tests
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-assert.test(A.meanBy(objects, Func("fn_meanByFunc")), 5)
+assert.test(A.meanBy(objects, func("fn_meanByFunc")), 5)
 fn_meanByFunc(o)
 {
 	return o.n

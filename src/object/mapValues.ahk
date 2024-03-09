@@ -25,7 +25,7 @@ mapValues(param_object,param_iteratee:="__identity") {
 ; tests
 users := {"fred": {"user": "fred", "age": 40}
 		,"pebbles": {"user": "pebbles", "age": 1}}
-assert.test(A.mapValues(users, Func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
+assert.test(A.mapValues(users, func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
 fn_mapValuesFunc(o)
 {
 	return o.age

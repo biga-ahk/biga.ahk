@@ -14,7 +14,7 @@ object (Object): The object to iterate over.
 ```autohotkey
 object := {"a": 1, "b": 2}
 
-A.forIn(object, Func("fn_forInFunc"))
+A.forIn(object, func("fn_forInFunc"))
 
 fn_forInFunc(value, key) {
 	msgbox, % key

@@ -25,7 +25,7 @@ sumBy(param_array,param_iteratee:="__identity") {
 ; tests
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.sumBy(objects, Func("fn_sumByFunc")), 20)
+assert.test(A.sumBy(objects, func("fn_sumByFunc")), 20)
 fn_sumByFunc(o)
 {
 	return o.n

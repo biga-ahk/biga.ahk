@@ -36,8 +36,8 @@ fn_square(n)
 	return n * n
 }
 
-assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
-assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
+assert.test(A.map([4, 8], func("fn_square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }, func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 ; The A.property shorthand
@@ -53,14 +53,14 @@ assert.label("call own biga.ahk method (unguarded)")
 assert.test(A.map(["hello", "world"], A.castArray), [["hello"], ["world"]])
 
 assert.label("call with 2 parameters")
-assert.test(A.map([1, 2], Func("fn_map2")), ["1-1", "2-2"])
+assert.test(A.map([1, 2], func("fn_map2")), ["1-1", "2-2"])
 fn_map2(param1, param2)
 {
 	return param1 "-" param2
 }
 
 assert.label("call with 3 parameters")
-assert.test(A.map([1, 2], Func("fn_map3")), ["1-1-1", "2-2-1"])
+assert.test(A.map([1, 2], func("fn_map3")), ["1-1-1", "2-2-1"])
 fn_map3(param1, param2, param3)
 {
 	return param1 "-" param2 "-" param3[1]

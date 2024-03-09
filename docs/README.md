@@ -240,7 +240,7 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": true}		, {"user": "fred",		"active": false}		, {"user": "pebbles", 	"active": false} ]A.dropRightWhile(users, Func("fn_dropRightWhile"))
+users := [ {"user": "barney", 	"active": true}		, {"user": "fred",		"active": false}		, {"user": "pebbles", 	"active": false} ]A.dropRightWhile(users, func("fn_dropRightWhile"))
 ; => [{"user": "barney", "active": true }]
 
 fn_dropRightWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
@@ -273,7 +273,7 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, Func("fn_dropWhile"))
+users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, func("fn_dropWhile"))
 ; => [{ "user": "pebbles", "active": true }]
 
 fn_dropWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
@@ -1152,7 +1152,7 @@ object (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-A.countBy([6.1, 4.2, 6.3], Func("floor"))
+A.countBy([6.1, 4.2, 6.3], func("floor"))
 ; => {"4": 1, "6": 2}
 
 ; The A.property iteratee shorthand.A.countBy(["one", "two", "three"], A.size)
@@ -1215,7 +1215,7 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, Func("fn_filterFunc"))
+users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
 fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age":36, "active":true})
@@ -1250,7 +1250,7 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", "age": 36, "active": true}	, {"user": "fred", "age": 40, "active": false}	, {"user": "pebbles", "age": 1, "active": true} ]A.find(users, Func("fn_findFunc"))
+users := [ {"user": "barney", "age": 36, "active": true}	, {"user": "fred", "age": 40, "active": false}	, {"user": "pebbles", "age": 1, "active": true} ]A.find(users, func("fn_findFunc"))
 ; => { "user": "barney", "age": 36, "active": true }
 
 fn_findFunc(o){	return o.active}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
@@ -1283,7 +1283,7 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-A.findLast([1, 2, 3, 4], Func("fn_findLastFunc"))
+A.findLast([1, 2, 3, 4], func("fn_findLastFunc"))
 ; => 3
 
 fn_findLastFunc(n){	return mod(n, 2) == 1}```
@@ -1311,14 +1311,14 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-A.forEach([1, 2], Func("fn_forEachFunc1"))
+A.forEach([1, 2], func("fn_forEachFunc1"))
 fn_forEachFunc1(value)
 {
 	msgbox, % value
 }
 ; msgboxes 1 then 2
 
-A.forEach({ "a": 1, "b": 2 }, Func("fn_forEachFunc2"))
+A.forEach({ "a": 1, "b": 2 }, func("fn_forEachFunc2"))
 fn_forEachFunc2(value, key)
 {
 	msgbox, % key
@@ -1350,14 +1350,14 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-A.forEach([1, 2], Func("fn_forEachFunc1"))
+A.forEach([1, 2], func("fn_forEachFunc1"))
 fn_forEachFunc1(value)
 {
 	msgbox, % value
 }
 ; msgboxes 2 then 1
 
-A.forEach({ "a": 1, "b": s2 }, Func("fn_forEachFunc2"))
+A.forEach({ "a": 1, "b": s2 }, func("fn_forEachFunc2"))
 fn_forEachFunc2(value, key)
 {
 	msgbox, % key
@@ -1457,7 +1457,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, Func("fn_keyByFunc"))
+array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, func("fn_keyByFunc"))
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
 fn_keyByFunc(value){	return value.dir}; The A.property iteratee shorthand.A.keyBy(array, "dir")
@@ -1484,10 +1484,10 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-fn_square(n){	return n * n}A.map([4, 8], Func("fn_square"))
+fn_square(n){	return n * n}A.map([4, 8], func("fn_square"))
 ; => [16, 64]
 
-A.map({ "a": 4, "b": 8 }, Func("fn_square"))
+A.map({ "a": 4, "b": 8 }, func("fn_square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 })
@@ -1549,7 +1549,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, Func("fn_rejectFunc"))
+users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, func("fn_rejectFunc"))
 ; => [{"user":"fred", "age":40, "active":true}]
 
 fn_rejectFunc(o){	return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
@@ -1712,13 +1712,13 @@ collection (Array|Object): The collection to iterate over.
 A.sortBy(["b", "f", "e", "c", "d", "a"])
 ; => ["a", "b", "c", "d", "e", "f"]
 
-users := [ , { "name": "fred", "age": 40 } , { "name": "barney", "age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
+users := [{ "name": "fred", "age": 40 } , { "name": "barney", "age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, ["age", "name"])
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
-A.sortBy(users, Func("fn_sortByFunc"))
+A.sortBy(users, func("fn_sortByFunc"))
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
 fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sortBy(["ab", "a", " abc", "abc"], A.size)
@@ -1921,10 +1921,10 @@ source (Object): The object of property predicates to conform to.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2}A.conformsTo(object, {"b": Func("fn_conformsToFunc1")})
+object := {"a": 1, "b": 2}A.conformsTo(object, {"b": func("fn_conformsToFunc1")})
 ; => true
 
-A.conformsTo(object, {"b": Func("fn_conformsToFunc2")})
+A.conformsTo(object, {"b": func("fn_conformsToFunc2")})
 ; => false
 
 fn_conformsToFunc1(n){	return n > 1}fn_conformsToFunc2(n){	return n > 2}```
@@ -2208,7 +2208,7 @@ value (*): The `value` to check.
 #### Example
 
 ```autohotkey
-boundFunc := Func("strLen").bind()A.isFunction(boundFunc)
+boundFunc := func("strLen").bind()A.isFunction(boundFunc)
 ; => true
 
 IsFunc(boundFunc)
@@ -2731,7 +2731,7 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.maxBy(objects, Func("fn_maxByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.maxBy(objects, func("fn_maxByFunc"))
 ; => { "n": 8 }
 
 fn_maxByFunc(o){	return o.n}; The A.property iteratee shorthandA.maxBy(objects, "n")
@@ -2778,7 +2778,7 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(objects, Func("fn_meanByFunc"))
+objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(objects, func("fn_meanByFunc"))
 ; => 5
 
 fn_meanByFunc(o){	return o.n}; The A.property iteratee shorthand.A.meanBy(objects, "n")
@@ -2828,7 +2828,7 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.minBy(objects, Func("fn_minByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.minBy(objects, func("fn_minByFunc"))
 ; => { "n": 2 }
 
 fn_minByFunc(o){	return o.n}; The A.property iteratee shorthandA.minBy(objects, "n")
@@ -2954,7 +2954,7 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.sumBy(objects, Func("fn_sumByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.sumBy(objects, func("fn_sumByFunc"))
 ; => 20
 
 fn_sumByFunc(o){	return o.n}; The A.property iteratee shorthandA.sumBy(objects, "n")
@@ -3140,7 +3140,7 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, Func("fn_findKeyFunc"))
+users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, func("fn_findKeyFunc"))
 ; => "barney"
 
 fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
@@ -3173,7 +3173,7 @@ object (Object): The object to iterate over.
 ```autohotkey
 object := {"a": 1, "b": 2}
 
-A.forIn(object, Func("fn_forInFunc"))
+A.forIn(object, func("fn_forInFunc"))
 
 fn_forInFunc(value, key) {
 	msgbox, % key
@@ -3200,7 +3200,7 @@ object (Object): The object to iterate over.
 #### Example
 ```autohotkey
 object := [1, 2, 3]
-A.forInRight(object, Func("fn_forInRightFunc")
+A.forInRight(object, func("fn_forInRightFunc")
 
 fn_forInRightFunc(value, key) {
 	msgbox, % value
@@ -3320,7 +3320,7 @@ object (Object): The object to invert.
 object := {"a": 1, "b": 2, "c": 1}A.invertBy(object)
 ; => {"1": ["a", "c"], "2":["b"]}
 
-A.invertBy(object, Func("invertByFunc"))
+A.invertBy(object, func("invertByFunc"))
 ; => {"group1": ["a", "c"], "group2": ["b"]}
 
 invertByFunc(value){	return "group" value}```
@@ -3369,7 +3369,7 @@ object (Object): The object to iterate over.
 #### Example
 
 ```autohotkey
-A.mapKeys({"a": 1, "b": 2}, Func("fn_mapKeysFunc"))
+A.mapKeys({"a": 1, "b": 2}, func("fn_mapKeysFunc"))
 ; => {"a+1": 1, "b+2": 2}
 
 fn_mapKeysFunc(value, key){	return key "+" value}```
@@ -3393,7 +3393,7 @@ object (Object): The object to iterate over.
 #### Example
 
 ```autohotkey
-users := {"fred": {"user": "fred", "age": 40}		,"pebbles": {"user": "pebbles", "age": 1}}A.mapValues(users, Func("fn_mapValuesFunc"))
+users := {"fred": {"user": "fred", "age": 40}		,"pebbles": {"user": "pebbles", "age": 1}}A.mapValues(users, func("fn_mapValuesFunc"))
 ; => {"fred": 40, "pebbles": 1}
 
 fn_mapValuesFunc(o){	return o.age}; The A.property iteratee shorthand.A.mapValues(users, "age")
@@ -4288,7 +4288,7 @@ source (Object): The object of property predicates to conform to.
 #### Example
 
 ```autohotkey
-objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": Func("fn_conformsFunc")}))
+objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": func("fn_conformsFunc")}))
 ; => [{"a": 1, "b": 2}]
 
 fn_conformsFunc(n){	return n > 1}```

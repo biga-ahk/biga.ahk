@@ -23,7 +23,7 @@ mapKeys(param_object,param_iteratee:="__identity") {
 
 
 ; tests
-assert.test(A.mapKeys({"a": 1, "b": 2}, Func("fn_mapKeysFunc")), {"a+1": 1, "b+2": 2})
+assert.test(A.mapKeys({"a": 1, "b": 2}, func("fn_mapKeysFunc")), {"a+1": 1, "b+2": 2})
 fn_mapKeysFunc(value, key)
 {
 	return key "+" value

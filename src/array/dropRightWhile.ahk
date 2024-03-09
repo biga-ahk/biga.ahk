@@ -17,7 +17,7 @@ dropRightWhile(param_array,param_predicate:="__identity") {
 users := [ {"user": "barney", 	"active": true}
 		, {"user": "fred",		"active": false}
 		, {"user": "pebbles", 	"active": false} ]
-assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
+assert.test(A.dropRightWhile(users, func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
 fn_dropRightWhile(o)
 {
 	return !o.active

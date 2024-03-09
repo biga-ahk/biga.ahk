@@ -13,7 +13,7 @@ object (Object): The object to iterate over.
 ## Example
 ```autohotkey
 object := [1, 2, 3]
-A.forInRight(object, Func("fn_forInRightFunc")
+A.forInRight(object, func("fn_forInRightFunc")
 
 fn_forInRightFunc(value, key) {
 	msgbox, % value

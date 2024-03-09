@@ -46,7 +46,7 @@ allWords := A.words(blogPost)
 uniqWords := A.uniq(allWords)
 
 ; short words aren't useful for post tags. Let's remove anything that isn't at least 8 characters long
-tagShortList := A.filter(uniqWords, Func("fn_filterlengthFunc"))
+tagShortList := A.filter(uniqWords, func("fn_filterlengthFunc"))
 fn_filterlengthFunc(o) {
 	; It is encouraged to use the classname when accessing methods inside a function scope
 	if (biga.size(o) >= 8) {

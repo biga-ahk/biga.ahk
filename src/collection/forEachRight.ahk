@@ -31,7 +31,7 @@ forEachRight(param_collection,param_iteratee:="__identity") {
 ; omit
 assert.label("order")
 obj := []
-A.forEachRight([1, 2], Func("fn_forEachRightFuncGlobal"))
+A.forEachRight([1, 2], func("fn_forEachRightFuncGlobal"))
 assert.test(obj, [3, 2])
 fn_forEachRightFuncGlobal(value)
 {
@@ -41,7 +41,7 @@ fn_forEachRightFuncGlobal(value)
 
 
 assert.label("alias")
-assert.test(A.eachRight([1, 2], Func("fn_forEachRightFuncGlobal")), [1, 2])
+assert.test(A.eachRight([1, 2], func("fn_forEachRightFuncGlobal")), [1, 2])
 
 assert.label("default .identity argument")
-assert.test(A.forEachRight([1, 2], Func("fn_forEachRightFunc")), [1, 2])
+assert.test(A.forEachRight([1, 2], func("fn_forEachRightFunc")), [1, 2])

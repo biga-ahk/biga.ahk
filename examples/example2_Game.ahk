@@ -26,7 +26,7 @@ sortedEnemies.InsertAt(insertIndex, newEnemy)
 
 ; Assume rogues get bonus damage to anything with a status of "exposed_{{x}}";
 ; let's filter the sorted array by those and call all of them out. In this case there is only 1
-exposedTargets := A.filter(sortedEnemies, Func("fn_filterExposedFunc"))
+exposedTargets := A.filter(sortedEnemies, func("fn_filterExposedFunc"))
 fn_filterExposedFunc(o) {
 	; We use .startsWith inside this function to check the status
 	return biga.startsWith(o.status, "exposed")

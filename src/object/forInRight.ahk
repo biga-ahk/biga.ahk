@@ -14,7 +14,7 @@ forInRight(param_object,param_iteratee:="__identity") {
 
 ; tests
 object := [1, 2, 3]
-assert.test(A.forInRight(object, Func("fn_forInRightFunc")), object)
+assert.test(A.forInRight(object, func("fn_forInRightFunc")), object)
 
 fn_forInRightFunc(value, key) {
 	; msgbox, % value

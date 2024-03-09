@@ -127,7 +127,7 @@ assert.label("default tests")
 users := [ {"user": "barney", 	"active": true}
 		, {"user": "fred",		"active": false}
 		, {"user": "pebbles", 	"active": false} ]
-assert.test(A.dropRightWhile(users, Func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
+assert.test(A.dropRightWhile(users, func("fn_dropRightWhile")), [{"user": "barney", "active": true }])
 fn_dropRightWhile(o)
 {
 	return !o.active
@@ -158,7 +158,7 @@ assert.label("default tests")
 users := [ {"user": "barney", 	"active": false }
 		, { "user": "fred", 	"active": false }
 		, { "user": "pebbles", 	"active": true } ]
-assert.test(A.dropWhile(users, Func("fn_dropWhile")), [{ "user": "pebbles", "active": true }])
+assert.test(A.dropWhile(users, func("fn_dropWhile")), [{ "user": "pebbles", "active": true }])
 fn_dropWhile(o)
 {
 	return !o.active
@@ -232,7 +232,7 @@ assert.test(A.findIndex([{"name": "fred"}, {"name": "barney"}], {"name": "barney
 StringCaseSense, Off
 
 assert.label("function")
-assert.test(A.findIndex(users, Func("fn_findIndexFunc")), 2)
+assert.test(A.findIndex(users, func("fn_findIndexFunc")), 2)
 fn_findIndexFunc(o) {
 	return o.user == "fred"
 }
@@ -245,7 +245,7 @@ assert.test(A.findIndex(users, ["active", false], 3), 3)
 
 assert.label("boundFunc")
 employees := [{"name": "Mike Smith", "tenureYears": 4}, {"name": "Nath Samuel", "tenureYears": 2}]
-boundFunc := Func("fn_checkNameTenure").bind("Mike Smith", 4)
+boundFunc := func("fn_checkNameTenure").bind("Mike Smith", 4)
 assert.test(A.findIndex(employees, boundFunc), 1)
 
 fn_checkNameTenure(name, minTenure, obj)
@@ -856,7 +856,7 @@ assert.test(A.count(1221221221, 22), 3)
 
 assert.group(".countBy")
 assert.label("default tests")
-assert.test(A.countBy([6.1, 4.2, 6.3], Func("floor")), {"4": 1, "6": 2})
+assert.test(A.countBy([6.1, 4.2, 6.3], func("floor")), {"4": 1, "6": 2})
 
 ; The A.property iteratee shorthand.
 assert.test(A.countBy(["one", "two", "three"], A.size), {"3": 2, "5": 1})
@@ -896,7 +896,7 @@ isPositive(value) {
 	return false
 }
 
-assert.false(A.every([true, false, true, true], Func("fn_istrue")))
+assert.false(A.every([true, false, true, true], func("fn_istrue")))
 fn_istrue(value)
 {
 	if (value != true) {
@@ -904,7 +904,7 @@ fn_istrue(value)
 	}
 	return true
 }
-assert.true(A.every([true, true, true, true], Func("fn_istrue")))
+assert.true(A.every([true, true, true, true], func("fn_istrue")))
 
 
 userVotes := [{"name":"fred", "votes": ["yes","yes"]}
@@ -930,7 +930,7 @@ assert.group(".filter")
 assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
 
-assert.test(A.filter(users, Func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
+assert.test(A.filter(users, func("fn_filterFunc")), [{"user":"barney", "age":36, "active":true}])
 fn_filterFunc(param_iteratee)
 {
 	if (param_iteratee.active) {
@@ -960,7 +960,7 @@ assert.test(A.filter(users, A.isObject), users)
 
 
 assert.label("using value")
-assert.test(A.filter([1,2,3,-10,1.9], Func("fn_filter2")), [2,3])
+assert.test(A.filter([1,2,3,-10,1.9], func("fn_filter2")), [2,3])
 fn_filter2(param_iteratee) {
 	if (param_iteratee >= 2) {
 		return true
@@ -968,7 +968,7 @@ fn_filter2(param_iteratee) {
 }
 
 assert.label("using value and key")
-assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter3")), [2,-10,"even"])
+assert.test(A.filter([1,2,3,-10,1.9,"even"], func("fn_filter3")), [2,-10,"even"])
 fn_filter3(param_iteratee, param_key) {
 	if (mod(param_key, 2) = 0) {
 		return true
@@ -976,7 +976,7 @@ fn_filter3(param_iteratee, param_key) {
 }
 
 assert.label("using value, key, and collection")
-assert.test(A.filter([1,2,3,-10,1.9,"even"], Func("fn_filter4")), [2])
+assert.test(A.filter([1,2,3,-10,1.9,"even"], func("fn_filter4")), [2])
 fn_filter4(param_iteratee, param_key, param_collection) {
 	A := new biga()
 	if (mod(param_key, 2) = 0 && A.indexOf(param_collection, param_iteratee / 2) != -1) {
@@ -990,7 +990,7 @@ users := [ {"user": "barney", "age": 36, "active": true}
 	, {"user": "fred", "age": 40, "active": false}
 	, {"user": "pebbles", "age": 1, "active": true} ]
 
-assert.test(A.find(users, Func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
+assert.test(A.find(users, func("fn_findFunc")), { "user": "barney", "age": 36, "active": true })
 fn_findFunc(o)
 {
 	return o.active
@@ -1012,7 +1012,7 @@ assert.test(A.find(users, "active", 2), { "user": "pebbles", "age": 1, "active":
 
 assert.group(".findLast")
 assert.label("default tests")
-assert.test(A.findLast([1, 2, 3, 4], Func("fn_findLastFunc")), 3)
+assert.test(A.findLast([1, 2, 3, 4], func("fn_findLastFunc")), 3)
 fn_findLastFunc(n)
 {
 	return mod(n, 2) == 1
@@ -1027,7 +1027,7 @@ assert.label("default tests")
 ; omit
 assert.label("order")
 obj := []
-A.forEach([1, 2], Func("fn_forEachGlobal"))
+A.forEach([1, 2], func("fn_forEachGlobal"))
 assert.test(obj, [2, 3])
 fn_forEachGlobal(value)
 {
@@ -1037,7 +1037,7 @@ fn_forEachGlobal(value)
 
 
 assert.label("alias")
-assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
+assert.test(A.each([1, 2], func("fn_forEachFunc")), [1, 2])
 
 assert.label("default .identity argument")
 assert.test(A.forEach(["foo", 0, "bar"]), ["foo", 0, "bar"])
@@ -1049,7 +1049,7 @@ assert.label("default tests")
 ; omit
 assert.label("order")
 obj := []
-A.forEachRight([1, 2], Func("fn_forEachRightFuncGlobal"))
+A.forEachRight([1, 2], func("fn_forEachRightFuncGlobal"))
 assert.test(obj, [3, 2])
 fn_forEachRightFuncGlobal(value)
 {
@@ -1059,10 +1059,10 @@ fn_forEachRightFuncGlobal(value)
 
 
 assert.label("alias")
-assert.test(A.eachRight([1, 2], Func("fn_forEachRightFuncGlobal")), [1, 2])
+assert.test(A.eachRight([1, 2], func("fn_forEachRightFuncGlobal")), [1, 2])
 
 assert.label("default .identity argument")
-assert.test(A.forEachRight([1, 2], Func("fn_forEachRightFunc")), [1, 2])
+assert.test(A.forEachRight([1, 2], func("fn_forEachRightFunc")), [1, 2])
 
 assert.group(".groupBy")
 assert.label("default tests")
@@ -1104,7 +1104,7 @@ assert.group(".keyBy")
 assert.label("default tests")
 array := [ {"dir": "left", "code": 97}
 	, {"dir": "right", "code": 100}]
-assert.test(A.keyBy(array, Func("fn_keyByFunc")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
+assert.test(A.keyBy(array, func("fn_keyByFunc")), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
 fn_keyByFunc(value)
 {
@@ -1125,8 +1125,8 @@ fn_square(n)
 	return n * n
 }
 
-assert.test(A.map([4, 8], Func("fn_square")), [16, 64])
-assert.test(A.map({ "a": 4, "b": 8 }, Func("fn_square")), [16, 64])
+assert.test(A.map([4, 8], func("fn_square")), [16, 64])
+assert.test(A.map({ "a": 4, "b": 8 }, func("fn_square")), [16, 64])
 assert.test(A.map({ "a": 4, "b": 8 }), [4, 8])
 
 ; The A.property shorthand
@@ -1142,14 +1142,14 @@ assert.label("call own biga.ahk method (unguarded)")
 assert.test(A.map(["hello", "world"], A.castArray), [["hello"], ["world"]])
 
 assert.label("call with 2 parameters")
-assert.test(A.map([1, 2], Func("fn_map2")), ["1-1", "2-2"])
+assert.test(A.map([1, 2], func("fn_map2")), ["1-1", "2-2"])
 fn_map2(param1, param2)
 {
 	return param1 "-" param2
 }
 
 assert.label("call with 3 parameters")
-assert.test(A.map([1, 2], Func("fn_map3")), ["1-1-1", "2-2-1"])
+assert.test(A.map([1, 2], func("fn_map3")), ["1-1-1", "2-2-1"])
 fn_map3(param1, param2, param3)
 {
 	return param1 "-" param2 "-" param3[1]
@@ -1194,7 +1194,7 @@ assert.group(".reject")
 assert.label("default tests")
 users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
 
-assert.test(A.reject(users, Func("fn_rejectFunc")), [{"user":"fred", "age":40, "active":true}])
+assert.test(A.reject(users, func("fn_rejectFunc")), [{"user":"fred", "age":40, "active":true}])
 fn_rejectFunc(o)
 {
 	return !o.active
@@ -1329,15 +1329,14 @@ assert.true(A.some([0, 1, 2]))
 assert.group(".sortBy")
 assert.label("default tests")
 assert.test(A.sortBy(["b", "f", "e", "c", "d", "a"]),["a", "b", "c", "d", "e", "f"])
-users := [
- , { "name": "fred", "age": 40 }
+users := [{ "name": "fred", "age": 40 }
  , { "name": "barney", "age": 34 }
  , { "name": "bernard", "age": 36 }
  , { "name": "zoey", "age": 40 }]
 
 assert.test(A.sortBy(users, "age"), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}])
 assert.test(A.sortBy(users, ["age", "name"]), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
-assert.test(A.sortBy(users, Func("fn_sortByFunc")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
+assert.test(A.sortBy(users, func("fn_sortByFunc")), [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}])
 fn_sortByFunc(o)
 {
 	return o.name
@@ -1360,16 +1359,25 @@ enemies := [
 sortedEnemies := A.sortBy(enemies, "hp")
 assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
 
-users := [
- , { "name": "fred", "age": 46 }
+users := [{ "name": "fred", "age": 46 }
  , { "name": "barney", "age": 34 }
  , { "name": "bernard", "age": 36 }
  , { "name": "zoey", "age": 40 }]
 assert.test(A.sortBy(users,"name"),[{"age":34,"name":"barney"},{"age":36,"name":"bernard"},{"age":46,"name":"fred"},{"age":40,"name":"zoey"}])
 
+assert.label("non-existant key")
+assert.test(A.sortBy(users, "null"), users)
+
+assert.label("number key")
+assert.test(A.sortBy(users, 1), users)
 
 assert.label("default .identity argument")
 assert.test(A.sortBy([2, 0, 1]), [0, 1, 2])
+
+assert.label("with abnormal key values")
+users := [{ "name": "fred", "age |[]-=!@#$%^&*()_+": 46 }
+ , { "name": "barney", "age |[]-=!@#$%^&*()_+": 34 }]
+assert.test(A.sortBy(users, "age |[]-=!@#$%^&*()_+"), [{"age |[]-=!@#$%^&*()_+":34, "name":"barney"}, {"age |[]-=!@#$%^&*()_+":46, "name":"fred"}])
 
 assert.group(".now")
 assert.label("default tests")
@@ -1410,7 +1418,7 @@ fn_delayTest(msg, msg2) {
 	assert.test(msg " " msg2, "hello world")
 }
 ; same but as a boundfunc
-boundfunc := Func("fn_delayTest").bind("hello", "world")
+boundfunc := func("fn_delayTest").bind("hello", "world")
 A.delay(boundfunc, 10)
 
 A.delay(Func("fn_delayTest2"), 10)
@@ -1421,7 +1429,7 @@ fn_delayTest2() {
 	assert.test("hello world", "hello world")
 }
 ; same but as a boundfunc
-boundfunc := Func("fn_delayTest2").bind()
+boundfunc := func("fn_delayTest2").bind()
 A.delay(boundfunc, 10)
 
 assert.group(".flip")
@@ -1496,8 +1504,8 @@ assert.group(".conformsTo")
 assert.label("default tests")
 object := {"a": 1, "b": 2}
 
-assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1")}))
-assert.false(A.conformsTo(object, {"b": Func("fn_conformsToFunc2")}))
+assert.true(A.conformsTo(object, {"b": func("fn_conformsToFunc1")}))
+assert.false(A.conformsTo(object, {"b": func("fn_conformsToFunc2")}))
 
 fn_conformsToFunc1(n)
 {
@@ -1511,7 +1519,7 @@ fn_conformsToFunc2(n)
 
 ; omit
 object := {"a": 1, "b": 2, "c": 2}
-assert.true(A.conformsTo(object, {"b": Func("fn_conformsToFunc1"), "c": Func("fn_conformsToFunc1")}))
+assert.true(A.conformsTo(object, {"b": func("fn_conformsToFunc1"), "c": func("fn_conformsToFunc1")}))
 
 assert.group(".eq")
 assert.label("default tests")
@@ -1635,7 +1643,7 @@ assert.false(A.isFloat(1))
 
 assert.group(".isFunction")
 assert.label("default tests")
-boundFunc := Func("strLen").bind()
+boundFunc := func("strLen").bind()
 assert.true(A.isFunction(boundFunc))
 assert.false(IsFunc(boundFunc))
 assert.true(A.isFunction(A.isString))
@@ -1840,7 +1848,7 @@ assert.group(".maxBy")
 assert.label("default tests")
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.maxBy(objects, Func("fn_maxByFunc")), { "n": 8 })
+assert.test(A.maxBy(objects, func("fn_maxByFunc")), { "n": 8 })
 fn_maxByFunc(o)
 {
 	return o.n
@@ -1875,7 +1883,7 @@ assert.test(A.mean([4, 2, , 8, 6]), 4)
 assert.group(".meanBy")
 assert.label("default tests")
 objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-assert.test(A.meanBy(objects, Func("fn_meanByFunc")), 5)
+assert.test(A.meanBy(objects, func("fn_meanByFunc")), 5)
 fn_meanByFunc(o)
 {
 	return o.n
@@ -1903,7 +1911,7 @@ assert.group(".minBy")
 assert.label("default tests")
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.minBy(objects, Func("fn_minByFunc")), { "n": 2 })
+assert.test(A.minBy(objects, func("fn_minByFunc")), { "n": 2 })
 fn_minByFunc(o)
 {
 	return o.n
@@ -1969,7 +1977,7 @@ assert.group(".sumBy")
 assert.label("default tests")
 objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
 
-assert.test(A.sumBy(objects, Func("fn_sumByFunc")), 20)
+assert.test(A.sumBy(objects, func("fn_sumByFunc")), 20)
 fn_sumByFunc(o)
 {
 	return o.n
@@ -2049,7 +2057,7 @@ users := { "barney": {"age": 36, "active": true}
 , "fred": {"age": 40, "active": false}
 , "pebbles": {"age": 1, "active": true} }
 
-assert.test(A.findKey(users, Func("fn_findKeyFunc")), "barney")
+assert.test(A.findKey(users, func("fn_findKeyFunc")), "barney")
 fn_findKeyFunc(o)
 {
 	return o.age < 40
@@ -2072,7 +2080,7 @@ assert.test(A.findKey(users, "active", 2), "pebbles")
 assert.group(".forIn")
 assert.label("default tests")
 object := {"a": 1, "b": 2}
-assert.test(A.forIn(object, Func("fn_forInFunc")), {"a": 1, "b": 2})
+assert.test(A.forIn(object, func("fn_forInFunc")), {"a": 1, "b": 2})
 
 fn_forInFunc(value, key) {
 	; msgbox, % key
@@ -2083,7 +2091,7 @@ fn_forInFunc(value, key) {
 assert.group(".forInRight")
 assert.label("default tests")
 object := [1, 2, 3]
-assert.test(A.forInRight(object, Func("fn_forInRightFunc")), object)
+assert.test(A.forInRight(object, func("fn_forInRightFunc")), object)
 
 fn_forInRightFunc(value, key) {
 	; msgbox, % value
@@ -2137,7 +2145,7 @@ assert.label("default tests")
 object := {"a": 1, "b": 2, "c": 1}
 assert.test(A.invertBy(object), {"1": ["a", "c"], "2":["b"]})
 
-assert.test(A.invertBy(object, Func("invertByFunc")), {"group1": ["a", "c"], "group2": ["b"]})
+assert.test(A.invertBy(object, func("invertByFunc")), {"group1": ["a", "c"], "group2": ["b"]})
 invertByFunc(value)
 {
 	return "group" value
@@ -2168,7 +2176,7 @@ assert.test(A.keys("hi"), [1, 2])
 
 assert.group(".mapKeys")
 assert.label("default tests")
-assert.test(A.mapKeys({"a": 1, "b": 2}, Func("fn_mapKeysFunc")), {"a+1": 1, "b+2": 2})
+assert.test(A.mapKeys({"a": 1, "b": 2}, func("fn_mapKeysFunc")), {"a+1": 1, "b+2": 2})
 fn_mapKeysFunc(value, key)
 {
 	return key "+" value
@@ -2186,7 +2194,7 @@ assert.group(".mapValues")
 assert.label("default tests")
 users := {"fred": {"user": "fred", "age": 40}
 		,"pebbles": {"user": "pebbles", "age": 1}}
-assert.test(A.mapValues(users, Func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
+assert.test(A.mapValues(users, func("fn_mapValuesFunc")), {"fred": 40, "pebbles": 1})
 fn_mapValuesFunc(o)
 {
 	return o.age
@@ -2554,7 +2562,7 @@ assert.group(".conforms")
 assert.label("default tests")
 objects := [{"a": 2, "b": 1}
 		, {"a": 1, "b": 2}]
-assert.test(A.filter(objects, A.conforms({"b": Func("fn_conformsFunc")})), [{"a": 1, "b": 2}])
+assert.test(A.filter(objects, A.conforms({"b": func("fn_conformsFunc")})), [{"a": 1, "b": 2}])
 
 fn_conformsFunc(n)
 {

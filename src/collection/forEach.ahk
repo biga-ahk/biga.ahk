@@ -31,7 +31,7 @@ forEach(param_collection,param_iteratee:="__identity") {
 ; omit
 assert.label("order")
 obj := []
-A.forEach([1, 2], Func("fn_forEachGlobal"))
+A.forEach([1, 2], func("fn_forEachGlobal"))
 assert.test(obj, [2, 3])
 fn_forEachGlobal(value)
 {
@@ -41,7 +41,7 @@ fn_forEachGlobal(value)
 
 
 assert.label("alias")
-assert.test(A.each([1, 2], Func("fn_forEachFunc")), [1, 2])
+assert.test(A.each([1, 2], func("fn_forEachFunc")), [1, 2])
 
 assert.label("default .identity argument")
 assert.test(A.forEach(["foo", 0, "bar"]), ["foo", 0, "bar"])
