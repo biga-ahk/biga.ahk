@@ -8,8 +8,8 @@ without(param_array,param_values*) {
 
 	; create
 	for i, val in param_values {
-		while (foundindex := this.indexOf(l_array, val) != -1) {
-			l_array.removeAt(foundindex)
+		while ((foundIndex := this.indexOf(l_array, val)) != -1) {
+			l_array.removeAt(foundIndex)
 		}
 	}
 	return l_array
