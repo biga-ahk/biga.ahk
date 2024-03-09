@@ -1,15 +1,19 @@
-depthOf(param_array,param_depth:=1) {
-	if (!isObject(param_array)) {
-		this._internal_ThrowException()
-	}
+depthOf(param_array,param_depth := 1) {
+    if (!isObject(param_array)) {
+        this._internal_ThrowException()
+    }
 
-	for key, value in param_array {
-		if (isObject(value)) {
-			param_depth++
-			param_depth := this.depthOf(value, param_depth)
-		}
-	}
-	return param_depth
+    max_depth := param_depth
+    for key, value in param_array {
+        if (isObject(value)) {
+			; Increment depth for nested objects
+            depth := this.depthOf(value, param_depth + 1) 
+			; Update max_depth if necessary
+            max_depth := this.max([depth, max_depth])
+        }
+    }
+
+    return max_depth
 }
 
 
