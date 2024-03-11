@@ -12,7 +12,9 @@ now() {
 ; tests
 
 
-
 ; omit
 assert.label("timestamps have 13 digits")
 assert.test(A.size(A.now()), 13)
+
+assert.label("number output")
+assert.true(A.isNumber(A.now()))
