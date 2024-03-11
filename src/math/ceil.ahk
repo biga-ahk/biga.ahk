@@ -1,24 +1,26 @@
-ceil(param_number,param_precision:=0) {
+ceil(param_number, param_precision := 0) {
+	; Check if parameters are numbers
 	if (!this.isNumber(param_number) || !this.isNumber(param_precision)) {
 		this._internal_ThrowException()
 	}
-
-	if (param_precision == 0) { ; regular ceil
+	; Regular ceil if precision is 0
+	if (param_precision == 0) {
 		return ceil(param_number)
 	}
 
-	l_offset := 0.5 / (10**param_precision)
+	; create
+	l_offset := 0.5 / (10 ** param_precision)
 	if (param_number < 0 && param_precision >= 1) {
-		l_offset /= 10 ; adjust offset for negative numbers and positive param_precision
+		; Adjust offset for negative numbers and positive param_precision
+		l_offset /= 10
 	}
-	if (param_precision >= 1) {
-		l_decChar := strLen( substr(param_number, inStr(param_number, ".") + 1) ) ; count the number of decimal characters
-		l_sum := format("{:." this.max([l_decChar, param_precision]) + 1 "f}", param_number + l_offset)
-	} else {
-		l_sum := param_number + l_offset
-	}
-	l_sum := trim(l_sum, "0") ; trim zeroes
-	l_value := (subStr(l_sum, 0) = "5") && param_number != l_sum ? subStr(l_sum, 1, -1) : l_sum ; if last char is 5 then remove it unless it is part of the original string
+	; Calculate sum based on precision
+	l_sum := (param_precision >= 1)
+			? format("{:." this.max([strLen(subStr(param_number, inStr(param_number, ".") + 1)), param_precision]) + 1 "f}", param_number + l_offset)
+			: param_number + l_offset
+	; Trim zeroes and adjust value based on last char
+	l_sum := trim(l_sum, "0")
+	l_value := (subStr(l_sum, 0) = "5" && param_number != l_sum) ? subStr(l_sum, 1, -1) : l_sum
 	return round(l_value, param_precision)
 }
 
