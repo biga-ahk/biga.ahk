@@ -3,7 +3,6 @@ min(param_array) {
 		this._internal_ThrowException()
 	}
 
-	l_min := ""
 	for key, value in param_array {
 		if (value < l_min || this.isUndefined(l_min)) {
 			l_min := value
@@ -21,3 +20,6 @@ assert.test(A.min([]), "")
 ; omit
 assert.label("associative array")
 assert.test(A.min({"foo": 10, "bar": 20}), 10)
+
+assert.label("negative numbers")
+assert.test(A.min([-100, -50, 0, 10]), -100)
