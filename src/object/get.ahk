@@ -9,7 +9,11 @@ get(param_object,param_path,param_defaultValue:="") {
 	}
 
 	; create
-	returnValue := param_object[param_path*]
+	if (isObject(param_object[param_path*])) {
+		returnValue := param_object[param_path*].clone()
+	} else {
+		returnValue := param_object[param_path*]
+	}
 	if (returnValue == "") {
 		returnValue := param_defaultValue
 	}
@@ -18,7 +22,7 @@ get(param_object,param_path,param_defaultValue:="") {
 
 
 ; tests
-object := {"a": [{ "b": { "c": 3} }]}
+object := {"a": [{ "b": {"c": 3} }]}
 
 assert.test(A.get(object, "a[1].b.c"), 3)
 assert.test(A.get(object, ["a", "1", "b", "c"]), 3)
@@ -26,3 +30,4 @@ assert.test(A.get(object, "a.b.c", "default"), "default")
 
 
 ; omit
+assert.test(A.get(object, "a[0]"), [{ "b": {"c": 3} }])
