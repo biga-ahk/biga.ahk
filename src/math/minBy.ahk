@@ -8,7 +8,6 @@ minBy(param_array,param_iteratee:="__identity") {
 	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
-	l_min := ""
 
 	for key, value in param_array {
 		; functor
