@@ -30,5 +30,5 @@ assert.true(A.has(object, ["a", "b"]))
 assert.false(A.has(object, "a.b.c"))
 
 ; omit
-assert.label("non-modifying")
+assert.label("no mutation")
 assert.test(object, {"a": { "b": ""}})

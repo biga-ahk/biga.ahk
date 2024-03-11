@@ -38,7 +38,7 @@ invertByFunc(value)
 
 
 ; omit
-assert.label("do not mutate")
+assert.label("no mutation")
 object := {"a": 1}
 assert.test(A.invertBy(object), {1:["a"]})
 assert.test(object, {"a": 1})

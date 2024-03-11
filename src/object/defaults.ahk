@@ -28,3 +28,4 @@ assert.test(A.defaults({"a": 1}, {"b": 2}, {"a": 3}), {"a": 1, "b": 2})
 object := {"a": 1}
 assert.test(A.defaults(object, {"b": 2, "c": 3}), {"a": 1, "b": 2, "c": 3})
 assert.test(object, {"a": 1})
+assert.test(A.defaults({"a": 1}, {"a": 2}, {"a": 3}), {"a": 1})

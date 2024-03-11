@@ -23,10 +23,10 @@ assert.test(A.invert({1: "a", 2: "A"}), {"a": 2})
 
 
 ; omit
-assert.label("do not mutate")
+assert.label("no mutation")
 object := {"a": 1}
 assert.test(A.invert(object), {"1": "a"})
 assert.test(object, {"a": 1})
 
-assert.label("blank object")
+assert.label("empty object")
 assert.test(A.invert({}), {})

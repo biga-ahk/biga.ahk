@@ -22,3 +22,4 @@ assert.test(A.keys("hi"), [1, 2])
 
 
 ; omit
+assert.test(A.keys({"x": 1, "y": 2, "z": 3}), ["x", "y", "z"])

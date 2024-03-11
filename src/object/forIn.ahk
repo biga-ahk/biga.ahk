@@ -30,3 +30,5 @@ fn_forInFunc(value, key) {
 }
 
 ; omit
+assert.label("no mutation")
+assert.test(object, {"a": 1, "b": 2})
