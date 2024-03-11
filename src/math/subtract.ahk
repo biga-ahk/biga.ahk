@@ -4,8 +4,7 @@ subtract(param_minuend,param_subtrahend) {
 	}
 
 	; create
-	param_minuend -= param_subtrahend
-	return param_minuend
+	return param_minuend - param_subtrahend
 }
 
 
@@ -17,6 +16,8 @@ assert.test(A.subtract(6, 4), 2)
 assert.label("negtive number")
 assert.test(A.subtract(10, -1), 11)
 assert.test(A.subtract(-10, -10), 0)
+assert.test(A.subtract(-6, -4), -2)
+
 
 assert.label("decimal")
 assert.test(A.subtract(10, 0.01), 9.99)
