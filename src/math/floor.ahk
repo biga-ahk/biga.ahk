@@ -41,3 +41,4 @@ assert.test(A.floor(2.22, 1), 2.2)
 
 assert.test(A.floor(-2.22000000000000020, 2), -2.22)
 assert.test(A.floor(2.22000000000000020, 2), 2.22)
+assert.test(A.floor(4.999), 4)

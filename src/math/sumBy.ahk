@@ -38,3 +38,10 @@ assert.test(A.sumBy(objects, "n"), 20)
 ; omit
 assert.label("default .identity argument")
 assert.test(A.sumBy([0, 1, 2]), 3)
+
+assert.label("negative input")
+assert.test(A.sumBy(objects, func("fn_sumByNegativeFunc")), -20)
+fn_sumByNegativeFunc(o)
+{
+    return -o.n
+}

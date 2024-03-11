@@ -15,3 +15,5 @@ assert.test(A.divide(6, 4), 1.5)
 ; omit
 assert.test(A.divide(10, -1), -10)
 assert.test(A.divide(-10, -10), 1)
+assert.test(A.divide(0, 5), 0)
+assert.test(A.divide(10, 0), "")
