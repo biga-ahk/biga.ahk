@@ -33,3 +33,5 @@ assert.true(A.inRange(-3, -2, -6))
 
 
 ; omit
+assert.true(A.inRange(2, 2, 4))
+assert.false(A.inRange(4, 2, 4))

@@ -27,6 +27,10 @@ random(param_lower:=0,param_upper:=1,param_floating:=false) {
 output := A.random(0, 1)
 assert.false(isObject(output))
 
-; test that floating point is returned
+assert.label("floating point is returned")
 output := A.random(0, 1, true)
 assert.test(A.includes(output, "."), true)
+
+assert.label("integer is returned")
+output := A.random(0, 1)
+assert.false(A.includes(output, "."))

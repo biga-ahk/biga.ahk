@@ -21,12 +21,13 @@ assert.test(A.clamp(10, -5, 5), 5)
 
 
 ; omit
-; ensure no change to params
+assert.test(A.clamp(0, -5, 5), 0)
+
+assert.label("parameter mutation")
 var := -10
 assert.test(A.clamp(var, -5, 5), -5)
 assert.test(var, -10)
 
-assert.label("parameter mutation")
 value := 10
 A.clamp(value, -5, 5)
 assert.test(value, 10)
