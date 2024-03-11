@@ -11,6 +11,7 @@ isString(param) {
 assert.true(A.isString("abc"))
 assert.false(A.isString(1))
 
+
 ; omit
 assert.true(A.isString("1"))
 assert.true(A.isString("."))

@@ -17,3 +17,6 @@ assert.true(A.isError(Exception("something broke")))
 
 ; omit
 assert.false(A.isError({"message": "", "what":"", "file":""}))
+
+assert.label("object with blank values")
+assert.true(A.isError({"message": "", "what":"", "file":"", "line": 10}))

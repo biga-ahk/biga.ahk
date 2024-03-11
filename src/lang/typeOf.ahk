@@ -20,6 +20,7 @@ assert.test(A.typeOf("blubber"), "string")
 assert.test(A.typeOf([]), "object")
 assert.test(A.typeOf(undeclaredVariable), "undefined")
 
+
 ; omit
 ; fix to string if ever possible
 assert.test(A.typeOf("0.25"), "float") ;

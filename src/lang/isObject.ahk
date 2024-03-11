@@ -10,3 +10,7 @@ isObject(param) {
 assert.true(A.isObject({}))
 assert.true(A.isObject([1, 2, 3]))
 assert.false(A.isObject(""))
+
+
+; omit
+assert.false(A.isObject(42))

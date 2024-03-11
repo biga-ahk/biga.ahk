@@ -19,3 +19,4 @@ assert.test(A.toArray(""), [])
 ; omit
 assert.test(A.toArray("123"), [1, 2, 3])
 assert.test(A.toArray(99), [])
+assert.test(A.toArray({"a": 1, "b": 2, "c": 3}), [1, 2, 3])
