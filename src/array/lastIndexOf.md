@@ -6,7 +6,7 @@ array (Array): The array to inspect.
 
 value (*): The value to search for.
 
-[fromIndex:=array.Count()] (number): The index to search from.
+[fromIndex:=array.count()] (number): The index to search from.
 
 
 ## Returns
