@@ -4,7 +4,7 @@
 
 
 
-_internal_MD5(param_string, case := 0) {
+_internal_MD5(param_string,case:=0) {
 	if (isObject(param_string)) {
 		param_string := this._internal_stringify(param_string)
 	}
@@ -14,11 +14,12 @@ _internal_MD5(param_string, case := 0) {
 	, dllCall("advapi32\MD5Update", "ptr", &MD5_CTX, "AStr", param_string, "UInt", strLen(param_string))
 	, dllCall("advapi32\MD5Final", "ptr", &MD5_CTX)
 	loop % digestLength {
-		o .= format("{:02" (case ? "X" : "x") "}", numGet(MD5_CTX, 87 + A_Index, "UChar"))
+		output .= format("{:02" (case ? "X" : "x") "}", numGet(MD5_CTX, 87 + A_Index, "UChar"))
 	}
 	dllCall("freelibrary", "ptr", hModule)
-	return o
+	return output
 }
+
 
 
 _internal_JSRegEx(param_string) {
@@ -155,4 +156,38 @@ assert.true(A.isFalsey(""))
 assert.false(A.isFalsey([]))
 assert.false(A.isFalsey({}))
 
+
 ; omit
+assert.group("._internal_MD5")
+; assert.label("boolean value")
+; assert.test(A._internal_MD5(true), [true])
+; assert.test(A._internal_MD5(false), [false])
+
+; assert.label("an undefined value")
+; assert.test(A._internal_MD5(non_existant_var), [non_existant_var])
+; assert.test(A._internal_MD5(""), [""])
+
+; assert.label("number that is not 1")
+; assert.test(A._internal_MD5(0), [0])
+; assert.test(A._internal_MD5(2), [2])
+
+; assert.label("string input")
+; assert.test(A._internal_MD5("def"), ["def"])
+
+; assert.label("complex object")
+; assert.test(A._internal_MD5({"a": 1, "b": 2}), {"a": 1, "b": 2})
+
+; assert.label("an array of multiple elements")
+; assert.test(A._internal_MD5([1, 2, 3, 4]), [1, 2, 3, 4])
+
+; assert.label("an empty object")
+; assert.test(A._internal_MD5({}), [{}])
+
+; assert.label("an empty array")
+; assert.test(A._internal_MD5([]), [[]])
+
+; assert.label("string containing special characters")
+; assert.test(A._internal_MD5("@#$%^&*()"), ["@#$%^&*()"])
+
+; assert.label("negative number")
+; assert.test(A._internal_MD5(-1), [-1])
