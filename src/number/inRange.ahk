@@ -15,7 +15,7 @@ inRange(param_number,param_start:=0,param_end:="") {
 	}
 
 	; perform
-	if (param_number > param_start && param_number < param_end) {
+	if (param_number >= param_start && param_number < param_end) {
 		return true
 	}
 	return false
