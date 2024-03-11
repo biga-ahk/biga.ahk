@@ -23,3 +23,12 @@ assert.test(flippedFunc2.call("a", "b", "c", "d"), ["d", "c", "b", "a"])
 fn_flipFunc(arguments*) {
 	return biga.toArray(arguments)
 }
+
+
+; omit
+flippedFunc3 := A.flip(Func("fn_flipEmptyFunc"))
+assert.test(flippedFunc3.call(), [])
+
+fn_flipEmptyFunc() {
+    return []
+}

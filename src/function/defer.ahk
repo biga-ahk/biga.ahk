@@ -19,6 +19,8 @@ _defer() {
 A.defer(A.now())
 
 A.defer(Func("fn_deferTest"), "howdy")
+
+
 ; omit
 fn_deferTest(msg) {
 	msgbox, % msg
