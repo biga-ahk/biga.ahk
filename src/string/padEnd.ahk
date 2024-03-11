@@ -9,7 +9,7 @@ padEnd(param_string:="",param_length:=0,param_chars:=" ") {
 	}
 
 	; create
-	l_pad := this.slice(param_chars)
+	l_pad := strSplit(param_chars)
 	l_string := param_string
 	while (strLen(l_string) < param_length) {
 		l_pos++
