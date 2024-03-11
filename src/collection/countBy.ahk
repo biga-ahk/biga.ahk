@@ -35,3 +35,7 @@ wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"], A.to
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
 wordOccurances := A.countBy(["one", "two", "three", "one", "two", "three"])
 assert.equal(wordOccurances, {"one": 2, "two": 2, "three": 2})
+
+assert.test(A.countBy(["one", "two", "three", "four"], A.size), {"3": 2, "4": 1, "5": 1})
+
+assert.test(A.countBy(["one", "two", "three", "one", "two", "three", "four"], A.toLower), {"one": 2, "two": 2, "three": 2, "four": 1})

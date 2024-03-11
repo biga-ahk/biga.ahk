@@ -45,3 +45,10 @@ assert.test(A.each([1, 2], func("fn_forEachFunc")), [1, 2])
 
 assert.label("default .identity argument")
 assert.test(A.forEach(["foo", 0, "bar"]), ["foo", 0, "bar"])
+
+assert.test(A.forEach([], func("fn_forEachGlobal")), [])
+
+assert.test(A.forEach([5], func("fn_forEachGlobal")), [5])
+
+assert.label("with own method")
+assert.test(A.forEach(["apple", "banana", "cherry"], A.size()), ["apple", "banana", "cherry"])

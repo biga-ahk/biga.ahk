@@ -17,6 +17,8 @@ assert.test(A.size("pebbles"), 7)
 ; omit
 assert.label("empty array")
 assert.test(A.size([]), 0)
+assert.test(A.size({}), 0)
+
 assert.label("objects")
 users := [{"user": "barney", "active": true}
 	, {"user": "fred", "active": false}
@@ -25,3 +27,6 @@ assert.test(A.size(users), 3)
 
 assert.label("empty values")
 assert.test(A.size(["A", "", "C"]), 3)
+
+assert.label("empty string input")
+assert.test(A.size(""), 0)

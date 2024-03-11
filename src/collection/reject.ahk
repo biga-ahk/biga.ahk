@@ -46,3 +46,13 @@ assert.test(A.reject(users, "active"), [{"user":"barney", "age":36, "active":fal
 ; omit
 assert.label("default .identity argument")
 assert.test(A.reject([0, 1, 2]), [0])
+
+assert.label("rejecting objects where the object is exact match")
+assert.test(A.reject(users, {"user": "barney"}), [{"user":"fred", "age":40, "active":true}])
+
+assert.label("rejecting objects where the age is less than 40")
+assert.test(A.reject(users, func("fn_ageLessThan40")), [{"user":"fred", "age":40, "active":true}])
+fn_ageLessThan40(o)
+{
+	return o.age < 40
+}

@@ -38,3 +38,7 @@ assert.label("string input")
 output := A.sample("abc")
 assert.true(A.includes(["a", "b", "c"], output))
 assert.true(A.isString(output))
+
+assert.label("empty input")
+assert.test(A.size(A.sample([])), 0)
+assert.undefinded(A.sample([]))

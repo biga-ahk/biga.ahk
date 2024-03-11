@@ -47,3 +47,6 @@ assert.test(A.partition(users, "active"), [[{ "user": "fred", "age": 40, "active
 ; omit
 assert.label("default .identity argument")
 assert.test(A.partition([1, 2, 3]), [[1, 2, 3], []])
+
+assert.label("empty array input")
+assert.test(A.partition([]), [[], []])

@@ -35,6 +35,7 @@ fn_keyByFunc(value)
 ; The A.property iteratee shorthand.
 assert.test(A.keyBy(array, "dir"), {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}})
 
+
 ; omit
 assert.label("default .identity argument")
 assert.test(A.keyBy([1, 2, 3]), [1, 2, 3])

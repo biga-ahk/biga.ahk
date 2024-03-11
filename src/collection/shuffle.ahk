@@ -50,3 +50,8 @@ shuffleTestVar := A.map(A.compact(shuffleTestVar))
 assert.test(shuffleTestVar.count(), 2)
 assert.test(shuffleTestVar[1], 1)
 assert.test(shuffleTestVar[2], 1)
+
+assert.label("no mutation of input object")
+arr := [1, 2, 3, 4, 5]
+A.shuffle(arr)
+assert.test(arr, [1, 2, 3, 4, 5])

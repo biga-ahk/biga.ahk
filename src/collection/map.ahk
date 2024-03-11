@@ -45,6 +45,7 @@ assert.label(".property shorthand")
 users := [{ "user": "barney" }, { "user": "fred" }]
 assert.test(A.map(users, "user"), ["barney", "fred"])
 
+
 ; omit
 assert.label("call own biga.ahk method (guarded)")
 assert.test(A.map([" hey ", "hey", " hey	"], A.trim), ["hey", "hey", "hey"])

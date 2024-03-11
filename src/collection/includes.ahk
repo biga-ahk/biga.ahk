@@ -55,3 +55,9 @@ StringCaseSense, Off
 assert.false(A.includes("inStr", "Other"))
 assert.label("object search")
 assert.true(A.includes([[1], [2]], [2]))
+
+assert.label("not found")
+assert.false(A.includes([1, 2, 3], 4))
+
+assert.label("not found")
+assert.false(A.includes({ "a": 1, "b": 2 }, 3))
