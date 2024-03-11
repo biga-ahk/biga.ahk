@@ -671,7 +671,7 @@ array (Array): The array to inspect.
 
 value (*): The value to search for.
 
-[fromIndex:=array.Count()] (number): The index to search from.
+[fromIndex:=array.count()] (number): The index to search from.
 
 
 #### Returns
@@ -762,7 +762,7 @@ A.reverse([[1, 2, 3], "b", "c"])
 
 
 ## .slice
-Creates a slice of array from start up to end.
+Creates a slice of array from start up to, but not including, end.
 
 
 #### Arguments
@@ -770,7 +770,7 @@ array (Array): The array to slice.
 
 [start:=1] (number): The start position.
 
-[end:=array.Count()] (number): The end position.
+[end:=array.count()] (number): The end position.
 
 
 #### Returns
@@ -3087,7 +3087,7 @@ object (Object): The object to iterate over.
 #### Example
 
 ```autohotkey
-object := {"a": [{ "b": { "c": 3} }, 4]}A.at(object, ["a[1].b.c", "a[2]"])
+object := {"a": [{ "b": {"c": 3} }, 4]}A.at(object, ["a[1].b.c", "a[2]"])
 ; => [3, 4]
 
 ```
@@ -3230,7 +3230,7 @@ path (Array|string): The path of the property to get.
 #### Example
 
 ```autohotkey
-object := {"a": [{ "b": { "c": 3} }]}A.get(object, "a[1].b.c")
+object := {"a": [{ "b": {"c": 3} }]}A.get(object, "a[1].b.c")
 ; => 3
 
 A.get(object, ["a", "1", "b", "c"])
