@@ -8,20 +8,20 @@ maxBy(param_array,param_iteratee:="__identity") {
 	if (shorthand) {
 		param_iteratee := this._internal_createShorthandfn(param_iteratee, param_array)
 	}
-	l_max := 0
 
 	for key, value in param_array {
 		; functor
 		if (this.isFunction(param_iteratee)) {
 			l_iteratee := param_iteratee.call(value)
 		}
-		if (l_iteratee > l_max) {
+		if (l_iteratee > l_max || this.isUndefined(l_max)) {
 			l_max := l_iteratee
 			l_return := value
 		}
 	}
 	return l_return
 }
+
 
 
 ; tests
@@ -40,3 +40,9 @@ assert.test(A.maxBy(objects, "n"), { "n": 8 })
 ; omit
 assert.label("default .identity argument")
 assert.test(A.maxBy([0, 1, 2]), 2)
+
+assert.test(A.maxBy(objects, func("fn_maxByNegativeFunc")), { "n": 2 })
+fn_maxByNegativeFunc(o)
+{
+	return -o.n
+}
