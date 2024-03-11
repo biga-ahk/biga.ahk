@@ -32,3 +32,5 @@ assert.test(A.tail("fred"), ["r", "e", "d"])
 
 assert.label("Number input")
 assert.test(A.tail(100), ["0", "0"])
+
+assert.test(A.tail([5]), [])

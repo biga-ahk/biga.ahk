@@ -54,10 +54,17 @@ assert.test(A.dropWhile(users, "active"), [ {"user": "barney", "active": false }
 
 
 ; omit
+assert.label("keep all dropped")
 assert.test(A.dropWhile([{"user": "barney", "active": true}], Func("fn_dropWhile")), [{"user": "barney", "active": true}])
+
+assert.label("all dropped")
 assert.test(A.dropWhile([{"user": "barney", "active": false}, {"user": "fred", "active": false}], Func("fn_dropWhile")), [])
 
+assert.label("empty array input")
 assert.test(A.dropWhile([]), [])
 
 assert.label("default .identity argument")
 assert.test(A.dropWhile(["foo", 0, "bar"]), [0, "bar"])
+
+assert.label("undefined elements")
+assert.test(A.dropWhile(["", "", ""]), ["", "", ""])
