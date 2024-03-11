@@ -1,4 +1,4 @@
-at(param_object,param_paths,param_defaultValue:="") {
+at(param_object,param_paths) {
 	if (!isObject(param_object)) {
 		this._internal_ThrowException()
 	}
@@ -8,15 +8,19 @@ at(param_object,param_paths,param_defaultValue:="") {
 
 	; create
 	for key, value in param_paths {
-		l_array.push(this.get(param_object, value))
+		val := this.get(param_object, value)
+		if (val != "") {
+			l_array.push(val)
+		}
 	}
 	return l_array
 }
 
 
 ; tests
-object := {"a": [{ "b": { "c": 3} }, 4]}
+object := {"a": [{ "b": {"c": 3} }, 4]}
 assert.test(A.at(object, ["a[1].b.c", "a[2]"]), [3, 4])
 
 
 ; omit
+assert.test(A.at(object, ["a[1]", "a[2]"]), [{ "b": {"c": 3} }, 4])
