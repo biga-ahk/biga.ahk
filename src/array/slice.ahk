@@ -1,23 +1,34 @@
-slice(param_array,param_start:=1,param_end:=0) {
-	if (!this.isNumber(param_start)) {
-		this._internal_ThrowException()
-	}
-	if (!this.isNumber(param_end)) {
+slice(param_array,param_start:=0,param_end:=0) {
+	if (!this.isNumber(param_start) || !this.isNumber(param_end)) {
 		this._internal_ThrowException()
 	}
 
 	; prepare
+	l_array := []
 	if (this.isStringLike(param_array)) {
 		param_array := strSplit(param_array)
 	}
-	if (param_end == 0) {
-		param_end := param_array.count()
+
+	; parameter adjustment
+	if (param_start > 0) {
+		begin := param_start
+	} else if (param_start < 0) {
+		begin := param_array.count() + param_start + 1
+	} else {
+		begin := 1
 	}
-	l_array := []
+
+	if (param_end > 0) {
+		last := param_end
+	} else if (param_end < 0) {
+		last := param_array.count() + param_end
+	} else {
+		last := param_array.count()
+	}
 
 	; create
-	for key, value in param_array {
-		if (A_Index >= param_start && A_Index <= param_end) {
+	for index, value in param_array {
+		if (index >= begin && index <= last) {
 			l_array.push(value)
 		}
 	}
