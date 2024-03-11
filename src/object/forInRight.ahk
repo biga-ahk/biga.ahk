@@ -3,11 +3,8 @@ forInRight(param_object,param_iteratee:="__identity") {
 		this._internal_ThrowException()
 	}
 
-	; prepare
-	l_object := this.reverse(param_object)
-
 	; create
-	this.forIn(l_object, param_iteratee)
+	this.forIn(this.reverse(param_object), param_iteratee)
 	return param_object
 }
 
@@ -21,3 +18,5 @@ fn_forInRightFunc(value, key) {
 }
 
 ; omit
+assert.label("no mutation")
+assert.test(object, [1, 2, 3])
