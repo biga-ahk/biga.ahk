@@ -361,7 +361,7 @@ body.sticky .sidebar-toggle {
 }
 .markdown-section p.tip,
 .markdown-section tr:nth-child(2n) {
-	background-color: var(--codeBackgroudColor);
+	background-color: var(--codeBackgroundColor);
 }
 .markdown-section p.tip {
 	border-bottom-right-radius: 2px;
@@ -718,7 +718,7 @@ body {
 }
 .markdown-section code,
 .markdown-section pre {
-	background-color: var(--codeBackgroudColor);
+	background-color: var(--codeBackgroundColor);
 	font-family: var(--codeFontFamily);
 }
 .markdown-section pre {
@@ -740,10 +740,10 @@ body {
 	opacity: 0.7;
 }
 .token.boolean {
-	color: #ddd;
+	color: #d77a89;
 }
 .token.number {
-	color: #fee937;
+	color: #e5c07b;
 }
 .token.punctuation {
 	color: var(--codeTextColor);
@@ -762,6 +762,7 @@ body {
 }
 .token.custom {
 	color: var(--accent);
+	text-shadow: 0 0 5px rgba(93, 153, 249, 0.3);
 }
 .token.attr-name {
 	color: #61afef;;
@@ -872,26 +873,4 @@ pre:after {
 }
 #docsify-darklight-theme p {
 	visibility: hidden;
-}
-
-:root {
-	--code-theme-objects: #86b9f5;
-	--code-theme-function: #fee937;
-	--code-theme-string: #62d543;
-	--code-theme-selector: #86b9f5;
-	--code-theme-background: #222;
-	--code-theme-comment: #969696;
-	--code-theme-keyword: #C586C0;
-	--code-theme-constant: #c97b4e;
-	--code-theme-boolean: #ddd;
-	--code-theme-number: #fee937;
-	--code-theme-operator: #fee937;
-	--code-theme-tag: #fee937;
-	--code-theme-selection: #ffffff33;
-	--code-theme-text: #ddd;
-	--code-theme-punctuation: #ddd;
-	--code-theme-variable: #f3f3f3;
-	--code-theme-property: #4EC9B0;
-
-	--code-theme-custom: #86b9f5;
 }
