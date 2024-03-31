@@ -215,10 +215,12 @@ main.hidden {
 	text-decoration: underline;
 }
 .sidebar {
+	box-shadow: 0 0 .5rem var(--borderColor);
 	border-right: 1px solid var(--borderColor);
+	display: block;
 	overflow-y: auto;
-	padding: 40px 0 0;
-	position: absolute;
+	padding: 2.4rem;
+	position: relative;
 	top: 0;
 	bottom: 0;
 	left: 0;
