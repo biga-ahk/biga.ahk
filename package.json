@@ -1,11 +1,11 @@
 {
 	"name": "biga.ahk-dev",
-	"version": "0.57.0",
+	"version": "0.58.0",
 	"description": "A modern immutable utility library for AutoHotkey",
 	"main": "export.ahk",
 	"dependencies": {},
 	"devDependencies": {
-		"biga.ahk": "^0.57.0",
+		"biga.ahk": "^0.58.0",
 		"expect.ahk": "^0.1.1",
 		"util-misc.ahk": "gist:cf6c862be8fa18c546d2fd67d86f84aa"
 	},

@@ -30,5 +30,5 @@ flippedFunc3 := A.flip(Func("fn_flipEmptyFunc"))
 assert.test(flippedFunc3.call(), [])
 
 fn_flipEmptyFunc() {
-    return []
+	return []
 }

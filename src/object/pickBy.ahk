@@ -36,9 +36,9 @@ assert.test(A.pickBy(object, A.isString), {"b": "two"})
 
 assert.label("custom predicate function")
 fn_pickBy(value, key) {
-    if (key = "a" || key = "c") {
-        return true
-    }
-    return false
+	if (key = "a" || key = "c") {
+		return true
+	}
+	return false
 }
 assert.test(A.pickBy(object, func("fn_pickBy")), {"a": 1, "c": 3})

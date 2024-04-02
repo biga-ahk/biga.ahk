@@ -800,7 +800,7 @@ A.slice(100)
 
 
 ## .sortedIndex
-Uses a search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
+Uses a binary search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
 
 
 #### Arguments
@@ -819,11 +819,29 @@ value (*): The value to evaluate.
 A.sortedIndex([30, 50], 40)
 ; => 2
 
-A.sortedIndex([30, 50], 20)
-; => 1
+```
 
-A.sortedIndex([30, 50], 99)
-; => 3
+
+
+## .sortedIndexOf
+This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted array.
+
+
+#### Arguments
+array (Array): The sorted array to inspect.
+
+value (*): The value to search for.
+
+
+#### Returns
+(number): Returns the index of the matched value, else `-1`.
+
+
+#### Example
+
+```autohotkey
+A.sortedIndexOf([4, 5, 5, 6], 5)
+; => 2
 
 ```
 
@@ -1828,6 +1846,101 @@ fn_flipFunc(arguments*) {	return biga.toArray(arguments)}```
 
 
 
+## .memoize
+Creates a function that memoizes the result of func. If resolver is provided, it determines the cache key for storing the result based on the arguments provided to the memoized function.
+
+
+#### Arguments
+func (Function): The function to have its output memoized.
+
+[resolver] (Function): The function to resolve the cache key.
+
+
+#### Returns
+(Function): Returns the new memoized function.
+
+
+#### Example
+
+```autohotkey
+memoizedFibonacci := A.memoize(func("fn_fibonacci"))memoizedFibonacci.call(10)
+; => 55
+
+; Subsequent calls with the same argument will use the cached resultmemoizedFibonacci.call(10)
+; => 55
+
+fn_fibonacci(n) {	if (n <= 1) {		return n	}	return fn_fibonacci(n - 1) + fn_fibonacci(n - 2)}```
+
+
+
+## .negate
+Creates a function that negates the result of the predicate func. The func predicate is invoked with the this binding and arguments of the created function.
+
+
+#### Arguments
+predicate (Function): The predicate to negate.
+
+
+#### Returns
+(Function): Returns the new negated function.
+
+
+#### Example
+
+```autohotkey
+aryFunc := A.negate(Func("fn_isEven"))A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven"))
+; => [1, 3, 5]
+
+fn_isEven(n) {	return (mod(param_key, 2) = 0)}```
+
+
+
+## .once
+Creates a function that is restricted to invoking func once. Repeat calls to the function return the value of the first invocation.
+
+
+#### Arguments
+func (Function): The function to restrict.
+
+
+#### Returns
+(Function): Returns the new restricted function.
+
+
+#### Example
+```autohotkey
+initialize = A.once(func("fn_createApplication"))
+initialize.call()
+initialize.call()
+; => `fn_createApplication` is invoked once
+```
+
+
+
+## .throttle
+Creates a throttled function that only invokes func at most once per every `wait` milliseconds. The func is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last func invocation.
+
+
+#### Arguments
+func (Function): The function to throttle.
+
+[wait:=0] (number): The number of milliseconds to throttle invocations to.
+
+
+#### Returns
+(Function): Returns the new throttled function.
+
+
+#### Example
+```autohotkey
+refresh = A.once(func("fn_updateGUI"), 1000)
+refresh.call()
+refresh.call()
+; => `fn_updateGUI` is invokable once every 1000ms but will return the last value anytime called
+```
+
+
+
 
 # **Lang methods**
 ## .castArray
@@ -2111,6 +2224,40 @@ A.isBoolean(0)
 
 
 
+## .isEmpty
+Checks if value is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
+
+
+#### Arguments
+value (*): The value to check.
+
+
+#### Returns
+(boolean): Returns `true` if value is empty, else `false`.
+
+
+#### Example
+
+```autohotkey
+A.isEmpty("")
+; => true
+
+A.isEmpty(true)
+; => true
+
+A.isEmpty(1)
+; => true
+
+A.isEmpty([1, 2, 3])
+; => false
+
+A.isEmpty({"a": 1})
+; => false
+
+```
+
+
+
 ## .isEqual
 Performs a deep comparison between two values to determine if they are equivalent.
 
@@ -2252,7 +2399,7 @@ A.isInteger("1")
 
 
 
-## .isMatch
+## .ismatch
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See [A.isEqual](/?id=isEqual) for a list of supported value comparisons.
@@ -3526,6 +3673,31 @@ A.toPairs({"a": 1, "b": 2})
 
 
 
+## .values
+Creates an array of the own enumerable string keyed property values of object.
+
+
+#### Arguments
+object (Object): The object to query.
+
+
+#### Returns
+(Array): Returns the array of property values.
+
+
+#### Example
+
+```autohotkey
+object := {"a": 1, "b": 2}object.c := 3A.values(object)
+; => [1, 2, 3]
+
+A.values("hi")
+; => ["h", "i"]
+
+```
+
+
+
 
 # **String methods**
 ## .camelCase
@@ -3790,16 +3962,12 @@ A.padStart("abc", 3)
 
 
 ## .parseInt
-Converts string to an integer.
-
-> [!Warning]
-> This method has not reached pairity with Lodash.
-> missing the radix to interpret value by parameter
+Converts string to an integer of the specified radix. If radix is `""` undefined or `0`, a radix of `10` is used unless value is a hexadecimal, in which case a radix of `16` is used.
 
 #### Arguments
 string (string): The string to convert.
 
-<!-- [radix:=10] (number): The radix to interpret value by. -->
+[radix:=10] (number): The radix to interpret value by.
 
 
 #### Returns

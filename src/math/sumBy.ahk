@@ -43,5 +43,5 @@ assert.label("negative input")
 assert.test(A.sumBy(objects, func("fn_sumByNegativeFunc")), -20)
 fn_sumByNegativeFunc(o)
 {
-    return -o.n
+	return -o.n
 }

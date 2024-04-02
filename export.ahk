@@ -515,23 +515,56 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-	sortedIndex(param_array,param_value) {
+	sortedIndex(param_array, value) {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
 
 		; prepare
-		if (param_value < param_array[1]) {
-			return 1
-		}
+		low := 1
+		high := param_array.count()
 
 		; create
-		loop, % param_array.count() {
-			if (param_array[A_Index] < param_value && param_value < param_array[A_Index+1]) {
-				return A_Index + 1
+		while (low <= high) {
+			mid := low + (high - low) // 2
+			midValue := param_array[mid]
+
+			if (midValue < value) {
+				low := mid + 1
+			} else if (midValue > value) {
+				high := mid - 1
+			} else {
+				return mid
 			}
 		}
-		return param_array.count() + 1
+		return low
 	}
-	sortedUniq(param_collection) {
-		if (!isObject(param_collection)) {
+	sortedIndexOf(param_array, value) {
+		if (!isObject(param_array)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		low := 1
+		high := param_array.count()
+
+		; create
+		while (low <= high) {
+			mid := low + (high - low) // 2
+			midValue := param_array[mid]
+
+			if (midValue < value) {
+				low := mid + 1
+			} else if (midValue > value) {
+				high := mid - 1
+			} else {
+				return mid
+			}
+		}
+		return -1
+	}
+	sortedUniq(param_array) {
+		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
 
@@ -539,10 +572,10 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		l_array := []
 
 		; create
-		for key, value in param_collection {
-			printedelement := this._internal_stringify(param_collection[key])
-			if (l_temp != printedelement) {
-				l_temp := printedelement
+		for key, value in param_array {
+			l_printedElement := this._internal_stringify(value)
+			if (l_temp != l_printedElement) {
+				l_temp := l_printedElement
 				l_array.push(value)
 			}
 		}
@@ -1190,33 +1223,42 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return -1
 	}
 
-	_internal_sort(param_collection,param_iteratees:="") {
-		l_array := this.cloneDeep(param_collection)
+	_internal_sort(param_collection, param_iteratees := "") {
+		out := ""
+		sortType := ""
 
-		; associative arrays
+		; Determine if sorting associative arrays or regular arrays
 		if (param_iteratees != "") {
-			for index, obj in l_array {
-				out .= obj[param_iteratees] "+" index "|" ; "+" allows for sort to work with just the value
-				; out will look like: value+index|value+index|
+			; Associative arrays
+			for index, obj in param_collection {
+				out .= obj[param_iteratees] "+" index "|"
+				; Store the last value for sorting type determination
+				lastvalue := obj[param_iteratees]
 			}
-			lastvalue := l_array[index, param_iteratees]
 		} else {
-			; regular arrays
-			for index, obj in l_array {
+			; Regular arrays
+			for index, obj in param_collection {
 				out .= obj "+" index "|"
+				; Store the last value for sorting type determination
+				lastvalue := obj
 			}
-			lastvalue := l_array[l_array.count()]
 		}
 
+		; Determine the sorting type based on the last value encountered
 		if (this.isNumber(lastvalue)) {
 			sortType := "N"
 		}
-		stringTrimRight, out, out, 1 ; remove trailing |
+
+		; Perform sorting
 		sort, out, % "D| " sortType
+		; Remove the trailing "|" from the output
+		out := subStr(out, 1, strlen(out) - 1)
+		; Initialize an array to store sorted values
 		arrStorage := []
+		; Parse the sorted output and push corresponding values to arrStorage
 		loop, parse, out, |
 		{
-			arrStorage.push(l_array[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
+			arrStorage.push(param_collection[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
 		}
 		return arrStorage
 	}
@@ -1281,6 +1323,110 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	_internal_flip(param_func, param_args*) {
 		param_args := this.reverse(param_args)
 		return param_func.call(param_args*)
+	}
+	memoize(param_func, param_resolver:="") {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		; Define and return the function object
+		return objBindMethod(this, "_internal_memoize", param_func, param_resolver)
+	}
+
+	_internal_memoize(param_func, param_resolver, param_args*) {
+
+		; Generate the cache key
+		if (param_resolver == "") {
+			cacheKey := this._internal_MD5(this._internal_stringify(param_args))
+		} else {
+			cacheKey := param_resolver.call(param_args*)
+		}
+
+		; Check if the result is cached
+		if (this.cache.hasKey(cacheKey)) {
+			return this.cache[cacheKey]
+		}
+
+		; Compute the result and cache it
+		this.cache[cacheKey] := param_func.call(param_args*)
+		return this.cache[cacheKey]
+	}
+	negate(param_func) {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; prepare
+		if (param_n == "") {
+			param_n := param_func.maxParams
+		}
+
+		; create
+		boundFunc := objBindMethod(this, "_internal_negate", param_func)
+		return boundFunc
+	}
+
+	_internal_negate(param_func, param_args*) {
+		return !param_func.call(param_args*)
+	}
+	once(param_func) {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		; Define and return the function object
+		return objBindMethod(this, "_internal_once", param_func)
+	}
+
+	_internal_once(param_func, param_args*) {
+		static called
+		; Check if the function has been called before
+		if (called == "") {
+			; Set the gate to indicate that the function has been called
+			called := true
+			; Invoke the original function with the provided arguments
+			return param_func.call(param_args*)
+		} else {
+			; If the function has been called before, return
+			return
+		}
+	}
+	throttle(param_func, param_wait:=0) {
+		if (!this.isFunction(param_func)) {
+			this._internal_ThrowException()
+		}
+
+		; create
+		; Define and return the function object
+		return objBindMethod(this, "_internal_throttle", param_func, param_wait)
+	}
+
+	_internal_throttle(param_func, param_wait, param_args*) {
+		static lastResult, lastArgs, lastCallTime := 0
+
+		; Get the current time
+		currentTime := A_TickCount
+
+		; Check if enough time has passed since the last call
+		if (currentTime - lastCallTime >= param_wait) {
+			; Update the last call time
+			lastCallTime := currentTime
+			; Invoke the original function with the provided arguments
+			if (this._internal_stringify(param_args) = "") {
+				lastResult := param_func.call(lastArgs*)
+				return lastResult
+			}
+
+			lastResult := param_func.call(param_args*)
+			lastArgs := param_args
+			; Return the result of the function invocation
+			return lastResult
+		} else {
+			; If the function is not callable yet, return the last result
+			return lastResult
+		}
 	}
 	; /--\--/--\--/--\--/--\--/--\
 	; Internal functions
@@ -1396,6 +1542,30 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 	}
 
+	_internal_stringify(param_value) {
+		if (!isObject(param_value)) {
+			return """" param_value """"
+		}
+		for key, value in param_value {
+			if key is not number
+			{
+				output .= """" key """:"
+			} else {
+				output .= key ":"
+			}
+			if (isObject(value)) {
+				output .= "[" this._internal_stringify(value) "]"
+			} else if value is not number
+			{
+				output .= """" value """"
+			} else {
+				output .= value
+			}
+			output .= ", "
+		}
+		return subStr(output, 1, -2)
+	}
+
 	isFalsey(param) {
 		if (isObject(param)) {
 			return false
@@ -1405,6 +1575,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return false
 	}
+
 	isStringLike(param) {
 		if (this.isString(param) || this.isAlnum(param)) {
 			return true
@@ -1519,6 +1690,20 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			return true
 		}
 		return false
+	}
+	isEmpty(param_value) {
+
+		; create
+		if (param_value == "") {
+			return true
+		}
+		if (this.isString(param_value)) {
+			return false
+		}
+		for key, value in param_value {
+			return false
+		}
+		return true
 	}
 	isEqual(param_value,param_other*) {
 
@@ -1961,9 +2146,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		for key, value in param_paths {
 			val := this.get(param_object, value)
-			if (val != "") {
 				l_array.push(val)
-			}
 		}
 		return l_array
 	}
@@ -2298,6 +2481,20 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
+	values(param_object) {
+
+		; prepare
+		l_array := []
+		if (this.isStringLike(param_object)) {
+			param_object := strSplit(param_object)
+		}
+
+		; create
+		for key, value in param_object {
+			l_array.push(value)
+		}
+		return l_array
+	}
 	camelCase(param_string:="") {
 		if (!this.isStringLike(param_string)) {
 			this._internal_ThrowException()
@@ -2453,33 +2650,71 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_padding . param_string
 	}
-	parseInt(param_string:="0") {
-		if (!this.isStringLike(param_string)) {
-			this._internal_ThrowException()
+	parseInt(param_string,param_radix:=0) {
+		; Step 1: Convert the input string to a string
+		inputString := "" param_string
+
+		; Step 2: Remove leading whitespace from the input string
+		inputString := this.trimStart(inputString, A_Tab A_Space)
+
+		; Step 3: Determine the sign
+		sign := 1
+		if (inputString != "" && subStr(inputString, 1, 1) == "-") {
+			sign := -1
+			inputString := subStr(inputString, 2)
+		} else if (inputString != "" && subStr(inputString, 1, 1) == "+") {
+			inputString := subStr(S, 2)
 		}
 
-		; prepare
-		l_int := this.trimStart(param_string, " 0_")
+		; Step 4: Convert the radix to an integer
+		radix := round(param_radix)
 
-		; create
-		if (this.size(l_int) == 0 && inStr(param_string, "0")) {
-			return 0
+		; Step 5: Determine the radix and strip the prefix if necessary
+		stripPrefix := true
+		if (radix == 0) {
+			radix := 10
+		} else {
+			if (radix < 2 || radix > 36) {
+				return "" ;NAN
+			}
+			if (radix != 16) {
+				stripPrefix := false
+			}
 		}
-		if (this.isNumber(l_int)) {
-			return l_int
+
+		if (stripPrefix && strLen(inputString) >= 2 && (subStr(inputString, 1, 2) == "0x" || subStr(inputString, 1, 2) == "0X")) {
+			inputString := subStr(inputString, 3)
+			radix := 16
 		}
-		l_int := this.replace(l_int, "/\D+/")
-		if (this.isNumber(l_int)) {
-			return l_int
+
+		; Step 6: Extract the valid digits and calculate the mathematical integer value
+		validDigits := ""
+		loop, % strLen(inputString) {
+			char := subStr(inputString, A_Index, 1)
+			if (!inStr(subStr("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 1, radix), char)) {
+				break
+			}
+			validDigits .= char
 		}
-		return ""
+		if (validDigits == "") {
+			return ""
+		}
+
+		mathInt := 0
+		loop, % strLen(validDigits) {
+			digit := subStr(validDigits, A_Index, 1)
+			mathInt := mathInt * radix + (("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" ~= "i)" digit) - 1)
+		}
+
+		; Step 7: Return the final result
+		return sign * mathInt
 	}
 	repeat(param_string,param_number:=1) {
 		if (!this.isString(param_string) || (!this.isNumber(param_number))) {
 			this._internal_ThrowException()
 		}
 
-		if (param_number == 0) {
+		if (param_number <= 0) {
 			return ""
 		}
 		return strReplace(format("{:0" param_number "}", 0), "0", param_string)
@@ -2882,30 +3117,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 
 		}
 		return out
-	}
-
-	_internal_stringify(param_value) {
-		if (!isObject(param_value)) {
-			return """" param_value """"
-		}
-		for key, value in param_value {
-			if key is not number
-			{
-				output .= """" . key . """:"
-			} else {
-				output .= key . ":"
-			}
-			if (isObject(value)) {
-				output .= "[" . this._internal_stringify(value) . "]"
-			} else if value is not number
-			{
-				output .= """" . value . """"
-			} else {
-				output .= value
-			}
-			output .= ", "
-		}
-		return subStr(output, 1, -2)
 	}
 	property(param_source) {
 

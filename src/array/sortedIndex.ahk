@@ -4,23 +4,23 @@ sortedIndex(param_array, value) {
 	}
 
 	; prepare
-    low := 1
-    high := param_array.count()
+	low := 1
+	high := param_array.count()
 
 	; create
-    while (low <= high) {
-        mid := low + (high - low) // 2
-        midValue := param_array[mid]
+	while (low <= high) {
+		mid := low + (high - low) // 2
+		midValue := param_array[mid]
 
-        if (midValue < value) {
-            low := mid + 1
+		if (midValue < value) {
+			low := mid + 1
 		} else if (midValue > value) {
-            high := mid - 1
+			high := mid - 1
 		} else {
 			return mid
 		}
-    }
-    return low
+	}
+	return low
 }
 
 

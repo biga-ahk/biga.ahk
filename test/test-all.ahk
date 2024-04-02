@@ -9,9 +9,6 @@ StringCaseSense, On
 A := new biga()
 assert := new expect()
 
-; Start speed function
-QPC(1)
-
 assert.group(".chunk")
 assert.label("default tests")
 assert.test(A.chunk(["a", "b", "c", "d"], 2), [["a", "b"], ["c", "d"]])
@@ -614,14 +611,47 @@ assert.test(A.slice("hello", 1, 2), ["h", "e"])
 
 assert.group(".sortedIndex")
 assert.label("default tests")
-assert.label("Insert value into sorted array at the beginning")
-assert.test(A.sortedIndex([30, 50], 40),2)
 assert.label("Insert value into sorted array at the middle")
-assert.test(A.sortedIndex([30, 50], 20),1)
-assert.label("Insert value into sorted array at the end")
-assert.test(A.sortedIndex([30, 50], 99),3)
+assert.test(A.sortedIndex([30, 50], 40), 2)
+
 
 ; omit
+assert.label("Insert value into sorted array at the beginning")
+assert.test(A.sortedIndex([30, 50], 20), 1)
+
+assert.label("Insert value into sorted array at the end")
+assert.test(A.sortedIndex([30, 50], 99), 3)
+
+assert.label("Insert value into an empty array")
+assert.test(A.sortedIndex([], 42), 1)
+
+assert.label("Insert value into a single-element array (less than the element)")
+assert.test(A.sortedIndex([50], 20), 1)
+
+assert.label("Insert value into a single-element array (greater than the element)")
+assert.test(A.sortedIndex([50], 70), 2)
+
+assert.label("Insert value that already exists in the array")
+assert.test(A.sortedIndex([30, 50, 70], 50), 2)
+
+assert.label("Insert value less than all elements in the array")
+assert.test(A.sortedIndex([30, 50, 70], 10), 1)
+
+assert.label("Insert value greater than all elements in the array")
+assert.test(A.sortedIndex([30, 50, 70], 80), 4)
+
+assert.group(".sortedIndexOf")
+assert.label("default tests")
+assert.test(A.sortedIndexOf([4, 5, 5, 6], 5), 2)
+
+; omit
+assert.equal(A.sortedIndexOf([4, 5, 5, 5, 6], 4), 1)
+assert.equal(A.sortedIndexOf([4, 5, 5, 5, 6], 7), -1)
+assert.equal(A.sortedIndexOf([1, 2, 3, 4, 5], 3), 3)
+assert.equal(A.sortedIndexOf([1, 2, 3, 4, 5], 0), -1)
+assert.equal(A.sortedIndexOf([1, 2, 3, 4, 5], 6), -1)
+assert.equal(A.sortedIndexOf([1], 1), 1)
+assert.equal(A.sortedIndexOf([], 5), -1)
 
 assert.group(".sortedUniq")
 assert.label("default tests")
@@ -643,6 +673,9 @@ assert.test(A.sortedUniq([4, 1, 2, 3]), [4, 1, 2, 3])
 
 assert.label("Array with no duplicates")
 assert.test(A.sortedUniq([1, 2, 3]), [1, 2, 3])
+
+assert.label("With unsorted input")
+assert.test(A.sortedUniq([1, 1, 2, 1]), [1, 2, 1])
 
 assert.label("Array with string types and duplicates")
 assert.test(A.sortedUniq(["apple", "banana", "banana", "orange", "orange", "orange", "peach"]), ["apple", "banana", "orange", "peach"])
@@ -1446,11 +1479,13 @@ assert.test(A.sortBy(myArray),[2, 2, 3, 4, 4, 9, 12])
 myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
 assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
 
-enemies := [
-	, {"name": "bear", "hp": 200, "armor": 20}
+assert.label("array of objects by hp")
+enemies := [{"name": "bear", "hp": 200, "armor": 20}
+	, {"name": "tiger", "hp": 1, "armor": 200}
 	, {"name": "wolf", "hp": 100, "armor": 12}]
-sortedEnemies := A.sortBy(enemies, "hp")
-assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
+assert.test(A.sortBy(enemies, "hp"), [{"name": "tiger", "hp": 1, "armor": 200}, {"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
+assert.label("array of objects by armor")
+assert.test(A.sortBy(enemies, "armor"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}, {"name": "tiger", "hp": 1, "armor": 200}])
 
 users := [{ "name": "fred", "age": 46 }
  , { "name": "barney", "age": 34 }
@@ -1552,9 +1587,66 @@ flippedFunc3 := A.flip(Func("fn_flipEmptyFunc"))
 assert.test(flippedFunc3.call(), [])
 
 fn_flipEmptyFunc() {
-    return []
+	return []
 }
 
+assert.group(".memoize")
+assert.label("default tests")
+memoizedFibonacci := A.memoize(func("fn_fibonacci"))
+assert.test(memoizedFibonacci.call(10), 55)
+; Subsequent calls with the same argument will use the cached result
+assert.test(memoizedFibonacci.call(10), 55)
+
+fn_fibonacci(n) {
+	if (n <= 1) {
+		return n
+	}
+	return fn_fibonacci(n - 1) + fn_fibonacci(n - 2)
+}
+
+
+; omit
+
+assert.group(".negate")
+assert.label("default tests")
+aryFunc := A.negate(Func("fn_isEven"))
+
+assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
+
+fn_isEven(n) {
+	return (mod(param_key, 2) = 0)
+}
+
+
+; omit
+assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
+
+assert.group(".once")
+assert.label("default tests")
+
+
+; omit
+initialize := A.once(func("fn_createApplication"))
+assert.test(initialize.call(), "called")
+assert.test(initialize.call(), "")
+
+fn_createApplication() {
+	return "called"
+}
+
+assert.group(".throttle")
+assert.label("default tests")
+
+
+; omit
+throttledFunc := A.throttle(Func("fn_throttle"), 500)
+throttledFunc.call("hello world")
+sleep, 500
+throttledFunc.call()
+
+fn_throttle(parameter) {
+	return "hello world"
+}
 assert.group(".internal")
 assert.label("default tests")
 assert.label("_internal_JSRegEx")
@@ -1571,7 +1663,14 @@ assert.false(A.isFalsey({}))
 
 
 ; omit
-assert.group("._internal_MD5")
+assert.group("internal_stringify")
+assert.test(A._internal_stringify([1, 2, 3]), "1:1, 2:2, 3:3")
+
+assert.test(A._internal_stringify([1, 2, [3]]), "1:1, 2:2, 3:[1:3]", "deep object")
+
+assert.test(A._internal_stringify("hello world"), """hello world""")
+
+assert.group("internal_MD5")
 ; assert.label("boolean value")
 ; assert.test(A._internal_MD5(true), [true])
 ; assert.test(A._internal_MD5(false), [false])
@@ -1940,6 +2039,18 @@ assert.false(A.isBoolean("1.1"))
 assert.false(A.isBoolean("false"))
 assert.false(A.isBoolean("true"))
 
+assert.group(".isEmpty")
+assert.label("default tests")
+assert.true(A.isEmpty(""))
+assert.true(A.isEmpty(true))
+assert.true(A.isEmpty(1))
+assert.false(A.isEmpty([1, 2, 3]))
+assert.false(A.isEmpty({"a": 1}))
+
+
+; omit
+assert.false(A.isEmpty("hello"), "string input")
+
 assert.group(".isEqual")
 assert.label("default tests")
 assert.true(A.isEqual(1, 1))
@@ -2033,7 +2144,7 @@ assert.false(A.isInteger(1.00001))
 assert.false(A.isInteger([]))
 assert.false(A.isInteger({}))
 
-assert.group(".isMatch")
+assert.group(".ismatch")
 assert.label("default tests")
 object := { "a": 1, "b": 2, "c": 3 }
 assert.true(A.isMatch(object, {"b": 2}))
@@ -2446,7 +2557,7 @@ assert.label("negative input")
 assert.test(A.sumBy(objects, func("fn_sumByNegativeFunc")), -20)
 fn_sumByNegativeFunc(o)
 {
-    return -o.n
+	return -o.n
 }
 
 assert.group(".clamp")
@@ -2506,6 +2617,8 @@ assert.test(A.at(object, ["a[1].b.c", "a[2]"]), [3, 4])
 
 ; omit
 assert.test(A.at(object, ["a[1]", "a[2]"]), [{ "b": {"c": 3} }, 4])
+assert.label("retrieve non-existant path")
+assert.test(A.at(object, ["a[1]", "a.c.b"]), [{ "b": {"c": 3} }, ""])
 
 assert.group(".defaults")
 assert.label("default tests")
@@ -2728,6 +2841,9 @@ assert.test(A.pick(object, "a.b"), {"a": {"b": 2}})
 assert.label("mutation")
 assert.test(object, {"a": {"b": 2, "c": 3}})
 
+assert.label("invalid path")
+assert.test(A.pick(object, "a.eee"), {"a": {"eee": ""}})
+
 assert.label("complicated path with dropped keys")
 object := {"a": [{"b": 2, "c": 3}], "d": 4}
 assert.test(A.pick(object, "a[1].c"), {"a": [{"c": 3}]})
@@ -2743,6 +2859,18 @@ assert.test(A.pickBy(object, A.isNumber), {"a": 1, "c": 3})
 assert.label("default .identity argument")
 assert.test(A.pickBy([0, 1, 2]), {"2": 1, "3": 2})
 
+object := {"a": 1, "b": "two", "c": 3}
+assert.test(A.pickBy(object, A.isString), {"b": "two"})
+
+assert.label("custom predicate function")
+fn_pickBy(value, key) {
+	if (key = "a" || key = "c") {
+		return true
+	}
+	return false
+}
+assert.test(A.pickBy(object, func("fn_pickBy")), {"a": 1, "c": 3})
+
 assert.group(".toPairs")
 assert.label("default tests")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
@@ -2753,6 +2881,16 @@ assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
 
 assert.label("alias")
 assert.test(A.entries({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
+
+assert.group(".values")
+assert.label("default tests")
+object := {"a": 1, "b": 2}
+object.c := 3
+
+assert.test(A.values(object), [1, 2, 3])
+assert.test(A.values("hi"), ["h", "i"])
+
+; omit
 
 assert.group(".camelCase")
 assert.label("default tests")
@@ -2860,24 +2998,49 @@ assert.test(A.map(["6", "08", "10"], A.parseInt), [6, 8, 10])
 
 ; omit
 assert.test(A.parseInt("0"), 0)
+assert.test(A.parseInt(" 0"), 0)
+assert.test(A.parseInt("	200"), 200)
+assert.test(A.parseInt(" 200"), 200)
 
 assert.label("decimal places")
-assert.test(A.parseInt("1.0"), 1.0)
-assert.test(A.parseInt("1.0001"), 1.0001)
+assert.test(A.parseInt("1.0"), 1)
+assert.test(A.parseInt("1.0001"), 1)
 
-assert.label("string representations")
-assert.test(A.parseInt("10,00"), 1000)
-assert.test(A.parseInt(" 10 00"), 1000)
-assert.test(A.parseInt(" 10+10"), 1010)
+assert.label("with leading space")
+assert.test(A.parseInt(" 10"), 10)
+assert.label("with comma")
+assert.test(A.parseInt("10,00"), 10)
+assert.label("with space")
+assert.test(A.parseInt("10 00"), 10)
+assert.label("with special character")
+assert.test(A.parseInt("10+10"), 10)
+assert.label("with periods")
+assert.test(A.parseInt("9.000.000"), 9)
 
 assert.label("invalid input")
 assert.test(A.parseInt(" "), "")
+
+assert.label("Radix 16")
+assert.test(A.parseInt("FF", 16), 255)
+assert.label("Radix 2 (binary)")
+assert.test(A.parseInt(101010, 2), 42)
+assert.label("Radix 16")
+assert.test(A.parseInt("0xFF", 16), 255)
+assert.label("Radix 2")
+assert.test(A.parseInt("0b101010", 2), 0)
+assert.label("Radix 10")
+assert.test(A.parseInt("0d42", 10), 0)
 
 assert.group(".repeat")
 assert.label("default tests")
 assert.test(A.repeat("*", 3), "***")
 assert.test(A.repeat("abc", 2), "abcabc")
 assert.test(A.repeat("abc", 0), "")
+
+
+; omit
+assert.label("negative parameter")
+assert.test(A.repeat("abc", -1), "")
 
 assert.group(".replace")
 assert.label("default tests")
@@ -3290,15 +3453,7 @@ assert.test(A.uniqueId(), 2)
 
 ; omit
 ;; Display test results in GUI
-speed := QPC(0)
 sleep, 200 ; allow callback tests to complete
 assert.fullReport()
 assert.writeResultsToFile()
-msgbox, % speed
 exitApp
-
-QPC(R := 0)
-{
-	static P := 0, F := 0, Q := dllCall("QueryPerformanceFrequency", "Int64P", F)
-	return ! dllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F)
-}
