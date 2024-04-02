@@ -162,18 +162,6 @@ isStringLike(param) {
 	return false
 }
 
-print(values*) {
-	for key, value in values {
-		out .= (isObject(value) ? this._internal_stringify(value) : value)
-	}
-	try {
-		fileAppend, % out, *
-	} catch {
-
-	}
-	return out
-}
-
 
 ; tests
 assert.label("_internal_JSRegEx")
