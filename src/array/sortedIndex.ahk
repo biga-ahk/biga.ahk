@@ -5,7 +5,7 @@ sortedIndex(param_array, value) {
 
 	; prepare
     low := 1
-    high := param_array.maxIndex()
+    high := param_array.count()
 
 	; create
     while (low <= high) {
