@@ -121,11 +121,29 @@ _internal_inStr(param_haystack,param_needle,param_fromIndex:=1,param_occurance:=
 	}
 }
 
-
-
-
-
-
+_internal_stringify(param_value) {
+	if (!isObject(param_value)) {
+		return """" param_value """"
+	}
+	for key, value in param_value {
+		if key is not number
+		{
+			output .= """" key """:"
+		} else {
+			output .= key ":"
+		}
+		if (isObject(value)) {
+			output .= "[" this._internal_stringify(value) "]"
+		} else if value is not number
+		{
+			output .= """" value """"
+		} else {
+			output .= value
+		}
+		output .= ", "
+	}
+	return subStr(output, 1, -2)
+}
 
 isFalsey(param) {
 	if (isObject(param)) {
@@ -136,12 +154,26 @@ isFalsey(param) {
 	}
 	return false
 }
+
 isStringLike(param) {
 	if (this.isString(param) || this.isAlnum(param)) {
 		return true
 	}
 	return false
 }
+
+print(values*) {
+	for key, value in values {
+		out .= (isObject(value) ? this._internal_stringify(value) : value)
+	}
+	try {
+		fileAppend, % out, *
+	} catch {
+
+	}
+	return out
+}
+
 
 ; tests
 assert.label("_internal_JSRegEx")
@@ -158,7 +190,14 @@ assert.false(A.isFalsey({}))
 
 
 ; omit
-assert.group("._internal_MD5")
+assert.group("internal_stringify")
+assert.test(A._internal_stringify([1, 2, 3]), "1:1, 2:2, 3:3")
+
+assert.test(A._internal_stringify([1, 2, [3]]), "1:1, 2:2, 3:[1:3]", "deep object")
+
+assert.test(A._internal_stringify("hello world"), """hello world""")
+
+assert.group("internal_MD5")
 ; assert.label("boolean value")
 ; assert.test(A._internal_MD5(true), [true])
 ; assert.test(A._internal_MD5(false), [false])
