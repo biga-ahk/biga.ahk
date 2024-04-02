@@ -38,6 +38,9 @@ assert.test(A.pick(object, "a.b"), {"a": {"b": 2}})
 assert.label("mutation")
 assert.test(object, {"a": {"b": 2, "c": 3}})
 
+assert.label("invalid path")
+assert.test(A.pick(object, "a.eee"), {"a": {"eee": ""}})
+
 assert.label("complicated path with dropped keys")
 object := {"a": [{"b": 2, "c": 3}], "d": 4}
 assert.test(A.pick(object, "a[1].c"), {"a": [{"c": 3}]})
