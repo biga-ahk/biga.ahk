@@ -8,6 +8,3 @@ StringCaseSense, On
 
 A := new biga()
 assert := new expect()
-
-; Start speed function
-QPC(1)
