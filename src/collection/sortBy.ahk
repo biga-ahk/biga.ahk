@@ -40,33 +40,42 @@ sortBy(param_collection,param_iteratees:="__identity") {
 }
 
 
-_internal_sort(param_collection,param_iteratees:="") {
-	l_array := this.cloneDeep(param_collection)
+_internal_sort(param_collection, param_iteratees := "") {
+	out := ""
+	sortType := ""
 
-	; associative arrays
+	; Determine if sorting associative arrays or regular arrays
 	if (param_iteratees != "") {
-		for index, obj in l_array {
-			out .= obj[param_iteratees] "+" index "|" ; "+" allows for sort to work with just the value
-			; out will look like: value+index|value+index|
+		; Associative arrays
+		for index, obj in param_collection {
+			out .= obj[param_iteratees] "+" index "|"
+			; Store the last value for sorting type determination
+			lastvalue := obj[param_iteratees]
 		}
-		lastvalue := l_array[index, param_iteratees]
 	} else {
-		; regular arrays
-		for index, obj in l_array {
+		; Regular arrays
+		for index, obj in param_collection {
 			out .= obj "+" index "|"
+			; Store the last value for sorting type determination
+			lastvalue := obj
 		}
-		lastvalue := l_array[l_array.count()]
 	}
 
+	; Determine the sorting type based on the last value encountered
 	if (this.isNumber(lastvalue)) {
 		sortType := "N"
 	}
-	stringTrimRight, out, out, 1 ; remove trailing |
+
+	; Perform sorting
 	sort, out, % "D| " sortType
+	; Remove the trailing "|" from the output
+	out := subStr(out, 1, strlen(out) - 1)
+	; Initialize an array to store sorted values
 	arrStorage := []
+	; Parse the sorted output and push corresponding values to arrStorage
 	loop, parse, out, |
 	{
-		arrStorage.push(l_array[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
+		arrStorage.push(param_collection[subStr(A_LoopField, inStr(A_LoopField, "+") + 1)])
 	}
 	return arrStorage
 }
@@ -97,11 +106,13 @@ assert.test(A.sortBy(myArray),[2, 2, 3, 4, 4, 9, 12])
 myArray := ["100", "333", "987", "54", "1", "0", "-263", "543"]
 assert.test(A.sortBy(myArray),["-263", "0", "1", "54", "100", "333", "543", "987"])
 
-enemies := [
-	, {"name": "bear", "hp": 200, "armor": 20}
+assert.label("array of objects by hp")
+enemies := [{"name": "bear", "hp": 200, "armor": 20}
+	, {"name": "tiger", "hp": 1, "armor": 200}
 	, {"name": "wolf", "hp": 100, "armor": 12}]
-sortedEnemies := A.sortBy(enemies, "hp")
-assert.test(A.sortBy(enemies, "hp"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
+assert.test(A.sortBy(enemies, "hp"), [{"name": "tiger", "hp": 1, "armor": 200}, {"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}])
+assert.label("array of objects by armor")
+assert.test(A.sortBy(enemies, "armor"), [{"name": "wolf", "hp": 100, "armor": 12}, {"name": "bear", "hp": 200, "armor": 20}, {"name": "tiger", "hp": 1, "armor": 200}])
 
 users := [{ "name": "fred", "age": 46 }
  , { "name": "barney", "age": 34 }
