@@ -9,7 +9,6 @@ memoize(param_func, param_resolver:="") {
 }
 
 _internal_memoize(param_func, param_resolver, param_args*) {
-
 	; Generate the cache key
 	if (param_resolver == "") {
 		cacheKey := this._internal_MD5(this._internal_stringify(param_args))
@@ -18,13 +17,13 @@ _internal_memoize(param_func, param_resolver, param_args*) {
 	}
 
 	; Check if the result is cached
-	if (this.cache.hasKey(cacheKey)) {
-		return this.cache[cacheKey]
+	if (this._cache.hasKey(cacheKey)) {
+		return this._cache[param_func.name, cacheKey]
 	}
 
 	; Compute the result and cache it
-	this.cache[cacheKey] := param_func.call(param_args*)
-	return this.cache[cacheKey]
+	this._cache[param_func.name, cacheKey] := param_func.call(param_args*)
+	return this._cache[param_func.name, cacheKey]
 }
 
 ; tests
@@ -42,3 +41,9 @@ fn_fibonacci(n) {
 
 
 ; omit
+assert.label("cahce leak over to other memoizations functions")
+memoizedIsEven := A.memoize(func("fn_memoizeIsEven"))
+assert.test(memoizedIsEven.call(10), true)
+fn_memoizeIsEven(param_n) {
+	return (mod(param_n, 2) = 0)
+}
