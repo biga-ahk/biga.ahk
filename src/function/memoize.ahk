@@ -1,4 +1,4 @@
-memoize(param_func, param_resolver:="") {
+memoize(param_func,param_resolver:="") {
 	if (!this.isFunction(param_func)) {
 		this._internal_ThrowException()
 	}
