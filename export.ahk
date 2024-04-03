@@ -1,4 +1,4 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	_cache := {}	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array) || !this.isNumber(param_size)) {
 			this._internal_ThrowException()
 		}
@@ -1335,7 +1335,6 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 	}
 
 	_internal_memoize(param_func, param_resolver, param_args*) {
-
 		; Generate the cache key
 		if (param_resolver == "") {
 			cacheKey := this._internal_MD5(this._internal_stringify(param_args))
@@ -1344,13 +1343,13 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 
 		; Check if the result is cached
-		if (this.cache.hasKey(cacheKey)) {
-			return this.cache[cacheKey]
+		if (this._cache.hasKey(cacheKey)) {
+			return this._cache[param_func.name, cacheKey]
 		}
 
 		; Compute the result and cache it
-		this.cache[cacheKey] := param_func.call(param_args*)
-		return this.cache[cacheKey]
+		this._cache[param_func.name, cacheKey] := param_func.call(param_args*)
+		return this._cache[param_func.name, cacheKey]
 	}
 	negate(param_func) {
 		if (!this.isFunction(param_func)) {

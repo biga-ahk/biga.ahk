@@ -9,5 +9,6 @@ class biga {
 
 	; --- Instance Variables ---
 	_uniqueId := 0
+	_cache := {}
 
 	; --- Static Methods ---
