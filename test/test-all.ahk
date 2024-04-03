@@ -1606,6 +1606,21 @@ fn_fibonacci(n) {
 
 
 ; omit
+assert.label("cache leak over to other memoizations functions")
+memoizedIsEven := A.memoize(func("fn_memoizeIsEven"))
+assert.test(memoizedIsEven.call(10), true)
+fn_memoizeIsEven(param_n) {
+	return (mod(param_n, 2) = 0)
+}
+assert.test(memoizedIsEven.call(2), true)
+assert.test(memoizedIsEven.call(4), true)
+assert.test(memoizedIsEven.call(6), true)
+assert.test(A._cache["fn_fibonacci"].count(), 1, "cache has {{2}} items")
+assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache has {{4}} items")
+assert.test(memoizedIsEven.call(2), true)
+assert.test(memoizedIsEven.call(4), true)
+assert.test(memoizedIsEven.call(6), true)
+assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache still has {{4}} items")
 
 assert.group(".negate")
 assert.label("default tests")
