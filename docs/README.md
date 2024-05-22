@@ -16,6 +16,9 @@ Determines the number of times strings will be replaced when using [.replace](#r
 
 # **Array methods**
 ## .chunk
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/chunk.ahk' class='text-muted'>source</a>
+
 Creates an array of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
 
 
@@ -43,6 +46,9 @@ A.chunk(["a", "b", "c", "d"], 3)
 
 
 ## .compact
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/compact.ahk' class='text-muted'>source</a>
+
 Creates an array with all falsey values removed. The values false, 0, and "" are falsey.
 
 
@@ -65,6 +71,9 @@ A.compact([0, 1, false, 2, "", 3])
 
 
 ## .concat
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/concat.ahk' class='text-muted'>source</a>
+
 Creates a new array concatenating array with any additional arrays and/or values.
 
 #### Arguments
@@ -80,8 +89,7 @@ array (Array): The array to concatenate.
 #### Example
 
 ```autohotkey
-array := [1]
-A.concat(array, 2, [3], [[4]])
+array := [1]A.concat(array, 2, [3], [[4]])
 ; => [1, 2, 3, [4]]
 
 A.concat(array)
@@ -92,6 +100,9 @@ A.concat(array)
 
 
 ## .depthOf
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/depthOf.ahk' class='text-muted'>source</a>
+
 This method is explores the array and returns the maximum depth.
 
 
@@ -123,6 +134,9 @@ A.depthOf([1, [2, [3, [4]], 5]])
 
 
 ## .difference
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/difference.ahk' class='text-muted'>source</a>
+
 Creates an array of array values not included in the other given arrays. The order of result values are determined by the first array.
 
 #### Arguments
@@ -146,6 +160,9 @@ A.difference([2, 1], [2, 3])
 
 
 ## .drop
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/drop.ahk' class='text-muted'>source</a>
+
 Creates a slice of array with n elements dropped from the beginning.
 
 
@@ -185,6 +202,9 @@ A.drop(100)
 
 
 ## .dropRight
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropRight.ahk' class='text-muted'>source</a>
+
 Creates a slice of array with n elements dropped from the end.
 
 
@@ -224,6 +244,9 @@ A.dropRight(100)
 
 
 ## .dropRightWhile
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropRightWhile.ahk' class='text-muted'>source</a>
+
 Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
 
@@ -241,26 +264,16 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": true}
-		, {"user": "fred",		"active": false}
-		, {"user": "pebbles", 	"active": false} ]
-A.dropRightWhile(users, func("fn_dropRightWhile"))
+users := [ {"user": "barney", 	"active": true}		, {"user": "fred",		"active": false}		, {"user": "pebbles", 	"active": false} ]A.dropRightWhile(users, func("fn_dropRightWhile"))
 ; => [{"user": "barney", "active": true }]
 
-fn_dropRightWhile(o)
-{
-	return !o.active
-}
-; The A.matches iteratee shorthand.
-A.dropRightWhile(users, {"user": "pebbles", "active": false})
+fn_dropRightWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropRightWhile(users, {"user": "pebbles", "active": false})
 ; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false} ]
 
-; The A.matchesProperty iteratee shorthand.
-A.dropRightWhile(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.dropRightWhile(users, ["active", false])
 ; => [ {"user": "barney", "active": true } ]
 
-; The A.property iteratee shorthand.
-A.dropRightWhile(users, "active")
+; The A.property iteratee shorthand.A.dropRightWhile(users, "active")
 ; => [ {"user": "barney", "active": true }, {"user": "fred", "active": false }, {"user": "pebbles", "active": false} ]
 
 ```
@@ -268,6 +281,9 @@ A.dropRightWhile(users, "active")
 
 
 ## .dropWhile
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropWhile.ahk' class='text-muted'>source</a>
+
 Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
 
@@ -284,26 +300,16 @@ array (Array): The array to query.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", 	"active": false }
-		, { "user": "fred", 	"active": false }
-		, { "user": "pebbles", 	"active": true } ]
-A.dropWhile(users, func("fn_dropWhile"))
+users := [ {"user": "barney", 	"active": false }		, { "user": "fred", 	"active": false }		, { "user": "pebbles", 	"active": true } ]A.dropWhile(users, func("fn_dropWhile"))
 ; => [{ "user": "pebbles", "active": true }]
 
-fn_dropWhile(o)
-{
-	return !o.active
-}
-; The A.matches iteratee shorthand.
-A.dropWhile(users, {"user": "barney", "active": false})
+fn_dropWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.dropWhile(users, {"user": "barney", "active": false})
 ; => [ { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
 
-; The A.matchesProperty iteratee shorthand.
-A.dropWhile(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.dropWhile(users, ["active", false])
 ; => [ {"user": "pebbles", "active": true } ]
 
-; The A.property iteratee shorthand.
-A.dropWhile(users, "active")
+; The A.property iteratee shorthand.A.dropWhile(users, "active")
 ; => [ {"user": "barney", "active": false }, { "user": "fred", "active": false }, { "user": "pebbles", "active": true } ]
 
 ```
@@ -311,6 +317,9 @@ A.dropWhile(users, "active")
 
 
 ## .fill
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/fill.ahk' class='text-muted'>source</a>
+
 Fills elements of array with value from start up to, but not including, end.
 
 > [!Note]
@@ -334,8 +343,7 @@ value (*): The value to fill array with.
 #### Example
 
 ```autohotkey
-array := [1, 2, 3]
-A.fill(array, "a")
+array := [1, 2, 3]A.fill(array, "a")
 ; => ["a", "a", "a"]
 
 A.fill([4, 6, 8, 10], "*", 2, 3)
@@ -346,6 +354,9 @@ A.fill([4, 6, 8, 10], "*", 2, 3)
 
 
 ## .findIndex
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/findIndex.ahk' class='text-muted'>source</a>
+
 This method is like [A.find](/?id=find) except that it returns the index of the first element predicate returns truthy for instead of the element itself.
 
 
@@ -364,19 +375,13 @@ array (Array): The array to inspect.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": true }
-	, { "user": "fred", "age": 40, "active": false }
-	, { "user": "pebbles", "age": 1, "active": true } ]
-; The A.matches iteratee shorthand.
-A.findIndex(users, { "age": 1, "active": true })
+users := [ { "user": "barney", "age": 36, "active": true }	, { "user": "fred", "age": 40, "active": false }	, { "user": "pebbles", "age": 1, "active": true } ]; The A.matches iteratee shorthand.A.findIndex(users, { "age": 1, "active": true })
 ; => 3
 
-; The A.matchesProperty iteratee shorthand.
-A.findIndex(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.findIndex(users, ["active", false])
 ; => 2
 
-; The A.property iteratee shorthand.
-A.findIndex(users, "active")
+; The A.property iteratee shorthand.A.findIndex(users, "active")
 ; => 1
 
 ```
@@ -384,6 +389,9 @@ A.findIndex(users, "active")
 
 
 ## .findLastIndex
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/findLastIndex.ahk' class='text-muted'>source</a>
+
 This method is like [A.findIndex](/?id=findindex) except that it iterates over elements of collection from right to left.
 
 #### Arguments
@@ -401,10 +409,7 @@ array (Array): The array to inspect.
 #### Example
 
 ```autohotkey
-users := [{"user": "barney", "active": true}
-		, {"user": "fred", "active": false}
-		, {"user": "pebbles", "active": false}]
-A.findLastIndex(users, {"user": "barney", "active": true})
+users := [{"user": "barney", "active": true}		, {"user": "fred", "active": false}		, {"user": "pebbles", "active": false}]A.findLastIndex(users, {"user": "barney", "active": true})
 ; => 1
 
 A.findLastIndex(users, ["active", true])
@@ -418,6 +423,9 @@ A.findLastIndex(users, "active")
 
 
 ## .flatten
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flatten.ahk' class='text-muted'>source</a>
+
 Flattens array a single level deep.
 
 
@@ -443,6 +451,9 @@ A.flatten([[1, 2, 3], [4, 5, 6]])
 
 
 ## .flattenDeep
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flattenDeep.ahk' class='text-muted'>source</a>
+
 Recursively flattens array.
 
 
@@ -471,6 +482,9 @@ A.flattenDeep([1, [2, [3, [4]], 5]])
 
 
 ## .flattenDepth
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flattenDepth.ahk' class='text-muted'>source</a>
+
 Recursively flatten array up to depth times.
 
 
@@ -498,6 +512,9 @@ A.flattenDepth([1, [2, [3, [4]], 5]], 2)
 
 
 ## .fromPairs
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/fromPairs.ahk' class='text-muted'>source</a>
+
 The inverse of A.toPairs; this method returns an object composed from key-value pairs.
 
 #### Arguments
@@ -519,6 +536,9 @@ A.fromPairs([["a", 1], ["b", 2]])
 
 
 ## .head
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/head.ahk' class='text-muted'>source</a>
+
 Gets the first element of array.
 
 #### Aliases
@@ -552,6 +572,9 @@ A.head(100)
 
 
 ## .indexOf
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/indexOf.ahk' class='text-muted'>source</a>
+
 Gets the index at which the first occurrence of value is found in array. If fromIndex is negative, it's used as the offset from the end of array.
 
 
@@ -573,15 +596,13 @@ value (*): The value to search for.
 A.indexOf([1, 2, 1, 2], 2)
 ; => 2
 
-; Search from the `fromIndex`.
-A.indexOf([1, 2, 1, 2], 2, 3)
+; Search from the `fromIndex`.A.indexOf([1, 2, 1, 2], 2, 3)
 ; => 4
 
 A.indexOf(["fred", "barney"], "pebbles")
 ; => -1
 
-StringCaseSense, On
-A.indexOf(["fred", "barney"], "Fred")
+StringCaseSense, OnA.indexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -589,6 +610,9 @@ A.indexOf(["fred", "barney"], "Fred")
 
 
 ## .initial
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/initial.ahk' class='text-muted'>source</a>
+
 Gets all but the last element of array.
 
 
@@ -616,6 +640,9 @@ A.initial(100)
 
 
 ## .intersection
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/intersection.ahk' class='text-muted'>source</a>
+
 Creates an array of unique values that are included in all given arrays. The order of result values are determined by the first array.
 
 
@@ -638,6 +665,9 @@ A.intersection([2, 1], [2, 3])
 
 
 ## .join
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/join.ahk' class='text-muted'>source</a>
+
 Converts all elements in array into a string separated by separator.
 
 
@@ -665,6 +695,9 @@ A.join(["a", "b", "c"])
 
 
 ## .last
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/last.ahk' class='text-muted'>source</a>
+
 Gets the last element of array.
 
 
@@ -696,6 +729,9 @@ A.last(100)
 
 
 ## .lastIndexOf
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/lastIndexOf.ahk' class='text-muted'>source</a>
+
 This method is like [A.indexOf](/?id=indexof) except that it iterates over elements of array from right to left.
 
 
@@ -717,12 +753,10 @@ value (*): The value to search for.
 A.lastIndexOf([1, 2, 1, 2], 2)
 ; => 4
 
-; Search from the `fromIndex`.
-A.lastIndexOf([1, 2, 1, 2], 1, 2)
+; Search from the `fromIndex`.A.lastIndexOf([1, 2, 1, 2], 1, 2)
 ; => 1
 
-StringCaseSense, On
-A.lastIndexOf(["fred", "barney"], "Fred")
+StringCaseSense, OnA.lastIndexOf(["fred", "barney"], "Fred")
 ; => -1
 
 ```
@@ -730,6 +764,9 @@ A.lastIndexOf(["fred", "barney"], "Fred")
 
 
 ## .nth
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/nth.ahk' class='text-muted'>source</a>
+
 Gets the element at index n of array. If n is negative, the nth element from the end is returned.
 
 
@@ -769,6 +806,9 @@ A.nth([1, 2, 3], 0)
 
 
 ## .reverse
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/reverse.ahk' class='text-muted'>source</a>
+
 Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
 
 
@@ -797,6 +837,9 @@ A.reverse([[1, 2, 3], "b", "c"])
 
 
 ## .slice
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/slice.ahk' class='text-muted'>source</a>
+
 Creates a slice of array from start up to, but not including, end.
 
 
@@ -835,6 +878,9 @@ A.slice(100)
 
 
 ## .sortedIndex
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/sortedIndex.ahk' class='text-muted'>source</a>
+
 Uses a binary search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
 
 
@@ -851,30 +897,6 @@ value (*): The value to evaluate.
 #### Example
 
 ```autohotkey
-A.sortedIndex([30, 50], 40)
-; => 2
-
-```
-
-
-
-## .sortedIndexOf
-This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted array.
-
-
-#### Arguments
-array (Array): The sorted array to inspect.
-
-value (*): The value to search for.
-
-
-#### Returns
-(number): Returns the index of the matched value, else `-1`.
-
-
-#### Example
-
-```autohotkey
 A.sortedIndexOf([4, 5, 5, 6], 5)
 ; => 2
 
@@ -883,6 +905,9 @@ A.sortedIndexOf([4, 5, 5, 6], 5)
 
 
 ## .sortedUniq
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/sortedUniq.ahk' class='text-muted'>source</a>
+
 This method is like [A.uniq](/?id=uniq) except that it's optimized for sorted arrays.
 
 
@@ -905,6 +930,9 @@ A.sortedUniq([1, 1, 2])
 
 
 ## .tail
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/tail.ahk' class='text-muted'>source</a>
+
 Gets all but the first element of array.
 
 
@@ -933,6 +961,9 @@ A.tail(100)
 
 
 ## .take
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/take.ahk' class='text-muted'>source</a>
+
 Creates a slice of array with n elements taken from the beginning.
 
 
@@ -972,6 +1003,9 @@ A.take(100)
 
 
 ## .takeRight
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/takeRight.ahk' class='text-muted'>source</a>
+
 Creates a slice of array with n elements taken from the end.
 
 
@@ -1011,6 +1045,9 @@ A.takeRight(100)
 
 
 ## .union
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/union.ahk' class='text-muted'>source</a>
+
 Creates an array of unique values, in order, from all given arrays.
 
 
@@ -1033,6 +1070,9 @@ A.union([2], [1, 2])
 
 
 ## .uniq
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/uniq.ahk' class='text-muted'>source</a>
+
 Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
 
@@ -1054,6 +1094,9 @@ A.uniq([2, 1, 2])
 
 
 ## .unzip
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/unzip.ahk' class='text-muted'>source</a>
+
 This method is like [A.zip](/?id=zip) except that it accepts an array of grouped elements and creates an array regrouping the elements to their pre-zip configuration.
 
 #### Arguments
@@ -1067,9 +1110,7 @@ array (Array): The array of grouped elements to process.
 #### Example
 
 ```autohotkey
-zipped := A.zip(["a", "b"], [1, 2], [true, false])
-; => [["a", 1, true], ["b", 2, true]]
-A.unzip(zipped)
+zipped := A.zip(["a", "b"], [1, 2], [true, false]); => [["a", 1, true], ["b", 2, true]]A.unzip(zipped)
 ; => [["a", "b"], [1, 2], [true, false]]
 
 ```
@@ -1077,6 +1118,9 @@ A.unzip(zipped)
 
 
 ## .without
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/without.ahk' class='text-muted'>source</a>
+
 Creates an array excluding all given values.
 
 #### Arguments
@@ -1100,6 +1144,9 @@ A.without([2, 1, 2, 3], 1, 2)
 
 
 ## .zip
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/zip.ahk' class='text-muted'>source</a>
+
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
 > [!Warning]
@@ -1125,6 +1172,9 @@ A.zip(["a", "b"], [1, 2], [true, true])
 
 
 ## .zipObject
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/zipObject.ahk' class='text-muted'>source</a>
+
 This method is like [A.fromPairs](/?id=frompairs) except that it accepts two arrays, one of property identifiers and one of corresponding values.
 
 
@@ -1152,6 +1202,9 @@ A.zipObject(["a", "b"], [1, 2])
 
 # **Collection methods**
 ## .count
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/count.ahk' class='text-muted'>source</a>
+
 Gets the number of occurrences of value if found in collection, else `0`
 
 #### Arguments
@@ -1177,19 +1230,13 @@ A.count("pebbles", "b")
 A.count(["fred", "barney", "pebbles"], "barney")
 ; => 1
 
-users := [ {"user": "fred", "age": 40, "active": true}
-		, {"user": "barney", "age": 36, "active": false}
-		, {"user": "pebbles", "age": 1, "active": false} ]
-; The A.matches iteratee shorthand.
-A.count(users, {"age": 1, "active": false})
+users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "age": 36, "active": false}		, {"user": "pebbles", "age": 1, "active": false} ]; The A.matches iteratee shorthand.A.count(users, {"age": 1, "active": false})
 ; => 1
 
-; The A.matchesProperty iteratee shorthand.
-A.count(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.count(users, ["active", false])
 ; => 2
 
-; The A.property iteratee shorthand.
-A.count(users, "active")
+; The A.property iteratee shorthand.A.count(users, "active")
 ; => 1
 
 ```
@@ -1197,6 +1244,9 @@ A.count(users, "active")
 
 
 ## .countBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/countBy.ahk' class='text-muted'>source</a>
+
 Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The iteratee is invoked with one argument: (value).
 
 
@@ -1216,8 +1266,7 @@ object (Array|Object): The collection to iterate over.
 A.countBy([6.1, 4.2, 6.3], func("floor"))
 ; => {"4": 1, "6": 2}
 
-; The A.property iteratee shorthand.
-A.countBy(["one", "two", "three"], A.size)
+; The A.property iteratee shorthand.A.countBy(["one", "two", "three"], A.size)
 ; => {"3": 2, "5": 1}
 
 ```
@@ -1225,6 +1274,9 @@ A.countBy(["one", "two", "three"], A.size)
 
 
 ## .every
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/every.ahk' class='text-muted'>source</a>
+
 Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
 
 > [!Note]
@@ -1247,18 +1299,13 @@ collection (Array|Object): The collection to iterate over.
 A.every([true, 1, false, "yes"], A.isBoolean)
 ; => false
 
-users := [{ "user": "barney", "age": 36, "active": false }
-, { "user": "fred", "age": 40, "active": false }]
-; The A.matches iteratee shorthand.
-A.every(users, {"user": "barney", "age": 36, "active": false})
+users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": false }]; The A.matches iteratee shorthand.A.every(users, {"user": "barney", "age": 36, "active": false})
 ; => false
 
-; The A.matchesProperty iteratee shorthand.
-A.every(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.every(users, ["active", false])
 ; => true
 
-; The A.property iteratee shorthand.
-A.every(users, "active")
+; The A.property iteratee shorthand.A.every(users, "active")
 ; => false
 
 ```
@@ -1266,6 +1313,9 @@ A.every(users, "active")
 
 
 ## .filter
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/filter.ahk' class='text-muted'>source</a>
+
 Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
 
@@ -1282,26 +1332,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]
-A.filter(users, func("fn_filterFunc"))
+users := [{"user":"barney", "age":36, "active":true}, {"user":"fred", "age":40, "active":false}]A.filter(users, func("fn_filterFunc"))
 ; => [{"user":"barney", "age":36, "active":true}]
 
-fn_filterFunc(param_iteratee)
-{
-	if (param_iteratee.active) {
-		return true
-	}
-}
-; The A.matches shorthand
-A.filter(users, {"age":36, "active":true})
+fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}; The A.matches shorthandA.filter(users, {"age":36, "active":true})
 ; => [{"user":"barney", "age":36, "active":true}]
 
-; The A.matchesProperty shorthand
-A.filter(users, ["active", false])
+; The A.matchesProperty shorthandA.filter(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":false}]
 
-; The A.property shorthand
-A.filter(users, "active")
+; The A.property shorthandA.filter(users, "active")
 ; => [{"user":"barney", "age":36, "active":true}]
 
 ```
@@ -1309,6 +1349,9 @@ A.filter(users, "active")
 
 
 ## .find
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/find.ahk' class='text-muted'>source</a>
+
 Iterates over elements of collection, returning the first element predicate returns truthy for.
 
 
@@ -1327,26 +1370,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := [ {"user": "barney", "age": 36, "active": true}
-	, {"user": "fred", "age": 40, "active": false}
-	, {"user": "pebbles", "age": 1, "active": true} ]
-A.find(users, func("fn_findFunc"))
+users := [ {"user": "barney", "age": 36, "active": true}	, {"user": "fred", "age": 40, "active": false}	, {"user": "pebbles", "age": 1, "active": true} ]A.find(users, func("fn_findFunc"))
 ; => { "user": "barney", "age": 36, "active": true }
 
-fn_findFunc(o)
-{
-	return o.active
-}
-; The A.matches iteratee shorthand.
-A.find(users, { "age": 1, "active": true })
+fn_findFunc(o){	return o.active}; The A.matches iteratee shorthand.A.find(users, { "age": 1, "active": true })
 ; => { "user": "pebbles", "age": 1, "active": true }
 
-; The A.matchesProperty iteratee shorthand.
-A.find(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.find(users, ["active", false])
 ; => { "user": "fred", "age": 40, "active": false }
 
-; The A.property iteratee shorthand.
-A.find(users, "active")
+; The A.property iteratee shorthand.A.find(users, "active")
 ; => { "user": "barney", "age": 36, "active": true }
 
 ```
@@ -1354,6 +1387,9 @@ A.find(users, "active")
 
 
 ## .findLast
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/findLast.ahk' class='text-muted'>source</a>
+
 This method is like [A.find](/?id=find) except that it iterates over elements of collection from right to left.
 
 
@@ -1373,15 +1409,14 @@ function (Function): The function invoked per iteration.
 A.findLast([1, 2, 3, 4], func("fn_findLastFunc"))
 ; => 3
 
-fn_findLastFunc(n)
-{
-	return mod(n, 2) == 1
-}
-```
+fn_findLastFunc(n){	return mod(n, 2) == 1}```
 
 
 
 ## .forEach
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/forEach.ahk' class='text-muted'>source</a>
+
 Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
 
 
@@ -1421,6 +1456,9 @@ fn_forEachFunc2(value, key)
 
 
 ## .forEachRight
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/forEachRight.ahk' class='text-muted'>source</a>
+
 This method is like [A.forEach](/?id=foreach) except that it iterates over elements of collection from right to left.
 
 
@@ -1460,6 +1498,9 @@ fn_forEachFunc2(value, key)
 
 
 ## .groupBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/groupBy.ahk' class='text-muted'>source</a>
+
 Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
 
 
@@ -1494,6 +1535,9 @@ A.groupBy([6.1, 4.2, 6.3], func("ceil"))
 
 
 ## .includes
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/includes.ahk' class='text-muted'>source</a>
+
 Checks if value is in collection. If collection is a string, it's checked for a substring of value.
 
 
@@ -1521,12 +1565,10 @@ A.includes({ "a": 1, "b": 2 }, 1)
 A.includes("inStr", "Str")
 ; => true
 
-StringCaseSense, On
-A.includes("inStr", "str")
+StringCaseSense, OnA.includes("inStr", "str")
 ; => false
 
-; RegEx object
-A.includes("hello!", "/\D/")
+; RegEx objectA.includes("hello!", "/\D/")
 ; => true
 
 ```
@@ -1534,6 +1576,9 @@ A.includes("hello!", "/\D/")
 
 
 ## .keyBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/keyBy.ahk' class='text-muted'>source</a>
+
 Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked with one argument: (value).
 
 
@@ -1550,17 +1595,10 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-array := [ {"dir": "left", "code": 97}
-	, {"dir": "right", "code": 100}]
-A.keyBy(array, func("fn_keyByFunc"))
+array := [ {"dir": "left", "code": 97}	, {"dir": "right", "code": 100}]A.keyBy(array, func("fn_keyByFunc"))
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
-fn_keyByFunc(value)
-{
-	return value.dir
-}
-; The A.property iteratee shorthand.
-A.keyBy(array, "dir")
+fn_keyByFunc(value){	return value.dir}; The A.property iteratee shorthand.A.keyBy(array, "dir")
 ; => {"left": {"dir": "left", "code": 97}, "right": {"dir": "right", "code": 100}}
 
 ```
@@ -1568,6 +1606,9 @@ A.keyBy(array, "dir")
 
 
 ## .map
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/map.ahk' class='text-muted'>source</a>
+
 Creates an array of values by running each element in collection thru iteratee. The iteratee is invoked with three arguments: (value, index|key, collection).
 
 
@@ -1584,11 +1625,7 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-fn_square(n)
-{
-	return n * n
-}
-A.map([4, 8], func("fn_square"))
+fn_square(n){	return n * n}A.map([4, 8], func("fn_square"))
 ; => [16, 64]
 
 A.map({ "a": 4, "b": 8 }, func("fn_square"))
@@ -1597,9 +1634,7 @@ A.map({ "a": 4, "b": 8 }, func("fn_square"))
 A.map({ "a": 4, "b": 8 })
 ; => [4, 8]
 
-; The A.property shorthand
-users := [{ "user": "barney" }, { "user": "fred" }]
-A.map(users, "user")
+; The A.property shorthandusers := [{ "user": "barney" }, { "user": "fred" }]A.map(users, "user")
 ; => ["barney", "fred"]
 
 ```
@@ -1607,6 +1642,9 @@ A.map(users, "user")
 
 
 ## .partition
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/partition.ahk' class='text-muted'>source</a>
+
 Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for, the second of which contains elements predicate returns falsey for. The predicate is invoked with one argument: (value).
 
 
@@ -1623,26 +1661,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [ { "user": "barney", "age": 36, "active": false }
-	, { "user": "fred", "age": 40, "active": true }
-	, { "user": "pebbles", "age": 1, "active": false } ]
-A.partition(users, func("fn_partitionFunc"))
+users := [ { "user": "barney", "age": 36, "active": false }	, { "user": "fred", "age": 40, "active": true }	, { "user": "pebbles", "age": 1, "active": false } ]A.partition(users, func("fn_partitionFunc"))
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
-fn_partitionFunc(o)
-{
-	return o.active
-}
-; The A.matches iteratee shorthand.
-A.partition(users, {"age": 1, "active": false})
+fn_partitionFunc(o){	return o.active}; The A.matches iteratee shorthand.A.partition(users, {"age": 1, "active": false})
 ; => [[{ "user": "pebbles", "age": 1, "active": false }], [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "age": 40, "active": true }]]
 
-; The A.propertyMatches iteratee shorthand.
-A.partition(users, ["active", false])
+; The A.propertyMatches iteratee shorthand.A.partition(users, ["active", false])
 ; => [[{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }] ,[{ "user": "fred", "age": 40, "active": true }]]
 
-; The A.property iteratee shorthand.
-A.partition(users, "active")
+; The A.property iteratee shorthand.A.partition(users, "active")
 ; => [[{ "user": "fred", "age": 40, "active": true }], [{ "user": "barney", "age": 36, "active": false }, { "user": "pebbles", "age": 1, "active": false }]]
 
 ```
@@ -1650,6 +1678,9 @@ A.partition(users, "active")
 
 
 ## .reject
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/reject.ahk' class='text-muted'>source</a>
+
 The opposite of [A.filter](/?id=filter) this method returns the elements of collection that predicate does **not** return truthy for.
 
 #### Arguments
@@ -1665,24 +1696,16 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]
-A.reject(users, func("fn_rejectFunc"))
+users := [{"user":"barney", "age":36, "active":false}, {"user":"fred", "age":40, "active":true}]A.reject(users, func("fn_rejectFunc"))
 ; => [{"user":"fred", "age":40, "active":true}]
 
-fn_rejectFunc(o)
-{
-	return !o.active
-}
-; The A.matches shorthand
-A.reject(users, {"age":40, "active":true})
+fn_rejectFunc(o){	return !o.active}; The A.matches shorthandA.reject(users, {"age":40, "active":true})
 ; => [{"user":"barney", "age":36, "active":false}]
 
-; The A.matchesProperty shorthand
-A.reject(users, ["active", false])
+; The A.matchesProperty shorthandA.reject(users, ["active", false])
 ; => [{"user":"fred", "age":40, "active":true}]
 
-; The A.property shorthand
-A.reject(users, "active")
+; The A.property shorthandA.reject(users, "active")
 ; => [{"user":"barney", "age":36, "active":false}]
 
 ```
@@ -1690,6 +1713,9 @@ A.reject(users, "active")
 
 
 ## .sample
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/sample.ahk' class='text-muted'>source</a>
+
 Gets a single random element from collection.
 
 #### Arguments
@@ -1710,6 +1736,9 @@ A.sample([1, 2, 3, 4])
 
 
 ## .sampleSize
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/sampleSize.ahk' class='text-muted'>source</a>
+
 Gets `n` random elements at unique keys from collection up to the size of collection.
 
 
@@ -1736,6 +1765,9 @@ A.sampleSize([1, 2, 3], 4)
 
 
 ## .shuffle
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/shuffle.ahk' class='text-muted'>source</a>
+
 Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
 
 #### Arguments
@@ -1759,6 +1791,9 @@ A.shuffle(["barney", "fred", "pebbles"])
 
 
 ## .size
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/size.ahk' class='text-muted'>source</a>
+
 Gets the size of collection by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
 
 
@@ -1787,6 +1822,9 @@ A.size("pebbles")
 
 
 ## .some
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/some.ahk' class='text-muted'>source</a>
+
 Checks if predicate returns truthy for **any** element of collection. Iteration is stopped once predicate returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
 
 
@@ -1803,17 +1841,13 @@ collection (Array|Object): The collection to iterate over.
 #### Example
 
 ```autohotkey
-users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]
-; The A.matches iteratee shorthand.
-A.some(users, { "user": "barney", "active": false })
+users := [{ "user": "barney", "active": true }, { "user": "fred", "active": false }]; The A.matches iteratee shorthand.A.some(users, { "user": "barney", "active": false })
 ; => false
 
-; The A.matchesProperty iteratee shorthand.
-A.some(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.some(users, ["active", false])
 ; => true
 
-; The A.property iteratee shorthand.
-A.some(users, "active")
+; The A.property iteratee shorthand.A.some(users, "active")
 ; => true
 
 ```
@@ -1821,6 +1855,9 @@ A.some(users, "active")
 
 
 ## .sortBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/sortBy.ahk' class='text-muted'>source</a>
+
 Creates an array of elements, sorted in ascending order by the results of running each element in a collection thru each iteratee. This method performs a stable sort, that is, it preserves the original sort order of equal elements. The iteratees are invoked with one argument: (value).
 
 
@@ -1840,11 +1877,7 @@ collection (Array|Object): The collection to iterate over.
 A.sortBy(["b", "f", "e", "c", "d", "a"])
 ; => ["a", "b", "c", "d", "e", "f"]
 
-users := [{ "name": "fred", "age": 40 }
- , { "name": "barney", "age": 34 }
- , { "name": "bernard", "age": 36 }
- , { "name": "zoey", "age": 40 }]
-A.sortBy(users, "age")
+users := [{ "name": "fred", "age": 40 } , { "name": "barney", "age": 34 } , { "name": "bernard", "age": 36 } , { "name": "zoey", "age": 40 }]A.sortBy(users, "age")
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"zoey"}, {"age":40, "name":"fred"}]
 
 A.sortBy(users, ["age", "name"])
@@ -1853,12 +1886,7 @@ A.sortBy(users, ["age", "name"])
 A.sortBy(users, func("fn_sortByFunc"))
 ; => [{"age":34, "name":"barney"}, {"age":36, "name":"bernard"}, {"age":40, "name":"fred"}, {"age":40, "name":"zoey"}]
 
-fn_sortByFunc(o)
-{
-	return o.name
-}
-; sort using result of another method
-A.sortBy(["ab", "a", " abc", "abc"], A.size)
+fn_sortByFunc(o){	return o.name}; sort using result of another methodA.sortBy(["ab", "a", " abc", "abc"], A.size)
 ; => ["a", "ab", "abc", " abc"]
 
 ```
@@ -1868,6 +1896,9 @@ A.sortBy(["ab", "a", " abc", "abc"], A.size)
 
 # **Date methods**
 ## .now
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/date/now.ahk' class='text-muted'>source</a>
+
 Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch *(1 January 1970 00:00:00 UTC)*.
 
 > [!Note]
@@ -1889,6 +1920,9 @@ A.now()
 
 # **Function methods**
 ## .ary
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/ary.ahk' class='text-muted'>source</a>
+
 Creates a function that invokes func, with up to n arguments, ignoring any additional arguments.
 
 
@@ -1905,18 +1939,17 @@ func (Function): The function to cap arguments for.
 #### Example
 
 ```autohotkey
-aryFunc := A.ary(Func("fn_aryFunc"), 2)
-aryFunc.call("a", "b", "c", "d")
+aryFunc := A.ary(Func("fn_aryFunc"), 2)aryFunc.call("a", "b", "c", "d")
 ; => ["a", "b"]
 
-fn_aryFunc(arguments*) {
-	return arguments
-}
-```
+fn_aryFunc(arguments*) {	return arguments}```
 
 
 
 ## .delay
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/delay.ahk' class='text-muted'>source</a>
+
 Invokes func after wait milliseconds. Any additional arguments are provided to func when it's invoked.
 
 
@@ -1945,6 +1978,9 @@ fn_delayFunc(text) {
 
 
 ## .flip
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/flip.ahk' class='text-muted'>source</a>
+
 Creates a function that invokes func with arguments reversed.
 
 
@@ -1959,22 +1995,20 @@ func (Function): The function to flip arguments for.
 #### Example
 
 ```autohotkey
-flippedFunc1 := A.flip(Func("inStr"))
-flippedFunc1.call("s", "string")
+flippedFunc1 := A.flip(Func("inStr"))flippedFunc1.call("s", "string")
 ; => 1
 
-flippedFunc2 := A.flip(Func("fn_flipFunc"))
-flippedFunc2.call("a", "b", "c", "d")
+flippedFunc2 := A.flip(Func("fn_flipFunc"))flippedFunc2.call("a", "b", "c", "d")
 ; => ["d", "c", "b", "a"]
 
-fn_flipFunc(arguments*) {
-	return biga.toArray(arguments)
-}
-```
+fn_flipFunc(arguments*) {	return biga.toArray(arguments)}```
 
 
 
 ## .memoize
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/memoize.ahk' class='text-muted'>source</a>
+
 Creates a function that memoizes the result of `func`. If `resolver` is provided, it determines the cache key for storing the result based on the arguments provided to the memoized function.
 
 
@@ -1991,25 +2025,20 @@ func (Function): The function to have its output memoized.
 #### Example
 
 ```autohotkey
-memoizedFibonacci := A.memoize(func("fn_fibonacci"))
-memoizedFibonacci.call(10)
+memoizedFibonacci := A.memoize(func("fn_fibonacci"))memoizedFibonacci.call(10)
 ; => 55
 
-; Subsequent calls with the same argument will use the cached result
-memoizedFibonacci.call(10)
+; Subsequent calls with the same argument will use the cached resultmemoizedFibonacci.call(10)
 ; => 55
 
-fn_fibonacci(n) {
-	if (n <= 1) {
-		return n
-	}
-	return fn_fibonacci(n - 1) + fn_fibonacci(n - 2)
-}
-```
+fn_fibonacci(n) {	if (n <= 1) {		return n	}	return fn_fibonacci(n - 1) + fn_fibonacci(n - 2)}```
 
 
 
 ## .negate
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/negate.ahk' class='text-muted'>source</a>
+
 Creates a function that negates the result of the predicate func. The func predicate is invoked with the this binding and arguments of the created function.
 
 
@@ -2024,18 +2053,17 @@ predicate (Function): The predicate to negate.
 #### Example
 
 ```autohotkey
-aryFunc := A.negate(Func("fn_isEven"))
-A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven"))
+aryFunc := A.negate(Func("fn_isEven"))A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven"))
 ; => [1, 3, 5]
 
-fn_isEven(n) {
-	return (mod(param_key, 2) = 0)
-}
-```
+fn_isEven(n) {	return (mod(param_key, 2) = 0)}```
 
 
 
 ## .once
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/once.ahk' class='text-muted'>source</a>
+
 Creates a function that is restricted to invoking func once. Repeat calls to the function return the value of the first invocation.
 
 
@@ -2058,6 +2086,9 @@ initialize.call()
 
 
 ## .throttle
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/throttle.ahk' class='text-muted'>source</a>
+
 Creates a throttled function that only invokes func at most once per every `wait` milliseconds. The func is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last func invocation.
 
 
@@ -2084,6 +2115,9 @@ refresh.call()
 
 # **Lang methods**
 ## .castArray
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/castArray.ahk' class='text-muted'>source</a>
+
 Casts value as an array if it's not one.
 
 #### Arguments
@@ -2114,6 +2148,9 @@ A.castArray("")
 
 
 ## .clone
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/clone.ahk' class='text-muted'>source</a>
+
 Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
 
 #### Arguments
@@ -2139,6 +2176,9 @@ shallowclone
 
 
 ## .cloneDeep
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/cloneDeep.ahk' class='text-muted'>source</a>
+
 This method is like [A.clone](/?id=clone) except that it recursively clones value.
 
 
@@ -2153,18 +2193,14 @@ value (*): The value to recursively clone.
 #### Example
 
 ```autohotkey
-object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]
-deepclone := A.cloneDeep(object)
-object[1].a := 2
-; object
-; => [{ "a": 2 }, { "b": 2 }]
-; deepclone
-; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]
-```
+object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)object[1].a := 2; object; => [{ "a": 2 }, { "b": 2 }]; deepclone; => [{ "a": [[1, 2, 3]] }, { "b": 2 }]```
 
 
 
 ## .conformsTo
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/conformsTo.ahk' class='text-muted'>source</a>
+
 Checks if object conforms to source by invoking the predicate properties of source with the corresponding property values of object.
 
 
@@ -2181,26 +2217,20 @@ source (Object): The object of property predicates to conform to.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2}
-A.conformsTo(object, {"b": func("fn_conformsToFunc1")})
+object := {"a": 1, "b": 2}A.conformsTo(object, {"b": func("fn_conformsToFunc1")})
 ; => true
 
 A.conformsTo(object, {"b": func("fn_conformsToFunc2")})
 ; => false
 
-fn_conformsToFunc1(n)
-{
-	return n > 1
-}
-fn_conformsToFunc2(n)
-{
-	return n > 2
-}
-```
+fn_conformsToFunc1(n){	return n > 1}fn_conformsToFunc2(n){	return n > 2}```
 
 
 
 ## .eq
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/eq.ahk' class='text-muted'>source</a>
+
 Performs a shallow comparison between two values to determine if they are equivalent.
 
 
@@ -2217,9 +2247,7 @@ other (*): The other value to compare.
 #### Example
 
 ```autohotkey
-object := {"a": 1}
-other := {"a": 1}
-A.eq(object, other)
+object := {"a": 1}other := {"a": 1}A.eq(object, other)
 ; => true
 
 A.eq("a", "a")
@@ -2233,6 +2261,9 @@ A.eq("", "")
 
 
 ## .gt
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/gt.ahk' class='text-muted'>source</a>
+
 Checks if value is greater than other.
 
 
@@ -2263,6 +2294,9 @@ A.gt(1, 3)
 
 
 ## .gte
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/gte.ahk' class='text-muted'>source</a>
+
 Checks if value is greater than or equal to other.
 
 
@@ -2293,6 +2327,9 @@ A.gte(1, 3)
 
 
 ## .isAlnum
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isAlnum.ahk' class='text-muted'>source</a>
+
 Checks if value is an alnum.
 
 
@@ -2324,6 +2361,9 @@ A.isAlnum({})
 
 
 ## .isArray
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isArray.ahk' class='text-muted'>source</a>
+
 Checks if value is an Array object.
 
 
@@ -2352,6 +2392,9 @@ A.isArray({"key": "value"})
 
 
 ## .isBoolean
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isBoolean.ahk' class='text-muted'>source</a>
+
 Checks if value is classified as a boolean.
 
 
@@ -2383,6 +2426,9 @@ A.isBoolean(0)
 
 
 ## .isEmpty
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isEmpty.ahk' class='text-muted'>source</a>
+
 Checks if value is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
 
 
@@ -2417,6 +2463,9 @@ A.isEmpty({"a": 1})
 
 
 ## .isEqual
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isEqual.ahk' class='text-muted'>source</a>
+
 Performs a deep comparison between two values to determine if they are equivalent.
 
 This method supports comparing strings and objects.
@@ -2444,8 +2493,7 @@ A.isEqual({ "a": 1 }, { "a": 1 })
 A.isEqual(1, 1, 2)
 ; => false
 
-StringCaseSense, On
-A.isEqual({ "a": "a" }, { "a": "A" })
+StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 ; => false
 
 ```
@@ -2453,6 +2501,9 @@ A.isEqual({ "a": "a" }, { "a": "A" })
 
 
 ## .isError
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isError.ahk' class='text-muted'>source</a>
+
 Checks if value is an exception error object.
 
 
@@ -2475,6 +2526,9 @@ A.isError(Exception("something broke"))
 
 
 ## .isFloat
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isFloat.ahk' class='text-muted'>source</a>
+
 Checks if value is a float.
 
 
@@ -2500,6 +2554,9 @@ A.isFloat(1)
 
 
 ## .isFunction
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isFunction.ahk' class='text-muted'>source</a>
+
 Checks if `value` is callable as a function object, bound function, or object method.
 
 
@@ -2514,8 +2571,7 @@ value (*): The `value` to check.
 #### Example
 
 ```autohotkey
-boundFunc := func("strLen").bind()
-A.isFunction(boundFunc)
+boundFunc := func("strLen").bind()A.isFunction(boundFunc)
 ; => true
 
 IsFunc(boundFunc)
@@ -2535,6 +2591,9 @@ A.isFunction([1, 2, 3])
 
 
 ## .isInteger
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isInteger.ahk' class='text-muted'>source</a>
+
 Checks if value is an integer.
 
 
@@ -2560,6 +2619,9 @@ A.isInteger("1")
 
 
 ## .isMatch
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isMatch.ahk' class='text-muted'>source</a>
+
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See [A.isEqual](/?id=isEqual) for a list of supported value comparisons.
@@ -2577,8 +2639,7 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-object := { "a": 1, "b": 2, "c": 3 }
-A.isMatch(object, {"b": 2})
+object := { "a": 1, "b": 2, "c": 3 }A.isMatch(object, {"b": 2})
 ; => true
 
 A.isMatch(object, {"b": 2, "c": 3})
@@ -2595,6 +2656,9 @@ A.isMatch(object, {"b": 2, "z": 99})
 
 
 ## .isNumber
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isNumber.ahk' class='text-muted'>source</a>
+
 Checks if value is a number.
 
 
@@ -2623,6 +2687,9 @@ A.isNumber("1.001")
 
 
 ## .isObject
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isObject.ahk' class='text-muted'>source</a>
+
 Checks if value is an object.
 
 
@@ -2651,6 +2718,9 @@ A.isObject("")
 
 
 ## .isString
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isString.ahk' class='text-muted'>source</a>
+
 Checks if value is classified as a string.
 
 
@@ -2676,6 +2746,9 @@ A.isString(1)
 
 
 ## .isUndefined
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isUndefined.ahk' class='text-muted'>source</a>
+
 Checks if value is undefined or blank.
 
 
@@ -2713,6 +2786,9 @@ A.isUndefined(false)
 
 
 ## .lt
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/lt.ahk' class='text-muted'>source</a>
+
 Checks if value is less than other.
 
 
@@ -2743,6 +2819,9 @@ A.lt(3, 1)
 
 
 ## .lte
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/lte.ahk' class='text-muted'>source</a>
+
 Checks if value is less than or equal to other.
 
 
@@ -2773,6 +2852,9 @@ A.lte(3, 1)
 
 
 ## .toArray
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toArray.ahk' class='text-muted'>source</a>
+
 Converts value to an array.
 
 
@@ -2804,6 +2886,9 @@ A.toArray("")
 
 
 ## .toLength
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toLength.ahk' class='text-muted'>source</a>
+
 Converts value to an integer suitable for use as the length of an array-like object.
 
 
@@ -2829,6 +2914,9 @@ A.toLength("3.2")
 
 
 ## .toString
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toString.ahk' class='text-muted'>source</a>
+
 Converts value to a string. An empty string is returned for undefined values. The sign of `-0` is preserved.
 
 
@@ -2857,6 +2945,9 @@ A.toString([1, 2, 3])
 
 
 ## .typeOf
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/typeOf.ahk' class='text-muted'>source</a>
+
 This method returns a string indicating the type of `value`.
 
 
@@ -2893,6 +2984,9 @@ A.typeOf(undeclaredVariable)
 
 # **Math methods**
 ## .add
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/add.ahk' class='text-muted'>source</a>
+
 Adds two numbers.
 
 
@@ -2917,6 +3011,9 @@ A.add(6, 4)
 
 
 ## .ceil
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/ceil.ahk' class='text-muted'>source</a>
+
 Computes number rounded up to precision.
 
 
@@ -2947,6 +3044,9 @@ A.ceil(6040, -2)
 
 
 ## .divide
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/divide.ahk' class='text-muted'>source</a>
+
 Divide two numbers.
 
 
@@ -2971,6 +3071,9 @@ A.divide(6, 4)
 
 
 ## .floor
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/floor.ahk' class='text-muted'>source</a>
+
 Computes number rounded down to precision.
 
 
@@ -3000,6 +3103,9 @@ A.floor(4060, -2)
 
 
 ## .max
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/max.ahk' class='text-muted'>source</a>
+
 Computes the maximum value of array. If array is empty or falsey, `""` is returned.
 
 
@@ -3025,6 +3131,9 @@ A.max([])
 
 
 ## .maxBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/maxBy.ahk' class='text-muted'>source</a>
+
 This method is like [A.max](/?id=max) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 #### Arguments
@@ -3039,16 +3148,10 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
-A.maxBy(objects, func("fn_maxByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.maxBy(objects, func("fn_maxByFunc"))
 ; => { "n": 8 }
 
-fn_maxByFunc(o)
-{
-	return o.n
-}
-; The A.property iteratee shorthand
-A.maxBy(objects, "n")
+fn_maxByFunc(o){	return o.n}; The A.property iteratee shorthandA.maxBy(objects, "n")
 ; => { "n": 8 }
 
 ```
@@ -3056,6 +3159,9 @@ A.maxBy(objects, "n")
 
 
 ## .mean
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/mean.ahk' class='text-muted'>source</a>
+
 Computes the mean of the values in array.
 
 
@@ -3078,6 +3184,9 @@ A.mean([4, 2, 8, 6])
 
 
 ## .meanBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/meanBy.ahk' class='text-muted'>source</a>
+
 This method is like [A.mean](/?id=mean) except that it accepts iteratee which is invoked for each element in array to generate the value to be averaged. The iteratee is invoked with one argument: (value).
 
 #### Arguments
@@ -3092,16 +3201,10 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]
-A.meanBy(objects, func("fn_meanByFunc"))
+objects := [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}]A.meanBy(objects, func("fn_meanByFunc"))
 ; => 5
 
-fn_meanByFunc(o)
-{
-	return o.n
-}
-; The A.property iteratee shorthand.
-A.meanBy(objects, "n")
+fn_meanByFunc(o){	return o.n}; The A.property iteratee shorthand.A.meanBy(objects, "n")
 ; => 5
 
 ```
@@ -3109,6 +3212,9 @@ A.meanBy(objects, "n")
 
 
 ## .min
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/min.ahk' class='text-muted'>source</a>
+
 Computes the minimum value of array. If array is empty or falsey, `""` is returned.
 
 
@@ -3134,6 +3240,9 @@ A.min([])
 
 
 ## .minBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/minBy.ahk' class='text-muted'>source</a>
+
 This method is like [A.min](/?id=min) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 #### Arguments
@@ -3148,16 +3257,10 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
-A.minBy(objects, func("fn_minByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.minBy(objects, func("fn_minByFunc"))
 ; => { "n": 2 }
 
-fn_minByFunc(o)
-{
-	return o.n
-}
-; The A.property iteratee shorthand
-A.minBy(objects, "n")
+fn_minByFunc(o){	return o.n}; The A.property iteratee shorthandA.minBy(objects, "n")
 ; => { "n": 2 }
 
 ```
@@ -3165,6 +3268,9 @@ A.minBy(objects, "n")
 
 
 ## .multiply
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/multiply.ahk' class='text-muted'>source</a>
+
 Multiply two numbers.
 
 
@@ -3189,6 +3295,9 @@ A.multiply(6, 4)
 
 
 ## .round
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/round.ahk' class='text-muted'>source</a>
+
 Computes number rounded to precision.
 
 
@@ -3219,6 +3328,9 @@ A.round(4060, -2)
 
 
 ## .subtract
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/subtract.ahk' class='text-muted'>source</a>
+
 Subtract two numbers.
 
 
@@ -3243,6 +3355,9 @@ A.subtract(6, 4)
 
 
 ## .sum
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/sum.ahk' class='text-muted'>source</a>
+
 Computes the sum of the values in array.
 
 
@@ -3265,6 +3380,9 @@ A.sum([4, 2, 8, 6])
 
 
 ## .sumBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/sumBy.ahk' class='text-muted'>source</a>
+
 This method is like [A.sum](/?id=sum) except that it accepts iteratee which is invoked for each element in array to generate the value to be summed. The iteratee is invoked with one argument: (value).
 
 
@@ -3280,16 +3398,10 @@ array (Array): The array to iterate over.
 #### Example
 
 ```autohotkey
-objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]
-A.sumBy(objects, func("fn_sumByFunc"))
+objects := [ {"n": 4 }, { "n": 2 }, { "n": 8 }, { "n": 6 } ]A.sumBy(objects, func("fn_sumByFunc"))
 ; => 20
 
-fn_sumByFunc(o)
-{
-	return o.n
-}
-; The A.property iteratee shorthand
-A.sumBy(objects, "n")
+fn_sumByFunc(o){	return o.n}; The A.property iteratee shorthandA.sumBy(objects, "n")
 ; => 20
 
 ```
@@ -3299,6 +3411,9 @@ A.sumBy(objects, "n")
 
 # **Number methods**
 ## .clamp
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/clamp.ahk' class='text-muted'>source</a>
+
 Clamps number within the inclusive lower and upper bounds.
 
 
@@ -3328,6 +3443,9 @@ A.clamp(10, -5, 5)
 
 
 ## .inRange
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/inRange.ahk' class='text-muted'>source</a>
+
 Checks if n is between start and up to, but not including, end. If end is not specified, it's set to start with start then set to 0. If start is greater than end the params are swapped to support negative ranges.
 
 
@@ -3372,6 +3490,9 @@ A.inRange(-3, -2, -6)
 
 
 ## .random
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/random.ahk' class='text-muted'>source</a>
+
 Produces a random number between the inclusive lower and upper bounds. If floating is true, or either lower or upper are floats, a floating-point number is returned instead of an integer. Uses AutoHotkey's pseudo-random [Random](https://www.autohotkey.com/docs/commands/Random.htm) command.
 
 
@@ -3404,6 +3525,9 @@ A.random(1.2, 5.2)
 
 # **Object methods**
 ## .at
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/at.ahk' class='text-muted'>source</a>
+
 Creates an array of values corresponding to paths of object.
 
 #### Arguments
@@ -3419,8 +3543,7 @@ object (Object): The object to iterate over.
 #### Example
 
 ```autohotkey
-object := {"a": [{ "b": {"c": 3} }, 4]}
-A.at(object, ["a[1].b.c", "a[2]"])
+object := {"a": [{ "b": {"c": 3} }, 4]}A.at(object, ["a[1].b.c", "a[2]"])
 ; => [3, 4]
 
 ```
@@ -3428,6 +3551,9 @@ A.at(object, ["a[1].b.c", "a[2]"])
 
 
 ## .defaults
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/defaults.ahk' class='text-muted'>source</a>
+
 Assigns own and inherited enumerable string keyed properties of source objects to the destination object for all destination properties. Source objects are applied from left to right. Once a property is set, additional values of the same property are ignored.
 
 > [!Note]
@@ -3455,6 +3581,9 @@ A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 
 
 ## .findKey
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/findKey.ahk' class='text-muted'>source</a>
+
 This method is like [A.find](/?id=find) except that it returns the key of the first element predicate returns truthy for instead of the element itself.
 
 
@@ -3473,26 +3602,16 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := { "barney": {"age": 36, "active": true}
-, "fred": {"age": 40, "active": false}
-, "pebbles": {"age": 1, "active": true} }
-A.findKey(users, func("fn_findKeyFunc"))
+users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, func("fn_findKeyFunc"))
 ; => "barney"
 
-fn_findKeyFunc(o)
-{
-	return o.age < 40
-}
-; The A.matches iteratee shorthand.
-A.findKey(users, {"age": 1, "active": true})
+fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
 ; => "pebbles"
 
-; The A.matchesProperty iteratee shorthand.
-A.findKey(users, ["active", false])
+; The A.matchesProperty iteratee shorthand.A.findKey(users, ["active", false])
 ; => "fred"
 
-; The A.property iteratee shorthand.
-A.findKey(users, "active")
+; The A.property iteratee shorthand.A.findKey(users, "active")
 ; => "barney"
 
 ```
@@ -3500,6 +3619,9 @@ A.findKey(users, "active")
 
 
 ## .forIn
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/forIn.ahk' class='text-muted'>source</a>
+
 Iterates over own enumerable keys of an object and invokes iteratee for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
 
 
@@ -3528,6 +3650,9 @@ fn_forInFunc(value, key) {
 
 
 ## .forInRight
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/forInRight.ahk' class='text-muted'>source</a>
+
 This method is like [A.forIn](/?id=forin) except that it iterates over properties of object in the opposite order.
 
 
@@ -3555,6 +3680,9 @@ fn_forInRightFunc(value, key) {
 
 
 ## .get
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/get.ahk' class='text-muted'>source</a>
+
 Gets the value at path of object. If the resolved value is `""`, the defaultValue is returned in its place.
 
 
@@ -3573,8 +3701,7 @@ path (Array|string): The path of the property to get.
 #### Example
 
 ```autohotkey
-object := {"a": [{ "b": {"c": 3} }]}
-A.get(object, "a[1].b.c")
+object := {"a": [{ "b": {"c": 3} }]}A.get(object, "a[1].b.c")
 ; => 3
 
 A.get(object, ["a", "1", "b", "c"])
@@ -3588,6 +3715,9 @@ A.get(object, "a.b.c", "default")
 
 
 ## .has
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/has.ahk' class='text-muted'>source</a>
+
 Checks if path is a property of object.
 
 
@@ -3604,8 +3734,7 @@ path (Array|string): The path to check.
 #### Example
 
 ```autohotkey
-object := {"a": { "b": ""}}
-A.has(object, "a")
+object := {"a": { "b": ""}}A.has(object, "a")
 ; => true
 
 A.has(object, "a.b")
@@ -3622,6 +3751,9 @@ A.has(object, "a.b.c")
 
 
 ## .invert
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/invert.ahk' class='text-muted'>source</a>
+
 Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
 
 
@@ -3636,8 +3768,7 @@ object (Object): The object to invert.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2, "c": 1}
-A.invert(object)
+object := {"a": 1, "b": 2, "c": 1}A.invert(object)
 ; => {"1": "c", "2": "b"}
 
 A.invert({1: "a", 2: "A"})
@@ -3648,6 +3779,9 @@ A.invert({1: "a", 2: "A"})
 
 
 ## .invertBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/invertBy.ahk' class='text-muted'>source</a>
+
 This method is like [A.invert](/?id=invert) except that the inverted object is generated from the results of running each element of object thru iteratee. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
 
 
@@ -3663,22 +3797,20 @@ object (Object): The object to invert.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2, "c": 1}
-A.invertBy(object)
+object := {"a": 1, "b": 2, "c": 1}A.invertBy(object)
 ; => {"1": ["a", "c"], "2":["b"]}
 
 A.invertBy(object, func("invertByFunc"))
 ; => {"group1": ["a", "c"], "group2": ["b"]}
 
-invertByFunc(value)
-{
-	return "group" value
-}
-```
+invertByFunc(value){	return "group" value}```
 
 
 
 ## .keys
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/keys.ahk' class='text-muted'>source</a>
+
 Creates an array of the own enumerable properties of object.
 
 
@@ -3693,8 +3825,7 @@ object (Object): The object to query.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": 2, "c": 3}
-A.keys(object)
+object := {"a": 1, "b": 2, "c": 3}A.keys(object)
 ; => ["a", "b", "c"]
 
 A.keys("hi")
@@ -3705,6 +3836,9 @@ A.keys("hi")
 
 
 ## .mapKeys
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/mapKeys.ahk' class='text-muted'>source</a>
+
 The opposite of [A.mapValues](/?id=mapvalues) this method creates an object with the same values as object and keys generated by running each own enumerable string keyed property of object thru iteratee. The iteratee is invoked with three arguments: (value, index|key, object).
 
 
@@ -3724,15 +3858,14 @@ object (Object): The object to iterate over.
 A.mapKeys({"a": 1, "b": 2}, func("fn_mapKeysFunc"))
 ; => {"a+1": 1, "b+2": 2}
 
-fn_mapKeysFunc(value, key)
-{
-	return key "+" value
-}
-```
+fn_mapKeysFunc(value, key){	return key "+" value}```
 
 
 
 ## .mapValues
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/mapValues.ahk' class='text-muted'>source</a>
+
 Creates an object with the same keys as object and values generated by running each own enumerable string keyed property of object thru iteratee. The iteratee is invoked with three arguments: (value, index|key, object).
 
 
@@ -3749,17 +3882,10 @@ object (Object): The object to iterate over.
 #### Example
 
 ```autohotkey
-users := {"fred": {"user": "fred", "age": 40}
-		,"pebbles": {"user": "pebbles", "age": 1}}
-A.mapValues(users, func("fn_mapValuesFunc"))
+users := {"fred": {"user": "fred", "age": 40}		,"pebbles": {"user": "pebbles", "age": 1}}A.mapValues(users, func("fn_mapValuesFunc"))
 ; => {"fred": 40, "pebbles": 1}
 
-fn_mapValuesFunc(o)
-{
-	return o.age
-}
-; The A.property iteratee shorthand.
-A.mapValues(users, "age")
+fn_mapValuesFunc(o){	return o.age}; The A.property iteratee shorthand.A.mapValues(users, "age")
 ; => {"fred": 40, "pebbles": 1}
 
 ```
@@ -3767,6 +3893,9 @@ A.mapValues(users, "age")
 
 
 ## .merge
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/merge.ahk' class='text-muted'>source</a>
+
 This method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 
 
@@ -3783,14 +3912,10 @@ object (Object): The destination object.
 #### Example
 
 ```autohotkey
-object := {"options": [{"option1": true}]}
-other := {"options": [{"option2": false}]}
-A.merge(object, other)
+object := {"options": [{"option1": true}]}other := {"options": [{"option2": false}]}A.merge(object, other)
 ; => {"options": [{"option1": true, "option2": false}]}
 
-object := { "a": [{ "b": 2 }, { "d": 4 }] }
-other := { "a": [{ "c": 3 }, { "e": 5 }] }
-A.merge(object, other)
+object := { "a": [{ "b": 2 }, { "d": 4 }] }other := { "a": [{ "c": 3 }, { "e": 5 }] }A.merge(object, other)
 ; => { "a": [{ "b": "2", "c": 3 }, { "d": "4", "e": 5 }] }
 
 ```
@@ -3798,6 +3923,9 @@ A.merge(object, other)
 
 
 ## .omit
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/omit.ahk' class='text-muted'>source</a>
+
 The opposite of [A.pick](/?id=pick) this method creates an object composed of the own and inherited enumerable property paths of object that are not omitted.
 
 
@@ -3813,8 +3941,7 @@ object (Object): The source object.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": "2", "c": 3}
-A.omit(object, ["a", "c"])
+object := {"a": 1, "b": "2", "c": 3}A.omit(object, ["a", "c"])
 ; => {"b": "2"}
 
 ```
@@ -3822,6 +3949,9 @@ A.omit(object, ["a", "c"])
 
 
 ## .pick
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/pick.ahk' class='text-muted'>source</a>
+
 Creates an object composed of the picked object properties.
 
 
@@ -3837,8 +3967,7 @@ object (Object): The source object.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": "2", "c": 3}
-A.pick(object, ["a", "c"])
+object := {"a": 1, "b": "2", "c": 3}A.pick(object, ["a", "c"])
 ; => {"a": 1, "c": 3}
 
 ```
@@ -3846,6 +3975,9 @@ A.pick(object, ["a", "c"])
 
 
 ## .pickBy
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/pickBy.ahk' class='text-muted'>source</a>
+
 Creates an object composed of the object properties predicate returns truthy for. The predicate is invoked with two arguments: (value, key).
 
 
@@ -3862,58 +3994,13 @@ object (Object): The source object.
 #### Example
 
 ```autohotkey
-object := {"a": 1, "b": "two", "c": 3}
-A.pickBy(object, A.isNumber)
+object := {"a": 1, "b": "two", "c": 3}A.pickBy(object, A.isNumber)
 ; => {"a": 1, "c": 3}
 
-```
-
-
-
-## .toPairs
-Creates an array of own enumerable string keyed-value pairs for object which can be consumed by A.fromPairs.
-
-
-#### Aliases
-`.entries`
-
-
-#### Arguments
-object (Object): The object to query.
-
-
-#### Returns
-(Array): Returns the key-value pairs.
-
-
 #### Example
 
 ```autohotkey
-A.toPairs({"a": 1, "b": 2})
-; => [["a", 1], ["b", 2]]
-
-```
-
-
-
-## .values
-Creates an array of the own enumerable string keyed property values of object.
-
-
-#### Arguments
-object (Object): The object to query.
-
-
-#### Returns
-(Array): Returns the array of property values.
-
-
-#### Example
-
-```autohotkey
-object := {"a": 1, "b": 2}
-object.c := 3
-A.values(object)
+object := {"a": 1, "b": 2}object.c := 3A.values(object)
 ; => [1, 2, 3]
 
 A.values("hi")
@@ -3926,6 +4013,9 @@ A.values("hi")
 
 # **String methods**
 ## .camelCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/camelCase.ahk' class='text-muted'>source</a>
+
 Converts string to camel case.
 
 #### Arguments
@@ -3952,6 +4042,9 @@ A.camelCase("__FOO_BAR__")
 
 
 ## .endsWith
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/endsWith.ahk' class='text-muted'>source</a>
+
 Checks if string ends with the given target string.
 
 
@@ -3984,6 +4077,9 @@ A.endsWith("abc", "b", 2)
 
 
 ## .escape
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/escape.ahk' class='text-muted'>source</a>
+
 Converts the characters "&", "<", ">", '"', and "'" in string to their corresponding HTML entities.
 
 > [!Note]
@@ -4005,8 +4101,7 @@ When working with HTML you should always quote attribute values to reduce XSS ve
 #### Example
 
 ```autohotkey
-string := "fred, barney, & pebbles"
-A.escape(string)
+string := "fred, barney, & pebbles"A.escape(string)
 ; => "fred, barney, &amp; pebbles"
 
 ```
@@ -4014,6 +4109,9 @@ A.escape(string)
 
 
 ## .kebabCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/kebabCase.ahk' class='text-muted'>source</a>
+
 Converts string to kebab case.
 
 
@@ -4042,6 +4140,9 @@ A.kebabCase("--FOO_BAR--")
 
 
 ## .lowerCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/lowerCase.ahk' class='text-muted'>source</a>
+
 Converts string, as space separated words, to lower case.
 
 
@@ -4070,6 +4171,9 @@ A.lowerCase("__FOO_BAR__")
 
 
 ## .lowerFirst
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/lowerFirst.ahk' class='text-muted'>source</a>
+
 Converts the first character of `string` to lower case.
 
 
@@ -4095,6 +4199,9 @@ A.lowerFirst("FRED")
 
 
 ## .pad
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/pad.ahk' class='text-muted'>source</a>
+
 Pads string on the left and right sides if it's shorter than length. Padding characters are truncated if they can't be evenly divided by length.
 
 #### Arguments
@@ -4126,6 +4233,9 @@ A.pad("abc", 3)
 
 
 ## .padEnd
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/padEnd.ahk' class='text-muted'>source</a>
+
 Pads string on the right side if it's shorter than length. Padding characters are truncated if they exceed length.
 
 #### Arguments
@@ -4157,6 +4267,9 @@ A.padEnd("abc", 3)
 
 
 ## .padStart
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/padStart.ahk' class='text-muted'>source</a>
+
 Pads string on the left side if it's shorter than length. Padding characters are truncated if they exceed length.
 
 #### Arguments
@@ -4188,6 +4301,9 @@ A.padStart("abc", 3)
 
 
 ## .parseInt
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/parseInt.ahk' class='text-muted'>source</a>
+
 Converts string to an integer of the specified radix. If radix is `""` undefined or `0`, a radix of `10` is used unless value is a hexadecimal, in which case a radix of `16` is used.
 
 #### Arguments
@@ -4215,6 +4331,9 @@ A.map(["6", "08", "10"], A.parseInt)
 
 
 ## .repeat
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/repeat.ahk' class='text-muted'>source</a>
+
 Repeats the given string `n` times.
 
 
@@ -4245,6 +4364,9 @@ A.repeat("abc", 0)
 
 
 ## .replace
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/replace.ahk' class='text-muted'>source</a>
+
 #### Arguments
 string (string): The string to modify.
 
@@ -4271,6 +4393,9 @@ A.replace("1234", "/(\d+)/", "numbers")
 
 
 ## .snakeCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/snakeCase.ahk' class='text-muted'>source</a>
+
 Converts string to snake case.
 
 #### Arguments
@@ -4298,6 +4423,9 @@ A.snakeCase("--FOO-BAR--")
 
 
 ## .split
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/split.ahk' class='text-muted'>source</a>
+
 Splits string by separator.
 
 
@@ -4326,6 +4454,9 @@ A.split("a--b-c", "/[\-]+/")
 
 
 ## .startCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/startCase.ahk' class='text-muted'>source</a>
+
 Converts string to start case.
 
 #### Arguments
@@ -4352,6 +4483,9 @@ A.startCase("__FOO_BAR__")
 
 
 ## .startsWith
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/startsWith.ahk' class='text-muted'>source</a>
+
 Checks if string starts with the given target string.
 
 
@@ -4373,48 +4507,8 @@ string (string): The string to inspect.
 A.startsWith("abc", "a")
 ; => true
 
-A.startsWith("abc", "b")
-; => false
-
-A.startsWith("abc", "b", 2)
-; => true
-
-StringCaseSense, On
-A.startsWith("abc", "A")
-; => false
-
-```
 
 
-
-## .toLower
-Converts string, as a whole, to lower case.
-
-
-#### Arguments
-string (string): The string to convert.
-
-
-#### Returns
-(string): Returns the lower cased string.
-
-#### Example
-
-```autohotkey
-A.toLower("--Foo-Bar--")
-; => "--foo-bar--"
-
-A.toLower("fooBar")
-; => "foobar"
-
-A.toLower("__FOO_BAR__")
-; => "__foo_bar__"
-
-```
-
-
-
-## .toUpper
 Converts string, as a whole, to upper case
 
 
@@ -4442,6 +4536,9 @@ A.toUpper("__foo_bar__")
 
 
 ## .trim
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/trim.ahk' class='text-muted'>source</a>
+
 Removes leading and trailing whitespace or specified characters from string.
 
 
@@ -4472,6 +4569,9 @@ A.map([" foo  ", "  bar  "], A.trim)
 
 
 ## .trimEnd
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/trimEnd.ahk' class='text-muted'>source</a>
+
 Removes trailing whitespace or specified characters from string.
 
 
@@ -4499,6 +4599,9 @@ A.trimEnd("-_-abc-_-", "_-")
 
 
 ## .trimStart
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/trimStart.ahk' class='text-muted'>source</a>
+
 Removes leading whitespace or specified characters from string.
 
 
@@ -4526,6 +4629,9 @@ A.trimStart("-_-abc-_-", "_-")
 
 
 ## .truncate
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/truncate.ahk' class='text-muted'>source</a>
+
 Truncates string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
 
 
@@ -4548,8 +4654,7 @@ Truncates string if it's longer than the given maximum string length. The last c
 #### Example
 
 ```autohotkey
-string := "hi-diddly-ho there, neighborino"
-A.truncate(string)
+string := "hi-diddly-ho there, neighborino"A.truncate(string)
 ; => "hi-diddly-ho there, neighbor..."
 
 A.truncate(string, {"length": 24, "separator": " "})
@@ -4563,6 +4668,9 @@ A.truncate(string, {"length": 24, "separator": "/, /"})
 
 
 ## .unescape
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/unescape.ahk' class='text-muted'>source</a>
+
 The inverse of [A.escape](#escape) this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, and &#39; in string to their corresponding characters.
 
 > [!Note]
@@ -4579,8 +4687,7 @@ The inverse of [A.escape](#escape) this method converts the HTML entities &amp;,
 #### Example
 
 ```autohotkey
-string := "fred, barney, &amp; pebbles"
-A.unescape(string)
+string := "fred, barney, &amp; pebbles"A.unescape(string)
 ; => "fred, barney, & pebbles"
 
 ```
@@ -4588,6 +4695,9 @@ A.unescape(string)
 
 
 ## .upperCase
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/upperCase.ahk' class='text-muted'>source</a>
+
 Converts string, as space separated words, to upper case.
 
 
@@ -4616,6 +4726,9 @@ A.upperCase("__FOO_BAR__")
 
 
 ## .upperFirst
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/upperFirst.ahk' class='text-muted'>source</a>
+
 Converts the first character of `string` to upper case.
 
 
@@ -4641,6 +4754,9 @@ A.upperFirst("FRED")
 
 
 ## .words
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/words.ahk' class='text-muted'>source</a>
+
 Splits string into an array of its words.
 
 
@@ -4671,6 +4787,9 @@ A.words("fred, barney, & pebbles", "/[^, ]+/")
 
 # **Util methods**
 ## .conforms
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/conforms.ahk' class='text-muted'>source</a>
+
 Creates a function that invokes the predicate properties of source with the corresponding property values of a given object, returning true if all predicates return truthy, else false.
 
 
@@ -4685,20 +4804,17 @@ source (Object): The object of property predicates to conform to.
 #### Example
 
 ```autohotkey
-objects := [{"a": 2, "b": 1}
-		, {"a": 1, "b": 2}]
-A.filter(objects, A.conforms({"b": func("fn_conformsFunc")}))
+objects := [{"a": 2, "b": 1}		, {"a": 1, "b": 2}]A.filter(objects, A.conforms({"b": func("fn_conformsFunc")}))
 ; => [{"a": 1, "b": 2}]
 
-fn_conformsFunc(n)
-{
-	return n > 1
-}
-```
+fn_conformsFunc(n){	return n > 1}```
 
 
 
 ## .constant
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/constant.ahk' class='text-muted'>source</a>
+
 Creates a function that returns value.
 
 
@@ -4713,13 +4829,14 @@ value (*): The value to return from the new function.
 #### Example
 
 ```autohotkey
-object := A.times(2, A.constant({"a": 1}))
-; => [{"a": 1}, {"a": 1}]
-```
+object := A.times(2, A.constant({"a": 1})); => [{"a": 1}, {"a": 1}]```
 
 
 
 ## .identity
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/identity.ahk' class='text-muted'>source</a>
+
 This method returns the first argument it receives.
 
 #### Arguments
@@ -4732,8 +4849,7 @@ value (*): Any value.
 #### Example
 
 ```autohotkey
-object := {"a": 1}
-A.identity(object)
+object := {"a": 1}A.identity(object)
 ; => {"a": 1}
 
 ```
@@ -4741,6 +4857,9 @@ A.identity(object)
 
 
 ## .matches
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/matches.ahk' class='text-muted'>source</a>
+
 Creates a function that performs a shallow comparison between a given object and source, returning true if the given object has equivalent property values, else false.
 
 
@@ -4755,12 +4874,10 @@ source (Object): The object of property values to match.
 #### Example
 
 ```autohotkey
-objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
-A.filter(objects, A.matches({ "a": 4, "c": 6 }))
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.filter(objects, A.matches({ "a": 4, "c": 6 }))
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
-functor := A.matches({ "a": 4 })
-A.filter(objects, functor)
+functor := A.matches({ "a": 4 })A.filter(objects, functor)
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
 functor.call({ "a": 1 })
@@ -4771,6 +4888,9 @@ functor.call({ "a": 1 })
 
 
 ## .matchesProperty
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/matchesProperty.ahk' class='text-muted'>source</a>
+
 Creates a function that performs a partial deep comparison between the value at path of a given object to srcValue, returning true if the object value is equivalent, else false.
 
 
@@ -4787,15 +4907,13 @@ srcValue (*): The value to match.
 #### Example
 
 ```autohotkey
-objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]
-A.find(objects, A.matchesProperty("a", 4))
+objects := [{ "a": 1, "b": 2, "c": 3 }, { "a": 4, "b": 5, "c": 6 }]A.find(objects, A.matchesProperty("a", 4))
 ; => { "a": 4, "b": 5, "c": 6 }
 
 A.filter(objects, A.matchesProperty("a", 4))
 ; => [{ "a": 4, "b": 5, "c": 6 }]
 
-objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-A.find(objects, A.matchesProperty(["a", "b"], 1))
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.find(objects, A.matchesProperty(["a", "b"], 1))
 ; => { "a": {"b": 1} }
 
 ```
@@ -4803,6 +4921,9 @@ A.find(objects, A.matchesProperty(["a", "b"], 1))
 
 
 ## .noop
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/noop.ahk' class='text-muted'>source</a>
+
 This method returns AutoHotkey's closest undefined equivilant; `""`.
 
 
@@ -4817,6 +4938,9 @@ A.times(2, A.stubObject)
 
 
 ## .nthArg
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/nthArg.ahk' class='text-muted'>source</a>
+
 Creates a function that gets the argument at index n. If n is negative, the nth argument from the end is returned.
 
 
@@ -4831,12 +4955,10 @@ Creates a function that gets the argument at index n. If n is negative, the nth 
 #### Example
 
 ```autohotkey
-func := A.nthArg(2)
-func.call("a", "b", "c", "d")
+func := A.nthArg(2)func.call("a", "b", "c", "d")
 ; => "b"
 
-func := A.nthArg(-2)
-func.call("a", "b", "c", "d")
+func := A.nthArg(-2)func.call("a", "b", "c", "d")
 ; => "c"
 
 ```
@@ -4844,6 +4966,9 @@ func.call("a", "b", "c", "d")
 
 
 ## .over
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/over.ahk' class='text-muted'>source</a>
+
 Creates a function that invokes iteratees with the arguments it receives and returns their results.
 
 
@@ -4858,12 +4983,10 @@ Creates a function that invokes iteratees with the arguments it receives and ret
 #### Example
 
 ```autohotkey
-func := A.over([func("min"), func("max")])
-func.call(1, 2, 3, 4)
+func := A.over([func("min"), func("max")])func.call(1, 2, 3, 4)
 ; => [1, 4]
 
-func := A.over([A.isBoolean, A.isNumber])
-func.call(10)
+func := A.over([A.isBoolean, A.isNumber])func.call(10)
 ; => [false, true]
 
 ```
@@ -4871,6 +4994,9 @@ func.call(10)
 
 
 ## .print
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/print.ahk' class='text-muted'>source</a>
+
 Prints values to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
 
 
@@ -4894,6 +5020,9 @@ msgbox, % A.print("object: ", [1, 2, 3])
 
 
 ## .property
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/property.ahk' class='text-muted'>source</a>
+
 Creates a function that returns the value at path of a given object.
 
 
@@ -4908,15 +5037,13 @@ path (Array|string): The path of the property to get.
 #### Example
 
 ```autohotkey
-objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]
-A.map(objects, A.property("a.b"))
+objects := [{ "a": {"b": 2} }, { "a": {"b": 1} }]A.map(objects, A.property("a.b"))
 ; => [2, 1]
 
 A.map(objects, A.property(["a", "b"]))
 ; => [2, 1]
 
-objects := [{"name": "fred"}, {"name": "barney"}]
-A.map(objects, A.property("name"))
+objects := [{"name": "fred"}, {"name": "barney"}]A.map(objects, A.property("name"))
 ; => ["fred", "barney"]
 
 ```
@@ -4924,6 +5051,9 @@ A.map(objects, A.property("name"))
 
 
 ## .propertyOf
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/propertyOf.ahk' class='text-muted'>source</a>
+
 The opposite of [A.property](/?id=property) this method creates a function that returns the value at a given path of object.
 
 
@@ -4938,9 +5068,7 @@ object (Object): The object to query.
 #### Example
 
 ```autohotkey
-array := [0, 1, 2]
-object := {"a": array, "b": array, "c": array}
-A.map(["a[3]", "c[1]"], A.propertyOf(object))
+array := [0, 1, 2]object := {"a": array, "b": array, "c": array}A.map(["a[3]", "c[1]"], A.propertyOf(object))
 ; => [2, 0]
 
 A.map([["a", 3], ["c", 1]], A.propertyOf(object))
@@ -4951,6 +5079,9 @@ A.map([["a", 3], ["c", 1]], A.propertyOf(object))
 
 
 ## .range
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/range.ahk' class='text-muted'>source</a>
+
 Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end. A step of -1 is used if a negative start is specified without an end or step. If end is not specified, it's set to start with start then set to 0. The array's size is used as the end when a step of 0 is specified.
 
 
@@ -4993,6 +5124,9 @@ A.range(0)
 
 
 ## .stubArray
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/stubArray.ahk' class='text-muted'>source</a>
+
 This method returns a new empty array.
 
 
@@ -5011,6 +5145,9 @@ A.times(2, A.stubArray)
 
 
 ## .stubFalse
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/stubFalse.ahk' class='text-muted'>source</a>
+
 This method returns `false`.
 
 
@@ -5029,6 +5166,9 @@ A.times(2, A.stubFalse)
 
 
 ## .stubObject
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/stubObject.ahk' class='text-muted'>source</a>
+
 This method returns a new empty object.
 
 
@@ -5047,6 +5187,9 @@ A.times(2, A.stubObject)
 
 
 ## .stubString
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/stubString.ahk' class='text-muted'>source</a>
+
 This method returns an empty string.
 
 
@@ -5065,6 +5208,9 @@ A.times(2, A.stubString)
 
 
 ## .stubTrue
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/stubTrue.ahk' class='text-muted'>source</a>
+
 This method returns `true`.
 
 
@@ -5083,6 +5229,9 @@ A.times(2, A.stubTrue)
 
 
 ## .times
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/times.ahk' class='text-muted'>source</a>
+
 Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument; (index).
 
 
@@ -5109,6 +5258,9 @@ array := A.times(5, boundFunc)
 
 
 ## .toPath
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/toPath.ahk' class='text-muted'>source</a>
+
 Converts `value` to a property path array.
 
 
@@ -5134,6 +5286,9 @@ A.toPath("a[1].b.c")
 
 
 ## .uniqueId
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/uniqueId.ahk' class='text-muted'>source</a>
+
 Generates a unique ID. If `prefix` is given, the ID is appended to it.
 
 
@@ -5154,3 +5309,6 @@ A.uniqueId()
 ; => 2
 
 ```
+
+
+

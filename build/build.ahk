@@ -56,7 +56,6 @@ loop, Files, %A_WorkingDir%\src\*.ahk, R
 {
 	fileRead, The_MemoryFile, % A_LoopFileFullPath
 
-	; chunk that b
 	bbb := {}
 	bbb.raw := The_MemoryFile
 	; bbb.name := SubStr(A_LoopFileName,1,strLen(A_LoopFileName) - 4)
@@ -159,7 +158,9 @@ loop, % dataArr.count() {
 	if (element.category != dataArr[A_Index - 1].category) {
 		txt.push(newline "# **" A.startCase(element.category) " methods**" newline)
 	}
-	txt.push("## " "." element.name newline element.doc newline newline)
+	txt.push("## " "." element.name newline newline)
+	txt.push("<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/" element.category "/" element.name ".ahk' class='text-muted'>source</a>")
+	txt.push(newline newline element.doc newline newline)
 	; if examples not staticly defined in .md file, parse tests for use in documentation
 	if (!A.includes(element.doc,"Example") && A.includes(element.tests, settings.objectName ".")) {
 		txt.push("#### Example" newline newline "``````autohotkey" newline)
@@ -187,22 +188,25 @@ for _, value in dataArr {
 		newElement.lib := A.replace(newElement.lib, value.name, alias)
 		dataArr.push(newElement)
 	}
-
 }
 
 ; add indentation to library
-lib_array := A.map(dataArr,Func("fn_AddIndent"))
+lib_array := A.map(dataArr, Func("fn_AddIndent"))
+; fn_AddMark(value) {
+; 	value.lib := A_Tab ";MARK: ." value.name "`n" value.lib
+; 	return value
+; }
 fn_AddIndent(value) {
-	x := biga.replace(value.lib,"/m)^(.+)/",A_Tab "$1")
-	x := biga.replace(x,"/m`n)^([\s\n\r]*)$/","")
-	x := biga.replace(x,"/m`n)(^[\s\n\r]*$)/","")
+	x := biga.replace(value.lib,"/m)^(.+)/", A_Tab "$1")
+	x := biga.replace(x, "/m`n)^([\s\n\r]*)$/","")
+	x := biga.replace(x, "/m`n)(^[\s\n\r]*$)/","")
 	return x
 }
 
 fileDelete, % libraryFilePath
 lib_head := A.split(fn_readFile(A_WorkingDir "\src\_head.tail\lib_head.ahk"), "`n")
 lib_tail := A.split(fn_readFile(A_WorkingDir "\src\_head.tail\lib_tail.ahk"), "`n")
-lib_txt := A.join(A.concat(lib_head,lib_array,lib_tail),"")
+lib_txt := A.join(A.concat(lib_head, lib_array, lib_tail), "")
 ; blank out commented sections from lib_txt
 ; lib_txt := A.replace(lib_txt,"/(^\s*;(?:.*))(?:\r?\n\g<1>)+/","")
 while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
@@ -210,7 +214,7 @@ while (regExMatch(lib_txt, "Om)^(\h*;.*)(?:\R\g<1>){3,}", RE_Match)) {
 }
 ; remove blank lines
 ; lib_txt := A.replace(lib_txt, "/([`r`n]+)/","`r`n")
-fileAppend, %lib_txt%, % libraryFilePath
+fileAppend, % lib_txt, % libraryFilePath
 
 ; === GLOBAL TESTS worth throwing a huge error===
 if (A.includes(lib_txt, "/\s*max\(\d+\,\s*\d+/")) {
