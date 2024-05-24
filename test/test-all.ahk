@@ -447,29 +447,32 @@ assert.test(A.join(["a", "b", "c"]), "a,b,c")
 assert.test(A.join({"first": 1, "second": 2, "third": 3}), "1,2,3")
 assert.test(A.join({"first": 1, "second": 2, "third": 3}, "~"), "1~2~3")
 
-assert.label("Join an array of strings with a specified delimiter")
+assert.label("array of strings with a specified delimiter")
 assert.test(A.join(["a", "b", "c"], "~"), "a~b~c")
 
-assert.label("Join an array of strings with the default delimiter (comma)")
+assert.label("array of strings with the default delimiter (comma)")
 assert.test(A.join(["a", "b", "c"]), "a,b,c")
 
-assert.label("Join an array of integers with a specified delimiter")
+assert.label("array of integers with a specified delimiter")
 assert.test(A.join([1, 2, 3], "~"), "1~2~3")
 
-assert.label("Join an array of mixed types with a specified delimiter")
+assert.label("array of mixed types with a specified delimiter")
 assert.test(A.join(["a", 1, true], "~"), "a~1~1")
 
-assert.label("Join an array with empty strings with a specified delimiter")
+assert.label("array with empty strings with a specified delimiter")
 assert.test(A.join(["", "b", "", "d"], "~"), "~b~~d")
 
-assert.label("Join an empty array should return an empty string")
+assert.label("empty array should return an empty string")
 assert.test(A.join([]), "")
 
-assert.label("Join an array with a single element should return the element itself")
+assert.label("array with a single element should return the element itself")
 assert.test(A.join(["hello"]), "hello")
 
-assert.label("Join an array with non-string elements should convert them to strings")
+assert.label("array with non-string elements should convert them to strings")
 assert.test(A.join([1, true, "", non_existant_var]), "1,1,,")
+
+assert.label("With negative number keys")
+assert.test(A.join({"-100": 1, "-1": 2, "-0": 3}), "3,2,1")
 
 assert.group(".last")
 assert.label("default tests")
@@ -1608,19 +1611,31 @@ fn_fibonacci(n) {
 ; omit
 assert.label("cache leak over to other memoizations functions")
 memoizedIsEven := A.memoize(func("fn_memoizeIsEven"))
-assert.test(memoizedIsEven.call(10), true)
 fn_memoizeIsEven(param_n) {
 	return (mod(param_n, 2) = 0)
 }
 assert.test(memoizedIsEven.call(2), true)
 assert.test(memoizedIsEven.call(4), true)
 assert.test(memoizedIsEven.call(6), true)
+assert.test(memoizedIsEven.call(10), true)
 assert.test(A._cache["fn_fibonacci"].count(), 1, "cache has {{2}} items")
 assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache has {{4}} items")
 assert.test(memoizedIsEven.call(2), true)
 assert.test(memoizedIsEven.call(4), true)
 assert.test(memoizedIsEven.call(6), true)
+assert.test(memoizedIsEven.call(10), true)
 assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache still has {{4}} items")
+
+assert.label("with multiple parameters")
+memoizedTest := A.memoize(func("fn_memoizeTest"))
+fn_memoizeTest(para1, para2, para3) {
+	return biga.max([para1, para2, para3])
+}
+assert.test(memoizedTest.call(2, 5, 10), 10)
+assert.test(memoizedTest.call(2, 5, 10), 10)
+assert.test(memoizedTest.call(99, 44, 22), 99)
+assert.test(memoizedTest.call(99, 44, 22), 99)
+assert.test(A._cache["fn_memoizeTest"].count(), 2, "cache still has {{2}} items")
 
 assert.group(".negate")
 assert.label("default tests")
@@ -2159,7 +2174,7 @@ assert.false(A.isInteger(1.00001))
 assert.false(A.isInteger([]))
 assert.false(A.isInteger({}))
 
-assert.group(".ismatch")
+assert.group(".isMatch")
 assert.label("default tests")
 object := { "a": 1, "b": 2, "c": 3 }
 assert.true(A.isMatch(object, {"b": 2}))
