@@ -9,7 +9,7 @@ at(param_object,param_paths) {
 	; create
 	for key, value in param_paths {
 		val := this.get(param_object, value)
-			l_array.push(val)
+		l_array.push(val)
 	}
 	return l_array
 }
