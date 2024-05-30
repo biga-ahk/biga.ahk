@@ -1,4 +1,4 @@
-Checks if value is greater than other.
+Checks if `value` is greater than other.
 
 
 ## Arguments

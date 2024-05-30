@@ -1,4 +1,4 @@
-Computes number rounded up to precision.
+Computes `number` rounded up to `precision`.
 
 
 ## Arguments

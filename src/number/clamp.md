@@ -1,4 +1,4 @@
-Clamps number within the inclusive lower and upper bounds.
+Clamps `number` within the inclusive `lower` and `upper` bounds.
 
 
 ## Arguments

@@ -1,4 +1,4 @@
-Creates a function that invokes func with arguments reversed.
+Creates a function that invokes `func` with arguments reversed.
 
 
 ## Arguments

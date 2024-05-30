@@ -1,4 +1,4 @@
-Invokes func after wait milliseconds. Any additional arguments are provided to func when it's invoked.
+Invokes `func` after `wait` milliseconds. Any additional arguments are provided to func when it's invoked.
 
 
 ## Arguments

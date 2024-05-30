@@ -1,4 +1,4 @@
-Checks if value is undefined or blank.
+Checks if `value` is undefined or blank.
 
 
 ## Arguments

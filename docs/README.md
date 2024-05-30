@@ -1564,7 +1564,7 @@ A.groupBy([6.1, 4.2, 6.3], func("ceil"))
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/includes.ahk' class='text-muted'>source</a>
 
-Checks if value is in `collection`. If `collection` is a string, it's checked for a substring of value.
+Checks if `value` is in `collection`. If `collection` is a string, it's checked for a substring of value.
 
 
 #### Arguments
@@ -1742,7 +1742,7 @@ fn_rejectFunc(o){	return !o.active}; The A.matches shorthandA.reject(users,
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/sample.ahk' class='text-muted'>source</a>
 
-Gets a single random element from collection.
+Gets a single random element from `collection`.
 
 #### Arguments
 collection (Array|Object|String): The collection to sample.
@@ -1765,7 +1765,7 @@ A.sample([1, 2, 3, 4])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/sampleSize.ahk' class='text-muted'>source</a>
 
-Gets `n` random elements at unique keys from collection up to the size of collection.
+Gets `n` random elements at unique keys from `collection` up to the size of `collection`.
 
 
 #### Arguments
@@ -1820,7 +1820,7 @@ A.shuffle(["barney", "fred", "pebbles"])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/size.ahk' class='text-muted'>source</a>
 
-Gets the size of collection by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
+Gets the size of `collection` by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
 
 
 #### Arguments
@@ -1851,7 +1851,7 @@ A.size("pebbles")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/some.ahk' class='text-muted'>source</a>
 
-Checks if predicate returns truthy for **any** element of collection. Iteration is stopped once predicate returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
+Checks if `predicate` returns truthy for **any** element of `collection`. Iteration is stopped once `predicate` returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
 
 
 #### Arguments
@@ -1949,7 +1949,7 @@ A.now()
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/ary.ahk' class='text-muted'>source</a>
 
-Creates a function that invokes func, with up to n arguments, ignoring any additional arguments.
+Creates a function that invokes `func`, with up to `n` arguments, ignoring any additional arguments.
 
 
 #### Arguments
@@ -1976,7 +1976,7 @@ fn_aryFunc(arguments*) {	return arguments}```
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/delay.ahk' class='text-muted'>source</a>
 
-Invokes func after wait milliseconds. Any additional arguments are provided to func when it's invoked.
+Invokes `func` after `wait` milliseconds. Any additional arguments are provided to func when it's invoked.
 
 
 #### Arguments
@@ -2007,7 +2007,7 @@ fn_delayFunc(text) {
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/flip.ahk' class='text-muted'>source</a>
 
-Creates a function that invokes func with arguments reversed.
+Creates a function that invokes `func` with arguments reversed.
 
 
 #### Arguments
@@ -2065,7 +2065,7 @@ fn_fibonacci(n) {	if (n <= 1) {		return n	}	return fn_fibonacci(n - 1) + fn_
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/negate.ahk' class='text-muted'>source</a>
 
-Creates a function that negates the result of the predicate func. The func predicate is invoked with the this binding and arguments of the created function.
+Creates a function that negates the result of the `predicate` func. The func `predicate` is invoked with the this binding and arguments of the created function.
 
 
 #### Arguments
@@ -2090,7 +2090,7 @@ fn_isEven(n) {	return (mod(param_key, 2) = 0)}```
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/once.ahk' class='text-muted'>source</a>
 
-Creates a function that is restricted to invoking func once. Repeat calls to the function return the value of the first invocation.
+Creates a function that is restricted to invoking `func` once. Repeat calls to the function return the value of the first invocation.
 
 
 #### Arguments
@@ -2115,7 +2115,7 @@ initialize.call()
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/function/throttle.ahk' class='text-muted'>source</a>
 
-Creates a throttled function that only invokes func at most once per every `wait` milliseconds. The func is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last func invocation.
+Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds. The function is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last invocation.
 
 
 #### Arguments
@@ -2145,7 +2145,7 @@ refresh.call()
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/castArray.ahk' class='text-muted'>source</a>
 
-Casts value as an array if it's not one.
+Casts `value` as an array if it's not one.
 
 #### Arguments
 value (*): The value to inspect.
@@ -2178,7 +2178,7 @@ A.castArray("")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/clone.ahk' class='text-muted'>source</a>
 
-Creates a shallow clone of value. Supports cloning arrays, objects, numbers, strings.
+Creates a shallow clone of `value`. Supports cloning arrays, objects, numbers, strings.
 
 #### Arguments
 value (*): The value to clone.
@@ -2206,7 +2206,7 @@ shallowclone
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/cloneDeep.ahk' class='text-muted'>source</a>
 
-This method is like [A.clone](/?id=clone) except that it recursively clones value.
+This method is like [A.clone](/?id=clone) except that it recursively clones `value`.
 
 
 #### Arguments
@@ -2228,7 +2228,7 @@ object := [{ "a": [[1, 2, 3]] }, { "b": 2 }]deepclone := A.cloneDeep(object)ob
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/conformsTo.ahk' class='text-muted'>source</a>
 
-Checks if object conforms to source by invoking the predicate properties of source with the corresponding property values of object.
+Checks if `object` conforms to source by invoking the predicate properties of `source` with the corresponding property values of `object`.
 
 
 #### Arguments
@@ -2291,7 +2291,7 @@ A.eq("", "")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/gt.ahk' class='text-muted'>source</a>
 
-Checks if value is greater than other.
+Checks if `value` is greater than other.
 
 
 #### Arguments
@@ -2324,7 +2324,7 @@ A.gt(1, 3)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/gte.ahk' class='text-muted'>source</a>
 
-Checks if value is greater than or equal to other.
+Checks if `value` is greater than or equal to other.
 
 
 #### Arguments
@@ -2357,7 +2357,7 @@ A.gte(1, 3)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isAlnum.ahk' class='text-muted'>source</a>
 
-Checks if value is an alnum.
+Checks if `value` is an alnum.
 
 
 #### Arguments
@@ -2391,7 +2391,7 @@ A.isAlnum({})
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isArray.ahk' class='text-muted'>source</a>
 
-Checks if value is an Array object.
+Checks if `value` is an Array object.
 
 
 #### Arguments
@@ -2422,7 +2422,7 @@ A.isArray({"key": "value"})
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isBoolean.ahk' class='text-muted'>source</a>
 
-Checks if value is classified as a boolean.
+Checks if `value` is classified as a boolean.
 
 
 #### Arguments
@@ -2456,7 +2456,7 @@ A.isBoolean(0)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isEmpty.ahk' class='text-muted'>source</a>
 
-Checks if value is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
+Checks if `value` is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
 
 
 #### Arguments
@@ -2495,7 +2495,7 @@ A.isEmpty({"a": 1})
 
 Performs a deep comparison between two values to determine if they are equivalent.
 
-This method supports comparing strings and objects.
+This method supports comparing numbers, strings, and objects.
 
 
 #### Arguments
@@ -2531,7 +2531,7 @@ StringCaseSense, OnA.isEqual({ "a": "a" }, { "a": "A" })
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isError.ahk' class='text-muted'>source</a>
 
-Checks if value is an exception error object.
+Checks if `value` is an exception error object.
 
 
 #### Arguments
@@ -2556,7 +2556,7 @@ A.isError(Exception("something broke"))
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isFloat.ahk' class='text-muted'>source</a>
 
-Checks if value is a float.
+Checks if `value` is a float.
 
 
 #### Arguments
@@ -2621,7 +2621,7 @@ A.isFunction([1, 2, 3])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isInteger.ahk' class='text-muted'>source</a>
 
-Checks if value is an integer.
+Checks if `value` is an integer.
 
 
 #### Arguments
@@ -2649,7 +2649,7 @@ A.isInteger("1")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/ismatch.ahk' class='text-muted'>source</a>
 
-Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
+Performs a partial deep comparison between `object` and `source` to determine if object contains equivalent property values.
 
 Partial comparisons will match empty array and empty object source values against any array or object value, respectively. See [A.isEqual](/?id=isEqual) for a list of supported value comparisons.
 
@@ -2686,7 +2686,7 @@ A.isMatch(object, {"b": 2, "z": 99})
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isNumber.ahk' class='text-muted'>source</a>
 
-Checks if value is a number.
+Checks if `value` is a number.
 
 
 #### Arguments
@@ -2717,7 +2717,7 @@ A.isNumber("1.001")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isObject.ahk' class='text-muted'>source</a>
 
-Checks if value is an object.
+Checks if `value` is an object.
 
 
 #### Arguments
@@ -2748,7 +2748,7 @@ A.isObject("")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isString.ahk' class='text-muted'>source</a>
 
-Checks if value is classified as a string.
+Checks if `value` is classified as a string.
 
 
 #### Arguments
@@ -2776,7 +2776,7 @@ A.isString(1)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isUndefined.ahk' class='text-muted'>source</a>
 
-Checks if value is undefined or blank.
+Checks if `value` is undefined or blank.
 
 
 #### Arguments
@@ -2816,7 +2816,7 @@ A.isUndefined(false)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/lt.ahk' class='text-muted'>source</a>
 
-Checks if value is less than other.
+Checks if `value` is less than other.
 
 
 #### Arguments
@@ -2849,7 +2849,7 @@ A.lt(3, 1)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/lte.ahk' class='text-muted'>source</a>
 
-Checks if value is less than or equal to other.
+Checks if `value` is less than or equal to other.
 
 
 #### Arguments
@@ -2882,7 +2882,7 @@ A.lte(3, 1)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toArray.ahk' class='text-muted'>source</a>
 
-Converts value to an array.
+Converts `value` to an array.
 
 
 #### Arguments
@@ -2916,7 +2916,7 @@ A.toArray("")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toLength.ahk' class='text-muted'>source</a>
 
-Converts value to an integer suitable for use as the length of an array-like object.
+Converts `value` to an integer suitable for use as the length of an array-like object.
 
 
 #### Arguments
@@ -2944,7 +2944,7 @@ A.toLength("3.2")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/toString.ahk' class='text-muted'>source</a>
 
-Converts value to a string. An empty string is returned for undefined values. The sign of `-0` is preserved.
+Converts `value` to a string. An empty string is returned for undefined values. The sign of `-0` is preserved.
 
 
 #### Arguments
@@ -3041,7 +3041,7 @@ A.add(6, 4)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/ceil.ahk' class='text-muted'>source</a>
 
-Computes number rounded up to precision.
+Computes `number` rounded up to `precision`.
 
 
 #### Arguments
@@ -3101,7 +3101,7 @@ A.divide(6, 4)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/floor.ahk' class='text-muted'>source</a>
 
-Computes number rounded down to precision.
+Computes `number` rounded down to `precision`.
 
 
 #### Arguments
@@ -3133,7 +3133,7 @@ A.floor(4060, -2)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/max.ahk' class='text-muted'>source</a>
 
-Computes the maximum value of array. If array is empty or falsey, `""` is returned.
+Computes the maximum value of `array`. If `array` is empty or falsey, `""` is returned.
 
 
 #### Arguments
@@ -3161,7 +3161,7 @@ A.max([])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/maxBy.ahk' class='text-muted'>source</a>
 
-This method is like [A.max](/?id=max) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
+This method is like [A.max](/?id=max) except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 #### Arguments
 array (Array): The array to iterate over.
@@ -3189,7 +3189,7 @@ fn_maxByFunc(o){	return o.n}; The A.property iteratee shorthandA.maxBy(obje
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/mean.ahk' class='text-muted'>source</a>
 
-Computes the mean of the values in array.
+Computes the mean of the values in `array`.
 
 
 #### Arguments
@@ -3214,7 +3214,7 @@ A.mean([4, 2, 8, 6])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/meanBy.ahk' class='text-muted'>source</a>
 
-This method is like [A.mean](/?id=mean) except that it accepts iteratee which is invoked for each element in array to generate the value to be averaged. The iteratee is invoked with one argument: (value).
+This method is like [A.mean](/?id=mean) except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be averaged. The iteratee is invoked with one argument: (value).
 
 #### Arguments
 array (Array): The array to iterate over.
@@ -3242,7 +3242,7 @@ fn_meanByFunc(o){	return o.n}; The A.property iteratee shorthand.A.meanBy(o
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/min.ahk' class='text-muted'>source</a>
 
-Computes the minimum value of array. If array is empty or falsey, `""` is returned.
+Computes the minimum value of `array`. If array is empty or falsey, `""` is returned.
 
 
 #### Arguments
@@ -3270,7 +3270,7 @@ A.min([])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/minBy.ahk' class='text-muted'>source</a>
 
-This method is like [A.min](/?id=min) except that it accepts iteratee which is invoked for each element in array to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
+This method is like [A.min](/?id=min) except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 #### Arguments
 array (Array): The array to iterate over.
@@ -3325,7 +3325,7 @@ A.multiply(6, 4)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/round.ahk' class='text-muted'>source</a>
 
-Computes number rounded to precision.
+Computes `number` rounded to `precision`.
 
 
 #### Arguments
@@ -3385,7 +3385,7 @@ A.subtract(6, 4)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/sum.ahk' class='text-muted'>source</a>
 
-Computes the sum of the values in array.
+Computes the sum of the values in `array`.
 
 
 #### Arguments
@@ -3410,7 +3410,7 @@ A.sum([4, 2, 8, 6])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/math/sumBy.ahk' class='text-muted'>source</a>
 
-This method is like [A.sum](/?id=sum) except that it accepts iteratee which is invoked for each element in array to generate the value to be summed. The iteratee is invoked with one argument: (value).
+This method is like [A.sum](/?id=sum) except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be summed. The iteratee is invoked with one argument: (value).
 
 
 #### Arguments
@@ -3441,7 +3441,7 @@ fn_sumByFunc(o){	return o.n}; The A.property iteratee shorthandA.sumBy(obje
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/clamp.ahk' class='text-muted'>source</a>
 
-Clamps number within the inclusive lower and upper bounds.
+Clamps `number` within the inclusive `lower` and `upper` bounds.
 
 
 #### Arguments
@@ -3473,7 +3473,7 @@ A.clamp(10, -5, 5)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/inRange.ahk' class='text-muted'>source</a>
 
-Checks if n is between start and up to, but not including, end. If end is not specified, it's set to start with start then set to 0. If start is greater than end the params are swapped to support negative ranges.
+Checks if `n` is between `start` and up to, but not including, `end`. If end is not specified, it's set to start with start then set to 0. If start is greater than end the params are swapped to support negative ranges.
 
 
 #### Arguments
@@ -3520,7 +3520,7 @@ A.inRange(-3, -2, -6)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/number/random.ahk' class='text-muted'>source</a>
 
-Produces a random number between the inclusive lower and upper bounds. If floating is true, or either lower or upper are floats, a floating-point number is returned instead of an integer. Uses AutoHotkey's pseudo-random [Random](https://www.autohotkey.com/docs/commands/Random.htm) command.
+Produces a random number between the inclusive `lower` and `upper` bounds. If `floating` is true, or either lower or upper are floats, a floating-point number is returned instead of an integer. Uses AutoHotkey's pseudo-random [Random](https://www.autohotkey.com/docs/commands/Random.htm) command.
 
 
 #### Arguments
@@ -3611,7 +3611,7 @@ A.defaults({"a": 1}, {"b": 2}, {"a": 3})
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/findKey.ahk' class='text-muted'>source</a>
 
-This method is like [A.find](/?id=find) except that it returns the key of the first element predicate returns truthy for instead of the element itself.
+This method is like [A.find](/?id=find) except that it returns the key of the first element `predicate` returns truthy for instead of the element itself.
 
 
 #### Arguments
@@ -3649,7 +3649,7 @@ fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.f
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/forIn.ahk' class='text-muted'>source</a>
 
-Iterates over own enumerable keys of an object and invokes iteratee for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
+Iterates over own enumerable keys of an object and invokes `iteratee` for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
 
 
 #### Arguments
@@ -3710,7 +3710,7 @@ fn_forInRightFunc(value, key) {
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/get.ahk' class='text-muted'>source</a>
 
-Gets the value at path of object. If the resolved value is `""`, the defaultValue is returned in its place.
+Gets the value at path of `object`. If the resolved value is `""`, the `defaultValue` is returned in its place.
 
 
 #### Arguments
@@ -3718,7 +3718,7 @@ object (Object): The object to query.
 
 path (Array|string): The path of the property to get.
 
-[defaultValue] (*): The value returned for undefined resolved values.
+[defaultValue:=""] (*): The value returned for undefined resolved values.
 
 
 #### Returns
@@ -3745,7 +3745,7 @@ A.get(object, "a.b.c", "default")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/has.ahk' class='text-muted'>source</a>
 
-Checks if path is a property of object.
+Checks if `path` is a property of `object`.
 
 
 #### Arguments

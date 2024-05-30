@@ -1,4 +1,4 @@
-Checks if value is classified as a boolean.
+Checks if `value` is classified as a boolean.
 
 
 ## Arguments

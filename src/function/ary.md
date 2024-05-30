@@ -1,4 +1,4 @@
-Creates a function that invokes func, with up to n arguments, ignoring any additional arguments.
+Creates a function that invokes `func`, with up to `n` arguments, ignoring any additional arguments.
 
 
 ## Arguments

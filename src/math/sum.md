@@ -1,4 +1,4 @@
-Computes the sum of the values in array.
+Computes the sum of the values in `array`.
 
 
 ## Arguments

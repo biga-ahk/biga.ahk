@@ -1,4 +1,4 @@
-Checks if value is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
+Checks if `value` is an empty object. Objects are considered empty if they have no own enumerable string keyed properties.
 
 
 ## Arguments

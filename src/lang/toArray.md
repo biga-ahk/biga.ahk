@@ -1,4 +1,4 @@
-Converts value to an array.
+Converts `value` to an array.
 
 
 ## Arguments

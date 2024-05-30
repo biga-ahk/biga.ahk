@@ -1,4 +1,4 @@
-Checks if value is an alnum.
+Checks if `value` is an alnum.
 
 
 ## Arguments

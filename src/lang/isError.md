@@ -1,4 +1,4 @@
-Checks if value is an exception error object.
+Checks if `value` is an exception error object.
 
 
 ## Arguments

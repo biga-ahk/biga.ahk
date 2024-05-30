@@ -1,4 +1,4 @@
-Creates a function that is restricted to invoking func once. Repeat calls to the function return the value of the first invocation.
+Creates a function that is restricted to invoking `func` once. Repeat calls to the function return the value of the first invocation.
 
 
 ## Arguments

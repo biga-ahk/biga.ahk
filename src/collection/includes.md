@@ -1,4 +1,4 @@
-Checks if value is in `collection`. If `collection` is a string, it's checked for a substring of value.
+Checks if `value` is in `collection`. If `collection` is a string, it's checked for a substring of value.
 
 
 ## Arguments

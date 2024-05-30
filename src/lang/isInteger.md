@@ -1,4 +1,4 @@
-Checks if value is an integer.
+Checks if `value` is an integer.
 
 
 ## Arguments

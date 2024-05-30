@@ -1,4 +1,4 @@
-Checks if value is a float.
+Checks if `value` is a float.
 
 
 ## Arguments

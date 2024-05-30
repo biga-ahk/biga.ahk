@@ -1,6 +1,6 @@
 Performs a deep comparison between two values to determine if they are equivalent.
 
-This method supports comparing strings and objects.
+This method supports comparing numbers, strings, and objects.
 
 
 ## Arguments

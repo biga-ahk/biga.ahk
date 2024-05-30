@@ -1,4 +1,4 @@
-Creates a throttled function that only invokes func at most once per every `wait` milliseconds. The func is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last func invocation.
+Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds. The function is invoked with the last arguments provided to the throttled function. Subsequent calls to the throttled function return the result of the last invocation.
 
 
 ## Arguments

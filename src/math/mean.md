@@ -1,4 +1,4 @@
-Computes the mean of the values in array.
+Computes the mean of the values in `array`.
 
 
 ## Arguments

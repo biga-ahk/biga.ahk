@@ -1,4 +1,4 @@
-Checks if value is classified as a string.
+Checks if `value` is classified as a string.
 
 
 ## Arguments

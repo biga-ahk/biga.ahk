@@ -1,4 +1,4 @@
-Checks if value is an Array object.
+Checks if `value` is an Array object.
 
 
 ## Arguments

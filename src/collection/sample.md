@@ -1,4 +1,4 @@
-Gets a single random element from collection.
+Gets a single random element from `collection`.
 
 ## Arguments
 collection (Array|Object|String): The collection to sample.

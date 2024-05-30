@@ -1,4 +1,4 @@
-Gets `n` random elements at unique keys from collection up to the size of collection.
+Gets `n` random elements at unique keys from `collection` up to the size of `collection`.
 
 
 ## Arguments

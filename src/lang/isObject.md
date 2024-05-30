@@ -1,4 +1,4 @@
-Checks if value is an object.
+Checks if `value` is an object.
 
 
 ## Arguments
