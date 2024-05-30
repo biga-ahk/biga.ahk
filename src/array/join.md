@@ -1,4 +1,4 @@
-Converts all elements in array into a string separated by separator.
+Converts all elements in `array` into a string separated by `separator`.
 
 
 ## Arguments

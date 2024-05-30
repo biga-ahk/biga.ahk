@@ -1,4 +1,4 @@
-Recursively flattens array.
+Recursively flattens `array`.
 
 
 ## Arguments

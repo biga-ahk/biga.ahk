@@ -1,4 +1,4 @@
-Gets the last element of array.
+Gets the last element of `array`.
 
 
 ## Arguments

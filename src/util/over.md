@@ -2,7 +2,7 @@ Creates a function that invokes iteratees with the arguments it receives and ret
 
 
 ## Arguments
-[iteratees:=[A.identity]] (Function|Function[]*)): The iteratees to invoke.
+[iteratees:=.identity] (Function|Function[]*): The iteratees to invoke.
 
 
 ## Returns

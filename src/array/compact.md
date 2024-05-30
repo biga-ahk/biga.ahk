@@ -1,4 +1,4 @@
-Creates an array with all falsey values removed. The values false, 0, and "" are falsey.
+Creates an array with all falsey values removed. The values `false`, `0`, and `""` are falsey.
 
 
 ## Arguments

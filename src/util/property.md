@@ -1,4 +1,4 @@
-Creates a function that returns the value at path of a given object.
+Creates a function that returns the value at `path` of a given object.
 
 
 ## Arguments

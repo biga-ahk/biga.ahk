@@ -4,7 +4,7 @@ This method is like [A.forIn](/?id=forin) except that it iterates over propertie
 ## Arguments
 object (Object): The object to iterate over.
 
-[iteratee:=A.identity] (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns

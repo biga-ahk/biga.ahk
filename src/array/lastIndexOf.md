@@ -1,4 +1,4 @@
-This method is like [A.indexOf](/?id=indexof) except that it iterates over elements of array from right to left.
+This method is like [A.indexOf](/?id=indexof) except that it iterates over elements of `array` from right to left.
 
 
 ## Arguments

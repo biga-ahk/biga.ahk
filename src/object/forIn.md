@@ -4,7 +4,7 @@ Iterates over own enumerable keys of an object and invokes iteratee for each pro
 ## Arguments
 object (Object): The object to iterate over.
 
-[iteratee:=A.identity] (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 ## Returns

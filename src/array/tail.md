@@ -1,4 +1,4 @@
-Gets all but the first element of array.
+Gets all but the first element of `array`.
 
 
 ## Arguments

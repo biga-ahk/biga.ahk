@@ -724,13 +724,11 @@ a.text-muted {
 	font-size: 1rem;
 	padding: 3px 5px;
 	white-space: pre-wrap;
+	font-family: Consolas, Source Code Pro, Courier New;
 }
-.markdown-section code,
 .markdown-section pre {
 	background-color: var(--codeBackgroundColor);
 	font-family: var(--codeFontFamily);
-}
-.markdown-section pre {
 	-moz-osx-font-smoothing: initial;
 	-webkit-font-smoothing: initial;
 	line-height: 1.5rem;

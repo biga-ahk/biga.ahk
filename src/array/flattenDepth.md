@@ -1,4 +1,4 @@
-Recursively flatten array up to depth times.
+Recursively flatten `array` up to depth times.
 
 
 ## Arguments

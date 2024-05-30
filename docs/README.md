@@ -19,7 +19,7 @@ Determines the number of times strings will be replaced when using [.replace](#r
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/chunk.ahk' class='text-muted'>source</a>
 
-Creates an array of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
+Creates an array of elements split into groups the length of `size`. If array can't be split evenly, the final chunk will be the remaining elements.
 
 
 #### Arguments
@@ -49,7 +49,7 @@ A.chunk(["a", "b", "c", "d"], 3)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/compact.ahk' class='text-muted'>source</a>
 
-Creates an array with all falsey values removed. The values false, 0, and "" are falsey.
+Creates an array with all falsey values removed. The values `false`, `0`, and `""` are falsey.
 
 
 #### Arguments
@@ -74,7 +74,7 @@ A.compact([0, 1, false, 2, "", 3])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/concat.ahk' class='text-muted'>source</a>
 
-Creates a new array concatenating array with any additional arrays and/or values.
+Creates a new array concatenating `array` with any additional arrays and/or values.
 
 #### Arguments
 array (Array): The array to concatenate.
@@ -103,7 +103,7 @@ A.concat(array)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/depthOf.ahk' class='text-muted'>source</a>
 
-This method is explores the array and returns the maximum depth.
+This method is explores `array` and returns the maximum depth.
 
 
 #### Arguments
@@ -137,7 +137,7 @@ A.depthOf([1, [2, [3, [4]], 5]])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/difference.ahk' class='text-muted'>source</a>
 
-Creates an array of array values not included in the other given arrays. The order of result values are determined by the first array.
+Creates an array of `array` values not included in the other given arrays. The order of result values are determined by the first array.
 
 #### Arguments
 array (Array): The array to inspect.
@@ -163,7 +163,7 @@ A.difference([2, 1], [2, 3])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/drop.ahk' class='text-muted'>source</a>
 
-Creates a slice of array with n elements dropped from the beginning.
+Creates a slice of `array` with `n` elements dropped from the beginning.
 
 
 #### Arguments
@@ -205,7 +205,7 @@ A.drop(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropRight.ahk' class='text-muted'>source</a>
 
-Creates a slice of array with n elements dropped from the end.
+Creates a slice of `array` with `n` elements dropped from the end.
 
 
 #### Arguments
@@ -247,7 +247,7 @@ A.dropRight(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropRightWhile.ahk' class='text-muted'>source</a>
 
-Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
+Creates a slice of `array` excluding elements dropped from the end. Elements are dropped until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
 
 #### Arguments
@@ -284,7 +284,7 @@ fn_dropRightWhile(o){	return !o.active}; The A.matches iteratee shorthand.A
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/dropWhile.ahk' class='text-muted'>source</a>
 
-Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
+Creates a slice of `array` excluding elements dropped from the beginning. Elements are dropped until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
 
 
 #### Arguments
@@ -320,7 +320,7 @@ fn_dropWhile(o){	return !o.active}; The A.matches iteratee shorthand.A.drop
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/fill.ahk' class='text-muted'>source</a>
 
-Fills elements of array with value from start up to, but not including, end.
+Fills elements of `array` with value from `start` up to, but not including, `end`.
 
 > [!Note]
 > Unlike it's Lodash counterpart, this method does NOT mutate the array.
@@ -357,7 +357,7 @@ A.fill([4, 6, 8, 10], "*", 2, 3)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/findIndex.ahk' class='text-muted'>source</a>
 
-This method is like [A.find](/?id=find) except that it returns the index of the first element predicate returns truthy for instead of the element itself.
+This method is like [A.find](/?id=find) except that it returns the index of the first element `predicate` returns truthy for instead of the element itself.
 
 
 #### Arguments
@@ -426,7 +426,7 @@ A.findLastIndex(users, "active")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flatten.ahk' class='text-muted'>source</a>
 
-Flattens array a single level deep.
+Flattens `array` a single level deep.
 
 
 #### Arguments
@@ -454,7 +454,7 @@ A.flatten([[1, 2, 3], [4, 5, 6]])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flattenDeep.ahk' class='text-muted'>source</a>
 
-Recursively flattens array.
+Recursively flattens `array`.
 
 
 #### Arguments
@@ -485,7 +485,7 @@ A.flattenDeep([1, [2, [3, [4]], 5]])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/flattenDepth.ahk' class='text-muted'>source</a>
 
-Recursively flatten array up to depth times.
+Recursively flatten `array` up to depth times.
 
 
 #### Arguments
@@ -539,7 +539,7 @@ A.fromPairs([["a", 1], ["b", 2]])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/head.ahk' class='text-muted'>source</a>
 
-Gets the first element of array.
+Gets the first element of `array`.
 
 #### Aliases
 `.first`
@@ -575,7 +575,7 @@ A.head(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/indexOf.ahk' class='text-muted'>source</a>
 
-Gets the index at which the first occurrence of value is found in array. If fromIndex is negative, it's used as the offset from the end of array.
+Gets the index at which the first occurrence of `value` is found in `array`. If `fromIndex` is negative, it's used as the offset from the end of `array`.
 
 
 #### Arguments
@@ -613,7 +613,7 @@ StringCaseSense, OnA.indexOf(["fred", "barney"], "Fred")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/initial.ahk' class='text-muted'>source</a>
 
-Gets all but the last element of array.
+Gets all but the last element of `array`.
 
 
 #### Arguments
@@ -668,7 +668,7 @@ A.intersection([2, 1], [2, 3])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/join.ahk' class='text-muted'>source</a>
 
-Converts all elements in array into a string separated by separator.
+Converts all elements in `array` into a string separated by `separator`.
 
 
 #### Arguments
@@ -698,7 +698,7 @@ A.join(["a", "b", "c"])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/last.ahk' class='text-muted'>source</a>
 
-Gets the last element of array.
+Gets the last element of `array`.
 
 
 #### Arguments
@@ -732,7 +732,7 @@ A.last(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/lastIndexOf.ahk' class='text-muted'>source</a>
 
-This method is like [A.indexOf](/?id=indexof) except that it iterates over elements of array from right to left.
+This method is like [A.indexOf](/?id=indexof) except that it iterates over elements of `array` from right to left.
 
 
 #### Arguments
@@ -767,7 +767,7 @@ StringCaseSense, OnA.lastIndexOf(["fred", "barney"], "Fred")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/nth.ahk' class='text-muted'>source</a>
 
-Gets the element at index n of array. If n is negative, the nth element from the end is returned.
+Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
 
 
 #### Arguments
@@ -809,7 +809,7 @@ A.nth([1, 2, 3], 0)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/reverse.ahk' class='text-muted'>source</a>
 
-Reverses array so that the first element becomes the last, the second element becomes the second to last, and so on.
+Reverses `array` so that the first element becomes the last, the second element becomes the second to last, and so on.
 
 
 #### Arguments
@@ -840,7 +840,7 @@ A.reverse([[1, 2, 3], "b", "c"])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/slice.ahk' class='text-muted'>source</a>
 
-Creates a slice of array from start up to, but not including, end.
+Creates a slice of `array` from `start` up to, but not including, `end`.
 
 
 #### Arguments
@@ -881,7 +881,7 @@ A.slice(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/sortedIndex.ahk' class='text-muted'>source</a>
 
-Uses a binary search to determine the lowest index at which value should be inserted into array in order to maintain its sort order.
+Uses a binary search to determine the lowest index at which value should be inserted into `array` in order to maintain its sort order.
 
 
 #### Arguments
@@ -908,7 +908,7 @@ A.sortedIndex([30, 50], 40)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/sortedIndexOf.ahk' class='text-muted'>source</a>
 
-This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted array.
+This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted `array`.
 
 
 #### Arguments
@@ -960,7 +960,7 @@ A.sortedUniq([1, 1, 2])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/tail.ahk' class='text-muted'>source</a>
 
-Gets all but the first element of array.
+Gets all but the first element of `array`.
 
 
 #### Arguments
@@ -991,7 +991,7 @@ A.tail(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/take.ahk' class='text-muted'>source</a>
 
-Creates a slice of array with n elements taken from the beginning.
+Creates a slice of `array` with `n` elements taken from the beginning.
 
 
 #### Arguments
@@ -1033,7 +1033,7 @@ A.take(100)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/takeRight.ahk' class='text-muted'>source</a>
 
-Creates a slice of array with n elements taken from the end.
+Creates a slice of `array` with `n` elements taken from the end.
 
 
 #### Arguments
@@ -1100,7 +1100,7 @@ A.union([2], [1, 2])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/array/uniq.ahk' class='text-muted'>source</a>
 
-Creates a duplicate-free version of an array, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
+Creates a duplicate-free version of an `array`, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
 
 #### Arguments
@@ -1232,7 +1232,7 @@ A.zipObject(["a", "b"], [1, 2])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/count.ahk' class='text-muted'>source</a>
 
-Gets the number of occurrences of value if found in collection, else `0`
+Gets the number of occurrences of `value` if found in `collection`, else `0`
 
 #### Arguments
 collection (Array|Object|string): The collection to inspect.
@@ -1274,13 +1274,13 @@ users := [ {"user": "fred", "age": 40, "active": true}		, {"user": "barney", "a
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/countBy.ahk' class='text-muted'>source</a>
 
-Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The iteratee is invoked with one argument: (value).
+Creates an object composed of keys generated from the results of running each element of `collection` thru `iteratee`. The corresponding value of each key is the number of times the key was returned by `iteratee`. The iteratee is invoked with one argument: (value).
 
 
 #### Arguments
 object (Array|Object): The collection to iterate over.
 
-[predicate:=.identity] (Function): The iteratee to transform keys.
+[iteratee:=.identity] (Function): The iteratee to transform keys.
 
 
 #### Returns
@@ -1304,7 +1304,7 @@ A.countBy([6.1, 4.2, 6.3], func("floor"))
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/every.ahk' class='text-muted'>source</a>
 
-Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
+Checks if `predicate` returns truthy for all elements of `collection`. Iteration is stopped once `predicate` returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
 
 > [!Note]
 > This method returns true for empty collections because everything is true of elements of empty collections.
@@ -1343,14 +1343,13 @@ users := [{ "user": "barney", "age": 36, "active": false }, { "user": "fred", "
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/filter.ahk' class='text-muted'>source</a>
 
-Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
+Iterates over elements of `collection`, returning an array of all elements `predicate` returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
 
 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-function (Function): The function invoked per iteration.
-
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 #### Returns
 (Array): Returns the new filtered array.
@@ -1379,13 +1378,13 @@ fn_filterFunc(param_iteratee){	if (param_iteratee.active) {		return true	}}
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/find.ahk' class='text-muted'>source</a>
 
-Iterates over elements of collection, returning the first element predicate returns truthy for.
+Iterates over elements of `collection`, returning the first element `predicate` returns truthy for.
 
 
 #### Arguments
 collection (Array|Object): The collection to inspect.
 
-function (Function): The function invoked per iteration.
+[predicate:=.identity] (Function): The function invoked per iteration.
 
 [fromIndex:=1] (number): The index to search from.
 
@@ -1417,7 +1416,7 @@ fn_findFunc(o){	return o.active}; The A.matches iteratee shorthand.A.find(u
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/findLast.ahk' class='text-muted'>source</a>
 
-This method is like [A.find](/?id=find) except that it iterates over elements of collection from right to left.
+This method is like [A.find](/?id=find) except that it iterates over elements of `collection` from right to left.
 
 
 #### Arguments
@@ -1444,7 +1443,7 @@ fn_findLastFunc(n){	return mod(n, 2) == 1}```
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/forEach.ahk' class='text-muted'>source</a>
 
-Iterates over elements of collection and invokes iteratee for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+Iterates over elements of `collection` and invokes `iteratee` for each element. The iteratee is invoked with three arguments: (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
 
 
 #### Aliases
@@ -1486,7 +1485,7 @@ fn_forEachFunc2(value, key)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/forEachRight.ahk' class='text-muted'>source</a>
 
-This method is like [A.forEach](/?id=foreach) except that it iterates over elements of collection from right to left.
+This method is like [A.forEach](/?id=foreach) except that it iterates over elements of `collection` from right to left.
 
 
 #### Aliases
@@ -1528,7 +1527,7 @@ fn_forEachFunc2(value, key)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/groupBy.ahk' class='text-muted'>source</a>
 
-Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
+Creates an object composed of keys generated from the results of running each element of `collection` thru `iteratee`. The order of grouped values is determined by the order they occur in `collection`. The corresponding value of each key is an array of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
 
 
 <!-- Aliases
@@ -1565,7 +1564,7 @@ A.groupBy([6.1, 4.2, 6.3], func("ceil"))
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/includes.ahk' class='text-muted'>source</a>
 
-Checks if value is in collection. If collection is a string, it's checked for a substring of value.
+Checks if value is in `collection`. If `collection` is a string, it's checked for a substring of value.
 
 
 #### Arguments
@@ -1612,7 +1611,7 @@ Creates an object composed of keys generated from the results of running each el
 #### Arguments
 collection (Array|Object): The collection to iterate over.
 
-[iteratee:=A.identity] (Function): The iteratee to transform keys.
+[iteratee:=.identity] (Function): The iteratee to transform keys.
 
 
 #### Returns
@@ -1636,7 +1635,7 @@ fn_keyByFunc(value){	return value.dir}; The A.property iteratee shorthand.A
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/map.ahk' class='text-muted'>source</a>
 
-Creates an array of values by running each element in collection thru iteratee. The iteratee is invoked with three arguments: (value, index|key, collection).
+Creates an array of values by running each element in `collection` thru `iteratee`. The iteratee is invoked with three arguments: (value, index|key, collection).
 
 
 #### Arguments
@@ -1672,7 +1671,7 @@ A.map({ "a": 4, "b": 8 })
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/partition.ahk' class='text-muted'>source</a>
 
-Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for, the second of which contains elements predicate returns falsey for. The predicate is invoked with one argument: (value).
+Creates an array of elements split into two groups, the first of which contains elements `predicate` returns truthy for, the second of which contains elements `predicate` returns falsey for. The predicate is invoked with one argument: (value).
 
 
 #### Arguments
@@ -1708,7 +1707,7 @@ fn_partitionFunc(o){	return o.active}; The A.matches iteratee shorthand.A.p
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/reject.ahk' class='text-muted'>source</a>
 
-The opposite of [A.filter](/?id=filter) this method returns the elements of collection that predicate does **not** return truthy for.
+The opposite of [A.filter](/?id=filter) this method returns the elements of `collection` that `predicate` does **not** return truthy for.
 
 #### Arguments
 collection (Array|Object): The collection to iterate over.
@@ -2646,9 +2645,9 @@ A.isInteger("1")
 
 
 
-## .isMatch
+## .ismatch
 
-<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isMatch.ahk' class='text-muted'>source</a>
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/ismatch.ahk' class='text-muted'>source</a>
 
 Performs a partial deep comparison between object and source to determine if object contains equivalent property values.
 
@@ -3416,7 +3415,7 @@ This method is like [A.sum](/?id=sum) except that it accepts iteratee which is i
 
 #### Arguments
 array (Array): The array to iterate over.
-[iteratee=_.identity] (Function): The iteratee invoked per element.
+[iteratee:=.identity] (Function): The iteratee invoked per element.
 
 
 #### Returns
@@ -3630,7 +3629,25 @@ function (Function): The function invoked per iteration.
 #### Example
 
 ```autohotkey
-users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }
+users := { "barney": {"age": 36, "active": true}, "fred": {"age": 40, "active": false}, "pebbles": {"age": 1, "active": true} }A.findKey(users, func("fn_findKeyFunc"))
+; => "barney"
+
+fn_findKeyFunc(o){	return o.age < 40}; The A.matches iteratee shorthand.A.findKey(users, {"age": 1, "active": true})
+; => "pebbles"
+
+; The A.matchesProperty iteratee shorthand.A.findKey(users, ["active", false])
+; => "fred"
+
+; The A.property iteratee shorthand.A.findKey(users, "active")
+; => "barney"
+
+```
+
+
+
+## .forIn
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/forIn.ahk' class='text-muted'>source</a>
 
 Iterates over own enumerable keys of an object and invokes iteratee for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
 
@@ -3638,7 +3655,7 @@ Iterates over own enumerable keys of an object and invokes iteratee for each pro
 #### Arguments
 object (Object): The object to iterate over.
 
-[iteratee:=A.identity] (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -3669,7 +3686,7 @@ This method is like [A.forIn](/?id=forin) except that it iterates over propertie
 #### Arguments
 object (Object): The object to iterate over.
 
-[iteratee:=A.identity] (Function): The function invoked per iteration.
+[iteratee:=.identity] (Function): The function invoked per iteration.
 
 
 #### Returns
@@ -3798,7 +3815,7 @@ This method is like [A.invert](/?id=invert) except that the inverted object is g
 #### Arguments
 object (Object): The object to invert.
 
-[iteratee=A.identity] (Function): The iteratee invoked per element.
+[iteratee:=.identity] (Function): The iteratee invoked per element.
 
 #### Returns
 (Array): Returns the new inverted object.
@@ -4006,6 +4023,40 @@ object (Object): The source object.
 ```autohotkey
 object := {"a": 1, "b": "two", "c": 3}A.pickBy(object, A.isNumber)
 ; => {"a": 1, "c": 3}
+
+```
+
+
+
+## .set
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/set.ahk' class='text-muted'>source</a>
+
+Sets the value at `path` of `object`. If a portion of `path` doesn't exist, it's created. Objects are created for all missing properties.
+
+
+#### Arguments
+object (Object): The object to modify.
+
+path (Array|string): The path of the property to set.
+
+value (*): The value to set.
+
+#### Returns
+(Object): Returns object.
+
+
+#### Example
+
+```autohotkey
+object := {"a": [{ "b": {"c": 3} }]}A.set(object, "a[1].b.c", 4)
+; => {"a": [{ "b": {"c": 4} }]}
+
+A.get(object, "a[1].b.c")
+; => 4
+
+A.set(object, ["x", "1", "y", "z"], 5)A.get(object, ["x", "1", "y", "z"])
+; => 5
 
 ```
 
@@ -5076,7 +5127,7 @@ Creates a function that invokes iteratees with the arguments it receives and ret
 
 
 #### Arguments
-[iteratees:=[A.identity]] (Function|Function[]*)): The iteratees to invoke.
+[iteratees:=.identity] (Function|Function[]*): The iteratees to invoke.
 
 
 #### Returns
@@ -5100,7 +5151,7 @@ func := A.over([A.isBoolean, A.isNumber])func.call(10)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/print.ahk' class='text-muted'>source</a>
 
-Prints values to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
+Prints `values` to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
 
 
 #### Arguments
@@ -5126,7 +5177,7 @@ msgbox, % A.print("object: ", [1, 2, 3])
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/util/property.ahk' class='text-muted'>source</a>
 
-Creates a function that returns the value at path of a given object.
+Creates a function that returns the value at `path` of a given object.
 
 
 #### Arguments

@@ -1,4 +1,4 @@
-Gets the number of occurrences of value if found in collection, else `0`
+Gets the number of occurrences of `value` if found in `collection`, else `0`
 
 ## Arguments
 collection (Array|Object|string): The collection to inspect.

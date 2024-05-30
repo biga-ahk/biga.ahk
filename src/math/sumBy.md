@@ -3,7 +3,7 @@ This method is like [A.sum](/?id=sum) except that it accepts iteratee which is i
 
 ## Arguments
 array (Array): The array to iterate over.
-[iteratee=_.identity] (Function): The iteratee invoked per element.
+[iteratee:=.identity] (Function): The iteratee invoked per element.
 
 
 ## Returns

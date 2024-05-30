@@ -1,4 +1,4 @@
-Flattens array a single level deep.
+Flattens `array` a single level deep.
 
 
 ## Arguments

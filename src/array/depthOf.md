@@ -1,4 +1,4 @@
-This method is explores the array and returns the maximum depth.
+This method is explores `array` and returns the maximum depth.
 
 
 ## Arguments

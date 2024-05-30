@@ -1,4 +1,4 @@
-This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted array.
+This method is like [A.indexOf](/?id=indexOf) except that it performs a binary search on a sorted `array`.
 
 
 ## Arguments

@@ -1,4 +1,4 @@
-Creates a slice of array with n elements taken from the beginning.
+Creates a slice of `array` with `n` elements taken from the beginning.
 
 
 ## Arguments

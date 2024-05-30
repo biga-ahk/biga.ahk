@@ -1,4 +1,4 @@
-Fills elements of array with value from start up to, but not including, end.
+Fills elements of `array` with value from `start` up to, but not including, `end`.
 
 > [!Note]
 > Unlike it's Lodash counterpart, this method does NOT mutate the array.

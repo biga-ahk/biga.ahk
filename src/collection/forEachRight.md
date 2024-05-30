@@ -1,4 +1,4 @@
-This method is like [A.forEach](/?id=foreach) except that it iterates over elements of collection from right to left.
+This method is like [A.forEach](/?id=foreach) except that it iterates over elements of `collection` from right to left.
 
 
 ## Aliases

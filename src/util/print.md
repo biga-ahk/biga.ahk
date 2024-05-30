@@ -1,4 +1,4 @@
-Prints values to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
+Prints `values` to terminal or other standard output device. Can be a string, or any other object to be converted into a string before written.
 
 
 ## Arguments

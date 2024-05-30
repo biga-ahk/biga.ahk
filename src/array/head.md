@@ -1,4 +1,4 @@
-Gets the first element of array.
+Gets the first element of `array`.
 
 ## Aliases
 `.first`
