@@ -1,4 +1,4 @@
-sortedIndexOf(param_array, value) {
+sortedIndexOf(param_array,param_value) {
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
@@ -12,9 +12,9 @@ sortedIndexOf(param_array, value) {
 		mid := low + (high - low) // 2
 		midValue := param_array[mid]
 
-		if (midValue < value) {
+		if (midValue < param_value) {
 			low := mid + 1
-		} else if (midValue > value) {
+		} else if (midValue > param_value) {
 			high := mid - 1
 		} else {
 			return mid
