@@ -1,11 +1,12 @@
 set(param_object, param_path, param_value) {
-	; Get the keys from the path using this.toPath()
-	path_keys := this.toPath(param_path)
+	if (!isObject(param_object)) {
+		this._internal_ThrowException()
+	}
 
-	; Get a reference to the current object
+	path_keys := this.toPath(param_path)
 	current_object := param_object
 
-	; Iterate over each key in the path
+	; create
 	for index, key in path_keys {
 		; Check if the current key exists in the object
 		if (!current_object.hasKey(key)) {
@@ -16,7 +17,7 @@ set(param_object, param_path, param_value) {
 		if (A_Index = path_keys.count()) {
 			current_object[key] := param_value
 		} else {
-			; Update the reference to the current object for the next iteration
+			; Update the reference for the next iteration
 			current_object := current_object[key]
 		}
 	}
