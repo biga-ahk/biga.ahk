@@ -28,15 +28,13 @@ sortedEnemies.InsertAt(insertIndex, newEnemy)
 ; let's filter the sorted array by those and call all of them out. In this case there is only 1
 exposedTargets := A.filter(sortedEnemies, func("fn_filterExposedFunc"))
 fn_filterExposedFunc(o) {
-	; We use .startsWith inside this function to check the status
-	return biga.startsWith(o.status, "exposed")
+		; We use .startsWith inside this function to check the status
+		return biga.startsWith(o.status, "exposed")
 }
 
 ; We can format our message with StartCase which is a ittle like ahk's TitleCase
-callOutMessage := " Everyone attack: " A.startCase(sortedEnemies[1].name) "`n Rogues attack: " A.startCase(exposedTargets[1].name)
+callOutMessage := "Everyone attack: " A.startCase(sortedEnemies[1].name) "Rogues attack: " A.startCase(exposedTargets[1].name)
 
 ; Search the array of monsters for the first instance of one with "magicweakness" = true
-magicweaknessTarget := A.find(sortedEnemies,"magicweakness")
+magicweaknessTarget := A.find(sortedEnemies, "magicweakness")
 callOutMessage := "Mages attack: " magicweaknessTarget.name
-
-exitApp

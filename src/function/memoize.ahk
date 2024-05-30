@@ -1,4 +1,4 @@
-memoize(param_func, param_resolver:="") {
+memoize(param_func,param_resolver:="") {
 	if (!this.isFunction(param_func)) {
 		this._internal_ThrowException()
 	}
@@ -43,16 +43,28 @@ fn_fibonacci(n) {
 ; omit
 assert.label("cache leak over to other memoizations functions")
 memoizedIsEven := A.memoize(func("fn_memoizeIsEven"))
-assert.test(memoizedIsEven.call(10), true)
 fn_memoizeIsEven(param_n) {
 	return (mod(param_n, 2) = 0)
 }
 assert.test(memoizedIsEven.call(2), true)
 assert.test(memoizedIsEven.call(4), true)
 assert.test(memoizedIsEven.call(6), true)
+assert.test(memoizedIsEven.call(10), true)
 assert.test(A._cache["fn_fibonacci"].count(), 1, "cache has {{2}} items")
 assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache has {{4}} items")
 assert.test(memoizedIsEven.call(2), true)
 assert.test(memoizedIsEven.call(4), true)
 assert.test(memoizedIsEven.call(6), true)
+assert.test(memoizedIsEven.call(10), true)
 assert.test(A._cache["fn_memoizeIsEven"].count(), 4, "cache still has {{4}} items")
+
+assert.label("with multiple parameters")
+memoizedTest := A.memoize(func("fn_memoizeTest"))
+fn_memoizeTest(para1, para2, para3) {
+	return biga.max([para1, para2, para3])
+}
+assert.test(memoizedTest.call(2, 5, 10), 10)
+assert.test(memoizedTest.call(2, 5, 10), 10)
+assert.test(memoizedTest.call(99, 44, 22), 99)
+assert.test(memoizedTest.call(99, 44, 22), 99)
+assert.test(A._cache["fn_memoizeTest"].count(), 2, "cache still has {{2}} items")
