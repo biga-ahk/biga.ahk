@@ -1,4 +1,18 @@
-class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	_cache := {}	; --- Static Methods ---	chunk(param_array,param_size:=1) {
+class biga {
+
+	; --- Static Variables ---
+	static throwExceptions := true
+	static limit := -1
+	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]
+	static _guardedCallWithOne := ["random"]
+	static _pathRegex := "/[.\[\]]/"
+
+	; --- Instance Variables ---
+	_uniqueId := 0
+	_cache := {}
+
+	; --- Static Methods ---
+	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array) || !this.isNumber(param_size)) {
 			this._internal_ThrowException()
 		}
@@ -706,29 +720,36 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		return l_array
 	}
 	zip(param_arrays*) {
-		if (!isObject(param_arrays)) {
+		if (!this.isArray(param_arrays)) {
 			this._internal_ThrowException()
 		}
 
 		; prepare
 		l_array := []
+		; a slower but readable idea
+		; max_length := this.max(this.map(param_arrays, this.size))
+		max_length := 0
+		for key, array in param_arrays {
+			if (array.count() > max_length) {
+				max_length := array.count()
+			}
+		}
 
 		; create
-		; loop all Variadic inputs
-		for key, value in param_arrays {
-			; for each value in the supplied set of array(s)
-			for key2, value2 in value {
-				loop, % value.count() {
-					if (key2 == A_Index) {
-						; create array if not encountered yet
-						if (isObject(l_array[A_Index]) == false) {
-							l_array[A_Index] := []
-						}
-						; push values onto the array for their position in the supplied arrays
-						l_array[A_Index].push(value2)
-					}
+		loop, % max_length {
+			current_index := A_Index
+			; Initialize the sub-array
+			sub_array := []
+			for key, array in param_arrays {
+				; Add the element at the current index or an empty string if the index is out of bounds
+				if (current_index <= array.count()) {
+					sub_array.push(array[current_index])
+				} else {
+					sub_array.push("")
 				}
 			}
+			; Add the sub-array to the resulting array
+			l_array.push(sub_array)
 		}
 		return l_array
 	}
@@ -3343,4 +3364,4 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-}
+}
