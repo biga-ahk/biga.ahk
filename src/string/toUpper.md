@@ -1,4 +1,4 @@
-Converts string, as a whole, to upper case
+Converts `string`, as a whole, to upper case
 
 
 ## Arguments

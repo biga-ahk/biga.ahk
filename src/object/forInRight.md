@@ -1,4 +1,4 @@
-This method is like [A.forIn](/?id=forin) except that it iterates over properties of object in the opposite order.
+This method is like [A.forIn](/?id=forin) except that it iterates over properties of `object` in the opposite order.
 
 
 ## Arguments

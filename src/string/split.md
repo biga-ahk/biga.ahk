@@ -1,4 +1,4 @@
-Splits string by separator.
+Splits `string` by `separator`.
 
 
 ## Arguments

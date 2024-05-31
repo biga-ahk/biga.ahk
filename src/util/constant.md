@@ -1,4 +1,4 @@
-Creates a function that returns value.
+Creates a function that returns `value`.
 
 
 ## Arguments

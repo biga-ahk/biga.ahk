@@ -1,4 +1,4 @@
-This method returns an empty string.
+This method returns an empty string `""`.
 
 
 ## Returns

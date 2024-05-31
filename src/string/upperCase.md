@@ -1,4 +1,4 @@
-Converts string, as space separated words, to upper case.
+Converts `string`, as space separated words, to upper case.
 
 
 ## Arguments

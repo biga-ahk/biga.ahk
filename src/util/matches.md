@@ -1,4 +1,4 @@
-Creates a function that performs a shallow comparison between a given object and source, returning true if the given object has equivalent property values, else false.
+Creates a function that performs a shallow comparison between a given object and source, returning `true` if the given object has equivalent property values, else `false`.
 
 
 ## Arguments

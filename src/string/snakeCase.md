@@ -1,4 +1,4 @@
-Converts string to snake case.
+Converts `string` to snake case.
 
 ## Arguments
 [string:=""] (string): The string to convert.

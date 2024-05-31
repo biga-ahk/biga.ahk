@@ -1,4 +1,4 @@
-Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument; (index).
+Invokes the `iteratee` `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument; (index).
 
 
 ## Arguments

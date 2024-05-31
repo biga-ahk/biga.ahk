@@ -1,4 +1,4 @@
-Creates a function that invokes the predicate properties of source with the corresponding property values of a given object, returning true if all predicates return truthy, else false.
+Creates a function that invokes the predicate properties of `source` with the corresponding property values of a given object, returning true if all predicates return truthy, else false.
 
 
 ## Arguments

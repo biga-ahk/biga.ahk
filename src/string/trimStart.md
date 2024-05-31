@@ -1,4 +1,4 @@
-Removes leading whitespace or specified characters from string.
+Removes leading whitespace or specified characters from `string`.
 
 
 ## Arguments

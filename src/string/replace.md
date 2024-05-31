@@ -1,3 +1,5 @@
+Replaces matches for `pattern` in `string` with `replacement`.
+
 ## Arguments
 string (string): The string to modify.
 

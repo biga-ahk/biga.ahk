@@ -1,4 +1,4 @@
-Creates a function that invokes iteratees with the arguments it receives and returns their results.
+Creates a function that invokes `iteratees` with the arguments it receives and returns their results.
 
 
 ## Arguments

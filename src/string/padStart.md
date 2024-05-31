@@ -1,4 +1,4 @@
-Pads string on the left side if it's shorter than length. Padding characters are truncated if they exceed length.
+Pads `string` on the left side if it's shorter than `length`. Padding characters are truncated if they exceed length.
 
 ## Arguments
 [string:=""] (string): The string to pad.

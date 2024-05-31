@@ -1,4 +1,4 @@
-Splits string into an array of its words.
+Splits `string` into an array of its words.
 
 
 ## Arguments

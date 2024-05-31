@@ -1,4 +1,4 @@
-Converts string to kebab case.
+Converts `string` to kebab case.
 
 
 ## Arguments

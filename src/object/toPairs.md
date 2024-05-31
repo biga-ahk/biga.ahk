@@ -1,4 +1,4 @@
-Creates an array of own enumerable string keyed-value pairs for object which can be consumed by A.fromPairs.
+Creates an array of own enumerable string keyed-value pairs for object which can be consumed by [A.fromPairs](/?id=frompairs).
 
 
 ## Aliases

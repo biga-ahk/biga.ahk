@@ -1,4 +1,4 @@
-Iterates over own enumerable keys of an object and invokes `iteratee` for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
+Iterates over own enumerable keys of `object` and invokes `iteratee` for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
 
 
 ## Arguments

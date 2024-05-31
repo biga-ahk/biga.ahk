@@ -1,4 +1,4 @@
-The opposite of [A.property](/?id=property); this method creates a function that returns the value at a given path of object.
+The opposite of [A.property](/?id=property); this method creates a function that returns the value at a given path of `object`.
 
 
 ## Arguments

@@ -1,4 +1,4 @@
-Removes trailing whitespace or specified characters from string.
+Removes trailing whitespace or specified characters from `string`.
 
 
 ## Arguments

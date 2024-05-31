@@ -1,4 +1,4 @@
-Converts string, as space separated words, to lower case.
+Converts `string`, as space separated words, to lower case.
 
 
 ## Arguments

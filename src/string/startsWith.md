@@ -1,4 +1,4 @@
-Checks if string starts with the given target string.
+Checks if `string` starts with the given target string.
 
 
 ## Arguments

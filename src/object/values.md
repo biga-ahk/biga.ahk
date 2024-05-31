@@ -1,4 +1,4 @@
-Creates an array of the own enumerable string keyed property values of object.
+Creates an array of the own enumerable string keyed property values of `object`.
 
 
 ## Arguments
