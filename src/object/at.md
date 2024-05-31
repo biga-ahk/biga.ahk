@@ -1,4 +1,4 @@
-Creates an array of values corresponding to paths of object.
+Creates an array of values corresponding to `paths` of `object`.
 
 ## Arguments
 object (Object): The object to iterate over.

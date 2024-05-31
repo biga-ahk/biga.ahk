@@ -1605,7 +1605,7 @@ StringCaseSense, OnA.includes("inStr", "str")
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/collection/keyBy.ahk' class='text-muted'>source</a>
 
-Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked with one argument: (value).
+Creates an object composed of keys generated from the results of running each element of `collection` thru `iteratee`. The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked with one argument: (value).
 
 
 #### Arguments
@@ -3555,7 +3555,7 @@ A.random(1.2, 5.2)
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/object/at.ahk' class='text-muted'>source</a>
 
-Creates an array of values corresponding to paths of object.
+Creates an array of values corresponding to `paths` of `object`.
 
 #### Arguments
 object (Object): The object to iterate over.
