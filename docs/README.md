@@ -2250,7 +2250,13 @@ object := {"a": 1, "b": 2}A.conformsTo(object, {"b": func("fn_conformsToFunc1")
 A.conformsTo(object, {"b": func("fn_conformsToFunc2")})
 ; => false
 
-fn_conformsToFunc1(n){	return n > 1}fn_conformsToFunc2(n){	return n > 2}
+fn_conformsToFunc1(n){	return n > 1}fn_conformsToFunc2(n){	return n > 2}```
+
+
+
+## .eq
+
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/eq.ahk' class='text-muted'>source</a>
 
 Performs a shallow comparison between two values to determine if they are equivalent.
 
@@ -2639,9 +2645,9 @@ A.isInteger("1")
 
 
 
-## .ismatch
+## .isMatch
 
-<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/ismatch.ahk' class='text-muted'>source</a>
+<a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/lang/isMatch.ahk' class='text-muted'>source</a>
 
 Performs a partial deep comparison between `object` and `source` to determine if object contains equivalent property values.
 
@@ -4814,6 +4820,10 @@ A.truncate(string, {"length": 24, "separator": "/, /"})
 ; => "hi-diddly-ho there..."
 
 ```
+
+
+
+## .unescape
 
 <a href='https://github.com/biga-ahk/biga.ahk/blob/master/src/string/unescape.ahk' class='text-muted'>source</a>
 

@@ -515,7 +515,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return l_array
 	}
-	sortedIndex(param_array, value) {
+	sortedIndex(param_array,param_value) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -529,9 +529,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			mid := low + (high - low) // 2
 			midValue := param_array[mid]
 
-			if (midValue < value) {
+			if (midValue < param_value) {
 				low := mid + 1
-			} else if (midValue > value) {
+			} else if (midValue > param_value) {
 				high := mid - 1
 			} else {
 				return mid
@@ -539,7 +539,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		}
 		return low
 	}
-	sortedIndexOf(param_array, value) {
+	sortedIndexOf(param_array,param_value) {
 		if (!isObject(param_array)) {
 			this._internal_ThrowException()
 		}
@@ -553,9 +553,9 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			mid := low + (high - low) // 2
 			midValue := param_array[mid]
 
-			if (midValue < value) {
+			if (midValue < param_value) {
 				low := mid + 1
-			} else if (midValue > value) {
+			} else if (midValue > param_value) {
 				high := mid - 1
 			} else {
 				return mid
@@ -1324,7 +1324,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		param_args := this.reverse(param_args)
 		return param_func.call(param_args*)
 	}
-	memoize(param_func, param_resolver:="") {
+	memoize(param_func,param_resolver:="") {
 		if (!this.isFunction(param_func)) {
 			this._internal_ThrowException()
 		}
@@ -2145,7 +2145,7 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 		; create
 		for key, value in param_paths {
 			val := this.get(param_object, value)
-				l_array.push(val)
+			l_array.push(val)
 		}
 		return l_array
 	}
@@ -2468,6 +2468,31 @@ class biga {	; --- Static Variables ---	static throwExceptions := true	stati
 			}
 		}
 		return l_obj
+	}
+	set(param_object, param_path, param_value) {
+		if (!isObject(param_object)) {
+			this._internal_ThrowException()
+		}
+
+		path_keys := this.toPath(param_path)
+		current_object := param_object
+
+		; create
+		for index, key in path_keys {
+			; Check if the current key exists in the object
+			if (!current_object.hasKey(key)) {
+				; If the key doesn't exist, create a new object or array
+				current_object[key] := {}
+			}
+			; If it's the last key, set the value
+			if (A_Index = path_keys.count()) {
+				current_object[key] := param_value
+			} else {
+				; Update the reference for the next iteration
+				current_object := current_object[key]
+			}
+		}
+		return param_object
 	}
 	toPairs(param_object) {
 		if (!isObject(param_object)) {

@@ -2901,6 +2901,52 @@ fn_pickBy(value, key) {
 }
 assert.test(A.pickBy(object, func("fn_pickBy")), {"a": 1, "c": 3})
 
+assert.group(".set")
+assert.label("default tests")
+object := {"a": [{ "b": {"c": 3} }]}
+
+assert.test(A.set(object, "a[1].b.c", 4), {"a": [{ "b": {"c": 4} }]})
+assert.test(A.get(object, "a[1].b.c"), 4)
+A.set(object, ["x", "1", "y", "z"], 5)
+assert.test(A.get(object, ["x", "1", "y", "z"]), 5)
+
+; omit
+object := {"a": [{"b": {"c": 3}}]}
+A.set(object, "a[1].b.d", 5)
+assert.test(A.get(object, "a[1].b.d"), 5, "add new key to existing object")
+
+object := {}
+A.set(object, "a[1]", 1)
+assert.test(object, {"a": [1]}, "set array index 0")
+
+object := {}
+A.set(object, "a[2].b", 2)
+assert.test(object, {"a": [ ,{"b": 2}]}, "set nested array with index 2")
+
+object := {"a": [{"b": {"c": 3}}]}
+A.set(object, "a[1].b.c", 4)
+assert.test(A.get(object, "a[1].b.c"), 4, "modify existing value")
+
+object := {}
+A.set(object, "x[1].y.z", 5)
+assert.test(A.get(object, "x[1].y.z"), 5, "create nested path with array index and set value")
+
+object := {}
+A.set(object, ["x", "1", "y", "z"], 5)
+assert.test(A.get(object, ["x", "1", "y", "z"]), 5, "set value with array path input")
+
+object := {}
+A.set(object, "a.b.c.d.e", 10)
+assert.test(A.get(object, "a.b.c.d.e"), 10, "deep nested path creation")
+
+object := {"a": {"b": {"c": {"d": {"e": 10}}}}}
+A.set(object, "a.b.c.d.e", 20)
+assert.test(A.get(object, "a.b.c.d.e"), 20, "modify deep nested value")
+
+object := {}
+A.set(object, "a[0].b.c[1].d", 30)
+assert.test(A.get(object, "a[0].b.c[1].d"), 30, "complex nested path with arrays")
+
 assert.group(".toPairs")
 assert.label("default tests")
 assert.test(A.toPairs({"a": 1, "b": 2}), [["a", 1], ["b", 2]])
