@@ -18,14 +18,13 @@ _internal_negate(param_func, param_args*) {
 }
 
 ; tests
-aryFunc := A.negate(Func("fn_isEven"))
+fn_isEven(n) {
+	return (mod(n, 2) = 0)
+}
 
 assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
-
-fn_isEven(n) {
-	return (mod(param_key, 2) = 0)
-}
 
 
 ; omit
-assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
+negatedFunc := A.negate(func("fn_isEven"))
+assert.false(negatedFunc.call(2))
