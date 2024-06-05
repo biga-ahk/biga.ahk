@@ -188,7 +188,7 @@ li input[type="checkbox"] {
 	animation: octocat-wave 0.56s ease-in-out;
 }
 .github-corner svg {
-	color: #fff;
+	color: var(--background);
 	fill: var(--accent);
 	height: 70px;
 	width: 70px;
