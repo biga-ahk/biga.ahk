@@ -3216,21 +3216,18 @@ class biga {
 
 		; prepare
 		l_array := []
-		; A step of -1 is used if a negative start is specified without an end or step.
-		if (param_start < 0 && param_end == 0 && param_step == 1) {
+		if (param_end == 0) {
+			param_end := param_start
+			param_start := 0
+		}
+		; make param_step negative -1 is omitted or zero
+		if (param_start > param_end) {
 			param_step := -1
 		}
 		if (param_start == 0 && param_end == 0) {
 			return l_array
 		}
-		if (param_end == 0) {
-			param_end := param_start
-			param_start := 0
-		}
 		l_currentStep := param_start
-		if (param_end > param_start) {
-			l_negativeFlag := true
-		}
 		; where step is 0, end at the array count
 		if (param_step == 0) {
 			zeroStepFlag := true

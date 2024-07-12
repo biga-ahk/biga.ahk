@@ -9,17 +9,18 @@ range(param_start:=0,param_end:=0,param_step:=1) {
 		param_end := param_start
 		param_start := 0
 	}
-	; make param_step negative -1 is omitted or zero
+	; make step negative -1 if start is greater than end
 	if (param_start > param_end) {
+		; return empty array if step makes 
+		if (param_step == 0) {
+			return []
+		}
 		param_step := -1
 	}
 	if (param_start == 0 && param_end == 0) {
 		return l_array
 	}
 	l_currentStep := param_start
-	if (param_end > param_start) {
-		l_negativeFlag := true
-	}
 	; where step is 0, end at the array count
 	if (param_step == 0) {
 		zeroStepFlag := true
@@ -61,11 +62,17 @@ assert.test(A.range(0), [])
 assert.label("negative step omitted")
 assert.test(A.range(-2, -6), [-2, -3, -4, -5])
 
+assert.label("start negative and step 1")
+assert.test(A.range(-6, -2), [-6, -5, -4, -3])
+
 assert.label("for step = 0")
 assert.test(A.range(1, 4, 0), [1, 1, 1])
 
 assert.label("all parameters omitted")
-assert.test(A.range(0), [])
+assert.test(A.range(), [])
+
+assert.label("all parameters omitted")
+assert.test(A.range(4, 1, 0), [])
 
 assert.label("negative step required")
 assert.test(A.range(50, 48), [50, 49])

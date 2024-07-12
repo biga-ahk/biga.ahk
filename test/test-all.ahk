@@ -3456,6 +3456,23 @@ assert.test(A.range(0), [])
 
 
 ; omit
+assert.label("negative step omitted")
+assert.test(A.range(-2, -6), [-2, -3, -4, -5])
+
+assert.label("start negative and step 1")
+assert.test(A.range(-6, -2), [-6, -5, -4, -3])
+
+assert.label("for step = 0")
+assert.test(A.range(1, 4, 0), [1, 1, 1])
+
+assert.label("all parameters omitted")
+assert.test(A.range(), [])
+
+assert.label("all parameters omitted")
+assert.test(A.range(4, 1, 0), [])
+
+assert.label("negative step required")
+assert.test(A.range(50, 48), [50, 49])
 
 assert.group(".stubArray")
 assert.label("default tests")
