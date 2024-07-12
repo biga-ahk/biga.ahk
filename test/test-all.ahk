@@ -876,13 +876,16 @@ assert.test(A.without([], 1, 2), [])
 
 assert.group(".zip")
 assert.label("default tests")
-assert.test(A.zip(["a", "b"], [1, 2], [true, true]),[["a", 1, true], ["b", 2, true]])
+assert.test(A.zip(["a", "b"], [1, 2], [true, true]), [["a", 1, true], ["b", 2, true]])
 
 
 ; omit
 obj1 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
 obj2 := ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
 assert.test(A.zip(obj1, obj2),[["one", "one"], ["two", "two"], ["three", "three"], ["four", "four"], ["five", "five"], ["six", "six"], ["seven", "seven"], ["eight", "eight"], ["nine", "nine"], ["ten", "ten"]])
+
+assert.label("arrays of different lengths")
+assert.test(A.zip(["a", "b", "c"], [1, 2], [true, false, true]), [["a", 1, true], ["b", 2, false], ["c", "", true]])
 
 assert.group(".zipObject")
 assert.label("default tests")
@@ -1639,17 +1642,16 @@ assert.test(A._cache["fn_memoizeTest"].count(), 2, "cache still has {{2}} items"
 
 assert.group(".negate")
 assert.label("default tests")
-aryFunc := A.negate(Func("fn_isEven"))
+fn_isEven(n) {
+	return (mod(n, 2) = 0)
+}
 
 assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
-
-fn_isEven(n) {
-	return (mod(param_key, 2) = 0)
-}
 
 
 ; omit
-assert.test(A.filter[1, 2, 3, 4, 5, 6], A.negate(func("fn_isEven")), [1, 3, 5])
+negatedFunc := A.negate(func("fn_isEven"))
+assert.false(negatedFunc.call(2))
 
 assert.group(".once")
 assert.label("default tests")
