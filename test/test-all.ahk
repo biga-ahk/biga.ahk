@@ -3468,11 +3468,47 @@ assert.test(A.range(1, 4, 0), [1, 1, 1])
 assert.label("all parameters omitted")
 assert.test(A.range(), [])
 
-assert.label("all parameters omitted")
+assert.label("unreachable end with 0 step")
 assert.test(A.range(4, 1, 0), [])
 
 assert.label("negative step required")
 assert.test(A.range(50, 48), [50, 49])
+
+assert.group(".rangeRight")
+assert.label("default tests")
+assert.test(A.rangeRight(4), [3, 2, 1, 0])
+
+assert.test(A.rangeRight(-4), [-3, -2, -1, 0])
+
+assert.test(A.rangeRight(1, 5), [4, 3, 2, 1])
+
+assert.test(A.rangeRight(0, 20, 5), [15, 10, 5, 0])
+
+assert.test(A.rangeRight(0, -4, -1), [-3, -2, -1, 0])
+
+assert.test(A.rangeRight(1, 4, 0), [1, 1, 1])
+
+assert.test(A.rangeRight(0), [])
+
+
+; omit
+assert.label("negative step omitted")
+assert.test(A.rangeRight(-2, -6), [-5, -4, -3, -2])
+
+assert.label("for step = 0")
+assert.test(A.rangeRight(1, 4, 0), [1, 1, 1])
+
+assert.label("all parameters omitted")
+assert.test(A.rangeRight(), [])
+
+assert.label("start negative and step 1")
+assert.test(A.range(-6, -2), [-6, -5, -4, -3])
+
+assert.label("unreachable end with 0 step")
+assert.test(A.range(4, 1, 0), [])
+
+assert.label("negative step required")
+assert.test(A.rangeRight(50, 48), [49, 50])
 
 assert.group(".stubArray")
 assert.label("default tests")

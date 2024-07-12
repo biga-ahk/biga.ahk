@@ -1,18 +1,4 @@
-class biga {
-
-	; --- Static Variables ---
-	static throwExceptions := true
-	static limit := -1
-	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]
-	static _guardedCallWithOne := ["random"]
-	static _pathRegex := "/[.\[\]]/"
-
-	; --- Instance Variables ---
-	_uniqueId := 0
-	_cache := {}
-
-	; --- Static Methods ---
-	chunk(param_array,param_size:=1) {
+class biga {	; --- Static Variables ---	static throwExceptions := true	static limit := -1	static _guardedMethods := ["ary", "chunk", "every", "fill", "invert", "parseInt", "random", "trim", "reverse"]	static _guardedCallWithOne := ["random"]	static _pathRegex := "/[.\[\]]/"	; --- Instance Variables ---	_uniqueId := 0	_cache := {}	; --- Static Methods ---	chunk(param_array,param_size:=1) {
 		if (!isObject(param_array) || !this.isNumber(param_size)) {
 			this._internal_ThrowException()
 		}
@@ -3220,8 +3206,12 @@ class biga {
 			param_end := param_start
 			param_start := 0
 		}
-		; make param_step negative -1 is omitted or zero
+		; make step negative -1 if start is greater than end
 		if (param_start > param_end) {
+			; return empty array if step makes end unreachable
+			if (param_step == 0) {
+				return []
+			}
 			param_step := -1
 		}
 		if (param_start == 0 && param_end == 0) {
@@ -3246,6 +3236,13 @@ class biga {
 			}
 		}
 		return l_array
+	}
+	rangeRight(param_start:=0, param_end:=0, param_step:=1) {
+		if (!this.isNumber(param_start) || !this.isNumber(param_end) || !this.isNumber(param_step)) {
+			this._internal_ThrowException()
+		}
+
+		return this.reverse(this.range(param_start, param_end, param_step))
 	}
 	stubArray() {
 		return []
@@ -3361,4 +3358,4 @@ class biga {
 		}
 		return l_array
 	}
-}
+}

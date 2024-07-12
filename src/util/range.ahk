@@ -11,7 +11,7 @@ range(param_start:=0,param_end:=0,param_step:=1) {
 	}
 	; make step negative -1 if start is greater than end
 	if (param_start > param_end) {
-		; return empty array if step makes 
+		; return empty array if step makes end unreachable
 		if (param_step == 0) {
 			return []
 		}
@@ -71,7 +71,7 @@ assert.test(A.range(1, 4, 0), [1, 1, 1])
 assert.label("all parameters omitted")
 assert.test(A.range(), [])
 
-assert.label("all parameters omitted")
+assert.label("unreachable end with 0 step")
 assert.test(A.range(4, 1, 0), [])
 
 assert.label("negative step required")
