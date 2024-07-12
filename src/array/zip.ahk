@@ -6,7 +6,7 @@ zip(param_arrays*) {
 	; prepare
 	l_array := []
 	; a slower but readable idea
-	;  max_length := this.max(this.map(param_arrays, this.size))
+	; max_length := this.max(this.map(param_arrays, this.size))
 	max_length := 0
 	for key, array in param_arrays {
 		if (array.count() > max_length) {
