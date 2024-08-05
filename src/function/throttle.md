@@ -13,7 +13,7 @@ func (Function): The function to throttle.
 
 ## Example
 ```autohotkey
-refresh = A.throttle(func("fn_updateGUI"), 1000);
+refresh := A.throttle(func("fn_updateGUI"), 1000);
 refresh.call();
 refresh.call();
 ; => `fn_updateGUI` is invokable once every 1000ms but will return the last value anytime called
