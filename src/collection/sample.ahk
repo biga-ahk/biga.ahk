@@ -41,4 +41,4 @@ assert.true(A.isString(output))
 
 assert.label("empty input")
 assert.test(A.size(A.sample([])), 0)
-assert.undefinded(A.sample([]))
+assert.undefined(A.sample([]))
