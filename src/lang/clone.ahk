@@ -1,17 +1,28 @@
 clone(param_value) {
-
+	
+	; create
 	if (isObject(param_value)) {
-		return param_value.clone()
-	} else {
-		return param_value
+		clonedObject := []
+		for key, value in param_value {
+			if (isObject(value)) {
+				; Clone one layer deeper
+				clonedObject[key] := this.clone(value)
+			} else {
+				clonedObject[key] := value
+			}
+		}
+		return clonedObject
 	}
+	
+	; Primitive types - return as-is
+	return param_value
 }
 
 
 ; tests
 object := [{ "a": 1 }, { "b": 2 }]
 shallowclone := A.clone(object)
-object.a := 2
+object[1].a := 2
 assert.test(shallowclone, [{ "a": 1 }, { "b": 2 }])
 
 
