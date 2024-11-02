@@ -1,13 +1,19 @@
 cloneDeep(param_array) {
 
+	; prepare
 	objs := {}
 	obj := param_array.clone()
-	objs[&param_array] := obj ; save this new array
+	objs[&param_array] := obj
+	; create
 	for key, value in obj {
-		if (isObject(value)) ; if it is a subarray
-			obj[key] := objs[&value] ; if we already know of a refrence to this array
-			? objs[&value] ; then point it to the new array
-			: this.clone(value, objs) ; otherwise, clone this sub-array
+		; if it is a subarray
+		if (isObject(value))
+			; if we already know of a refrence to this array
+			obj[key] := objs[&value]
+			; then point it to the new array
+			? objs[&value]
+			; otherwise, clone this sub-array
+			: this.cloneDeep(value, objs)
 	}
 	return obj
 }
