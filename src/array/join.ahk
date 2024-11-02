@@ -1,5 +1,5 @@
-join(param_array,param_sepatator:=",") {
-	if (!isObject(param_array) || isObject(param_sepatator)) {
+join(param_array,param_separator:=",") {
+	if (!isObject(param_array) || isObject(param_separator)) {
 		this._internal_ThrowException()
 	}
 
@@ -7,7 +7,7 @@ join(param_array,param_sepatator:=",") {
 	enum := param_array._newEnum()
 	enum.next(_, result)
 	while enum.next(_, item) {
-		result .= param_sepatator item
+		result .= param_separator item
 	}
 	return result
 }
