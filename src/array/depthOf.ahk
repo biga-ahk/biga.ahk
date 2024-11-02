@@ -1,4 +1,4 @@
-depthOf(param_array,param_depth:1){
+depthOf(param_array,param_depth:=1){
 	if (!isObject(param_array)) {
 		this._internal_ThrowException()
 	}
